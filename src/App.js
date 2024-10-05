@@ -1,12 +1,14 @@
 import './App.css';
-import Announcement from './components/announcement';
+// import Announcement from './components/announcement';
 import Header from './components/header';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
-      <Announcement />
+      {/* <Announcement /> */}
       <Header />
+      <Home />
     </div>
   );
 }
