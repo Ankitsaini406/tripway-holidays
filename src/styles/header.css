@@ -1,0 +1,21 @@
+
+.navbar {
+    /* display: flex; */
+    position: sticky;
+    z-index: 999;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--mystic-blue);
+    color: var(--gray-flash);
+}
+
+.header-list {
+    display: flex;
+    gap: 2em;
+    cursor: pointer;
+}
