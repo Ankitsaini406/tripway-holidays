@@ -1,6 +1,4 @@
-
 .navbar {
-    /* display: flex; */
     position: fixed;
     z-index: 999;
     width: 100%;
@@ -11,12 +9,124 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: var(--mystic-blue);
-    color: var(--gray-flash);
+    background: linear-gradient(90deg, var(--safforn-orange) 0%, var(--indigo-blue) 100%);
+    color: var(--cream-white);
+}
+
+.logo {
+    cursor: pointer;
+    color: var(--deep-maroon);
+    font-size: calc(12px + var(--font-size));
 }
 
 .header-list {
     display: flex;
     gap: 2em;
     cursor: pointer;
+    align-items: center;
+}
+
+.header-list > li:hover {
+    color: var(--golden-yellow);
+}
+
+.header-button {
+    padding: 0.2em 0.5em;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-button:hover {
+    background-color: var(--safforn-orange);
+    color: var(--cream-white);
+}
+
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.overlay {
+    display: none;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+
+    .header-items {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: var(--indigo-blue);
+        width: -webkit-fill-available;
+        height: 100vh;
+        width: 60vw;
+        text-align: right;
+        padding: 5rem 0px;
+        transform: translateX(100%);
+        z-index: 9;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0; 
+        pointer-events: none; /* Prevent interaction when not visible */
+    }
+    
+    .header-items.open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        z-index: 8;
+        opacity: 0; 
+        transition: opacity 0.3s ease;
+    }
+    
+    .header-items.open + .overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .header-list {
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .header-button {
+        width: 50%;
+        padding: 1em 0;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .logo {
+        font-size: calc(10px + var(--font-size));
+    }
+
+    .hamburger{
+        font-size: calc(16px + var(--font-size));
+    }
+
+    .header-items {
+        width: 100%;
+        padding: 5rem 0px;
+    }
+
+    .header-button {
+        width: 80%;
+    }
 }

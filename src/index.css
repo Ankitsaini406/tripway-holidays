@@ -1,9 +1,42 @@
 :root {
-  --orange-color : #E5A13E;
+
+  --orange-color: #E5A13E;
   --mystic-blue: #091D36;
   --venice-blue: #598EC2;
   --danube-blue: #9BC1EE;
   --gray-flash: #F0EFF5;
+
+  /* Festival Color */
+  --safforn-orange: #FF9933;
+  --indigo-blue: #3F51B5;
+  --turmeric-yellow: #FFC107;
+  --cream-white: #FFF8DC;
+
+  /* Royal Color */
+  --deep-maroon: #800000;
+  --golden--yellow: #FFD700;
+  --peacock-green: #228B22;
+  --sandy-beige: #F5DEB3;
+
+  /* Spiritual Color */
+  --vermilion-red: #FF4500;
+  --holy-ganges-blue: #4682B4;
+  --sandalwood-brown: #D2B48C;
+  --lotus-pink: #FFB6C1;
+
+  /* Nature-Inspired */
+  --forest-green: #006400;
+  --himalayan-sky-blue: #87CEEB;
+  --earthy-brown: #8B4513;
+  --mustard-yellow: #FFDB58;
+
+  /* Vibrant Markets */
+  --rani-pink: #E0115F;
+  --turquoise-blue: #40E0D0;
+  --sunset-orange: #FF6347;
+  --lvory-color: #FFFFF0;
+
+  --font-size: 0.390625vw;
 }
 
 html,
@@ -12,7 +45,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: var(--gray-flash);
-  color: var(--mystic-blue);
+  /* color: var(--mystic-blue); */
   scroll-behavior: smooth;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -36,6 +69,10 @@ span {
   padding: 0;
   list-style: none;
   text-decoration: none;
+}
+
+button{
+  cursor: pointer;
 }
 
 code {
