@@ -37,17 +37,36 @@
   --lvory-color: #FFFFF0;
 
   --font-size: 0.390625vw;
+  --black-color: #1a1e18;
+  --white-color: #ffffff;
+  --grey-color: #f4f4f4;
 }
+
+@font-face {
+  font-family: 'Cina Geo';
+  src:
+    url('./assets/fonts/CinaGEOTest-Medium-BF64015899849c0.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Regular-BF640158993b49e.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-SemiBold-BF64015899cbc35.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Thin-BF6401589a20010.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Light-BF64015899c5366.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Black-BF6401589996142.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Bold-BF64015899f3908.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-ExtraBold-BF640158980b295.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-ExtraLight-BF6401589a08ee8.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 html,
 body {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
-  background-color: var(--gray-flash);
-  /* color: var(--mystic-blue); */
+  background-color: var(--white-color);
   scroll-behavior: smooth;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Cina Geo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -71,11 +90,6 @@ span {
   text-decoration: none;
 }
 
-button{
+button {
   cursor: pointer;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
