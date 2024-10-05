@@ -30,8 +30,11 @@
     align-items: center;
 }
 
-.header-list > li:hover {
-    color: var(--golden-yellow);
+.header-list {
+    display: flex;
+    gap: 2em;
+    cursor: pointer;
+    align-items: center;
 }
 
 .header-button {
@@ -56,48 +59,86 @@
     display: none;
 }
 
-/* Responsive styles for smaller screens */
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
 @media (max-width: 768px) {
+
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
 
     .header-items {
         position: absolute;
         top: 0;
         right: 0;
         background-color: var(--white-color);
-        width: -webkit-fill-available;
-        height: 100vh;
         width: 60vw;
+        height: 100vh;
         text-align: right;
         padding: 5rem 0px;
         transform: translateX(100%);
         z-index: 9;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        opacity: 0; 
-        pointer-events: none; /* Prevent interaction when not visible */
+        display: none;
     }
-    
+
     .header-items.open {
-        transform: translateX(0);
-        opacity: 1;
-        pointer-events: auto;
+        display: block;
+        animation: slideIn 0.3s ease forwards;
+    }
+
+    .header-items.close {
+        animation: slideOut 0.3s ease forwards;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOut {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
     }
 
     .overlay {
-        display: block;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 8;
-        opacity: 0; 
-        transition: opacity 0.3s ease;
+        display: none;
+        transition: display 0.3s ease;
     }
-    
-    .header-items.open + .overlay {
-        opacity: 1;
-        pointer-events: auto;
+
+    .overlay.open {
+        display: block;
+    }
+
+    .overlay.close {
+        display: none;
+        transition: display 0.3s ease;
     }
 
     .header-list {
@@ -121,7 +162,7 @@
         font-size: calc(10px + var(--font-size));
     }
 
-    .hamburger{
+    .hamburger {
         font-size: calc(16px + var(--font-size));
     }
 
