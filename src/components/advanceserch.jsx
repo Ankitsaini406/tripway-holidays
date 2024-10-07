@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSearch } from "react-icons/fa";
+import { PiCarProfileLight } from "react-icons/pi";
 import { MdCardTravel } from "react-icons/md";
-import { CiSun } from "react-icons/ci";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import "../styles/components/advanceserchbar.css";
 
@@ -12,6 +12,7 @@ function AdvancedSearchBar() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [selectedOption, setSelectedOption] = useState('');
+    const [activeLink, setActiveLink] = useState('cabs');
 
     const options = [
         { value: '', label: 'Select Filter' },
@@ -19,6 +20,11 @@ function AdvancedSearchBar() {
         { value: 'category', label: 'Category' },
         { value: 'priceRange', label: 'Price Range' },
     ];
+
+    const handleClick = (e, link) => {
+        e.preventDefault();
+        setActiveLink(link);
+    };
 
     const handleSelectChange = (e) => {
         setSelectedOption(e.target.value);
@@ -34,27 +40,47 @@ function AdvancedSearchBar() {
     };
 
     return (
+        // <div className="slection-main">
         <div className="slection-box">
-            <ul className="slection-list">
+            <ul className="selection-list">
                 <li>
-                    <a className="serch-select-button" href="travel">
-                        <span className="serch-span-icons"><MdCardTravel /></span>
-                        <span>Travel</span>
+                    <a
+                        className={`search-select-button ${activeLink === 'cabs' ? 'active' : ''}`}
+                        href="cabs"
+                        onClick={(e) => handleClick(e, 'cabs')}
+                    >
+                        <span className="search-span-icons">
+                            <PiCarProfileLight />
+                        </span>
+                        &nbsp;<span>Cabs</span>
                     </a>
                 </li>
                 <li>
-                    <a className="serch-select-button" href="spiritual">
-                        <span className="serch-span-icons"><CiSun /></span>
-                        <span>Spiritual</span>
+                    <a
+                        className={`search-select-button ${activeLink === 'tour-packages' ? 'active' : ''}`}
+                        href="tour-packages"
+                        onClick={(e) => handleClick(e, 'tour-packages')}
+                    >
+                        <span className="search-span-icons">
+                            <MdCardTravel />
+                        </span>
+                        &nbsp;<span>Tour Package</span>
                     </a>
                 </li>
                 <li>
-                    <a className="serch-select-button" href="group">
-                        <span className="serch-span-icons"><HiOutlineUserGroup /></span>
-                        <span>Group</span>
+                    <a
+                        className={`search-select-button ${activeLink === 'group-tour' ? 'active' : ''}`}
+                        href="group-tour"
+                        onClick={(e) => handleClick(e, 'group-tour')}
+                    >
+                        <span className="search-span-icons">
+                            <HiOutlineUserGroup />
+                        </span>
+                        &nbsp;<span>Group Tour</span>
                     </a>
                 </li>
             </ul>
+
             <div className="advanced-search-bar">
                 <input
                     type="text"
@@ -98,6 +124,7 @@ function AdvancedSearchBar() {
                 </button>
             </div>
         </div>
+        // </div>
     );
 }
 

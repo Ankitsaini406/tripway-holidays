@@ -23,8 +23,8 @@ const Hero = () => {
         // },
         {
             src: 'https://images.unsplash.com/photo-1542708993627-b6e5bbae43c4?q=80&w=2644&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            title: 'Green Mountain',
-            caption: 'India',
+            // title: '',
+            // caption: '',
         }
     ];
 
@@ -47,8 +47,8 @@ const Hero = () => {
             </button> */}
             <div className="hero-image-container">
                 <img src={images[currentIndex].src} alt={`Slide ${currentIndex + 1}`} className="hero-image" />
-                <div className="hero-title">{images[currentIndex].title}</div>
-                <div className="hero-caption">{images[currentIndex].caption}</div>
+                {/* <div className="hero-title">{images[currentIndex].title}</div>
+                <div className="hero-caption">{images[currentIndex].caption}</div> */}
             </div>
             {/* <button className="hero-button next" onClick={nextSlide}>
                 <FaArrowRight />
