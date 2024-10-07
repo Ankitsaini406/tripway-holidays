@@ -90,6 +90,8 @@ span {
   text-decoration: none;
 }
 
-button {
+button:focus, input:focus, select:focus {
   cursor: pointer;
+  border: none;
+  outline: 1px solid var(--black-color);
 }

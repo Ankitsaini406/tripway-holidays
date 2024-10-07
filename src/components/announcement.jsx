@@ -1,7 +1,7 @@
 
 import React from "react";
 import Marquee from "react-fast-marquee";
-import '../styles/announcement.css';
+import '../styles/components/announcement.css';
 
 const Announcement = () => {
     return (

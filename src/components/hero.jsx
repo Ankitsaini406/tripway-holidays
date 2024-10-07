@@ -1,6 +1,7 @@
 import React from "react";
 // import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import '../styles/hero.css';
+import AdvancedSearchBar from "./advanceserch";
+import '../styles/components/hero.css';
 
 const Hero = () => {
 
@@ -54,6 +55,7 @@ const Hero = () => {
             </button> */}
 
             {/* <button className="hero-book-now">Book now</button> */}
+            <AdvancedSearchBar />
         </div>
     )
 }

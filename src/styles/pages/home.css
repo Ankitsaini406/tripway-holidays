@@ -1,0 +1,12 @@
+
+.home {
+    height: 100dvh;
+    padding: 5em 1em 0em 1em;
+}
+
+@media (max-width: 430px) {
+
+    .home {
+        padding: 4em 0.5em 0em 0.5em;
+    }
+}
