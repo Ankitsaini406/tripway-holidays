@@ -87,7 +87,7 @@
 @media (max-width: 430px) {
 
     .hero {
-        height: auto;
+        height: 100%;
     }
 
     .hero-title {
