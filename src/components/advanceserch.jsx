@@ -11,9 +11,10 @@ function AdvancedSearchBar() {
     const [fromTerm, setFromTerm] = useState("");
     const [offerFrom, setOfferFrom] = useState("");
     const [toTerm, setToTerm] = useState("");
+    const [destination, setDestination] = useState("");
     const [startDate, setStartDate] = useState(null);
-    const [passanger, setPassanger] = useState(0);
-    const [selectedOption, setSelectedOption] = useState("");
+    const [passanger, setPassanger] = useState('Passanger');
+    const [carOption, setCarOption] = useState("");
     const [activeLink, setActiveLink] = useState("cabs");
     const [selectedRedio, setSelectedRedio] = useState("one-way");
     const [time, setTime] = useState("");
@@ -39,19 +40,31 @@ function AdvancedSearchBar() {
     };
 
     const handleSelectChange = (e) => {
-        setSelectedOption(e.target.value);
+        setCarOption(e.target.value);
     };
 
-    const handleSearch = () => {
+    const handleOneWaySearch = () => {
         console.log({
             fromTerm,
             toTerm,
             startDate,
+            time,
+            carOption,
             passanger,
-            selectedOption,
             offerFrom,
         });
     };
+
+    const handleTwoWaySearch = () => {
+        console.log({
+            fromTerm,
+            destination,
+            startDate,
+            time,
+            carOption,
+            passanger,
+        })
+    }
 
     return (
         // <div className="slection-main">
@@ -126,17 +139,23 @@ function AdvancedSearchBar() {
                         placeholder="From"
                         value={fromTerm}
                         onChange={(e) => setFromTerm(e.target.value)}
-                        className="search-input"
+                        className={`search-input`}
                     />
-
-                    <input
+                    {selectedRedio === "round-trip" ? <></> : <input
                         type="text"
                         placeholder="To"
                         value={toTerm}
                         onChange={(e) => setToTerm(e.target.value)}
                         className="search-input"
-                    />
+                    />}
                 </div>
+                {selectedRedio === "round-trip" ? <div className="radio-option"><input
+                    type="text"
+                    placeholder="Destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    className={`search-input`}
+                /></div> : <></>}
                 <div className="radio-option">
                     <DatePicker
                         selected={startDate}
@@ -157,7 +176,7 @@ function AdvancedSearchBar() {
 
                 <div className="radio-option">
                     <select
-                        value={selectedOption}
+                        value={setCarOption}
                         onChange={handleSelectChange}
                         className="select-filter"
                     >
@@ -179,17 +198,23 @@ function AdvancedSearchBar() {
                     />
                 </div>
 
-                <input
-                    type="text"
-                    placeholder="Offer From"
-                    value={offerFrom}
-                    onChange={(e) => setOfferFrom(e.target.value)}
-                    className="search-input"
-                />
+                {
+                    selectedRedio === "round-trip" ? <></> : <input
+                        type="text"
+                        placeholder="Offer From"
+                        value={offerFrom}
+                        onChange={(e) => setOfferFrom(e.target.value)}
+                        className="search-input"
+                    />
+                }
 
-                <button className="search-button" onClick={handleSearch}>
-                    <FaSearch />
-                </button>
+                {
+                    selectedRedio === "round-trip" ? <button className="search-button" onClick={handleTwoWaySearch}>
+                        <FaSearch />
+                    </button> : <button className="search-button" onClick={handleOneWaySearch}>
+                        <FaSearch />
+                    </button>
+                }
             </div>
         </div>
         // </div>

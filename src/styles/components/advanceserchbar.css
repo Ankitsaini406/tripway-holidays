@@ -60,6 +60,7 @@
 .radio-option {
     display: flex;
     gap: 1rem;
+    width: 72%;
 }
 
 .search-input {
@@ -70,6 +71,10 @@
     width: 183px;
     border: none;
     border-bottom: 1px solid #ccc;
+}
+
+.destination{
+    width: 72%;
 }
 
 .time-picker {
