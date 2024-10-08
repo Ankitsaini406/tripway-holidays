@@ -8,17 +8,29 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import "../styles/components/advanceserchbar.css";
 
 function AdvancedSearchBar() {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [fromTerm, setFromTerm] = useState("");
+    const [offerFrom, setOfferFrom] = useState("");
+    const [toTerm, setToTerm] = useState("");
     const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('');
-    const [activeLink, setActiveLink] = useState('cabs');
+    const [passanger, setPassanger] = useState(0);
+    const [selectedOption, setSelectedOption] = useState("");
+    const [activeLink, setActiveLink] = useState("cabs");
+    const [selectedRedio, setSelectedRedio] = useState("one-way");
+    const [time, setTime] = useState("");
+
+    const handleTimeChange = (event) => {
+        setTime(event.target.value);
+    };
+
+    const handleOptionChange = (event) => {
+        setSelectedRedio(event.target.value);
+    };
 
     const options = [
-        { value: '', label: 'Select Filter' },
-        { value: 'destination', label: 'Destination' },
-        { value: 'category', label: 'Category' },
-        { value: 'priceRange', label: 'Price Range' },
+        { value: "", label: "Select Car" },
+        { value: "saden", label: "Sedan" },
+        { value: "suv", label: "Suv" },
+        { value: "hatech-back", label: "Hatech Back" },
     ];
 
     const handleClick = (e, link) => {
@@ -32,10 +44,12 @@ function AdvancedSearchBar() {
 
     const handleSearch = () => {
         console.log({
-            searchTerm,
+            fromTerm,
+            toTerm,
             startDate,
-            endDate,
+            passanger,
             selectedOption,
+            offerFrom,
         });
     };
 
@@ -45,9 +59,10 @@ function AdvancedSearchBar() {
             <ul className="selection-list">
                 <li>
                     <a
-                        className={`search-select-button ${activeLink === 'cabs' ? 'active' : ''}`}
+                        className={`search-select-button ${activeLink === "cabs" ? "active" : ""
+                            }`}
                         href="cabs"
-                        onClick={(e) => handleClick(e, 'cabs')}
+                        onClick={(e) => handleClick(e, "cabs")}
                     >
                         <span className="search-span-icons">
                             <PiCarProfileLight />
@@ -57,67 +72,120 @@ function AdvancedSearchBar() {
                 </li>
                 <li>
                     <a
-                        className={`search-select-button ${activeLink === 'tour-packages' ? 'active' : ''}`}
+                        className={`search-select-button ${activeLink === "tour-packages" ? "active" : ""
+                            }`}
                         href="tour-packages"
-                        onClick={(e) => handleClick(e, 'tour-packages')}
+                        onClick={(e) => handleClick(e, "tour-packages")}
                     >
                         <span className="search-span-icons">
                             <MdCardTravel />
                         </span>
-                        &nbsp;<span>Tour Package</span>
+                        &nbsp;<span>Tour&nbsp;Package</span>
                     </a>
                 </li>
                 <li>
                     <a
-                        className={`search-select-button ${activeLink === 'group-tour' ? 'active' : ''}`}
+                        className={`search-select-button ${activeLink === "group-tour" ? "active" : ""
+                            }`}
                         href="group-tour"
-                        onClick={(e) => handleClick(e, 'group-tour')}
+                        onClick={(e) => handleClick(e, "group-tour")}
                     >
                         <span className="search-span-icons">
                             <HiOutlineUserGroup />
                         </span>
-                        &nbsp;<span>Group Tour</span>
+                        &nbsp;<span>Group&nbsp;Tour</span>
                     </a>
                 </li>
             </ul>
 
             <div className="advanced-search-bar">
+                <div className="radio-option">
+                    <div>
+                        <input
+                            type="radio"
+                            value="one-way"
+                            checked={selectedRedio === "one-way"}
+                            onChange={handleOptionChange}
+                        />
+                        <label>One&nbsp;Way</label>
+                    </div>
+                    <div>
+                        <input
+                            type="radio"
+                            value="round-trip"
+                            checked={selectedRedio === "round-trip"}
+                            onChange={handleOptionChange}
+                        />
+                        <label>Round&nbsp;Trip</label>
+                    </div>
+                </div>
+
+                <div className="radio-option">
+                    <input
+                        type="text"
+                        placeholder="From"
+                        value={fromTerm}
+                        onChange={(e) => setFromTerm(e.target.value)}
+                        className="search-input"
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="To"
+                        value={toTerm}
+                        onChange={(e) => setToTerm(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+                <div className="radio-option">
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        placeholderText="Start Date"
+                        className="date-picker"
+                    />
+
+                    <input
+                        className="time-picker"
+                        type="time"
+                        value={time}
+                        onChange={handleTimeChange}
+                    />
+                </div>
+
+                <div className="radio-option">
+                    <select
+                        value={selectedOption}
+                        onChange={handleSelectChange}
+                        className="select-filter"
+                    >
+                        {options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+
+                    <input
+                        type="number"
+                        placeholder="Passanger"
+                        value={passanger}
+                        min="1"
+                        max="7"
+                        onChange={(e) => setPassanger(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+
                 <input
                     type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Offer From"
+                    value={offerFrom}
+                    onChange={(e) => setOfferFrom(e.target.value)}
                     className="search-input"
                 />
-
-                <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    selectsStart
-                    startDate={startDate}
-                    endDate={endDate}
-                    placeholderText="Start Date"
-                    className="date-picker"
-                />
-
-                <DatePicker
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate}
-                    placeholderText="End Date"
-                    className="date-picker"
-                />
-
-                <select value={selectedOption} onChange={handleSelectChange} className="select-filter">
-                    {options.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
 
                 <button className="search-button" onClick={handleSearch}>
                     <FaSearch />

@@ -10,16 +10,18 @@
 .slection-box {
     position: absolute;
     margin: 0 auto;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     gap: 2rem;
     top: 6em;
-    width: max-content;
+    width: 100%;
 }
 
 .selection-list {
     display: flex;
     gap: 2em;
+    justify-content: center;
+    padding: 0 0 10px 0;
 }
 
 .search-select-button {
@@ -45,19 +47,35 @@
 .advanced-search-bar {
     display: flex;
     align-items: center;
+    flex-direction: column;
     gap: 1rem;
     padding: 1rem;
     background-color: #f9f9f9;
     border-radius: 25px;
+    width: 50%;
+    margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.radio-option {
+    display: flex;
+    gap: 1rem;
 }
 
 .search-input {
     flex: 1;
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 25px;
     background-color: transparent;
+    width: 183px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.time-picker {
+    width: 200px;
+    background-color: #f9f9f9;
+    border: 1px solid lightgray;
 }
 
 .date-picker {
