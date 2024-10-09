@@ -58,6 +58,12 @@
   font-style: normal;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 
 html,
 body {
@@ -90,7 +96,9 @@ span {
   text-decoration: none;
 }
 
-button:focus, input:focus, select:focus {
+button:focus,
+input:focus,
+select:focus {
   cursor: pointer;
   border: none;
   outline: 1px solid var(--black-color);
