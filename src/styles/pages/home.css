@@ -5,25 +5,15 @@
 }
 
 .tour-image-slider {
-    max-width: 1200px;
     width: 100%;
     height: 20rem;
     margin: 2rem auto;
     overflow: hidden;
+    background-color: var(--gray-flash);
 }
 
-.tour-slider {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.tour-slider-flex {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    gap: 2rem;
-    overflow: hidden;
+.tour-name {
+    padding: 1rem;
 }
 
 .img-slider-img {
@@ -33,28 +23,38 @@
     display: block;
     flex-shrink: 0;
     flex-grow: 0;
-    transition: translate 300ms ease-in-out;
+    /* transition: translate 300ms ease-in-out; */
 }
 
-.img-slider-btn {
-    all: unset;
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    padding: 1rem;
-    cursor: pointer;
-    transition: background-color 100ms ease-in-out;
+.slick-list .slick-initialized .slick-slide {
+    display: flex !important;
 }
 
-.img-slider-btn:hover {
-    background-color: rgb(0, 0, 0, .2);
+.slick-slide {
+    height: auto !important;
 }
 
-.img-slider-btn > * {
-    stroke: var(--white-color);
-    fill: var(--black-color);
-    width: 2rem;
+.slick-slide > div {
+    height: 100%;
+}
+
+.slick-prev {
+    z-index: 9;
+    left: 0 !important;
+}
+
+.slick-next {
+    right: 0 !important;
+}
+
+.slick-prev:before, .slick-next:before {
+    border-radius: 50%;
+    background-color: black;
+}
+
+.slick-track {
+    display: flex !important;
+    gap: 2rem;
 }
 
 @media (max-width: 430px) {
