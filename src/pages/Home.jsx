@@ -1,12 +1,10 @@
-import React from "react";
-import Slider from "react-slick";
-import Hero from "../components/hero";
+import React, { useState, useEffect } from "react";
 import "../styles/pages/home.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
+import Hero from "../components/hero";
 
 function Home() {
+    const [imageIndex, setImageIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(true);
 
     const imageUrls = [
         {
@@ -51,27 +49,56 @@ function Home() {
         },
     ];
 
-    var settings = {
-        dots: true,
-        infinite: true,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        pauseOnHover: true
+    const showNextImg = () => {
+        setImageIndex((prevIndex) => {
+            if (prevIndex === imageUrls.length - 1) {
+                return 0;
+            }
+            return prevIndex + 1;
+        });
     };
+
+    const showPrevImg = () => {
+        setImageIndex((prevIndex) => {
+            if (prevIndex === 0) {
+                return imageUrls.length - 1;
+            }
+            return prevIndex - 1;
+        });
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsTransitioning(true);
+            showNextImg();
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="home">
             <Hero />
             <div className="tour-image-slider">
-                <h3 className="tour-name">Tour Slider</h3>
-                <Slider {...settings}>
-                    {imageUrls.map(img => (
-                        <img src={img.url} alt={img.alt} className="img-slider-img"
-                        />
-                    ))}
-                </Slider>
+                <div className="tour-slider">
+                    <div className="tour-slider-flex">
+                        {imageUrls.map(img => (
+                            <img src={img.url} alt={img.alt} className="img-slider-img"
+                                style={{
+                                    translate: `${-100 * imageIndex}%`,
+                                    transition: isTransitioning ? "translate 0.5s ease-in-out" : "none",
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <button onClick={() => {
+                        setIsTransitioning(true);
+                        showPrevImg();
+                    }} className="img-slider-btn" style={{ left: 0 }}>&#10094;</button>
+                    <button onClick={() => {
+                        setIsTransitioning(true);
+                        showNextImg();
+                    }} className="img-slider-btn" style={{ right: 0 }}>&#10095;</button>
+                </div>
             </div>
         </div>
     );
