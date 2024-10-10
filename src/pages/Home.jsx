@@ -104,7 +104,7 @@ function Home() {
                     className="carousel"
                     style={{
                         transform: `translateX(${-100 / 5 * index}%)`, // Translate by 1/5 for 5 visible images
-                        transition: transition ? "transform 0.5s ease-in-out" : "none",
+                        transition: transition ? "transform 0.5s ease-in-out" : "transform 0.5s ease-in-out",
                     }}
                 >
                     {clonedImages.map((image, i) => (
@@ -114,8 +114,8 @@ function Home() {
                             alt={image.alt}
                             className="carousel-image"
                             style={{
-                                width: `calc(100% / 5 - 10px)`, // Each image takes up 1/5 of the container minus the gap
-                                margin: "0 5px", // Add gap between images
+                                width: `calc(100% / 5 - 20px)`, // Each image takes up 1/5 of the container minus the gap
+                                margin: "0 15px 0 0", // Add gap between images
                             }}
                         />
                     ))}
