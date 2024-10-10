@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/pages/home.css";
 import Hero from "../components/hero";
 
 function Home() {
-    const [imageIndex, setImageIndex] = useState(0);
-    const [isTransitioning, setIsTransitioning] = useState(true);
+    // const [imageIndex, setImageIndex] = useState(0);
+    // const [isTransitioning, setIsTransitioning] = useState(true);
 
     const imageUrls = [
         {
@@ -49,57 +49,85 @@ function Home() {
         },
     ];
 
-    const showNextImg = () => {
-        setImageIndex((prevIndex) => {
-            if (prevIndex === imageUrls.length - 1) {
-                return 0;
-            }
-            return prevIndex + 1;
-        });
-    };
-
-    const showPrevImg = () => {
-        setImageIndex((prevIndex) => {
-            if (prevIndex === 0) {
-                return imageUrls.length - 1;
-            }
-            return prevIndex - 1;
-        });
-    };
+    // Clone images for infinite looping
+    const clonedImages = [imageUrls[imageUrls.length - 1], ...imageUrls, imageUrls[0]];
+    const [index, setIndex] = useState(1);
+    const [transition, setTransition] = useState(true);
+    const intervalRef = useRef(null);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIsTransitioning(true);
-            showNextImg();
+        // Auto-slide every 3 seconds
+        intervalRef.current = setInterval(() => {
+            setIndex((prevIndex) => prevIndex + 1);
         }, 3000);
-        return () => clearInterval(interval);
+        return () => clearInterval(intervalRef.current);
     }, []);
+
+    useEffect(() => {
+        if (index === clonedImages.length - 5) {
+            // Disable transition to jump to the first real image
+            setTimeout(() => {
+                setTransition(false);
+                setIndex(1);
+            }, 500); // Allow the transition to complete
+        }
+
+        if (index === 0) {
+            // Disable transition to jump to the last real image
+            setTimeout(() => {
+                setTransition(false);
+                setIndex(clonedImages.length - 6);
+            }, 500);
+        }
+
+        // Re-enable transition after jump
+        if (index > 0 && index < clonedImages.length - 5) {
+            setTransition(true);
+        }
+    }, [index, clonedImages.length]);
+
+    const nextImage = () => {
+        setIndex(index + 1);
+    };
+
+    const prevImage = () => {
+        setIndex(index - 1);
+    };
+
 
     return (
         <div className="home">
             <Hero />
-            <div className="tour-image-slider">
-                <div className="tour-slider">
-                    <div className="tour-slider-flex">
-                        {imageUrls.map(img => (
-                            <img src={img.url} alt={img.alt} className="img-slider-img"
-                                style={{
-                                    translate: `${-100 * imageIndex}%`,
-                                    transition: isTransitioning ? "translate 0.5s ease-in-out" : "none",
-                                }}
-                            />
-                        ))}
-                    </div>
-                    <button onClick={() => {
-                        setIsTransitioning(true);
-                        showPrevImg();
-                    }} className="img-slider-btn" style={{ left: 0 }}>&#10094;</button>
-                    <button onClick={() => {
-                        setIsTransitioning(true);
-                        showNextImg();
-                    }} className="img-slider-btn" style={{ right: 0 }}>&#10095;</button>
+            <div className="carousel-container">
+            <div className="carousel-wrapper">
+            <div
+                    className="carousel"
+                    style={{
+                        transform: `translateX(${-100 / 5 * index}%)`, // Translate by 1/5 for 5 visible images
+                        transition: transition ? "transform 0.5s ease-in-out" : "none",
+                    }}
+                >
+                    {clonedImages.map((image, i) => (
+                        <img
+                            key={i}
+                            src={image.url}
+                            alt={image.alt}
+                            className="carousel-image"
+                            style={{
+                                width: `calc(100% / 5 - 10px)`, // Each image takes up 1/5 of the container minus the gap
+                                margin: "0 5px", // Add gap between images
+                            }}
+                        />
+                    ))}
                 </div>
             </div>
+            <button className="prev-btn" onClick={prevImage}>
+                &#10094;
+            </button>
+            <button className="next-btn" onClick={nextImage}>
+                &#10095;
+            </button>
+        </div>
         </div>
     );
 }
