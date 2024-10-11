@@ -6,8 +6,14 @@
 
 .carousel-container {
     position: relative;
+    max-width: 1200px;
+    margin: 2rem auto;
     width: 100%;
     overflow: hidden;
+}
+
+.slide-name {
+    margin: 0 0 1rem 0;
 }
 
 .carousel-wrapper {
@@ -42,6 +48,10 @@
     padding: 10px;
     cursor: pointer;
     font-size: 18px;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .prev-btn {

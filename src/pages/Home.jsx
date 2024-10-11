@@ -53,15 +53,15 @@ function Home() {
     const clonedImages = [imageUrls[imageUrls.length - 1], ...imageUrls, imageUrls[0]];
     const [index, setIndex] = useState(1);
     const [transition, setTransition] = useState(true);
-    const intervalRef = useRef(null);
+    // const intervalRef = useRef(null);
 
-    useEffect(() => {
-        // Auto-slide every 3 seconds
-        intervalRef.current = setInterval(() => {
-            setIndex((prevIndex) => prevIndex + 1);
-        }, 3000);
-        return () => clearInterval(intervalRef.current);
-    }, []);
+    // useEffect(() => {
+    //     // Auto-slide every 3 seconds
+    //     intervalRef.current = setInterval(() => {
+    //         setIndex((prevIndex) => prevIndex + 1);
+    //     }, 3000);
+    //     return () => clearInterval(intervalRef.current);
+    // }, []);
 
     useEffect(() => {
         if (index === clonedImages.length - 5) {
@@ -94,17 +94,33 @@ function Home() {
         setIndex(index - 1);
     };
 
+    const updateVisibleImages = () => {
+        if (window.innerWidth <= 480) {
+          return 2;
+        } else if (window.innerWidth <= 768) {
+          return 3;
+        } else if (window.innerWidth <= 1024) {
+          return 5;
+        } else {
+          return 5;
+        }
+      };
+
+      const visibleImages = updateVisibleImages();
+const translateValue = - index * (100 / visibleImages);
+
 
     return (
         <div className="home">
             <Hero />
             <div className="carousel-container">
+                <h3 className="slide-name">Tour Slides</h3>
             <div className="carousel-wrapper">
             <div
                     className="carousel"
                     style={{
-                        transform: `translateX(${-100 / 5 * index}%)`, // Translate by 1/5 for 5 visible images
-                        transition: transition ? "transform 0.5s ease-in-out" : "transform 0.5s ease-in-out",
+                        transform: `translateX(${translateValue}%)`, // Translate by 1/5 for 5 visible images
+                        transition: transition ? "transform 0.5s ease-in-out" : "none",
                     }}
                 >
                     {clonedImages.map((image, i) => (
@@ -114,7 +130,7 @@ function Home() {
                             alt={image.alt}
                             className="carousel-image"
                             style={{
-                                width: `calc(100% / 5 - 20px)`, // Each image takes up 1/5 of the container minus the gap
+                                width: `calc(100% / ${visibleImages} - 20px)`, // Each image takes up 1/5 of the container minus the gap
                                 margin: "0 15px 0 0", // Add gap between images
                             }}
                         />
