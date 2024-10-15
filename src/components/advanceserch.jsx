@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaPlus, FaTrash } from "react-icons/fa";
 import { PiCarProfileLight } from "react-icons/pi";
 import { MdCardTravel } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi2";
@@ -83,12 +83,32 @@ export function CabSerchBar() {
     const [fromTerm, setFromTerm] = useState("");
     const [offerFrom, setOfferFrom] = useState("");
     const [toTerm, setToTerm] = useState("");
+    const [destinations, setDestinations] = useState([""]);
     const [destination, setDestination] = useState("");
     const [startDate, setStartDate] = useState(null);
     const [passanger, setPassanger] = useState('Passanger');
     const [carOption, setCarOption] = useState("");
     const [selectedRedio, setSelectedRedio] = useState("one-way");
     const [time, setTime] = useState("");
+
+    // Handle adding a new destination input
+    const addDestination = () => {
+        if (destinations.length < 10) {
+            setDestinations([...destinations, ""]);
+        }
+    };
+
+    // Handle removing a destination input
+    const removeDestination = (index) => {
+        setDestinations(destinations.filter((_, i) => i !== index));
+    };
+
+    // Handle change for each destination input
+    const handleDestinationChange = (index, value) => {
+        const updatedDestinations = [...destinations];
+        updatedDestinations[index] = value;
+        setDestinations(updatedDestinations);
+    };
 
     const handleTimeChange = (event) => {
         setTime(event.target.value);
@@ -132,6 +152,17 @@ export function CabSerchBar() {
         })
     }
 
+    const handleMultiWaySearch = () => {
+        console.log({
+            fromTerm,
+            destinations,
+            startDate,
+            time,
+            carOption,
+            passanger,
+        })
+    }
+
     return (
         <>
             <div className="radio-option">
@@ -153,6 +184,15 @@ export function CabSerchBar() {
                     />
                     <label>Round&nbsp;Trip</label>
                 </div>
+                <div>
+                    <input
+                        type="radio"
+                        value="multi-city"
+                        checked={selectedRedio === "multi-city"}
+                        onChange={handleOptionChange}
+                    />
+                    <label>Multi&nbsp;City</label>
+                </div>
             </div>
 
             <div className="radio-option">
@@ -163,7 +203,7 @@ export function CabSerchBar() {
                     onChange={(e) => setFromTerm(e.target.value)}
                     className={`search-input`}
                 />
-                {selectedRedio === "round-trip" ? <></> : <input
+                {selectedRedio === "one-way" && <input
                     type="text"
                     placeholder="To"
                     value={toTerm}
@@ -171,13 +211,41 @@ export function CabSerchBar() {
                     className="search-input"
                 />}
             </div>
-            {selectedRedio === "round-trip" ? <div className="radio-option"><input
+            {selectedRedio === "round-trip" && <div className="radio-option"><input
                 type="text"
                 placeholder="Destination"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 className={`search-input`}
-            /></div> : <></>}
+            /></div>}
+            {selectedRedio === "multi-city" && <> <div className="destinations"> {destinations.map((destination, index) => (
+                <div key={index} className="destination-input-group">
+                    <input
+                        type="text"
+                        placeholder={`Destination ${index + 1}`}
+                        value={destination}
+                        onChange={(e) =>
+                            handleDestinationChange(index, e.target.value)
+                        }
+                        className="search-input"
+                    />
+                    <button
+                        type="button"
+                        onClick={() => removeDestination(index)}
+                        className="remove-button"
+                    >
+                        X
+                    </button>
+                </div>
+            ))} </div> 
+            <button
+            type="button"
+            onClick={addDestination}
+            disabled={destinations.length >= 10}
+            className="add-button"
+        >
+            <FaPlus /> Add Destination
+        </button></>}
             <div className="radio-option">
                 <DatePicker
                     selected={startDate}
@@ -221,7 +289,7 @@ export function CabSerchBar() {
             </div>
 
             {
-                selectedRedio === "round-trip" ? <></> : <input
+                selectedRedio === "one-way" && <input
                     type="text"
                     placeholder="Offer From"
                     value={offerFrom}
@@ -231,11 +299,20 @@ export function CabSerchBar() {
             }
 
             {
-                selectedRedio === "round-trip" ? <button className="search-button" onClick={handleTwoWaySearch}>
-                    <FaSearch />&nbsp;Search
-                </button> : <button className="search-button" onClick={handleOneWaySearch}>
+                selectedRedio === "round-trip" && <button className="search-button" onClick={handleTwoWaySearch}>
                     <FaSearch />&nbsp;Search
                 </button>
+            }
+            {
+                selectedRedio === "one-way" && <button className="search-button" onClick={handleOneWaySearch}>
+                <FaSearch />&nbsp;Search
+            </button>
+            }
+
+            {
+                selectedRedio === "multi-city" && <button className="search-button" onClick={handleMultiWaySearch}>
+                <FaSearch />&nbsp;Search
+            </button>
             }
         </>
     )

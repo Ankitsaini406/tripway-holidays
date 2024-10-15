@@ -79,6 +79,22 @@
     width: 72%;
 }
 
+.destinations {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.destination-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.add-button, .remove-button {
+    padding: 8px;
+    cursor: pointer;
+}
+
 .time-picker {
     width: 180px;
     background-color: #f9f9f9;
@@ -133,11 +149,16 @@
     .advanced-search-bar {
         width: 58%;
     }
+
+    .slection-box {
+        top: 5em; 
+    }
 }
 
 @media (max-width: 770px) {
 
     .slection-box {
+        top: 5em;
         padding: 0;
     }
 
@@ -154,8 +175,15 @@
 
 @media (max-width: 430px) {
 
+    .slection-box {
+        top: 3em;
+    }
+
     .advanced-search-bar {
         flex-direction: column;
+        min-height: 50dvh;
+        max-height: 85dvh;
+        overflow: scroll;
     }
 
     .radio-option {
