@@ -15,12 +15,13 @@
     gap: 2rem;
     top: 8em;
     width: 100%;
+    padding: 0 0 0 2rem;
 }
 
 .selection-list {
     display: flex;
     gap: 2em;
-    justify-content: center;
+    /* justify-content: center; */
     padding: 0 0 10px 0;
 }
 
@@ -53,7 +54,7 @@
     background-color: #f9f9f9;
     border-radius: 25px;
     width: 35%;
-    margin: auto;
+    /* margin: auto; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -136,9 +137,18 @@
 
 @media (max-width: 770px) {
 
+    .slection-box {
+        padding: 0;
+    }
+
+    .selection-list { 
+        justify-content: center;
+    }
+
     .advanced-search-bar {
         flex-direction: column;
         width: 70%;
+        margin: auto;
     }
 }
 
