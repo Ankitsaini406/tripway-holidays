@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import { FaSearch, FaPlus, FaTrash } from "react-icons/fa";
+import { FaSearch, FaPlus} from "react-icons/fa";
 import { PiCarProfileLight } from "react-icons/pi";
 import { MdCardTravel } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi2";
