@@ -45,8 +45,8 @@
 @font-face {
   font-family: 'Cina Geo';
   src:
-    url('./assets/fonts/CinaGEOTest-Medium-BF64015899849c0.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-Regular-BF640158993b49e.otf') format('opentype'),
+    url('./assets/fonts/CinaGEOTest-Medium-BF64015899849c0.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-SemiBold-BF64015899cbc35.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-Thin-BF6401589a20010.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-Light-BF64015899c5366.otf') format('opentype'),
@@ -54,8 +54,6 @@
     url('./assets/fonts/CinaGEOTest-Bold-BF64015899f3908.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-ExtraBold-BF640158980b295.otf') format('opentype'),
     url('./assets/fonts/CinaGEOTest-ExtraLight-BF6401589a08ee8.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 *,
@@ -94,6 +92,7 @@ span {
   padding: 0;
   list-style: none;
   text-decoration: none;
+  font-weight: normal;
 }
 
 button:focus,
