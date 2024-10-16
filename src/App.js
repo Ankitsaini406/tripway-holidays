@@ -2,8 +2,8 @@ import { RouterProvider } from 'react-router-dom';
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import LandingPageLayout from "./components/landingPage";
-import TourPackes from "./pages/tour";
 import './App.css';
+import TourPackes from './pages/TourPackges';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
           },
           {
               path: "/tour",
-              element: <TourPackes />
+              element: <TourPackes />,
           }
       ]
   }
