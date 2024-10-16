@@ -9,7 +9,7 @@ function Home() {
     return (
         <div className="home">
             <Hero />
-            <Slider title='Top Slider' imagesUrl={TopSliderImages}/>
+            <Slider title='Tour Slider' imagesUrl={TopSliderImages}/>
             <Slider title='Group Tour Slider' imagesUrl={TopSliderImages}/>
         </div>
     );
