@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import DatePicker from "react-datepicker";
-import { FaSearch, FaPlus} from "react-icons/fa";
+import { FaSearch, FaPlus } from "react-icons/fa";
 import { PiCarProfileLight } from "react-icons/pi";
 import { MdCardTravel } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi2";
@@ -9,6 +10,8 @@ import "../styles/components/advanceserchbar.css";
 
 function AdvancedSearchBar() {
     const [activeLink, setActiveLink] = useState("cabs");
+
+    const navigate = useNavigate();
 
     const handleClick = (e, link) => {
         e.preventDefault();
@@ -66,10 +69,10 @@ function AdvancedSearchBar() {
                 )}
 
                 {activeLink === "tour-packages" && (
-                    <TourSearchBar />)}
+                    <TourSearchBar navigate={navigate}/>)}
 
                 {activeLink === "group-tour" && (
-                    <GroupSerchBar />)}
+                    <GroupSerchBar navigate={navigate}/>)}
             </div>
         </div>
         // </div>
@@ -237,15 +240,15 @@ export function CabSerchBar() {
                         X
                     </button>
                 </div>
-            ))} </div> 
-            <button
-            type="button"
-            onClick={addDestination}
-            disabled={destinations.length >= 10}
-            className="add-button"
-        >
-            <FaPlus /> Add Destination
-        </button></>}
+            ))} </div>
+                <button
+                    type="button"
+                    onClick={addDestination}
+                    disabled={destinations.length >= 10}
+                    className="add-button"
+                >
+                    <FaPlus /> Add Destination
+                </button></>}
             <div className="radio-option">
                 <DatePicker
                     selected={startDate}
@@ -305,20 +308,20 @@ export function CabSerchBar() {
             }
             {
                 selectedRedio === "one-way" && <button className="search-button" onClick={handleOneWaySearch}>
-                <FaSearch />&nbsp;Search
-            </button>
+                    <FaSearch />&nbsp;Search
+                </button>
             }
 
             {
                 selectedRedio === "multi-city" && <button className="search-button" onClick={handleMultiWaySearch}>
-                <FaSearch />&nbsp;Search
-            </button>
+                    <FaSearch />&nbsp;Search
+                </button>
             }
         </>
     )
 }
 
-export function TourSearchBar() {
+export function TourSearchBar({navigate}) {
     const [tourFromTerm, setTourFromTerm] = useState("");
     const [destination, setDestination] = useState("");
     const [startDate, setStartDate] = useState(null);
@@ -328,10 +331,10 @@ export function TourSearchBar() {
 
     const tourOptions = [
         { value: "", label: "Select Tour" },
-        { value: "adventure", label: "Adventure" },
-        { value: "wildlife", label: "Wildlife" },
-        { value: "family-package", label: "Family Package" },
-        { value: "honeymoon", label: "Honeymoon Package" }
+        { value: "Adventure", label: "Adventure" },
+        { value: "Wildlife", label: "Wildlife" },
+        { value: "Family Package", label: "Family Package" },
+        { value: "Honeymoon Package", label: "Honeymoon Package" }
     ]
 
     const handleTourChanges = (e) => {
@@ -343,14 +346,18 @@ export function TourSearchBar() {
     };
 
     const handleTourPackage = () => {
-        console.log({
+        const query = {
             tourFromTerm,
             destination,
             time,
             tourOption,
-            passanger
-        })
-    }
+            passanger,
+            startDate: startDate ? startDate.toISOString() : null // Convert date to ISO string if present
+        };
+
+        // Use navigate to redirect with state
+        navigate('/tour', { state: query });
+    };
 
     return (
         <>
@@ -418,9 +425,9 @@ export function TourSearchBar() {
     )
 }
 
-export function GroupSerchBar() {
+export function GroupSerchBar({navigate}) {
 
-    const [groupOption, setGroupOption] = useState("");
+    const [tourOption, setGroupOption] = useState("");
     const [selectedModel, setSelectedModel] = useState("");
 
     const groupOptions = [
@@ -439,13 +446,21 @@ export function GroupSerchBar() {
         setSelectedModel(e.target.value);
     }
 
-    const availbleModels = groupOptions.find((option) => option.value === groupOption)?.models || [];
+    const availbleModels = groupOptions.find((option) => option.value === tourOption)?.models || [];
 
     const handleGroupPackage = () => {
         console.log({
-            groupOption,
+            tourOption,
             selectedModel,
         })
+
+        const query = {
+            tourOption,
+            selectedModel
+        };
+
+        // Use navigate to redirect with state
+        navigate('/tour', { state: query });
     }
 
     return (
@@ -453,7 +468,7 @@ export function GroupSerchBar() {
             <div style={{ display: "flex", gap: "1rem" }}>
 
                 <select
-                    value={groupOption}
+                    value={tourOption}
                     onChange={handleGroupChanges}
                     className="select-filter"
                 >
@@ -467,7 +482,7 @@ export function GroupSerchBar() {
                 <select
                     value={selectedModel}
                     onChange={handleModelChange}
-                    disabled={!groupOption}
+                    disabled={!tourOption}
                     className="select-filter"
                 >
                     <option value="">Select Location</option>

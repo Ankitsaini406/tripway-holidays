@@ -5,7 +5,7 @@
 }
 
 .filters {
-    flex: 1;
+    flex: 0.5;
 }
 
 .tour-box {
@@ -13,12 +13,32 @@
 }
 
 .filters-box {
-    min-height: 300px;
+    /* min-height: 300px; */
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
     padding: 1em;
     position: sticky;
     top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-checkbox[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.filter-name {
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .tour-box {
