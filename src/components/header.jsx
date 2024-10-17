@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/components/header.css';
+import { Link } from 'react-router-dom';
 
 function Header() {
 
@@ -51,7 +52,9 @@ function Header() {
         <div className='navbar'>
             <div className='header'>
                 <div className='logo'>
-                    <h1>TripWay&nbsp;Holidays</h1>
+                    <Link to='/'>
+                        <h1>TripWay&nbsp;Holidays</h1>
+                    </Link>
                 </div>
 
                 {
@@ -65,7 +68,9 @@ function Header() {
                 <div className={`desktop ${isMenuOpen ? 'open' : ''}`}>
                     <ul className='header-list'>
                         <li>Home</li>
-                        <li>Trips</li>
+                        <Link to='/tour'>
+                            <li>Tours</li>
+                        </Link>
                         <li>About</li>
                         <li>Contact Us</li>
                         <button className='header-button'>Login</button>
@@ -76,7 +81,9 @@ function Header() {
                     <div className={`header-items mobile ${isMenuOpen ? 'open' : ''}`}>
                         <ul className='header-list'>
                             <li>Home</li>
-                            <li>Trips</li>
+                            <Link to='/tour'>
+                                <li>Tours</li>
+                            </Link>
                             <li>About</li>
                             <li>Contact Us</li>
                             <button className='header-button'>Login</button>
