@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios"; // Import Axios
 import "../styles/pages/layout.css";
-import '../styles/pages/tourpackges.css';
-import TourData from "../lib/tour-data";
+import "../styles/pages/tourpackges.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 function TourPackes() {
+    const [tourData, setTourData] = useState([]); // Store fetched tour data
     const [selectedFilters, setSelectedFilters] = useState([]);
-    const [filteredItems, setFilteredItems] = useState(TourData);
+    const [filteredItems, setFilteredItems] = useState([]);
     const filters = ["Wildlife", "Adventure", "Leisure", "Trekking", "Spiritual", "Beach", "Heritage"];
-
     const sortedFilters = filters.sort((a, b) => a.localeCompare(b));
+
     const location = useLocation();
     const { tourOption } = location.state || {};
+
+    // Fetch tour data from tour-data.json using Axios
+    useEffect(() => {
+        const fetchTourData = async () => {
+            try {
+                const response = await axios.get("data/tour-data.json");
+                setTourData(response.data);
+                setFilteredItems(response.data); 
+            } catch (error) {
+                console.error("Error fetching tour data:", error);
+            }
+        };
+        fetchTourData();
+    }, []);
 
     // Set initial selected filters based on tourOption
     useEffect(() => {
@@ -23,8 +38,8 @@ function TourPackes() {
 
     const handleFilterButtonClick = (selectedCategory) => {
         if (selectedFilters.includes(selectedCategory)) {
-            const filters = selectedFilters.filter((el) => el !== selectedCategory);
-            setSelectedFilters(filters);
+            const updatedFilters = selectedFilters.filter((el) => el !== selectedCategory);
+            setSelectedFilters(updatedFilters);
         } else {
             setSelectedFilters([...selectedFilters, selectedCategory]);
         }
@@ -32,45 +47,46 @@ function TourPackes() {
 
     const filterItems = () => {
         if (selectedFilters.length > 0) {
-            let tempItems = selectedFilters.map((selectedCategory) => {
-                let temp = TourData.filter((item) => item.category === selectedCategory);
-                return temp;
-            });
-            setFilteredItems(tempItems.flat());
+            const tempItems = selectedFilters.flatMap((selectedCategory) =>
+                tourData.filter((item) => item.category === selectedCategory)
+            );
+            setFilteredItems(tempItems);
         } else {
-            setFilteredItems([...TourData]);
+            setFilteredItems(tourData);
         }
-    }
+    };
 
     useEffect(() => {
         filterItems();
-    }, [selectedFilters]);
+    }, [selectedFilters, tourData]);
 
     return (
         <div className="layout">
             <div className="tour">
                 <div className="filters">
-                    <Filters filters={sortedFilters} selectedFilters={selectedFilters} handleFilterButtonClick={handleFilterButtonClick} />
+                    <Filters
+                        filters={sortedFilters}
+                        selectedFilters={selectedFilters}
+                        handleFilterButtonClick={handleFilterButtonClick}
+                    />
                 </div>
                 <div className="tour-box">
                     <TourCard filteredItems={filteredItems} />
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
-
     const [isMobile, setIsMobile] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    // Check screen size to toggle mobile view
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 430);
-        handleResize(); // Run once initially
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     return (
@@ -81,7 +97,9 @@ export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
                         className="dropdown-toggle"
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
-                        {isDropdownOpen ? <div className="filter-dropdown">Filters <span><FaChevronDown /></span></div> : <div className="filter-dropdown">Filters <span><FaChevronUp /></span></div>}
+                        <div className="filter-dropdown">
+                            Filters {isDropdownOpen ? <FaChevronDown /> : <FaChevronUp />}
+                        </div>
                     </button>
                     {isDropdownOpen && (
                         <div className="filters-box">
@@ -121,20 +139,18 @@ export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
 export function TourCard({ filteredItems }) {
     return (
         <>
-            {
-                filteredItems.map((value) => (
-                    <div key={value.id} className="tour-card">
-                        <img className="tour-image" src={value.img} alt="" />
-                        <div className="tour-detalis">
-                            <h3>{value.title}</h3>
-                            <h6>{value.category}</h6>
-                            <p>{value.desc}</p>
-                        </div>
+            {filteredItems.map((value) => (
+                <div key={value.id} className="tour-card">
+                    <img className="tour-image" src={value.img} alt="" />
+                    <div className="tour-detalis">
+                        <h3>{value.title}</h3>
+                        <h6>{value.category}</h6>
+                        <p>{value.desc}</p>
                     </div>
-                ))
-            }
+                </div>
+            ))}
         </>
-    )
+    );
 }
 
 export default TourPackes;
