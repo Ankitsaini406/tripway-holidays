@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import "../styles/pages/layout.css";
 import "../styles/pages/tourpackges.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
