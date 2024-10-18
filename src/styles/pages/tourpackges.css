@@ -67,3 +67,48 @@
     object-fit: cover;
     border-radius: 10px;
 }
+
+/* .filters-container .filters-box {
+    display: none;
+} */
+
+@media (max-width: 430px) {
+    .tour {
+        flex-direction: column;
+    }
+
+    .filters-container .filters-box {
+        display: block;
+    }
+
+    .mobile-filters {
+        display: block;
+    }
+
+    .filter-dropdown {
+        display: flex;
+        gap: 1em;
+    }
+
+    .dropdown-toggle {
+        border-radius: 10px;
+        background-color: var(--indigo-blue);
+        /* box-shadow: rgba(149, 157, 165) 0px 8px 10px; */
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .dropdown-toggle:focus {
+        outline: none;
+    }
+
+    .tour-card {
+        flex-direction: column;
+    }
+
+    .tour-image {
+        height: 100px;
+    }
+}
