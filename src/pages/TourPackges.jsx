@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import InfiniteScroll from "../components/infiniteScroll";
 import "../styles/pages/layout.css";
 import "../styles/pages/tourpackges.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import LoadingSpiner from "../components/loadingSpiner";
 
 function TourPackes() {
     const [tourData, setTourData] = useState([]);
@@ -20,7 +21,6 @@ function TourPackes() {
 
     // Fetch tour data from JSON
     useEffect(() => {
-        // setTimeout(() => {
 
             const fetchTourData = async () => {
                 try {
@@ -33,7 +33,6 @@ function TourPackes() {
                 }
             };
             fetchTourData();
-        // }, 3000)
     }, []);
 
 
@@ -91,7 +90,7 @@ function TourPackes() {
                             ))}
                         </InfiniteScroll>
                     ) : (
-                        <p>Loading tours...</p>
+                        <LoadingSpiner />
                     )}
                 </div>
 
@@ -161,6 +160,7 @@ export function TourCard({ item }) {
                 <h3>{item.title}</h3>
                 <h6>{item.category}</h6>
                 <p>{item.desc}</p>
+                <Link key={item.id} to={item.id}>Read More</Link>
             </div>
         </div>
     );
