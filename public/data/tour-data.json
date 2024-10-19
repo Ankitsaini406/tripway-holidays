@@ -14,7 +14,7 @@
         "category": "Adventure",
         "subcategory": "Water Sports",
         "price": "3000",
-        "desc": "Feel the adrenaline rush of rafting in the Ganges am'id'st Rishikesh’s natural beauty.",
+        "desc": "Known as the 'Yoga Capital of the World,' Rishikesh offers much more than spiritual retreats. Nestled along the Ganges river and surrounded by the Himalayas, it has become a hotspot for adrenaline junkies looking for an exciting river rafting experience. The rafting route ranges from easy stretches to intense grade 4 and 5 rapids, ensuring that participants of all skill levels can find a challenge. The rapids with names like 'Roller Coaster' and 'The Wall' make the experience even more thrilling. Aside from the rush of navigating turbulent waters, the route offers stunning views of temples, ashrams, and lush greenery along the banks. This adventure combines the thrill of sport with the serene backdrop of Rishikesh's natural beauty, making it an unforgettable experience.",
         "img": "https://images.unsplash.com/photo-1650551823793-6e358b9d74a4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -23,7 +23,7 @@
         "category": "Leisure",
         "subcategory": "Cruise",
         "price": "5000",
-        "desc": "Enjoy a relaxing cruise through Kerala’s serene backwaters.",
+        "desc": "Alleppey, often referred to as the 'Venice of the East,'offers an unparalleled experience of cruising through Kerala’s backwaters. The backwaters are a network of interconnected canals, rivers, and lakes surrounded by lush paddy fields and coconut groves. A houseboat stay or cruise in these waters is the epitome of relaxation. As you glide along the calm waters, you can observe rural life at its best – fishermen casting their nets, women washing clothes by the river, and children playing on the banks. Most houseboats serve traditional Kerala meals, adding a culinary delight to your journey. Whether traveling with family, friends, or a loved one, this cruise offers tranquility that feels a world away from the hustle of city life.",
         "img": "https://images.unsplash.com/photo-1535571248626-d7cc82e65821?q=80&w=2704&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -32,7 +32,7 @@
         "category": "Adventure",
         "subcategory": "Safari",
         "price": "3500",
-        "desc": "Experience camel r'id'es, sand dunes, and cultural shows in the Thar desert.",
+        "desc": "The golden city of Jaisalmer offers a unique desert safari experience across the vast expanse of the Thar Desert. Riding on the back of a camel, you can traverse through picturesque sand dunes, experiencing the beauty of an arid landscape that transforms dramatically during sunrise and sunset. Beyond camel rides, the safari includes cultural experiences such as folk dance performances and traditional music by local artists. Visitors can also spend a night in luxury tents under a starlit sky, indulging in Rajasthani cuisine. The Desert Safari offers a blend of thrill, culture, and solitude, leaving you with memories of mesmerizing sunsets and the simplicity of desert life.",
         "img": "https://images.unsplash.com/photo-1607922276202-5007ffe552ca?q=80&w=2444&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -41,7 +41,7 @@
         "category": "Trekking",
         "subcategory": "Mountain Trekking",
         "price": "4000",
-        "desc": "Explore scenic routes with treks like Hampta Pass and Beas Kund.",
+        "desc": "Manali, situated in Himachal Pradesh, is a paradise for trekkers with its scenic routes, snow-capped peaks, and lush green valleys. Some of the most popular treks include the Hampta Pass, Beas Kund, and Bhrigu Lake treks, each offering its own unique charm. From dense forests to rocky terrains and high-altitude passes, these treks provide a mix of challenge and beauty. The routes are dotted with gushing rivers, ancient temples, and quaint villages, giving trekkers a glimpse into the region's culture. Whether you're a seasoned trekker or a beginner, Manali’s varied terrain ensures a fulfilling adventure, combining physical endurance with the serene beauty of the Himalayas.",
         "img": "https://images.unsplash.com/photo-1610464749130-fe4e1921fa38?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -50,7 +50,7 @@
         "category": "Spiritual",
         "subcategory": "Trekking",
         "price": "3000",
-        "desc": "A sacred trek to the Kedarnath temple nestled in the Himalayas.",
+        "desc": "Kedarnath, located in the lap of the Himalayas, is one of the most revered pilgrimage sites in India. The temple, dedicated to Lord Shiva, is part of the Char Dham Yatra and attracts thousands of devotees every year. The journey to Kedarnath is as spiritual as it is physically demanding. The 18 km trek from Gaurikund takes pilgrims through rugged trails surrounded by snow-covered peaks and dense forests. Along the way, you’ll come across beautiful waterfalls and small shrines, making the journey a meditative experience. The serenity of the temple, combined with the majestic backdrop of the mountains, leaves an indelible impression on visitors.",
         "img": "https://images.unsplash.com/photo-1722619793183-3787ca05d61f?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -59,7 +59,7 @@
         "category": "Leisure",
         "subcategory": "Tour",
         "price": "2800",
-        "desc": "Visit Darjeeling’s tea gardens and enjoy the cool mountain climate.",
+        "desc": "Darjeeling, located in the foothills of the Himalayas, is world-famous for its tea plantations that produce some of the finest tea. A tour of these plantations offers visitors a chance to witness the entire tea-making process, from plucking the leaves to processing them in factories. The cool mountain climate, lush greenery, and mist-covered hills provide a perfect setting for leisurely strolls through the tea gardens. In addition to the tour, visitors can indulge in tea-tasting sessions and learn about the history of tea cultivation in the region. A visit to Darjeeling is incomplete without savoring a cup of fresh Darjeeling tea while enjoying breathtaking views of the Kanchenjunga mountain range.",
         "img": "https://images.unsplash.com/photo-1491497895121-1334fc14d8c9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -68,7 +68,7 @@
         "category": "Beach",
         "subcategory": "Relaxation",
         "price": "3500",
-        "desc": "Relax on Goa’s beautiful beaches and experience vibrant nightlife.",
+        "desc": "Goa, India’s party capital, offers the perfect blend of beaches, nightlife, and relaxation. Whether you're looking to unwind on the serene beaches of South Goa or experience the vibrant nightlife of North Goa, this destination caters to all types of travelers. From water sports like parasailing and jet skiing to beach shacks serving delicious seafood, there’s always something to do. In addition to the beaches, Goa is known for its Portuguese heritage, visible in its churches, forts, and colorful architecture. The lively markets, music festivals, and yoga retreats make Goa a versatile destination where relaxation and adventure go hand in hand.",
         "img": "https://images.unsplash.com/photo-1695411560425-dc6e047fac81?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ix'id'=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {

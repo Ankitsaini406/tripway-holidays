@@ -27,21 +27,22 @@ function TourDetails() {
     return (
         <div className="layout">
             {
-                !tour ? <LoadingSpiner /> : 
-                <div className='tourdetails'>
-                <div className='tourdetails-box'>
-                    <img className='tourdetails-img' src={tour.img} alt={tour.title} />
-                    <div className='tourdetails-text'>
-                    <h2>{tour.title}</h2>
-                    <h4>Category: {tour.category}</h4>
-                    <h4>&#8377;&nbsp;{tour.price}</h4>
-                    <p>{tour.desc}</p>
+                !tour ? <LoadingSpiner /> :
+                    <div className='tourdetails'>
+                        <div className='tourdetails-box'>
+                            <img className='tourdetails-img' src={tour.img} alt={tour.title} />
+                            <div className='tourdetails-text'>
+                                <h2>{tour.title}</h2>
+                                <h4>Category: {tour.category}</h4>
+                                <h4>&#8377;&nbsp;{tour.price}</h4>
+                                <p>{tour.desc}</p>
+                                <button className='tour-buybutton'>Buy Now</button>
+                            </div>
+                        </div>
+                        <div className='tourdetails-info'>
+                            Trip Details
+                        </div>
                     </div>
-                </div>
-                <div className='tourdetails-info'>
-                    This is your lifetime memoriable trip.
-                </div>
-                </div>
             }
         </div>
     );

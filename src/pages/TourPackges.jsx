@@ -114,7 +114,7 @@ export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
         <div className="filters-container">
             {isMobile ? (
                 <div className="mobile-filters">
-                    <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                    <button className="dropdown-toggle " onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                         Filters {isDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
                     </button>
                     {isDropdownOpen && (
@@ -156,11 +156,13 @@ export function TourCard({ item }) {
     return (
         <div className="tour-card">
             <img className="tour-image" src={item.img} alt="" />
-            <div className="tour-detalis">
+            <div className="tour-details">
+                <div>
                 <h3>{item.title}</h3>
                 <h6>{item.category}</h6>
                 <p>{item.desc}</p>
-                <Link key={item.id} to={item.id}>Read More</Link>
+                </div>
+                <Link className="read-more" key={item.id} to={`/tour/${item.id}`}>Read More</Link>
             </div>
         </div>
     );
