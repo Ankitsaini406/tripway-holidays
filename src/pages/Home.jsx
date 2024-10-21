@@ -11,7 +11,7 @@ function Home() {
             <Hero />
             <div className="home-tour" id="tourSection">
                 <div className="home-tour-flex">
-                <img className="tour-img" src="" alt="" />
+                <img className="tour-img" src="https://images.unsplash.com/photo-1704774041066-ffefb6e950fd?q=80&w=2536&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="a-small-green-building-in-the-middle-of-a-forest" />
                 <div>
                     <h4>Tour Travel</h4>
                     <p>This is for testing perpose</p>
@@ -27,7 +27,7 @@ function Home() {
                     <p>This is for testing perpose</p>
                     <Link to='/tour'>Read More</Link>
                 </div>
-                <img className="tour-img" src="" alt="" />
+                <img className="tour-img" src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="multicolored-buntings" />
                 </div>
             </div>
         </div>

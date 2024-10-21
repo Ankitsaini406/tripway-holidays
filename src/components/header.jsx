@@ -89,16 +89,16 @@ function Header() {
                 <div className={`desktop ${isMenuOpen ? 'open' : ''}`}>
                     <ul className='header-list'>
                         <Link to='/'>
-                        <li>Home</li>
+                            <li>Home</li>
                         </Link>
                         <Link to='#tourSection' onClick={handleTourClick}>
                             <li>Tours</li>
                         </Link>
                         <Link to='#groupTour' onClick={handleGroupTourClick}>
-                        <li>Group </li>
+                            <li>Group </li>
                         </Link>
                         <Link to='/about'>
-                        <li>About</li>
+                            <li>About</li>
                         </Link>
                         <li>Contact Us</li>
                         <button className='header-button'>Login</button>
@@ -108,20 +108,20 @@ function Header() {
                 {isMenuOpen && <div className='overlay' onClick={toggleMenu}>
                     <div className={`header-items mobile ${isMenuOpen ? 'open' : ''}`}>
                         <ul className='header-list'>
-                        <Link to='/'>
-                        <li>Home</li>
-                        </Link>
-                        <Link to='#tourSection' onClick={handleTourClick}>
-                            <li>Tours</li>
-                        </Link>
-                        <Link to='#groupTour' onClick={handleGroupTourClick}>
-                        <li>Group </li>
-                        </Link>
-                        <Link to='/about'>
-                        <li>About</li>
-                        </Link>
-                        <li>Contact Us</li>
-                        <button className='header-button'>Login</button>
+                            <Link to='/'>
+                                <li>Home</li>
+                            </Link>
+                            <Link to='#tourSection' onClick={handleTourClick}>
+                                <li>Tours</li>
+                            </Link>
+                            <Link to='#groupTour' onClick={handleGroupTourClick}>
+                                <li>Group </li>
+                            </Link>
+                            <Link to='/about'>
+                                <li>About</li>
+                            </Link>
+                            <li>Contact Us</li>
+                            <button className='header-button'>Login</button>
                         </ul>
                     </div>
                 </div>}
