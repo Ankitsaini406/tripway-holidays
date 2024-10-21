@@ -69,12 +69,12 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: var(--white-color);
-  scroll-behavior: smooth;
   font-family: 'Cina Geo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 h1,

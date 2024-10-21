@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/components/header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         if (isMenuOpen) {
@@ -14,6 +15,26 @@ function Header() {
             setIsMenuOpen(true);
         }
     };
+
+    const handleTourClick = (e) => {
+        e.preventDefault();
+        const targetSection = document.getElementById('tourSection');
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            navigate('/tour');
+        }
+    }
+
+    const handleGroupTourClick = (e) => {
+        e.preventDefault();
+        const targetSection = document.getElementById('groupTour');
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            navigate('/tour');
+        }
+    }
 
     useEffect(() => {
         const headerItems = document.querySelector('.header-items');
@@ -67,11 +88,18 @@ function Header() {
 
                 <div className={`desktop ${isMenuOpen ? 'open' : ''}`}>
                     <ul className='header-list'>
+                        <Link to='/'>
                         <li>Home</li>
-                        <Link to='/tour'>
+                        </Link>
+                        <Link to='#tourSection' onClick={handleTourClick}>
                             <li>Tours</li>
                         </Link>
+                        <Link to='#groupTour' onClick={handleGroupTourClick}>
+                        <li>Group </li>
+                        </Link>
+                        <Link to='/about'>
                         <li>About</li>
+                        </Link>
                         <li>Contact Us</li>
                         <button className='header-button'>Login</button>
                     </ul>
@@ -80,13 +108,20 @@ function Header() {
                 {isMenuOpen && <div className='overlay' onClick={toggleMenu}>
                     <div className={`header-items mobile ${isMenuOpen ? 'open' : ''}`}>
                         <ul className='header-list'>
-                            <li>Home</li>
-                            <Link to='/tour'>
-                                <li>Tours</li>
-                            </Link>
-                            <li>About</li>
-                            <li>Contact Us</li>
-                            <button className='header-button'>Login</button>
+                        <Link to='/'>
+                        <li>Home</li>
+                        </Link>
+                        <Link to='#tourSection' onClick={handleTourClick}>
+                            <li>Tours</li>
+                        </Link>
+                        <Link to='#groupTour' onClick={handleGroupTourClick}>
+                        <li>Group </li>
+                        </Link>
+                        <Link to='/about'>
+                        <li>About</li>
+                        </Link>
+                        <li>Contact Us</li>
+                        <button className='header-button'>Login</button>
                         </ul>
                     </div>
                 </div>}

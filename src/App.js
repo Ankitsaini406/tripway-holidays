@@ -4,6 +4,7 @@ import LandingPageLayout from "./components/landingPage";
 import './App.css';
 import TourPackes from './pages/TourPackges';
 import TourDetails from './pages/TourDetails';
+import About from './pages/About';
 
 const router = createBrowserRouter([
     {
@@ -21,11 +22,19 @@ const router = createBrowserRouter([
             {
                 path: "/tour/:id",
                 element: <TourDetails />,
+            },
+            {
+                path: "/about",
+                element: <About />
             }
         ]
     }
 ])
 
-const App = () => <RouterProvider router={router} />
+const App = () => (
+    <>
+    <RouterProvider router={router} />
+    </>
+)
 
 export default App;
