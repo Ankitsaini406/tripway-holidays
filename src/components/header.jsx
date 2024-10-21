@@ -6,6 +6,7 @@ function Header() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [activeItem, setActiveItem] = useState('');
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -89,18 +90,18 @@ function Header() {
                 <div className={`desktop ${isMenuOpen ? 'open' : ''}`}>
                     <ul className='header-list'>
                         <Link to='/'>
-                            <li>Home</li>
+                            <li className={`header-name ${activeItem === 'Home' ? 'active' : ''}`} onClick={() => setActiveItem('Home')}>Home</li>
                         </Link>
                         <Link to='#tourSection' onClick={handleTourClick}>
-                            <li>Tours</li>
+                            <li className={`header-name ${activeItem === 'Tours' ? 'active' : ''}`} onClick={() => setActiveItem('Tours')}>Tours</li>
                         </Link>
                         <Link to='#groupTour' onClick={handleGroupTourClick}>
-                            <li>Group </li>
+                            <li className={`header-name ${activeItem === 'Group' ? 'active' : ''}`} onClick={() => setActiveItem('Group')}>Group</li>
                         </Link>
                         <Link to='/about'>
-                            <li>About</li>
+                            <li className={`header-name ${activeItem === 'About' ? 'active' : ''}`} onClick={() => setActiveItem('About')}>About</li>
                         </Link>
-                        <li>Contact Us</li>
+                        <li className={`header-name ${activeItem === 'Contact' ? 'active' : ''}`} onClick={() => setActiveItem('Contact')}>Contact Us</li>
                         <button className='header-button'>Login</button>
                     </ul>
                 </div>
@@ -109,18 +110,18 @@ function Header() {
                     <div className={`header-items mobile ${isMenuOpen ? 'open' : ''}`}>
                         <ul className='header-list'>
                             <Link to='/'>
-                                <li>Home</li>
+                                <li className={`header-name ${activeItem === 'Home' ? 'active' : ''}`} onClick={() => setActiveItem('Home')}>Home</li>
                             </Link>
                             <Link to='#tourSection' onClick={handleTourClick}>
-                                <li>Tours</li>
+                                <li className={`header-name ${activeItem === 'Tours' ? 'active' : ''}`} onClick={() => setActiveItem('Tours')}>Tours</li>
                             </Link>
                             <Link to='#groupTour' onClick={handleGroupTourClick}>
-                                <li>Group </li>
+                                <li className={`header-name ${activeItem === 'Group' ? 'active' : ''}`} onClick={() => setActiveItem('Group')}>Group</li>
                             </Link>
                             <Link to='/about'>
-                                <li>About</li>
+                                <li className={`header-name ${activeItem === 'About' ? 'active' : ''}`} onClick={() => setActiveItem('About')}>About</li>
                             </Link>
-                            <li>Contact Us</li>
+                            <li className={`header-name ${activeItem === 'Contact' ? 'active' : ''}`} onClick={() => setActiveItem('Contact')}>Contact Us</li>
                             <button className='header-button'>Login</button>
                         </ul>
                     </div>

@@ -32,11 +32,18 @@
     align-items: center;
 }
 
-.header-list {
-    display: flex;
-    gap: 2em;
+.header-name {
+    color: var(--black-color);
     cursor: pointer;
-    align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: var(--safforn-orange);
+    }
+}
+
+.header-name.active {
+    color: var(--safforn-orange);
 }
 
 .header-button {
