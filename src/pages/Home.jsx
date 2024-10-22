@@ -8,7 +8,7 @@ function Home() {
 
     const [showPopUp, setShowPopUp] = useState(false);
     const [showClose, setShowClose] = useState(false);
-    const [countdown, setCountdown] = useState(10);
+    const [countdown, setCountdown] = useState(5);
 
     useEffect(() => {
         const popupTimer = setTimeout(() => {
@@ -23,6 +23,15 @@ function Home() {
             clearTimeout(closeTimer);
         };
     }, []);
+
+    useEffect(() => {
+        if(!showClose && showPopUp) {
+            const interval = setInterval(() => {
+                setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [showClose, showPopUp]);
 
     useEffect(() => {
         if (showPopUp) {
@@ -42,14 +51,14 @@ function Home() {
             {
                 showPopUp && (
                     <div className="popup-overlay">
+                        {
+                            showClose ? <button onClick={closePopUp} className="close-button">
+                                X
+                            </button> : <p  className="close-button">Skip: {countdown}</p>
+                            }
                         <div className="popup-content">
                             <h2>Welcome to TripWay Holidays!</h2>
                             <p>Discover amazing travel deals and adventures with us.</p>
-                            {
-                                showClose ? <button onClick={closePopUp} className="close-button">
-                                Close
-                            </button> : <></>
-                            }
                         </div>
                     </div>
                 )
