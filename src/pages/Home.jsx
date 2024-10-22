@@ -7,12 +7,21 @@ import "../styles/pages/layout.css";
 function Home() {
 
     const [showPopUp, setShowPopUp] = useState(false);
+    const [showClose, setShowClose] = useState(false);
+    const [countdown, setCountdown] = useState(10);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        const popupTimer = setTimeout(() => {
             setShowPopUp(true);
         }, 5000);
-        return () => clearTimeout(timer);
+
+        const closeTimer = setTimeout(() => {
+            setShowClose(true);
+        }, 10000);
+        return () => {
+            clearTimeout(popupTimer);
+            clearTimeout(closeTimer);
+        };
     }, []);
 
     useEffect(() => {
@@ -36,9 +45,11 @@ function Home() {
                         <div className="popup-content">
                             <h2>Welcome to TripWay Holidays!</h2>
                             <p>Discover amazing travel deals and adventures with us.</p>
-                            <button onClick={closePopUp} className="close-button">
+                            {
+                                showClose ? <button onClick={closePopUp} className="close-button">
                                 Close
-                            </button>
+                            </button> : <></>
+                            }
                         </div>
                     </div>
                 )
