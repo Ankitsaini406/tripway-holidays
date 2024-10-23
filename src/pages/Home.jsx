@@ -34,14 +34,14 @@ function Home() {
     return (
         <>
 
-            {/* <PopUp title='Welcome to TripWay Holidays!'
+            <PopUp title='Welcome to TripWay Holidays!'
                 content='Discover amazing rides and cabs in tripway holidays.'
                 popTime={5000} closeTime={10000}
             />
             <PopUp title='Welcome to TripWay Holidays!'
                 content='Discover amazing travel deals and adventures with us.'
                 popTime={15000} closeTime={20000}
-            /> */}
+            />
 
             <div className="layout">
                 <Hero />
