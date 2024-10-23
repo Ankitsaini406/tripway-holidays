@@ -460,7 +460,7 @@ export function GroupSerchBar({navigate}) {
         };
 
         // Use navigate to redirect with state
-        navigate('/tour', { state: query });
+        navigate('/group-tour', { state: query });
     }
 
     return (

@@ -24,23 +24,23 @@ function TourPackes() {
     // Fetch tour data from JSON
     useEffect(() => {
 
-            const fetchTourData = async () => {
-                try {
-                    const response = await axios.get("data/tour-data.json");
-                    setTourData(response.data);
-                    setFilteredItems(response.data);
-                    setVisibleItems(response.data.slice(0, itemsPerPage));
-                } catch (error) {
-                    console.error("Error fetching tour data:", error);
-                }
-            };
-            fetchTourData();
+        const fetchTourData = async () => {
+            try {
+                const response = await axios.get("data/tour-data.json");
+                setTourData(response.data);
+                setFilteredItems(response.data);
+                setVisibleItems(response.data.slice(0, itemsPerPage));
+            } catch (error) {
+                console.error("Error fetching tour data:", error);
+            }
+        };
+        fetchTourData();
     }, []);
 
 
     // Initialize selected filters based on `tourOption`
     useEffect(() => {
-        if (tourOption) setSelectedFilters([tourOption]);
+        if (tourOption) setSelectedFilters([tourOption])
     }, [tourOption]);
 
     const handleFilterButtonClick = (category) => {
@@ -50,17 +50,18 @@ function TourPackes() {
         setSelectedFilters(updatedFilters);
     };
 
-    const filterItems = () => {
-        const filtered = selectedFilters.length > 0
-            ? tourData.filter((item) => selectedFilters.includes(item.category))
-            : tourData;
-
-        setFilteredItems(filtered);
-        setPage(1);
-        setVisibleItems(filtered.slice(0, itemsPerPage));
-    };
-
     useEffect(() => {
+        const filterItems = () => {
+            // Filter the tour data based on selected filters
+            const filtered = selectedFilters.length > 0
+                ? tourData.filter((item) => selectedFilters.includes(item.category))
+                : tourData;
+    
+            // Update state with filtered items and reset pagination
+            setFilteredItems(filtered);
+            setPage(1);
+            setVisibleItems(filtered.slice(0, itemsPerPage));
+        };
         filterItems();
     }, [selectedFilters, tourData]);
 
@@ -88,14 +89,13 @@ function TourPackes() {
                             hasMore={visibleItems.length < filteredItems.length}
                         >
                             {visibleItems.map((item) => (
-                                <TourCard key={item.id} item={item} alt={item.alt} imageLength={visibleItems.length}/>
+                                <TourCard key={item.id} item={item} alt={item.alt} imageLength={visibleItems.length} />
                             ))}
                         </InfiniteScroll>
                     ) : (
                         <LoadingSpiner />
                     )}
                 </div>
-
             </div>
         </div>
     );
@@ -157,12 +157,12 @@ export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
 export function TourCard({ item, alt, imageLength }) {
     return (
         <div className="tour-card">
-            <LazyLoadImage className="tour-image" src={item.img} alt={alt} imageLength={imageLength}/>
+            <LazyLoadImage className="tour-image" src={item.img} alt={alt} imageLength={imageLength} />
             <div className="tour-details">
                 <div>
-                <h3>{item.title}</h3>
-                <h6>{item.category}</h6>
-                <p>{item.desc}</p>
+                    <h3>{item.title}</h3>
+                    <h6>{item.category}</h6>
+                    <p>{item.desc}</p>
                 </div>
                 <Link className="read-more" key={item.id} to={`/tour/${item.id}`}>Read More</Link>
             </div>
