@@ -12,13 +12,14 @@ function TourPackes() {
     const [tourData, setTourData] = useState([]);
     const [filteredItems, setFilteredItems] = useState([]);
     const [visibleItems, setVisibleItems] = useState([]);
+    const [selectedFilters, setSelectedFilters] = useState([]);
     const [page, setPage] = useState(1);
     const itemsPerPage = 5;
     const location = useLocation();
+
     const { tourOption } = location.state || {};
-    const filters = ["Wildlife", "Adventure", "Leisure", "Trekking", "Spiritual", "Beach", "Heritage"];
+    const filters = [...new Set(tourData.map(item => item.category))];
     const sortedFilters = filters.sort((a, b) => a.localeCompare(b));
-    const [selectedFilters, setSelectedFilters] = useState([]);
 
     // Fetch tour data from JSON
     useEffect(() => {
