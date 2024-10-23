@@ -20,6 +20,10 @@ const router = createBrowserRouter([
                 element: <TourPackes />,
             },
             {
+                path: "/group-tour",
+                element: <TourPackes />,
+            },
+            {
                 path: "/tour/:id",
                 element: <TourDetails />,
             },

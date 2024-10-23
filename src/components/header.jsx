@@ -33,7 +33,7 @@ function Header() {
         if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth' });
         } else {
-            navigate('/tour');
+            navigate('/group-tour');
         }
     }
 
