@@ -2,6 +2,7 @@
     {
         "id": 1,
         "title": "Wildlife Safari at Jim Corbett",
+        "alt": "Wildlife Safari at Jim Corbett",
         "category": "Wildlife",
         "subcategory": "Safari",
         "price": "2500",
@@ -11,6 +12,7 @@
     {
         "id": 2,
         "title": "River Rafting in Rishikesh",
+        "alt": "River Rafting in Rishikesh",
         "category": "Adventure",
         "subcategory": "Water Sports",
         "price": "3000",
@@ -20,6 +22,7 @@
     {
         "id": 3,
         "title": "Backwater Cruise in Alleppey",
+        "alt": "Backwater Cruise in Alleppey",
         "category": "Leisure",
         "subcategory": "Cruise",
         "price": "5000",
@@ -29,6 +32,7 @@
     {
         "id": 4,
         "title": "Desert Safari in Jaisalmer",
+        "alt": "Desert Safari in Jaisalmer",
         "category": "Adventure",
         "subcategory": "Safari",
         "price": "3500",
@@ -38,6 +42,7 @@
     {
         "id": 5,
         "title": "Trekking in Manali",
+        "alt": "Trekking in Manali",
         "category": "Trekking",
         "subcategory": "Mountain Trekking",
         "price": "4000",
@@ -47,6 +52,7 @@
     {
         "id": 6,
         "title": "Pilgrimage to Kedarnath",
+        "alt": "Pilgrimage to Kedarnath",
         "category": "Spiritual",
         "subcategory": "Trekking",
         "price": "3000",
@@ -56,6 +62,7 @@
     {
         "id": 7,
         "title": "Tea Plantation Tour in Darjeeling",
+        "alt": "Tea Plantation Tour in Darjeeling",
         "category": "Leisure",
         "subcategory": "Tour",
         "price": "2800",
@@ -65,6 +72,7 @@
     {
         "id": 8,
         "title": "Beach Vacation in Goa",
+        "alt": "Beach Vacation in Goa",
         "category": "Beach",
         "subcategory": "Relaxation",
         "price": "3500",
@@ -74,6 +82,7 @@
     {
         "id": 9,
         "title": "Heritage Tour in Jaipur",
+        "alt": "Heritage Tour in Jaipur",
         "category": "Heritage",
         "subcategory": "Cultural",
         "price": "4500",
@@ -83,6 +92,7 @@
     {
         "id": 10,
         "title": "Wildlife Tour in Kaziranga",
+        "alt": "Wildlife Tour in Kaziranga",
         "category": "Wildlife",
         "subcategory": "Safari",
         "price": "3000",
@@ -92,6 +102,7 @@
     {
         "id": 11,
         "title": "Skiing in Gulmarg",
+        "alt": "Skiing in Gulmarg",
         "category": "Adventure",
         "subcategory": "Winter Sports",
         "price": "6000",
@@ -101,6 +112,7 @@
     {
         "id": 12,
         "title": "Houseboat Stay in Srinagar",
+        "alt": "Houseboat Stay in Srinagar",
         "category": "Leisure",
         "subcategory": "Stay",
         "price": "7000",
@@ -110,6 +122,7 @@
     {
         "id": 13,
         "title": "Rann of Kutch Tour",
+        "alt": "Rann of Kutch Tour",
         "category": "Adventure",
         "subcategory": "Cultural",
         "price": "5000",
@@ -119,6 +132,7 @@
     {
         "id": 14,
         "title": "Yoga Retreat in Rishikesh",
+        "alt": "Yoga Retreat in Rishikesh",
         "category": "Spiritual",
         "subcategory": "Retreat",
         "price": "5500",
@@ -128,6 +142,7 @@
     {
         "id": 15,
         "title": "Beach Tour in Pondicherry",
+        "alt": "Beach Tour in Pondicherry",
         "category": "Beach",
         "subcategory": "Relaxation",
         "price": "3000",
@@ -137,6 +152,7 @@
     {
         "id": 16,
         "title": "Meenakshi Temple Tour",
+        "alt": "Meenakshi Temple Tour",
         "category": "Spiritual",
         "subcategory": "Temple Tour",
         "price": "3200",

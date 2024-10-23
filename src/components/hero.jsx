@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AdvancedSearchBar from "./advanceserch";
 import "../styles/components/hero.css";
+import LazyLoadImage from "./lazyLoadImage";
 
 const Hero = () => {
     const images = [
@@ -25,13 +26,13 @@ const Hero = () => {
         <div className="hero">
             <div className="hero-image-container">
                 {images.map((image, i) => (
-                    <img
+                    <LazyLoadImage
                         key={i}
+                        className={`hero-image ${i === index ? "active" : ""} ${i === (index - 1 + images.length) % images.length ? "slide-out" : ""}`}
+                        // data-src={image.src}
                         src={image.src}
                         alt={`Slide ${i + 1}`}
-                        className={`hero-image ${i === index ? "active" : ""} ${
-                            i === (index - 1 + images.length) % images.length ? "slide-out" : ""
-                        }`}
+                        imageLength={images.length}
                     />
                 ))}
             </div>

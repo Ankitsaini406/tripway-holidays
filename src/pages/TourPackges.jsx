@@ -6,6 +6,7 @@ import "../styles/pages/layout.css";
 import "../styles/pages/tourpackges.css";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import LoadingSpiner from "../components/loadingSpiner";
+import LazyLoadImage from "../components/lazyLoadImage";
 
 function TourPackes() {
     const [tourData, setTourData] = useState([]);
@@ -86,7 +87,7 @@ function TourPackes() {
                             hasMore={visibleItems.length < filteredItems.length}
                         >
                             {visibleItems.map((item) => (
-                                <TourCard key={item.id} item={item} />
+                                <TourCard key={item.id} item={item} alt={item.alt} imageLength={visibleItems.length}/>
                             ))}
                         </InfiniteScroll>
                     ) : (
@@ -152,10 +153,10 @@ export function Filters({ filters, selectedFilters, handleFilterButtonClick }) {
     );
 }
 
-export function TourCard({ item }) {
+export function TourCard({ item, alt, imageLength }) {
     return (
         <div className="tour-card">
-            <img className="tour-image" src={item.img} alt="" />
+            <LazyLoadImage className="tour-image" src={item.img} alt={alt} imageLength={imageLength}/>
             <div className="tour-details">
                 <div>
                 <h3>{item.title}</h3>

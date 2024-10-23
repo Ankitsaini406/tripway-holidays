@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../styles/pages/home.css";
 import "../styles/pages/layout.css";
 import PopUp from "../components/popUp";
+import LazyLoadImage from "../components/lazyLoadImage";
 
 function Home() {
 
@@ -46,12 +47,11 @@ function Home() {
                 <Hero />
                 <div className="home-tour" id="tourSection">
                     <div className="home-tour-flex">
-                        <img
-                            className="tour-img"
-                            data-src="https://images.unsplash.com/photo-1704774041066-ffefb6e950fd?q=80&w=2536&auto=format&fit=crop"
+                        <LazyLoadImage 
+                        className="tour-img"
+                        src="https://images.unsplash.com/photo-1704774041066-ffefb6e950fd?q=80&w=2536&auto=format&fit=crop"
                             alt="a-small-green-building-in-the-middle-of-a-forest"
-                            ref={(el) => (imageRefs.current[0] = el)}
-                            loading="lazy"
+                            imageLength={0}
                         />
                         <div>
                             <h4>Tour Travel</h4>
@@ -68,12 +68,11 @@ function Home() {
                             <p>This is for testing perpose</p>
                             <Link to='/tour'>Read More</Link>
                         </div>
-                        <img
-                            className="tour-img"
-                            data-src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
-                            alt="multicolored-buntings"
-                            ref={(el) => (imageRefs.current[1] = el)}
-                            loading="lazy"
+                        <LazyLoadImage 
+                        className="tour-img" 
+                        src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
+                        alt="multicolored-buntings"
+                        imageLength={1}
                         />
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import LoadingSpiner from '../components/loadingSpiner';
 import "../styles/pages/layout.css";
 import "../styles/pages/tourDetails.css"
+import LazyLoadImage from '../components/lazyLoadImage';
 
 function TourDetails() {
     const { id } = useParams(); // Extract the id from the URL
@@ -30,7 +31,7 @@ function TourDetails() {
                 !tour ? <LoadingSpiner /> :
                     <div className='tourdetails'>
                         <div className='tourdetails-box'>
-                            <img className='tourdetails-img' src={tour.img} alt={tour.title} />
+                            <LazyLoadImage className='tourdetails-img' src={tour.img} alt={tour.title} imageLength={0} />
                             <div className='tourdetails-text'>
                                 <h2>{tour.title}</h2>
                                 <h4>Category: {tour.category}</h4>
