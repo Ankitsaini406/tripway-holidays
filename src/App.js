@@ -5,6 +5,8 @@ import TourPackes from './pages/TourPackges';
 import TourDetails from './pages/TourDetails';
 import About from './pages/About';
 import NotFound from './Not-Found';
+import LoaginPage from './pages/auth/LoginPage';
+import SignUpPage from './pages/auth/SignUpPage';
 
 const router = createBrowserRouter([
     {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
             {
                 path: '*',
                 element: <NotFound/>
+            },
+            {
+                path: '/login',
+                element: <LoaginPage/>
+            },
+            {
+                path: '/signup',
+                element: <SignUpPage />,
             },
             {
                 path: "/tour",

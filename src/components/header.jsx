@@ -102,7 +102,7 @@ function Header() {
                             <li className={`header-name ${activeItem === 'About' ? 'active' : ''}`} onClick={() => setActiveItem('About')}>About</li>
                         </Link>
                         <li className={`header-name ${activeItem === 'Contact' ? 'active' : ''}`} onClick={() => setActiveItem('Contact')}>Contact Us</li>
-                        <Link className='header-button'>Login</Link>
+                        <Link to='/login' className='header-button'>Login</Link>
                     </ul>
                 </div>
 
@@ -122,7 +122,7 @@ function Header() {
                                 <li className={`header-name ${activeItem === 'About' ? 'active' : ''}`} onClick={() => setActiveItem('About')}>About</li>
                             </Link>
                             <li className={`header-name ${activeItem === 'Contact' ? 'active' : ''}`} onClick={() => setActiveItem('Contact')}>Contact Us</li>
-                            <Link className='header-button'>Login</Link>
+                            <Link to='/login' className='header-button'>Login</Link>
                         </ul>
                     </div>
                 </div>}
