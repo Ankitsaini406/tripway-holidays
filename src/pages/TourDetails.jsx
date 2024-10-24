@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import LoadingSpinner from '../components/loadingSpinner';
+import LoadingSpinner from '../utils/loadingSpinner';
 import "../styles/pages/layout.css";
 import "../styles/pages/tourDetails.css"
-import LazyLoadImage from '../components/lazyLoadImage';
-import { useSingleTourData } from '../lib/hooks/useSingleTourData';
+import LazyLoadImage from '../utils/lazyLoadImage';
+import { useSingleTourData } from '../hooks/useSingleTourData';
 
 function TourDetails() {
 

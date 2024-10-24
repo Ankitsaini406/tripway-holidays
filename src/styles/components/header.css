@@ -47,14 +47,24 @@
 }
 
 .header-button {
-    padding: 0.2em 0.5em;
-    border: 2px solid transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.header-button:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+    width: max-content;
+    padding: 0.3em;
     background-color: var(--safforn-orange);
     color: var(--cream-white);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--safforn-orange);
+        background-color: var(--white-color);
+        color: var(--black-color);
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        transition: all 0.3s ease-in-out;
+    }
 }
 
 .hamburger {

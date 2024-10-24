@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import InfiniteScroll from "../components/infiniteScroll";
+import InfiniteScroll from "../utils/infiniteScroll";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import LazyLoadImage from "../components/lazyLoadImage";
-import LoadingSpinner from "../components/loadingSpinner";
-import { useFetchTourData } from "../lib/hooks/useFetchTourData";
-import { useFilters } from "../lib/hooks/useFilters";
+import LazyLoadImage from "../utils/lazyLoadImage";
+import LoadingSpinner from "../utils/loadingSpinner";
+import { useFetchTourData } from "../hooks/useFetchTourData";
+import { useFilters } from "../hooks/useFilters";
 // import { useToast } from "../lib/hooks/useToast";
-import { usePagination } from "../lib/hooks/usePagination";
+import { usePagination } from "../hooks/usePagination";
 import "../styles/pages/layout.css";
 import "../styles/pages/tourpackges.css";
 
@@ -109,7 +109,7 @@ function TourCard({ item }) {
                 <h3>{item.title}</h3>
                 <h6>{item.category}</h6>
                 <p>{item.desc}</p>
-                <Link to={`/tour/${item.id}`}>Read More</Link>
+                <Link className="tour-read-more" to={`/tour/${item.id}`}>Read More</Link>
             </div>
         </div>
     );

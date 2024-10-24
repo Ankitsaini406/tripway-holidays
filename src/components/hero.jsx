@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AdvancedSearchBar from "./advanceserch";
 import "../styles/components/hero.css";
-import LazyLoadImage from "./lazyLoadImage";
+import LazyLoadImage from "../utils/lazyLoadImage";
 
 const Hero = () => {
     const images = [
