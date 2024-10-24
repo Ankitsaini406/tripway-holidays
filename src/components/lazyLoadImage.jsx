@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-function LazyLoadImage({className, src, alt, imageLength }) {
+function LazyLoadImage({ className, src, alt, imageLength }) {
 
     const imageRefs = useRef([]);
 
@@ -8,7 +8,7 @@ function LazyLoadImage({className, src, alt, imageLength }) {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entery) => {
-                    if(entery.isIntersecting) {
+                    if (entery.isIntersecting) {
                         const img = entery.target;
                         img.src = img.dataset.src;
                         observer.unobserve(img);
@@ -27,13 +27,13 @@ function LazyLoadImage({className, src, alt, imageLength }) {
 
     return (
         <>
-        <img 
-        className={className} 
-        data-src={src} 
-        // src={src}
-        alt={alt} 
-        ref={(el) => (imageRefs.current[imageLength] = el)} 
-        loading="lazy" />
+            <img
+                className={className}
+                data-src={src}
+                src={src}
+                alt={alt}
+                ref={(el) => (imageRefs.current[imageLength] = el)}
+                loading="lazy" />
         </>
     )
 }

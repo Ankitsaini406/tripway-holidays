@@ -7,7 +7,7 @@ export function useFetchTourData(url) {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        let isMounted = true; // Prevent state updates if component is unmounted
+        let isMounted = true;
 
         const fetchData = async () => {
             try {
@@ -24,7 +24,7 @@ export function useFetchTourData(url) {
         };
 
         fetchData();
-        return () => (isMounted = false); // Cleanup
+        return () => (isMounted = false);
     }, [url]);
 
     return { tourData, loading, error };

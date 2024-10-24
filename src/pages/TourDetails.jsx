@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import LoadingSpiner from '../components/loadingSpiner';
+import LoadingSpinner from '../components/loadingSpinner';
 import "../styles/pages/layout.css";
 import "../styles/pages/tourDetails.css"
 import LazyLoadImage from '../components/lazyLoadImage';
@@ -28,7 +28,7 @@ function TourDetails() {
     return (
         <div className="layout">
             {
-                !tour ? <LoadingSpiner /> :
+                !tour ? <LoadingSpinner /> :
                     <div className='tourdetails'>
                         <div className='tourdetails-box'>
                             <LazyLoadImage className='tourdetails-img' src={tour.img} alt={tour.title} imageLength={0} />
