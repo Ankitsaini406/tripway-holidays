@@ -1,10 +1,10 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from "./pages/Home";
 import LandingPageLayout from "./components/landingPage";
-import './App.css';
 import TourPackes from './pages/TourPackges';
 import TourDetails from './pages/TourDetails';
 import About from './pages/About';
+import NotFound from './Not-Found';
 
 const router = createBrowserRouter([
     {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+            },
+            {
+                path: '*',
+                element: <NotFound/>
             },
             {
                 path: "/tour",
