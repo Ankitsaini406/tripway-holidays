@@ -1,34 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../components/loadingSpinner';
 import "../styles/pages/layout.css";
 import "../styles/pages/tourDetails.css"
 import LazyLoadImage from '../components/lazyLoadImage';
+import { useSingleTourData } from '../lib/hooks/useSingleTourData';
 
 function TourDetails() {
-    const { id } = useParams(); // Extract the id from the URL
-    const [tour, setTour] = useState(null);
 
-    // Fetch tour data based on the id
-    useEffect(() => {
-
-        const fetchTour = async () => {
-            try {
-                const response = await axios.get("http://localhost:3000/data/tour-data.json");
-                const tourData = response.data.find((item) => item.id === parseInt(id));
-                setTour(tourData);
-            } catch (error) {
-                console.error("Error fetching tour details:", error);
-            }
-        };
-        fetchTour();
-    }, [id]);
+    const { id } = useParams();
+    const {tour, singleLoading } = useSingleTourData("http://localhost:3000/data/tour-data.json", id);
 
     return (
         <div className="layout">
             {
-                !tour ? <LoadingSpinner /> :
+                singleLoading ? <LoadingSpinner /> :
                     <div className='tourdetails'>
                         <div className='tourdetails-box'>
                             <LazyLoadImage className='tourdetails-img' src={tour.img} alt={tour.title} imageLength={0} />
