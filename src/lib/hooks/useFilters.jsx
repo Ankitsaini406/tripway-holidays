@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react";
 
-
-function useFilter(tourOption) {
-
+export function useFilters(tourOption) {
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [filteredItems, setFilteredItems] = useState([]);
 
@@ -25,5 +23,3 @@ function useFilter(tourOption) {
 
     return { selectedFilters, filteredItems, setFilteredItems, filterData, toggleFilter };
 }
-
-export default useFilter;

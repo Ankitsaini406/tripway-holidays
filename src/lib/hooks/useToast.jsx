@@ -1,8 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-function useToast() {
-
+export function useToast() {
     const [toastShown, setToastShown] = useState(false);
 
     const showToast = (message, type = "success") => {
@@ -16,5 +15,3 @@ function useToast() {
 
     return { showToast, resetToast };
 }
-
-export default useToast;

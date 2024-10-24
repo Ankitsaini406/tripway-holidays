@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/components/loadingSpiner.css'
 
-function LoadingSpiner() {
+function LoadingSpinner() {
 
     return (
         <>
@@ -13,4 +13,4 @@ function LoadingSpiner() {
     )
 }
 
-export default LoadingSpiner;
+export default LoadingSpinner;
