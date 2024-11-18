@@ -1,0 +1,81 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.heroImageContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.heroImage {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+}
+
+.heroImage.active {
+    left: 0;
+    opacity: 1;
+}
+
+.heroImage.slideOut {
+    left: -100%;
+    opacity: 0;
+}
+
+@media (max-width: 1440px) {
+    .heroTitle {
+        top: 5em;
+    }
+
+    .heroCaption {
+        top: 22em;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroTitle {
+        top: 2.5em;
+    }
+
+    .heroCaption {
+        top: 15em;
+    }
+}
+
+@media (max-width: 768px) {
+    .heroTitle {
+        top: 1em;
+    }
+
+    .heroCaption {
+        top: 10em;
+    }
+}
+
+@media (max-width: 430px) {
+    .hero {
+        min-height: 100vh;
+        max-height: 130vh;
+    }
+
+    .heroTitle {
+        top: 0.5em;
+        font-size: calc(22px + var(--font-size));
+    }
+
+    .heroCaption {
+        top: 4em;
+    }
+}

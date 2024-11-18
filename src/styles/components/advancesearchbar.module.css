@@ -1,0 +1,206 @@
+.slectionmain {
+    width: 100%;
+    position: relative;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    top: -8rem;
+}
+
+.selectionBox {
+    position: absolute;
+    margin: 0 auto;
+    /* display: flex; */
+    flex-direction: column;
+    gap: 2rem;
+    top: 8em;
+    width: 100%;
+    padding: 0 0 0 2rem;
+}
+
+.selectionList {
+    display: flex;
+    gap: 2em;
+    /* justify-content: center; */
+    padding: 0 0 10px 0;
+}
+
+.searchSelectButton {
+    display: flex;
+    align-items: center;
+    color: var(--white-color);
+}
+
+.searchSpanIcons {
+    height: 15px;
+}
+
+.searchSelectButton:hover {
+    color: var(--sandalwood-brown);
+}
+
+.searchSelectButton.active {
+    padding: 0em 0 0.5em 0;
+    border-bottom: 2px solid var(--white-color);
+    color: var(--white-color);
+}
+
+.advancedSearchBar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 25px;
+    width: 35%;
+    /* margin: auto; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.radioOption {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 72%;
+}
+
+.searchInput {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 183px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.destination{
+    width: 72%;
+}
+
+.destinations {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.destinationinputgroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.addButton, .removeButton {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.timePicker {
+    width: 180px;
+    background-color: #f9f9f9;
+    border: 1px solid lightgray;
+}
+
+.datePicker {
+    width: 180px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+.selectFilter {
+    width: 180px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: transparent;
+    padding: 8px;
+}
+
+.searchButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.searchButton:hover {
+    background-color: #0056b3;
+}
+
+.css1nmdiq5menu {
+    z-index: 999;
+}
+
+@media (max-width: 1440px) {
+
+    .advancedSearchBar{
+        width: 41%;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .advancedSearchBar {
+        width: 58%;
+    }
+
+    .slectionbox {
+        top: 5em; 
+    }
+}
+
+@media (max-width: 770px) {
+
+    .slectionbox {
+        top: 5em;
+        padding: 0;
+    }
+
+    .selectionList { 
+        justify-content: center;
+    }
+
+    .advancedSearchBar {
+        flex-direction: column;
+        width: 70%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .slectionbox {
+        top: 3em;
+    }
+
+    .advancedSearchBar {
+        flex-direction: column;
+        min-height: 50dvh;
+        max-height: 85dvh;
+        overflow: scroll;
+    }
+
+    .radioOption {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 376px) {
+
+    .selectionList {
+        padding: 0 10px 10px 10px;
+        overflow: scroll;
+        justify-content: flex-start;
+    }
+
+    .advancedSearchBar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
