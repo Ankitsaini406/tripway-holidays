@@ -146,6 +146,23 @@ th {
   padding: 1em;
 }
 
+.tourReadMore {
+  border: 1px solid transparent;
+  width: max-content;
+  padding: 0.3em;
+  color: var(--white-color);
+  background-color: var(--indigo-blue);
+  border-radius: 5px;
+
+  &:hover {
+      border: 1px solid var(--indigo-blue);
+      background-color: var(--white-color);
+      color: var(--indigo-blue);
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      transition: all 0.3s ease-in-out;
+  }
+}
+
 @media (max-width: 430px) {
 
   .layout {

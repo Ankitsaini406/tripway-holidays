@@ -25,7 +25,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className={styles.layout}>
+        <div className='layout'>
             <Hero />
 
             <div className={styles.homeTour} id="tourSection">
@@ -40,7 +40,7 @@ const Home = () => {
                     <div>
                         <h4>Tour Travel</h4>
                         <p>This is for testing purposes</p>
-                        <Link className={styles.tourReadMore} href='/tour'>Read More</Link>
+                        <Link className='tourReadMore' href='/tour'>Read More</Link>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ const Home = () => {
                     <div>
                         <h4>Group Travel</h4>
                         <p>This is for testing purposes</p>
-                        <Link className={styles.tourReadMore} href='/tour'>Read More</Link>
+                        <Link className='tourReadMore' href='/tour'>Read More</Link>
                     </div>
                     <LazyLoadImage
                         ref={(el) => (imageRefs.current[1] = el)}
