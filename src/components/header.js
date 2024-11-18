@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';  // Import Next.js Link component
+import Link from 'next/link';
 import { auth } from '@/firebase/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import styles from '../styles/components/header.module.css';
-import { useRouter } from 'next/navigation';  // Import Next.js router
+import { useRouter } from 'next/navigation';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
