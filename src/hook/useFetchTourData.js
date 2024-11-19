@@ -8,8 +8,6 @@ export function useFetchTourData(type) {
     useEffect(() => {
         let isMounted = true;
 
-        console.log('this is apitype: ', type);
-
         const fetchData = async () => {
             try {
                 const endPoint = type === 'tours' ? 'tours' : 'group-tours';

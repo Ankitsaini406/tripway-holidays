@@ -40,7 +40,7 @@ const Home = () => {
                     <div>
                         <h4>Tour Travel</h4>
                         <p>This is for testing purposes</p>
-                        <Link className='readMore' href='/tour/tours'>Read More</Link>
+                        <Link className='readMore' href='/tour?type=tours'>Read More</Link>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ const Home = () => {
                     <div>
                         <h4>Group Travel</h4>
                         <p>This is for testing purposes</p>
-                        <Link className='readMore' href='/tour/group-tours'>Read More</Link>
+                        <Link className='readMore' href='/tour?type=group-tours'>Read More</Link>
                     </div>
                     <LazyLoadImage
                         ref={(el) => (imageRefs.current[1] = el)}
