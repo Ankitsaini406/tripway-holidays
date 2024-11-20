@@ -9,11 +9,15 @@ import LoadingSpinner from '@/utils/lodingSpinner';
 import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
+import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/pages/tourPackage.module.css';
 
 const TourPackages = () => {
+
     const { tourData, loading, error } = useFetchTourData('tours');
-    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
+    const searchParams = useSearchParams();
+    const tourOption = searchParams.get('tourOption'); 
+    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters(tourOption);
     const { visibleItems, loadMore, reset } = usePagination(5);
 
     useEffect(() => {
