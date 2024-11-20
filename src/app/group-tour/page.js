@@ -9,10 +9,10 @@ import LoadingSpinner from '@/utils/lodingSpinner';
 import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
-import styles from './tourPackage.module.css';
+import styles from '@/styles/pages/tourPackage.module.css';
 
-const TourPackages = ({ type }) => {
-    const { tourData, loading, error } = useFetchTourData(type);
+const TourPackages = () => {
+    const { tourData, loading, error } = useFetchTourData('group-tours');
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
 
@@ -104,7 +104,7 @@ function TourCard({ item }) {
                 <h3>{item.name}</h3>
                 <h6>{item.category}</h6>
                 <p>{item.description}</p>
-                <Link href={`/tour/${item.id}`} className='readMore'>
+                <Link href={`/group-tour/${item.id}`} className='readMore'>
                     Read More
                 </Link>
             </div>

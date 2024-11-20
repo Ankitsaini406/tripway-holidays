@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useFetchTourData(type) {
+export function useFetchTourData(url) {
     const [tourData, setTourData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -10,8 +10,9 @@ export function useFetchTourData(type) {
 
         const fetchData = async () => {
             try {
-                const endPoint = type === 'tours' ? 'tours' : 'group-tours';
-                const response = await fetch(`api/${endPoint}`);
+                const response = await fetch(`api/${url}`);
+
+                console.log(response.url);
 
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -39,7 +40,7 @@ export function useFetchTourData(type) {
         return () => {
             isMounted = false;
         };
-    }, [type]);
+    }, [url]);
 
     return { tourData, loading, error };
 }
