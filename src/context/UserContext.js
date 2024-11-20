@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWith
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
 import { set, ref, get, child, query, equalTo, orderByChild } from "firebase/database";
+import { setCookie, getCookie, removeCookie } from 'cookies-next'; // Import cookies-next methods
 
 const UserContext = createContext(null);
 
@@ -12,12 +13,21 @@ export const useClient = () => useContext(UserContext);
 export const UserProvider = (props) => {
     const [user, setUser] = useState(null);
 
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 7);
+
+    // Load user from cookie on initial load (client-side)
     useEffect(() => {
+        const savedUser = getCookie('token');
+        if (savedUser) {
+            setUser(JSON.parse(savedUser)); // Set user from cookie if it exists
+        }
+
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             console.log("Auth state changed:", currentUser);
         });
-    
+
         return () => unsubscribe();
     }, []);
 
@@ -30,6 +40,12 @@ export const UserProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
             });
+
+            // Store user data in a secure cookie using cookies-next
+            setCookie('token', JSON.stringify({
+                uid: user.uid,
+                email: user.email,
+            }), { secure: true, sameSite: 'Strict', expires: expires });
 
             await putData(`${dataBaseName}/${user.uid}`, { 
                 uid: user.uid,
@@ -49,18 +65,17 @@ export const UserProvider = (props) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
-    
-            // You can store additional data in the database without changing the current user state
+
             await putData(`${dataBaseName}/${newUser.uid}`, { 
                 uid: newUser.uid,
                 email: newUser.email,
                 ...additionalData
             });
-    
+
             return { uid: newUser.uid, email: newUser.email, ...additionalData };
         } catch (error) {
             console.log("Error creating new user:", error);
-            throw error; // Handle the error appropriately
+            throw error;
         }
     };
 
@@ -80,17 +95,27 @@ export const UserProvider = (props) => {
 
     const loginUser = async (email, password, url) => {
         try {
-            // Attempt to sign in with Firebase Authentication
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
     
-            // Check in both agents and users collections
             const isEmail = await checkEmailExists(email, `${url}`);
     
             if (!isEmail) {
                 throw new Error("No account found with this email.");
             }
-    
-            return { user: userCredential.user};
+
+            const loggedInUser = userCredential.user;
+            setUser({
+                uid: loggedInUser.uid,
+                email: loggedInUser.email,
+            });
+
+            // Store user data in a secure cookie using cookies-next
+            setCookie('token', JSON.stringify({
+                uid: loggedInUser.uid,
+                email: loggedInUser.email,
+            }), { secure: true, sameSite: 'Strict', expires: expires, });
+
+            return { user: loggedInUser };
         } catch (error) {
             console.error("Error logging in:", error);
             throw error;
@@ -102,6 +127,9 @@ export const UserProvider = (props) => {
         try {
             await signOut(auth);
             setUser(null);
+
+            // Remove user data from cookie using cookies-next
+            removeCookie('token');
         } catch (error) {
             console.error("Error signing out:", error);
         }
