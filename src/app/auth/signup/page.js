@@ -37,7 +37,7 @@ function SignUpPage() {
         }
 
         try {
-            await signupUserWithEmailAndPassword(email, password, { name, phoneNumber }, 'users');
+            await signupUserWithEmailAndPassword(email, password, { name, phoneNumber, verifyPassword }, 'users');
             router.push("/");
         } catch (err) {
             setError("Failed to sign up. Please try again.");

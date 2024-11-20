@@ -78,16 +78,15 @@ export const UserProvider = (props) => {
         return emailSnapshot.exists(); // Return true if the email exists
     };
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (email, password, url) => {
         try {
             // Attempt to sign in with Firebase Authentication
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
     
             // Check in both agents and users collections
-            const isAgent = await checkEmailExists(email, 'agents');
-            const isUser = await checkEmailExists(email, 'users');
+            const isEmail = await checkEmailExists(email, `${url}`);
     
-            if (!isAgent && !isUser) {
+            if (!isEmail) {
                 throw new Error("No account found with this email.");
             }
     

@@ -151,8 +151,8 @@ function Header() {
                         </li>
                         {user ? (
                             <li>
-                                <Link href='/logout' className={styles.headerButton}>
-                                    Logout
+                                <Link href='/profile' className={styles.headerButton}>
+                                    Profile
                                 </Link>
                             </li>
                         ) : (

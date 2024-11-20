@@ -28,7 +28,7 @@ function ClientLoaginPage() {
         }
 
         try {
-            const personExists = await loginUser(email, password);
+            const personExists = await loginUser(email, password, 'users');
             if (!personExists) {
                 setError("No user found with this email.");
                 return;
@@ -118,7 +118,7 @@ function ClientLoaginPage() {
                                     </button>
                                 </form>
                                 <p className={styles.signupLink}>
-                                    Don’t have an account? <a href="/auth/client-login/signup">Sign Up</a>
+                                    Don’t have an account? <a href="/auth/signup">Sign Up</a>
                                 </p>
                                 <a
                                     href="/auth/agent-login"
