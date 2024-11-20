@@ -46,6 +46,12 @@
     background: url('../../../public//paper-plane.png') no-repeat center/contain;
     animation: movePlane 4s infinite ease-in-out;
     margin: 0 auto;
+
+    &:hover{
+        cursor: pointer;
+        filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+        transition: filter 0.5s;
+    }
 }
 
 @keyframes movePlane {
