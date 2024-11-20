@@ -1,0 +1,200 @@
+.loginPage {
+  background: url("https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2676&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
+  position: relative;
+  height: 100vh;
+}
+
+.loginBlur {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.loginContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.backToWeb {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: max-content;
+  color: var(--black-color);
+  cursor: pointer;
+  margin: 0rem 0rem 1rem 0rem;
+}
+
+.tooltipText {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.backToWeb:hover .tooltipText {
+  opacity: 1;
+}
+
+.loginTitle {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.formGroup input:focus {
+  border-color: #2f80ed;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.inputIcon {
+  position: relative;
+}
+
+.otpBox {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.authOtp {
+  text-align: center;
+}
+
+.resendOtpButton {
+  border: none;
+    background-color: transparent;
+    margin: 1em 0 0 0;
+    cursor: pointer;
+}
+
+.passwordInputWrapper {
+  display: flex;
+  align-items: center;
+}
+.passwordToggleBtn {
+  background: var(--white-color);
+  border: none;
+  cursor: pointer;
+  outline: 0px solid transparent;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #2f80ed;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.loginButton:hover {
+  background-color: #1e5bb7;
+}
+
+.forgetPassword {
+  margin-top: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  width: max-content;
+  color: #555;
+
+  &:hover {
+    color: var(--black-color);
+    text-decoration: underline;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.signupLink {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signupLink a {
+  color: #2f80ed;
+  text-decoration: none;
+}
+
+.signupLink a:hover {
+  text-decoration: underline;
+}
+
+.activeCon {
+  opacity: 1;
+  z-index: 99;
+  transition: all 0.5s ease-in-out;
+}
+
+.closeCon {
+  opacity: 0;
+  z-index: 9;
+  transition: all 0.5s ease-in-out;
+}
+
+.agentLogin {
+  background: url("https://images.unsplash.com/photo-1442570468985-f63ed5de9086?q=80&w=2440&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
+  position: relative;
+  height: 100vh;
+}
+
+.signupCustomer {
+  background: url("https://images.unsplash.com/photo-1524230507669-5ff97982bb5e?q=80&w=2528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
+  position: relative;
+  height: 100vh;
+}

@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import styles from '@/styles/pages/authpage.module.css';
 
-function OtpVerification({ numberOfDigits, correctOtp, setEnteredOtp }) {
+export function OtpVerification({ numberOfDigits, setEnteredOtp }) {
     const [otp, setOtp] = useState(new Array(numberOfDigits).fill(""));
     const otpBoxReference = useRef([]);
     const [otpTimer, setOtpTimer] = useState(60);
@@ -41,7 +42,6 @@ function OtpVerification({ numberOfDigits, correctOtp, setEnteredOtp }) {
 
     const handleResendOtp = () => {
         if (!isTimerActive) {
-            // Call your resend OTP function here
             console.log("OTP Resent");
             setOtpTimer(30); // Reset the timer to 30 seconds
             setIsTimerActive(true); // Start the timer
@@ -50,10 +50,10 @@ function OtpVerification({ numberOfDigits, correctOtp, setEnteredOtp }) {
 
     return (
         <article>
-            <div className="otp-box">
+            <div className={styles.otpBox}>
                 {otp.map((digit, index) => (
                     <input
-                        className="auth-otp"
+                        className={styles.authOtp}
                         key={index}
                         value={digit}
                         maxLength={1}
@@ -66,7 +66,7 @@ function OtpVerification({ numberOfDigits, correctOtp, setEnteredOtp }) {
             {isTimerActive ? (
                 <p>Resend OTP in {otpTimer} seconds</p>
             ) : (
-                <button onClick={handleResendOtp} className="resend-otp-button">
+                <button onClick={handleResendOtp} className={styles.resendOtpButton}>
                     Resend OTP
                 </button>
             )}

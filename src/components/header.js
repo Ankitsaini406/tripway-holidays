@@ -157,7 +157,7 @@ function Header() {
                             </li>
                         ) : (
                             <li>
-                                <Link href='/login' className={styles.headerButton}>
+                                <Link href='/auth/client-login' className={styles.headerButton}>
                                     Login
                                 </Link>
                             </li>
