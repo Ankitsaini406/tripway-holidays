@@ -5,11 +5,13 @@ import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
 import styles from '../styles/components/advancesearchbar.module.css';
+import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
+import { useClient } from "@/context/UserContext";
 
 export function CabSearchBar() {
     const [formData, setFormData] = useState({
-        fromTerm: "",
-        toTerm: "",
+        from: "",
+        to: "",
         destination: "",
         destinations: [""],
         startDate: null,
@@ -26,6 +28,7 @@ export function CabSearchBar() {
     const [correctOtp, setCorrectOtp] = useState("");
     const [msg, setMsg] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
+    const { user } = useClient();
     const { sendEmail, loading, success } = useSendEmail();  // Destructure `error` here
 
     // Function to generate a 6-digit OTP
@@ -57,7 +60,12 @@ export function CabSearchBar() {
 
     const handleOtpSubmit = (e) => {
         e.preventDefault();
-        setMsg(enteredOtp === correctOtp ? "✅ OTP Verified Successfully!" : "❌ Invalid OTP. Please try again.");
+        if (enteredOtp === correctOtp) {
+            setMsg("✅ OTP Verified Successfully!");
+            setActiveOtp(false);
+        } else {
+            setMsg("❌ Invalid OTP. Please try again.");
+        }
     };
 
     const options = [
@@ -93,23 +101,85 @@ export function CabSearchBar() {
 
     const validateForm = (e) => {
         e.preventDefault();
-        const { fromTerm, phoneNumber, carOption, passenger, email } = formData;
-        
-        if (!fromTerm || !phoneNumber || !carOption || !passenger || !email) {
+        const { from, phoneNumber, carOption, passenger, email } = formData;
+
+        if (!from || !phoneNumber || !carOption || !passenger || !email) {
             setError("Please fill all required fields.");
             return false;
         }
         setError("");
         return true;
     };
-    
-    const handelSendData = (e) => {
+
+    const handelSendData = async (e) => {
         if (!validateForm(e)) return;
-            const searchData = { ...formData };
-            console.log(searchData);
-            handleOtpSubmit(e);
+
+        if (enteredOtp !== correctOtp) {
+            setError("Please verify OTP first.");
+            return;
+        }
+
+        const { destination, destinations, selectedRadio, ...filteredData } = formData;
+        const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
+        const dataToSend = { ...filteredData, ...userData };
+
+        try {
+            await addDoc(collection(firestore, 'one-way'), dataToSend);
+            setError("");
+            setActiveOtp(false);
+            setFormData('');
+            alert("Data successfully sent to Firebase");
+        } catch (err) {
+            console.error("Error adding document:", err);
+            setError("Error sending data to Firebase");
+        }
     };
-    
+
+    const handleRoundTrip = async (e) => {
+        if (!validateForm(e)) return;
+
+        if (enteredOtp !== correctOtp) {
+            setError("Please verify OTP first.");
+            return;
+        }
+
+        const { to, destinations, offerFrom, selectedRadio, ...filteredData } = formData;
+        const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
+        const dataToSend = { ...filteredData, ...userData };
+
+        try {
+            await addDoc(collection(firestore, 'round-trip'), dataToSend);
+            setError("");
+            setActiveOtp(false);
+            alert("Data successfully sent to Firebase");
+        } catch (err) {
+            console.error("Error adding document:", err);
+            setError("Error sending data to Firebase");
+        }
+    }
+
+    const hadleMultiCity = async (e) => {
+        if (!validateForm(e)) return;
+
+        if (enteredOtp !== correctOtp) {
+            setError("Please verify OTP first.");
+            return;
+        }
+
+        const { to, destination, selectedRadio, ...filteredData } = formData;
+        const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
+        const dataToSend = { ...filteredData, ...userData };
+
+        try {
+            await addDoc(collection(firestore, 'multi-city'), dataToSend);
+            setError("");
+            setActiveOtp(false);
+            alert("Data successfully sent to Firebase");
+        } catch (err) {
+            console.error("Error adding document:", err);
+            setError("Error sending data to Firebase");
+        }
+    }
 
     const handleSearch = (e) => {
         handleSendOtp(e);
@@ -142,9 +212,9 @@ export function CabSearchBar() {
                     <div className={styles.radioOption}>
                         <input
                             type="text"
-                            name="fromTerm"
+                            name="from"
                             placeholder="From"
-                            value={formData.fromTerm}
+                            value={formData.from}
                             onChange={handleChange}
                             className={styles.searchInput}
                             required
@@ -152,9 +222,9 @@ export function CabSearchBar() {
                         {formData.selectedRadio === "one-way" && (
                             <input
                                 type="text"
-                                name="toTerm"
+                                name="to"
                                 placeholder="To"
-                                value={formData.toTerm}
+                                value={formData.to}
                                 onChange={handleChange}
                                 className={styles.searchInput}
                                 required
@@ -284,7 +354,8 @@ export function CabSearchBar() {
 
             <button
                 className={styles.searchButton}
-                onClick={ activeOtp ? handelSendData : handleSearch}
+                onClick={activeOtp ? hadleMultiCity : handleSearch}
+                disabled={enteredOtp !== correctOtp && activeOtp}
             >
                 {activeOtp ? "Submit" : <><FaSearch />&nbsp;Search</>}
             </button>
