@@ -29,12 +29,13 @@ export function CabSearchBar() {
     const [msg, setMsg] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
     const { user } = useClient();
-    const { sendEmail, loading, success } = useSendEmail();  // Destructure `error` here
+    const { sendEmail, loading, success } = useSendEmail();
 
     // Function to generate a 6-digit OTP
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
 
     const handleSendOtp = async (e) => {
+        if (!validateForm(e)) return;
         e.preventDefault();
         const otp = generateOtp();
         setCorrectOtp(otp);
@@ -55,16 +56,6 @@ export function CabSearchBar() {
             alert('OTP sent successfully!');
         } else if (error) {
             alert(`Failed to send OTP. Please try again. Error: ${error}`);
-        }
-    };
-
-    const handleOtpSubmit = (e) => {
-        e.preventDefault();
-        if (enteredOtp === correctOtp) {
-            setMsg("✅ OTP Verified Successfully!");
-            setActiveOtp(false);
-        } else {
-            setMsg("❌ Invalid OTP. Please try again.");
         }
     };
 
@@ -111,20 +102,40 @@ export function CabSearchBar() {
         return true;
     };
 
-    const handelSendData = async (e) => {
+    const handleSubmit = async (e) => {
         if (!validateForm(e)) return;
 
-        if (enteredOtp !== correctOtp) {
-            setError("Please verify OTP first.");
+        if (enteredOtp === correctOtp) {
+            setMsg("✅ OTP Verified Successfully!");
+            setActiveOtp(false);
             return;
+        } else {
+            setMsg("❌ Invalid OTP. Please try again.");
         }
 
-        const { destination, destinations, selectedRadio, ...filteredData } = formData;
+        const { ...filteredData } = formData;
+
         const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
         const dataToSend = { ...filteredData, ...userData };
+    
+        let collectionName;
+        switch (selectedRadio) {
+            case "one-way":
+                collectionName = "one-way";
+                break;
+            case "round-trip":
+                collectionName = "round-trip";
+                break;
+            case "multi-city":
+                collectionName = "multi-city";
+                break;
+            default:
+                setError("Please select a valid trip type.");
+                return;
+        }
 
         try {
-            await addDoc(collection(firestore, 'one-way'), dataToSend);
+            await addDoc(collection(firestore, collectionName), dataToSend);
             setError("");
             setActiveOtp(false);
             setFormData('');
@@ -135,72 +146,12 @@ export function CabSearchBar() {
         }
     };
 
-    const handleRoundTrip = async (e) => {
-        if (!validateForm(e)) return;
-
-        if (enteredOtp !== correctOtp) {
-            setError("Please verify OTP first.");
-            return;
-        }
-
-        const { to, destinations, offerFrom, selectedRadio, ...filteredData } = formData;
-        const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
-        const dataToSend = { ...filteredData, ...userData };
-
-        try {
-            await addDoc(collection(firestore, 'round-trip'), dataToSend);
-            setError("");
-            setActiveOtp(false);
-            alert("Data successfully sent to Firebase");
-        } catch (err) {
-            console.error("Error adding document:", err);
-            setError("Error sending data to Firebase");
-        }
-    }
-
-    const hadleMultiCity = async (e) => {
-        if (!validateForm(e)) return;
-
-        if (enteredOtp !== correctOtp) {
-            setError("Please verify OTP first.");
-            return;
-        }
-
-        const { to, destination, selectedRadio, ...filteredData } = formData;
-        const userData = user && user.uid ? { agentId: user.uid, agentPhoneNumber: user.phoneNumber } : {};
-        const dataToSend = { ...filteredData, ...userData };
-
-        try {
-            await addDoc(collection(firestore, 'multi-city'), dataToSend);
-            setError("");
-            setActiveOtp(false);
-            alert("Data successfully sent to Firebase");
-        } catch (err) {
-            console.error("Error adding document:", err);
-            setError("Error sending data to Firebase");
-        }
-    }
-
     const handleSearch = (e) => {
         handleSendOtp(e);
     };
 
     return (
         <>
-            <div className={styles.radioOption}>
-                {["one-way", "round-trip", "multi-city"].map((option) => (
-                    <div key={option}>
-                        <input
-                            type="radio"
-                            value={option}
-                            checked={formData.selectedRadio === option}
-                            onChange={() => setFormData((prevData) => ({ ...prevData, selectedRadio: option }))}
-                        />
-                        <label>{option.charAt(0).toUpperCase() + option.slice(1).replace(/-/g, "")}</label>
-                    </div>
-                ))}
-            </div>
-
             {activeOtp ? (
                 <div>
                     <label htmlFor="otp">OTP</label>
@@ -209,6 +160,19 @@ export function CabSearchBar() {
                 </div>
             ) : (
                 <>
+                    <div className={styles.radioOption}>
+                        {["one-way", "round-trip", "multi-city"].map((option) => (
+                            <div key={option}>
+                                <input
+                                    type="radio"
+                                    value={option}
+                                    checked={formData.selectedRadio === option}
+                                    onChange={() => setFormData((prevData) => ({ ...prevData, selectedRadio: option }))}
+                                />
+                                <label>{option.charAt(0).toUpperCase() + option.slice(1).replace(/-/g, "")}</label>
+                            </div>
+                        ))}
+                    </div>
                     <div className={styles.radioOption}>
                         <input
                             type="text"
@@ -249,7 +213,7 @@ export function CabSearchBar() {
                         <>
                             <div>
                                 {formData.destinations.map((destination, index) => (
-                                    <div key={index} className={styles.radioOption}>
+                                    <div key={index} style={{flexDirection: 'row'}} className={styles.radioOption}>
                                         <input
                                             type="text"
                                             placeholder={`Destination ${index + 1}`}
@@ -282,6 +246,7 @@ export function CabSearchBar() {
                             required
                         />
                         <input
+                        style={{padding: '0.35rem'}}
                             type="time"
                             name="time"
                             value={formData.time}
@@ -354,7 +319,7 @@ export function CabSearchBar() {
 
             <button
                 className={styles.searchButton}
-                onClick={activeOtp ? hadleMultiCity : handleSearch}
+                onClick={activeOtp ? handleSubmit : handleSendOtp}
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
                 {activeOtp ? "Submit" : <><FaSearch />&nbsp;Search</>}
