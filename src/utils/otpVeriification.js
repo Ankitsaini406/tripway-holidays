@@ -49,17 +49,17 @@ export function OtpVerification({ numberOfDigits, setEnteredOtp }) {
     };
 
     return (
-        <article>
+        <>
             <div className={styles.otpBox}>
                 {otp.map((digit, index) => (
                     <input
-                        className={styles.authOtp}
-                        key={index}
-                        value={digit}
-                        maxLength={1}
-                        onChange={(e) => handleChange(e.target.value, index)}
-                        onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
-                        ref={(ref) => (otpBoxReference.current[index] = ref)}
+                    className={styles.authOtp}
+                    key={index}
+                    value={digit}
+                    maxLength={1}
+                    onChange={(e) => handleChange(e.target.value, index)}
+                    onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
+                    ref={(ref) => (otpBoxReference.current[index] = ref)}
                     />
                 ))}
             </div>
@@ -70,7 +70,7 @@ export function OtpVerification({ numberOfDigits, setEnteredOtp }) {
                     Resend OTP
                 </button>
             )}
-        </article>
+        </>
     );
 }
 

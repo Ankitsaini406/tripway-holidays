@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
+import useSendEmail from "@/hook/useSendEmail";
 import styles from '../styles/components/advancesearchbar.module.css';
 
-export function CabSearchBar({ emailRef, activeOtp, correctOtp, setEnteredOtp, msg, handleSendOtp, handleOtpSubmit, }) {
+export function CabSearchBar() {
     const [formData, setFormData] = useState({
         fromTerm: "",
         toTerm: "",
@@ -18,8 +19,46 @@ export function CabSearchBar({ emailRef, activeOtp, correctOtp, setEnteredOtp, m
         selectedRadio: "one-way",
         time: "",
         offerFrom: "",
+        email: "",
     });
     const [error, setError] = useState("");
+    const [activeOtp, setActiveOtp] = useState(false);
+    const [correctOtp, setCorrectOtp] = useState("");
+    const [msg, setMsg] = useState("");
+    const [enteredOtp, setEnteredOtp] = useState("");
+    const { sendEmail, loading, success } = useSendEmail();  // Destructure `error` here
+
+    // Function to generate a 6-digit OTP
+    const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
+
+    const handleSendOtp = async (e) => {
+        e.preventDefault();
+        const otp = generateOtp();
+        setCorrectOtp(otp);
+        setActiveOtp(true);
+
+        // Prepare the email content
+        const emailContent = {
+            email: formData.email,
+            subject: "Your OTP Code",
+            message: `Your OTP code is: ${otp}`,
+        };
+
+        // Send email using the hook
+        await sendEmail(emailContent);
+
+        // Check success or error
+        if (success) {
+            alert('OTP sent successfully!');
+        } else if (error) {
+            alert(`Failed to send OTP. Please try again. Error: ${error}`);
+        }
+    };
+
+    const handleOtpSubmit = (e) => {
+        e.preventDefault();
+        setMsg(enteredOtp === correctOtp ? "✅ OTP Verified Successfully!" : "❌ Invalid OTP. Please try again.");
+    };
 
     const options = [
         { value: "", label: "Select Car" },
@@ -54,19 +93,25 @@ export function CabSearchBar({ emailRef, activeOtp, correctOtp, setEnteredOtp, m
 
     const validateForm = (e) => {
         e.preventDefault();
-        const { fromTerm, phoneNumber, carOption, passenger, selectedRadio } = formData;
-        if (!fromTerm || !phoneNumber || !carOption || !passenger || (selectedRadio !== "multi-city" && !emailRef.current.value)) {
+        const { fromTerm, phoneNumber, carOption, passenger, email } = formData;
+        
+        if (!fromTerm || !phoneNumber || !carOption || !passenger || !email) {
             setError("Please fill all required fields.");
             return false;
         }
         setError("");
         return true;
     };
+    
+    const handelSendData = (e) => {
+        if (!validateForm(e)) return;
+            const searchData = { ...formData };
+            console.log(searchData);
+            handleOtpSubmit(e);
+    };
+    
 
     const handleSearch = (e) => {
-        if (!validateForm(e)) return;
-        const searchData = { ...formData, email: emailRef.current.value };
-        console.log(searchData);
         handleSendOtp(e);
     };
 
@@ -212,9 +257,10 @@ export function CabSearchBar({ emailRef, activeOtp, correctOtp, setEnteredOtp, m
                             required
                         />
                         <input
-                            ref={emailRef}
+                            value={formData.email}
                             type="email"
                             name="email"
+                            onChange={handleChange}
                             placeholder="Enter your email"
                             className={styles.searchInput}
                             required
@@ -238,7 +284,7 @@ export function CabSearchBar({ emailRef, activeOtp, correctOtp, setEnteredOtp, m
 
             <button
                 className={styles.searchButton}
-                onClick={handleSearch}
+                onClick={ activeOtp ? handelSendData : handleSearch}
             >
                 {activeOtp ? "Submit" : <><FaSearch />&nbsp;Search</>}
             </button>
