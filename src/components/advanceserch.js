@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CabSearchBar } from "./cabSearchBar";
 import { TourSearchBar } from "./tourSearchBar";
 import { GroupSearchBar } from "./groupSearchBar";
+import useSendEmail from "@/hook/useSendEmail";
 import styles from '../styles/components/advancesearchbar.module.css';
 
 function AdvancedSearchBar() {
@@ -14,6 +15,7 @@ function AdvancedSearchBar() {
     const [correctOtp, setCorrectOtp] = useState("");
     const [msg, setMsg] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
+    const { sendEmail, loading, success } = useSendEmail();
     const emailRef = useRef();
 
     // Function to generate a 6-digit OTP
@@ -25,20 +27,20 @@ function AdvancedSearchBar() {
         setCorrectOtp(otp);
         setActiveOtp(true);
 
-        try {
-            const response = await fetch('http://localhost:5000/send-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: emailRef.current.value, otp }),
-            });
-            if (response.status === 200) {
-                alert('OTP sent successfully!');
-            } else {
-                alert('Failed to send OTP.');
-            }
-        } catch (error) {
-            console.error('Error sending OTP:', error);
-            alert('An error occurred.');
+        // Prepare the email content
+        const emailContent = {
+            email: emailRef.current.value,
+            subject: "Your OTP Code",
+            message: `Your OTP code is: ${otp}`,
+        };
+
+        // Send email using the hook
+        await sendEmail(emailContent);
+
+        if (success) {
+            alert('OTP sent successfully!');
+        } else if (error) {
+            alert('Failed to send OTP. Please try again.');
         }
     };
 
