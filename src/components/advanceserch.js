@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { PiCarProfileLight } from "react-icons/pi";
-import { MdCardTravel } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import "react-datepicker/dist/react-datepicker.css";
 import { CabSearchBar } from "./cabSearchBar";
@@ -17,7 +16,7 @@ function AdvancedSearchBar() {
     return (
         <div className={styles.selectionBox}>
             <ul className={styles.selectionList}>
-                {["cabs", "group-tour"].map((link) => (
+                {["cabs", "group-Tours"].map((link) => (
                     <li key={link}>
                         <a
                             className={`${styles.searchSelectButton} ${activeLink === link ? styles.active : ""}`}
@@ -26,10 +25,9 @@ function AdvancedSearchBar() {
                         >
                             <span className={styles.searchSpanIcons}>
                                 {link === "cabs" && <PiCarProfileLight />}
-                                {link === "tour-packages" && <MdCardTravel />}
-                                {link === "group-tour" && <HiOutlineUserGroup />}
+                                {link === "group-Tours" && <HiOutlineUserGroup />}
                             </span>
-                            &nbsp;{link.charAt(0).toUpperCase() + link.slice(1).replace(/-/g, "")}
+                            &nbsp;{link.charAt(0).toUpperCase() + link.slice(1).replace(/-/g, " ")}
                         </a>
                     </li>
                 ))}
@@ -39,7 +37,7 @@ function AdvancedSearchBar() {
                 {activeLink === "cabs" && (
                     <CabSearchBar />
                 )}
-                {activeLink === "group-tour" && <GroupSearchBar />}
+                {activeLink === "group-Tours" && <GroupSearchBar />}
             </div>
         </div>
     );

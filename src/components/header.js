@@ -115,20 +115,11 @@ function Header() {
                         </li>
                         <li>
                             <Link
-                                href='#tourSection'
-                                className={`${styles.headerName} ${activeItem === 'Tours' ? styles.active : ''}`}
-                                onClick={handleTourClick}
-                            >
-                                Tours
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 href='#groupTour'
                                 className={`${styles.headerName} ${activeItem === 'Group' ? styles.active : ''}`}
                                 onClick={handleGroupTourClick}
                             >
-                                Group
+                                Group Tours
                             </Link>
                         </li>
                         <li>
