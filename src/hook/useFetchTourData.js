@@ -10,7 +10,7 @@ export function useFetchTourData(url) {
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_HOST_URL}api/${url}`);
+                const response = await fetch(`http://localhost:3000/api/${url}`);
 
                 console.log(response.url);
 
