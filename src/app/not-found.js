@@ -10,7 +10,7 @@ export default function NotFoundPage() {
                 <div className={styles.movingPlane}></div>
                 <h1 className={styles.title}>Lost in Paradise?</h1>
                 <p className={styles.message}>
-                    It seems the page you're looking for doesn't exist. Let's get you back to planning your dream holidays!
+                    It seems the page you are looking for does not exist. Let is get you back to planning your dream holidays!
                 </p>
                 <Link href="/" className={styles.homeLink}>
                     Return to Home

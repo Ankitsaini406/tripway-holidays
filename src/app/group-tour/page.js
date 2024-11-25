@@ -9,14 +9,14 @@ import LoadingSpinner from '@/utils/lodingSpinner';
 import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/pages/tourPackage.module.css';
 
 const TourPackages = () => {
     const { tourData, loading, error } = useFetchTourData('group-tours');
-    const searchParams = useSearchParams();
-    const tourOption = searchParams.get('tourOption');
-    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters(tourOption);
+    // const searchParams = useSearchParams();
+    // const tourOption = searchParams.get('tourOption');
+    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
 
     useEffect(() => {
@@ -102,7 +102,7 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 function TourCard({ item }) {
     return (
         <div className={styles.tourCard}>
-            <LazyLoadImage className={styles.tourImage} src={`https://tripwayholidays.in/tour-image/${item.imageUrl}`} alt={item.alt} />
+            <LazyLoadImage className={styles.tourImage} src={`https://tripwayholidays.in//tour-image/${item.imageUrl}`} alt={item.imageUrl} />
             <div className={styles.tourDetails}>
                 <h3>{item.name}</h3>
                 <h6>{item.category}</h6>

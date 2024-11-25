@@ -8,6 +8,7 @@ import { FaHome } from "react-icons/fa";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useClient } from "@/context/UserContext";
 import styles from '@/styles/pages/authpage.module.css';
+import Link from "next/link";
 
 function ClientLoaginPage() {
     const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ function ClientLoaginPage() {
                     <div className={styles.loginBlur}>
                         <div className={`${styles.loginContainer} ${activeContainer ? styles.activeCon : styles.closeCon}`}>
                             <div className={styles.loginCard}>
-                                <a
+                                <Link
                                     className={styles.backToWeb}
                                     href="/"
                                     onMouseEnter={() => setIsHovered(true)}
@@ -66,7 +67,7 @@ function ClientLoaginPage() {
                                     <FaHome />
                                     &nbsp;
                                     {isHovered && <span className={styles.tooltipText}>Home</span>}
-                                </a>
+                                </Link>
                                 <h2 className={styles.loginTitle}>Client Login</h2>
                                 <form onSubmit={handleSubmit}>
                                     <div className={styles.formGroup}>
