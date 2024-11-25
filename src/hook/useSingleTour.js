@@ -11,7 +11,7 @@ export function useSingleTourData(url) {
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`api/${url}`);
+                const response = await fetch(`http://localhost:3000/api/${url}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch tour data");
                 }
