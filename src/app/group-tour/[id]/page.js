@@ -10,7 +10,7 @@ function TourDetails() {
 
     const { id } = useParams();
 
-    const { tour, singleLoading } = useSingleTourData(`/group-tours/${id}`);
+    const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
 
     return (
         <div className="layout">
