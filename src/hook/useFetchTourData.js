@@ -14,7 +14,7 @@ export function useFetchTourData(url) {
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`${apiPoint}api/${url}`);
+                const response = await fetch(`${apiPoint}/api/${url}`);
 
                 console.log(response.url);
 
