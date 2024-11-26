@@ -28,7 +28,7 @@ function LazyLoadImage({ className, src, alt, imageLength }) {
 
     return (
         <>
-            <img
+            <Image
                 className={className}
                 data-src={src}
                 src={src}
