@@ -4,18 +4,21 @@ export async function POST(req) {
     try {
         const { email, subject, message } = await req.json();
 
+        const emailApi = process.env.NEXT_APP_EMAIL;
+        const emailPassword = process.env.NEXT_APP_PASSWORD;
+
         // Set up Nodemailer transporter
         const transporter = nodemailer.createTransport({
             service: 'Gmail', // or your preferred email service
             auth: {
-                user: 'tripwayholiday@gmail.com', // your email
-                pass: 'ndie nzvc vsfy aatz', // your email password or app password
+                user: emailApi, // your email
+                pass: emailPassword, // your email password or app password
             },
         });
 
         // Email options
         const mailOptions = {
-            from: 'tripwayholiday@gmail.com',
+            from: `Tripway Holidays <${emailApi}>`,
             to: email,
             subject,
             text: message,

@@ -9,7 +9,7 @@ import styles from '@/styles/pages/tourDetails.module.css';
 function TourDetails() {
 
     const { id } = useParams();
-
+    const imageUrl = process.env.IMAGE_URL;
     const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
 
     return (
@@ -19,7 +19,7 @@ function TourDetails() {
                     tour ? ( // Check if `tour` exists before rendering its properties
                         <div className={styles.tourdetails}>
                             <div className={styles.tourdetailsBox}>
-                                <LazyLoadImage className={styles.tourdetailsImg} src={`https://tripwayholidays.in/tour-image/${tour.imageUrl}`} alt={tour.name} imageLength={0} />
+                                <LazyLoadImage className={styles.tourdetailsImg} src={`${imageUrl}${tour.imageUrl}`} alt={tour.name} imageLength={0} />
                                 <div className={styles.tourdetailsText}>
                                     <h2>{tour.name}</h2>
                                     <h4>Category: {tour.category}</h4>

@@ -8,9 +8,13 @@ export function useFetchTourData(url) {
     useEffect(() => {
         let isMounted = true;
 
+        const localApi = process.env.API_URL;
+        const productionApi = process.env.HOST_URL;
+        const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+
         const fetchData = async () => {
             try {
-                const response = await fetch(`api/${url}`);
+                const response = await fetch(`${apiPoint}api/${url}`);
 
                 console.log(response.url);
 

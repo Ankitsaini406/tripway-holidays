@@ -100,9 +100,12 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 }
 
 function TourCard({ item }) {
+
+    const imageUrl = process.env.IMAGE_URL;
+
     return (
         <div className={styles.tourCard}>
-            <LazyLoadImage className={styles.tourImage} src={`https://tripwayholidays.in//tour-image/${item.imageUrl}`} alt={item.imageUrl} />
+            <LazyLoadImage className={styles.tourImage} src={`${imageUrl}${item.imageUrl}`} alt={item.imageUrl} />
             <div className={styles.tourDetails}>
                 <h3>{item.name}</h3>
                 <h6>{item.category}</h6>

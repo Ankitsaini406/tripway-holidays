@@ -9,9 +9,13 @@ const useSendEmail = () => {
         setLoading(true);
         setSuccess('');
         setError('');
-    
+
+        const localApi = process.env.API_URL;
+        const productionApi = process.env.HOST_URL;
+        const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+
         try {
-            const response = await fetch('/api/mail/send-otp', {
+            const response = await fetch(`${apiPoint}api/mail/send-otp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
