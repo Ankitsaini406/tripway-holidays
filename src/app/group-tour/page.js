@@ -105,7 +105,7 @@ function TourCard({ item }) {
 
     return (
         <div className={styles.tourCard}>
-            <LazyLoadImage className={styles.tourImage} src={`${imageUrl}${item.imageUrl}`} alt={item.imageUrl} />
+            <LazyLoadImage className={styles.tourImage} src={`/tour-image/${item.imageUrl}`} alt={item.imageUrl} />
             <div className={styles.tourDetails}>
                 <h3>{item.name}</h3>
                 <h6>{item.category}</h6>
