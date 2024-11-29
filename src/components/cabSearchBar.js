@@ -342,7 +342,7 @@ export function CabSearchBar() {
                 onClick={activeOtp ? handleSubmit : handleSendOtp}
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
-                {activeOtp ? "Submit" : 'Book Now'}
+                {activeOtp ? "Submit" : 'Book Now'} 
             </button>
         </>
     );
