@@ -45,7 +45,12 @@ export function CabSearchBar() {
         const emailContent = {
             email: formData.email,
             subject: 'Your OTP for Travel Booking Confirmation',
-            message: `Hi [Customer Name],\n\nUse this OTP to continue your travel booking: ${otp}\nIt will expire in 10 minutes, so don’t wait!\n\nFor assistance, contact us at tripwayholiday@gmail.com\n\nSafe travels,\nTripwayHolidays`,
+            message: `Hi [Customer Name],<br><br>
+              Use this OTP to continue your travel booking: <strong>${otp}</strong><br>
+              It will expire in 10 minutes, so don’t wait!<br>
+              For assistance, contact us at <a href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a><br><br>
+              Safe travels,<br>
+              TripwayHolidays`,
         };
 
         // Send email using the hook
@@ -343,7 +348,7 @@ export function CabSearchBar() {
                 onClick={activeOtp ? handleSubmit : handleSendOtp}
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
-                {activeOtp ? "Submit" : 'Book Now'} 
+                {activeOtp ? "Submit" : 'Book Now'}
             </button>
         </>
     );
