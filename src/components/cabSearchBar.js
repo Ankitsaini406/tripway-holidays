@@ -103,76 +103,68 @@ export function CabSearchBar() {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
-    
+
         // Validate form inputs
         if (!validateForm(e)) return;
-    
-        // OTP verification
+
         if (enteredOtp === correctOtp) {
             setMsg("✅ OTP Verified Successfully!");
             setActiveOtp(false);
+
+            const { selectedRadio, ...filteredData } = formData;
+            const userData = {
+                ...(user?.uid && { agentId: user.uid }),
+                ...(user?.phoneNumber && { agentPhoneNumber: user.phoneNumber }),
+            };
+            const dataToSend = { ...filteredData, ...userData };
+
+            let collectionName;
+            switch (selectedRadio) {
+                case "one-way":
+                    collectionName = "one-way";
+                    break;
+                case "round-trip":
+                    collectionName = "round-trip";
+                    break;
+                case "multi-city":
+                    collectionName = "multi-city";
+                    break;
+                default:
+                    setError("Please select a valid trip type.");
+                    return;
+            }
+
+            try {
+                const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
+                console.log("Document written with ID:", docRef.id);
+                setError("");
+                setActiveOtp(false);
+
+                setFormData({
+                    from: "",
+                    to: "",
+                    destination: "",
+                    destinations: [""],
+                    startDate: null,
+                    passenger: "1",
+                    phoneNumber: "",
+                    carOption: "",
+                    selectedRadio: "one-way",
+                    time: "",
+                    offerFrom: "",
+                    email: "",
+                });
+                alert("Data successfully sent to Firebase");
+            } catch (err) {
+                console.error("Error adding document:", err);
+                setError("Error sending data to Firebase. Please try again.");
+            }
         } else {
             setMsg("❌ Invalid OTP. Please try again.");
             return;
         }
-    
-        // Extract data and include user information if available
-        const { selectedRadio, ...filteredData } = formData;
-    
-        // Add user data only if it exists
-        const userData = {
-            ...(user?.uid && { agentId: user.uid }),
-            ...(user?.phoneNumber && { agentPhoneNumber: user.phoneNumber }),
-        };
-    
-        const dataToSend = { ...filteredData, ...userData };
-    
-        // Determine the collection name
-        let collectionName;
-        switch (selectedRadio) {
-            case "one-way":
-                collectionName = "one-way";
-                break;
-            case "round-trip":
-                collectionName = "round-trip";
-                break;
-            case "multi-city":
-                collectionName = "multi-city";
-                break;
-            default:
-                setError("Please select a valid trip type.");
-                return;
-        }
-    
-        // Add data to Firestore
-        try {
-            const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-            console.log("Document written with ID:", docRef.id);
-            setError("");
-            setActiveOtp(false);
-    
-            // Reset the form after successful submission
-            setFormData({
-                from: "",
-                to: "",
-                destination: "",
-                destinations: [""],
-                startDate: null,
-                passenger: "1",
-                phoneNumber: "",
-                carOption: "",
-                selectedRadio: "one-way",
-                time: "",
-                offerFrom: "",
-                email: "",
-            });
-            alert("Data successfully sent to Firebase");
-        } catch (err) {
-            console.error("Error adding document:", err);
-            setError("Error sending data to Firebase. Please try again.");
-        }
     };
-    
+
 
     const handleSearch = (e) => {
         handleSendOtp(e);
@@ -241,7 +233,7 @@ export function CabSearchBar() {
                         <>
                             <div>
                                 {formData.destinations.map((destination, index) => (
-                                    <div key={index} style={{flexDirection: 'row'}} className={styles.radioOption}>
+                                    <div key={index} style={{ flexDirection: 'row' }} className={styles.radioOption}>
                                         <input
                                             type="text"
                                             placeholder={`Destination ${index + 1}`}
@@ -274,7 +266,7 @@ export function CabSearchBar() {
                             required
                         />
                         <input
-                        style={{padding: '0.35rem'}}
+                            style={{ padding: '0.35rem' }}
                             type="time"
                             name="time"
                             value={formData.time}
@@ -350,7 +342,7 @@ export function CabSearchBar() {
                 onClick={activeOtp ? handleSubmit : handleSendOtp}
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
-                {activeOtp ? "Submit" :'Book Now'}
+                {activeOtp ? "Submit" : 'Book Now'}
             </button>
         </>
     );
