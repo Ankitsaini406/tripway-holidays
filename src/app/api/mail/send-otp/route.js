@@ -20,7 +20,7 @@ export async function POST(req) {
         const mailOptions = {
             from: `Tripway Holidays <${emailApi}>`,
             to: email,
-            subject: subject,
+            subject: 'Your OTP for Travel Booking Confirmation',
             text: `Hi [Customer Name],\n\nUse this OTP to continue your travel booking: ${otp}\nIt will expire in 10 minutes, so don’t wait!\n\nFor assistance, contact us at ${emailApi}\n\nSafe travels,\nTripwayHolidays`,
         };
 

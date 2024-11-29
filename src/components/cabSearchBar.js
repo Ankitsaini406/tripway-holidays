@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
+import { FaPlus } from "react-icons/fa";
 import styles from '../styles/components/advancesearchbar.module.css';
 import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
 import { useClient } from "@/context/UserContext";
@@ -43,8 +44,7 @@ export function CabSearchBar() {
         // Prepare the email content
         const emailContent = {
             email: formData.email,
-            subject: "Your OTP Code",
-            message: `Your OTP code is: ${otp}`,
+            otp: otp,
         };
 
         // Send email using the hook
@@ -174,7 +174,7 @@ export function CabSearchBar() {
         <>
             {activeOtp ? (
                 <div>
-                    <label htmlFor="otp">OTP</label>
+                    <label style={{margin: '0 15px 0 0'}} htmlFor="otp">OTP sent to your email. Enter it here!</label>
                     <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} />
                     {msg && <p className={styles.errorMessage}>{msg}</p>}
                 </div>
