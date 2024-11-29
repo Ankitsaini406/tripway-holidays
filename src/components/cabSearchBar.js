@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import { FaSearch, FaPlus } from "react-icons/fa";
 import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
@@ -351,7 +350,7 @@ export function CabSearchBar() {
                 onClick={activeOtp ? handleSubmit : handleSendOtp}
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
-                {activeOtp ? "Submit" : <><FaSearch />&nbsp;Search</>}
+                {activeOtp ? "Submit" :'Book Now'}
             </button>
         </>
     );
