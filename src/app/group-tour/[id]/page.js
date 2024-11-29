@@ -43,7 +43,7 @@ function TourDetails() {
                                     <h4>Category: {tour.category}</h4>
                                     <h4>&#8377;&nbsp;{tour.price}</h4>
                                     <p>{tour.description}</p>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <button onClick={handleAddTourData} className={styles.tourBuybutton}>Buy Now</button>
                                         </div>
                                 </div>
