@@ -37,6 +37,7 @@
     text-transform: capitalize;
     background-color: var(--peacock-green);
     color: var(--white-color);
+    width: 25%;
 
     &:hover {
         box-shadow: rgba(0, 0, 0, 1) 1.95px 1.95px 2.6px;
