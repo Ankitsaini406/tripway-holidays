@@ -1,10 +1,10 @@
 'use client';
 
-import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
 import { set, ref, get, child, query, equalTo, orderByChild } from "firebase/database";
-import { setCookie, getCookie, removeCookie } from 'cookies-next'; // Import cookies-next methods
+import { setCookie, getCookie, removeCookie } from 'cookies-next';
 
 const UserContext = createContext(null);
 
@@ -20,7 +20,7 @@ export const UserProvider = (props) => {
     useEffect(() => {
         const savedUser = getCookie('token');
         if (savedUser) {
-            setUser(JSON.parse(savedUser)); // Set user from cookie if it exists
+            setUser(savedUser); // Set user from cookie if it exists
         }
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -41,13 +41,15 @@ export const UserProvider = (props) => {
                 email: user.email,
             });
 
-            // Store user data in a secure cookie using cookies-next
-            setCookie('token', JSON.stringify({
-                uid: user.uid,
-                email: user.email,
-            }), { secure: true, sameSite: 'Strict', expires: expires });
+            const idToken = await user.getIdToken();
+            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
 
-            await putData(`${dataBaseName}/${user.uid}`, { 
+            await updateProfile(user, {
+                displayName: additionalData.name,
+                phoneNumber: additionalData.phoneNumber,
+            });
+
+            await putData(`${dataBaseName}/${user.uid}`, {
                 uid: user.uid,
                 email: user.email,
                 password: password,
@@ -66,7 +68,14 @@ export const UserProvider = (props) => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
 
-            await putData(`${dataBaseName}/${newUser.uid}`, { 
+            const idToken = await user.getIdToken();
+            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
+
+            await updateProfile(newUser, {
+                displayName: additionalData.name,
+            });
+
+            await putData(`${dataBaseName}/${newUser.uid}`, {
                 uid: newUser.uid,
                 email: newUser.email,
                 ...additionalData
@@ -88,7 +97,7 @@ export const UserProvider = (props) => {
             orderByChild("email"),
             equalTo(email)
         );
-    
+
         const emailSnapshot = await get(emailQuery);
         return emailSnapshot.exists(); // Return true if the email exists
     };
@@ -96,9 +105,9 @@ export const UserProvider = (props) => {
     const loginUser = async (email, password, url) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    
+
             const isEmail = await checkEmailExists(email, `${url}`);
-    
+
             if (!isEmail) {
                 throw new Error("No account found with this email.");
             }
@@ -109,11 +118,8 @@ export const UserProvider = (props) => {
                 email: loggedInUser.email,
             });
 
-            // Store user data in a secure cookie using cookies-next
-            setCookie('token', JSON.stringify({
-                uid: loggedInUser.uid,
-                email: loggedInUser.email,
-            }), { secure: true, sameSite: 'Strict', expires: expires, });
+            const idToken = await user.getIdToken();
+            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
 
             return { user: loggedInUser };
         } catch (error) {

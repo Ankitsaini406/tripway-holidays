@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 
 export async function POST(req) {
     try {
-        const { email, subject, message } = await req.json();
+        const { email, subject, name, otp } = await req.json();
 
         const emailApi = process.env.NEXT_APP_EMAIL;
         const emailPassword = process.env.NEXT_APP_PASSWORD;
@@ -21,7 +21,12 @@ export async function POST(req) {
             from: `Tripway Holidays <${emailApi}>`,
             to: email,
             subject: subject,
-            text: message,
+            html: `<p>Hi ${name},</p>
+                        Use this OTP to continue your travel booking: <p style="font-size: 18px; font-weight: bold; margin: 20px 0; color: #000;">${otp}</p>\n
+                        <p>It will expire in 10 minutes, so don’t wait!<br>
+                        For assistance, contact us at ${emailApi}.</p>
+                    <p>Safe travels,<br>
+                    <strong>Tripway Holidays Team</strong></p>`,
         };
 
         // Send the email

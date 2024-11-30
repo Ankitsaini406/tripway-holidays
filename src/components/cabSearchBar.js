@@ -4,11 +4,12 @@ import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
 import { FaPlus } from "react-icons/fa";
-import styles from '../styles/components/advancesearchbar.module.css';
-import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
 import { useClient } from "@/context/UserContext";
+import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
+import styles from '../styles/components/advancesearchbar.module.css';
 
 export function CabSearchBar() {
+    const { user } = useClient();
     const [formData, setFormData] = useState({
         from: "",
         to: "",
@@ -22,14 +23,17 @@ export function CabSearchBar() {
         time: "",
         offerFrom: "",
         email: "",
+        firstName: '',
+        lastName: '',
     });
     const [error, setError] = useState("");
     const [activeOtp, setActiveOtp] = useState(false);
     const [correctOtp, setCorrectOtp] = useState("");
     const [msg, setMsg] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
-    const { user } = useClient();
     const { sendEmail, loading, success } = useSendEmail();
+
+    const name = user ? user.displayName : formData.firstName + " " + formData.lastName;
 
     // Function to generate a 6-digit OTP
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
@@ -45,12 +49,8 @@ export function CabSearchBar() {
         const emailContent = {
             email: formData.email,
             subject: 'Your OTP for Travel Booking Confirmation',
-            message: `Hi [Customer Name],<br><br>
-              Use this OTP to continue your travel booking: <strong>${otp}</strong><br>
-              It will expire in 10 minutes, so don’t wait!<br>
-              For assistance, contact us at <a href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a><br><br>
-              Safe travels,<br>
-              TripwayHolidays`,
+            name: name,
+            otp: otp,
         };
 
         // Send email using the hook
@@ -66,9 +66,9 @@ export function CabSearchBar() {
 
     const options = [
         { value: "", label: "Select Car" },
-        { value: "seden", label: "Sedan" },
-        { value: "suv", label: "SUV" },
-        { value: "hatchback", label: "Hatchback" },
+        { value: "Seden", label: "Sedan" },
+        { value: "Suv", label: "SUV" },
+        { value: "Hatchback", label: "Hatchback" },
     ];
 
     const handleChange = (e) => {
@@ -115,14 +115,13 @@ export function CabSearchBar() {
 
         if (enteredOtp === correctOtp) {
             setMsg("✅ OTP Verified Successfully!");
-            setActiveOtp(false);
 
-            const { selectedRadio, ...filteredData } = formData;
+            const { selectedRadio, firstName, lastName, ...filteredData } = formData;
             const userData = {
                 ...(user?.uid && { agentId: user.uid }),
                 ...(user?.phoneNumber && { agentPhoneNumber: user.phoneNumber }),
             };
-            const dataToSend = { ...filteredData, ...userData };
+            const dataToSend = { ...filteredData, ...userData, name };
 
             let collectionName;
             switch (selectedRadio) {
@@ -165,15 +164,11 @@ export function CabSearchBar() {
                 console.error("Error adding document:", err);
                 setError("Error sending data to Firebase. Please try again.");
             }
+            setActiveOtp(false);
         } else {
             setMsg("❌ Invalid OTP. Please try again.");
             return;
         }
-    };
-
-
-    const handleSearch = (e) => {
-        handleSendOtp(e);
     };
 
     return (
@@ -181,7 +176,7 @@ export function CabSearchBar() {
             {activeOtp ? (
                 <div>
                     <label style={{ display: 'block', margin: '0 0 15px 0' }} htmlFor="otp">Your OTP for Travel Booking Confirmation</label>
-                    <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} />
+                    <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} handleSendOtp={handleSendOtp} />
                     {msg && <p className={styles.errorMessage}>{msg}</p>}
                 </div>
             ) : (
@@ -307,24 +302,46 @@ export function CabSearchBar() {
                         />
                     </div>
 
+                    {
+                        user ? null : (
+                            <>
+                                <div className={styles.radioOption}>
+                                    <ContactDetails
+                                        type='text'
+                                        name='firstName'
+                                        value={formData.firstName}
+                                        handleChange={handleChange}
+                                        className={styles.searchInput}
+                                        palceholder='First Name'
+                                    />
+                                    <ContactDetails
+                                        type='text'
+                                        name='lastName'
+                                        value={formData.lastName}
+                                        handleChange={handleChange}
+                                        className={styles.searchInput}
+                                        palceholder='Last Name'
+                                    />
+                                </div> </>
+                        )
+                    }
+
                     <div className={styles.radioOption}>
-                        <input
-                            type="text"
-                            name="phoneNumber"
+                        <ContactDetails
+                            type='number'
+                            name='phoneNumber'
                             value={formData.phoneNumber}
-                            onChange={handleChange}
-                            placeholder="Phone Number"
+                            handleChange={handleChange}
                             className={styles.searchInput}
-                            required
+                            palceholder='Phone Number'
                         />
-                        <input
+                        <ContactDetails
+                            type='email'
+                            name='email'
                             value={formData.email}
-                            type="email"
-                            name="email"
-                            onChange={handleChange}
-                            placeholder="Enter your email"
+                            handleChange={handleChange}
                             className={styles.searchInput}
-                            required
+                            palceholder='Email'
                         />
                     </div>
 
@@ -350,6 +367,21 @@ export function CabSearchBar() {
             >
                 {activeOtp ? "Submit" : 'Book Now'}
             </button>
+        </>
+    );
+}
+
+export function ContactDetails({ type, name, value, handleChange, className, palceholder }) {
+    return (
+        <>
+            <input
+                type={type}
+                name={name}
+                value={value}
+                onChange={handleChange}
+                className={className}
+                placeholder={palceholder}
+            />
         </>
     );
 }

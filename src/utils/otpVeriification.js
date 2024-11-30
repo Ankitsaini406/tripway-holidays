@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from '@/styles/pages/authpage.module.css';
 
-export function OtpVerification({ numberOfDigits, setEnteredOtp }) {
+export function OtpVerification({ numberOfDigits, setEnteredOtp, handleSendOtp }) {
     const [otp, setOtp] = useState(new Array(numberOfDigits).fill(""));
     const otpBoxReference = useRef([]);
     const [otpTimer, setOtpTimer] = useState(60);
@@ -40,9 +40,10 @@ export function OtpVerification({ numberOfDigits, setEnteredOtp }) {
         }
     };
 
-    const handleResendOtp = () => {
+    const handleResendOtp = async (e) => {
         if (!isTimerActive) {
             console.log("OTP Resent");
+            await handleSendOtp(e);
             setOtpTimer(30); // Reset the timer to 30 seconds
             setIsTimerActive(true); // Start the timer
         }
