@@ -5,6 +5,7 @@ import Link from "next/link";
 import Hero from "@/components/hero";
 import LazyLoadImage from "@/utils/lazyLoadingImage";
 import styles from "./page.module.css";
+import PopUp from "@/utils/popUp";
 
 const Home = () => {
     const imageRefs = useRef([]);
@@ -25,25 +26,11 @@ const Home = () => {
     }, []);
 
     return (
+        <>
+        {/* <PopUp title='New Pop' content='This is Pop up' popTime={5000} closeTime={10000} />
+        <PopUp title='New Pop' content='This is Pop up' popTime={15000} closeTime={20000} /> */}
         <div className='layout'>
             <Hero />
-
-            {/* <div className={styles.homeTour} id="tourSection">
-                <div className={styles.homeTourFlex}>
-                    <LazyLoadImage
-                        ref={(el) => (imageRefs.current[0] = el)}
-                        className={styles.tourImg}
-                        src="https://images.unsplash.com/photo-1704774041066-ffefb6e950fd?q=80&w=2536&auto=format&fit=crop"
-                        alt="a-small-green-building-in-the-middle-of-a-forest"
-                        data-src="https://images.unsplash.com/photo-1704774041066-ffefb6e950fd?q=80&w=2536&auto=format&fit=crop"
-                    />
-                    <div>
-                        <h4>Tour Travel</h4>
-                        <p>This is for testing purposes</p>
-                        <Link className='readMore' href='/tour'>Read More</Link>
-                    </div>
-                </div>
-            </div> */}
 
             <div className={styles.homeTour} id="groupTour">
                 <div className={styles.homeTourFlex}>
@@ -58,10 +45,11 @@ const Home = () => {
                         src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
                         alt="multicolored-buntings"
                         data-src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
-                    />
+                        />
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

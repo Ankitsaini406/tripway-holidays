@@ -96,7 +96,7 @@
         display: block;
     }
 
-    .headerItems {
+    .headeritems {
         position: absolute;
         top: 0;
         right: 0;
@@ -110,12 +110,12 @@
         display: none;
     }
 
-    .headerItems.open {
+    .headeritems.open {
         display: block;
         animation: slideIn 0.3s ease forwards;
     }
 
-    .headerItems.close {
+    .headeritems.close {
         animation: slideOut 0.3s ease forwards;
     }
 
@@ -185,7 +185,7 @@
         font-size: calc(16px + var(--font-size));
     }
 
-    .headerItems {
+    .headeritems {
         width: 100%;
         padding: 5rem 0px;
     }

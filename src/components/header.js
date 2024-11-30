@@ -2,16 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { auth } from '@/firebase/firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
-import styles from '../styles/components/header.module.css';
+// import { auth } from '@/firebase/firebaseConfig';
+// import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import { useClient } from '@/context/UserContext';
+import styles from '../styles/components/header.module.css';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [activeItem, setActiveItem] = useState('');
-    const [user, setUser] = useState(null);
+    const { user } = useClient();
     const router = useRouter();
 
     const toggleMenu = () => {
@@ -19,16 +20,6 @@ function Header() {
             setIsAnimating(true);
         } else {
             setIsMenuOpen(true);
-        }
-    };
-
-    const handleTourClick = (e) => {
-        e.preventDefault();
-        const targetSection = document.getElementById('tourSection');
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            router.push('/tour');  // Use Next.js router to navigate
         }
     };
 
@@ -43,15 +34,8 @@ function Header() {
     };
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-            } else {
-                setUser(null);
-            }
-        });
 
-        const headerItems = document.querySelector('.header-items');
+        const headerItems = document.querySelector('.headeritems');
         const overlay = document.querySelector('.overlay');
 
         if (isMenuOpen && !isAnimating) {
@@ -102,7 +86,7 @@ function Header() {
                     </div>
                 )}
 
-                <div className={`${styles.desktop} ${isMenuOpen ? styles.open : ''}`}>
+                <div className={`${styles.desktop}`}>
                     <ul className={styles.headerList}>
                         <li>
                             <Link
@@ -155,9 +139,64 @@ function Header() {
                         )}
                     </ul>
                 </div>
-            </div>
 
-            <div className={`${styles.overlay} ${isMenuOpen ? styles.open : ''}`}></div>
+                {isMenuOpen && <div className={styles.overlay} onClick={toggleMenu}>
+                        <div className={`${styles.headeritems} ${styles.mobile} ${isMenuOpen ? styles.open : ''}`}>
+                            <ul className={styles.headerList}>
+                                <li>
+                                    <Link
+                                        href='/'
+                                        className={`${styles.headerName} ${activeItem === 'Home' ? styles.active : ''}`}
+                                        onClick={() => setActiveItem('Home')}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href='#groupTour'
+                                        className={`${styles.headerName} ${activeItem === 'Group' ? styles.active : ''}`}
+                                        onClick={handleGroupTourClick}
+                                    >
+                                        Group Tours
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href='/about'
+                                        className={`${styles.headerName} ${activeItem === 'About' ? styles.active : ''}`}
+                                        onClick={() => setActiveItem('About')}
+                                    >
+                                        About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href='/contact'
+                                        className={`${styles.headerName} ${activeItem === 'Contact' ? styles.active : ''}`}
+                                        onClick={() => setActiveItem('Contact')}
+                                    >
+                                        Contact
+                                    </Link>
+                                </li>
+                                {user ? (
+                                    <li>
+                                        <Link href='/profile' className={styles.headerButton}>
+                                            Profile
+                                        </Link>
+                                    </li>
+                                ) : (
+                                    <li>
+                                        <Link href='/auth/client-login' className={styles.headerButton}>
+                                            Login
+                                        </Link>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     );
 }
