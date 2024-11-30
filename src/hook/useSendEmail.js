@@ -5,7 +5,7 @@ const useSendEmail = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
-    const sendEmail = async ({ email, subject, name, otp }) => {
+    const sendEmail = async ({ email, subject, name, otp, password, url }) => {
         setLoading(true);
         setSuccess('');
         setError('');
@@ -15,12 +15,12 @@ const useSendEmail = () => {
         const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
         try {
-            const response = await fetch(`${apiPoint}api/mail/send-otp`, {
+            const response = await fetch(`${apiPoint}api/mail/${url}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, subject, name, otp }),
+                body: JSON.stringify({ email, subject, name, otp, password }),
             });
     
             const result = await response.json();

@@ -9,7 +9,7 @@ import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
 import styles from '../styles/components/advancesearchbar.module.css';
 
 export function CabSearchBar() {
-    const { user } = useClient();
+    const { user, signupUserWithEmailAndPassword } = useClient();
     const [formData, setFormData] = useState({
         from: "",
         to: "",
@@ -38,6 +38,16 @@ export function CabSearchBar() {
     // Function to generate a 6-digit OTP
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
 
+    function generateRandomPassword() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let password = '';
+        for (let i = 0; i < 6; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            password += characters[randomIndex];
+        }
+        return password;
+    }
+
     const handleSendOtp = async (e) => {
         if (!validateForm(e)) return;
         e.preventDefault();
@@ -51,6 +61,8 @@ export function CabSearchBar() {
             subject: 'Your OTP for Travel Booking Confirmation',
             name: name,
             otp: otp,
+            password: null,
+            url: 'send-otp',
         };
 
         // Send email using the hook
@@ -107,68 +119,73 @@ export function CabSearchBar() {
         return true;
     };
 
+
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-
-        // Validate form inputs
+        e.preventDefault();
         if (!validateForm(e)) return;
-
-        if (enteredOtp === correctOtp) {
-            setMsg("✅ OTP Verified Successfully!");
-
-            const { selectedRadio, firstName, lastName, ...filteredData } = formData;
-            const userData = {
-                ...(user?.uid && { agentId: user.uid }),
-                ...(user?.phoneNumber && { agentPhoneNumber: user.phoneNumber }),
-            };
-            const dataToSend = { ...filteredData, ...userData, name };
-
-            let collectionName;
-            switch (selectedRadio) {
-                case "one-way":
-                    collectionName = "one-way";
-                    break;
-                case "round-trip":
-                    collectionName = "round-trip";
-                    break;
-                case "multi-city":
-                    collectionName = "multi-city";
-                    break;
-                default:
-                    setError("Please select a valid trip type.");
-                    return;
-            }
-
-            try {
-                const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-                console.log("Document written with ID:", docRef.id);
-                setError("");
-                setActiveOtp(false);
-
-                setFormData({
-                    from: "",
-                    to: "",
-                    destination: "",
-                    destinations: [""],
-                    startDate: null,
-                    passenger: "1",
-                    phoneNumber: "",
-                    carOption: "",
-                    selectedRadio: "one-way",
-                    time: "",
-                    offerFrom: "",
-                    email: "",
-                });
-                alert("Data successfully sent to Firebase");
-            } catch (err) {
-                console.error("Error adding document:", err);
-                setError("Error sending data to Firebase. Please try again.");
-            }
-            setActiveOtp(false);
-        } else {
+        if (enteredOtp !== correctOtp) {
             setMsg("❌ Invalid OTP. Please try again.");
             return;
         }
+        setMsg("✅ OTP Verified Successfully!");
+
+        const { selectedRadio, firstName, lastName, ...filteredData } = formData;
+        let userData = {};
+        if (!user) {
+            const password = generateRandomPassword();
+            const newUser = await signupUserWithEmailAndPassword(
+                formData.email,
+                password,
+                { name, phoneNumber: formData.phoneNumber, password },
+                "users"
+            );
+            if (!newUser) return setError("Failed to create user. Please try again.");
+            userData = { agentId: newUser.uid, agentPhoneNumber: formData.phoneNumber };
+            const emailContent = {
+                email: formData.email,
+                subject: 'Welcome to TripWay Holidays! 🌍',
+                name: name,
+                otp: null,
+                password: password,
+                url: 'account-created',
+            };
+    
+            // Send email using the hook
+            await sendEmail(emailContent);
+        } else {
+            userData = { agentId: user.uid, agentPhoneNumber: user.phoneNumber };
+        }
+
+        const dataToSend = { ...filteredData, ...userData, name };
+        const collectionName = formData.selectedRadio === "one-way" ? "one-way"
+            : formData.selectedRadio === "round-trip" ? "round-trip"
+                : "multi-city";
+
+        try {
+            await addDoc(collection(firestore, collectionName), dataToSend);
+            alert("Data successfully sent to Firebase");
+            setFormData({
+                from: "",
+                to: "",
+                destination: "",
+                destinations: [""],
+                startDate: null,
+                passenger: "1",
+                phoneNumber: "",
+                carOption: "",
+                selectedRadio: "one-way",
+                time: "",
+                offerFrom: "",
+                email: "",
+                firstName: '',
+                lastName: '',
+            });
+        } catch (err) {
+            console.error(err);
+            setError("Error sending data to Firebase.");
+        }
+
+        setActiveOtp(false);
     };
 
     return (
