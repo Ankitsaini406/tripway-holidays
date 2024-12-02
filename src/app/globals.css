@@ -173,6 +173,32 @@ th {
   }
 }
 
+.lazyImageWrapper {
+  width: 100%; /* Ensure the container spans the full width */
+  max-width: 100%; /* Prevent overflow */
+  position: relative; /* Required for responsive images */
+}
+
+.lazyImage {
+  object-fit: cover; /* Ensures the image scales nicely without distortion */
+  width: 100%; /* Makes the image adapt to the container width */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+@media (max-width: 768px) {
+  .lazyImageWrapper {
+      width: 100%; /* Adjust the container for smaller screens */
+      max-width: 100%; /* Prevent overflow */
+  }
+
+  .lazyImage {
+    object-fit: cover;
+    width: 100%;
+    /* height: 300px !important; */
+    border-radius: 10px;
+}
+}
+
 @media (max-width: 430px) {
 
   .layout {

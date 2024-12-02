@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import Hero from "@/components/hero";
-import LazyLoadImage from "@/utils/lazyLoadingImage";
+import Image from "next/image";
 import styles from "./page.module.css";
 import PopUp from "@/utils/popUp";
 
@@ -27,29 +27,35 @@ const Home = () => {
 
     return (
         <>
-        {/* <PopUp title='New Pop' content='This is Pop up' popTime={5000} closeTime={10000} />
+            {/* <PopUp title='New Pop' content='This is Pop up' popTime={5000} closeTime={10000} />
         <PopUp title='New Pop' content='This is Pop up' popTime={15000} closeTime={20000} /> */}
-        <div className='layout'>
-            <Hero />
+            <div className='layout'>
+                <Hero />
 
-            <div className={styles.homeTour} id="groupTour">
-                <div className={styles.homeTourFlex}>
-                    <div>
-                        <h4>Group Travel</h4>
-                        <p>This is for testing purposes</p>
-                        <Link className='readMore' href='/group-tour'>Read More</Link>
+                <div className={styles.homeTour} id="groupTour">
+                    <div className={styles.homeTourFlex}>
+                        <div>
+                            <h4>Group Travel</h4>
+                            <p>This is for testing purposes</p>
+                            <Link className='readMore' href='/group-tour'>Read More</Link>
+                        </div>
+                        <div className={`lazyImageWrapper ${styles.tourImg}`}>
+                            <Image
+                                className={styles.tourImg}
+                                data-src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
+                                src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
+                                alt="multicolored-buntings"
+                                placeholder="blur"
+                                blurDataURL='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
+                                layout="intrinsic"
+                                width={1600}
+                                height={900}
+                            />
+                        </div>
                     </div>
-                    <LazyLoadImage
-                        ref={(el) => (imageRefs.current[1] = el)}
-                        className={styles.tourImg}
-                        src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
-                        alt="multicolored-buntings"
-                        data-src="https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop"
-                        />
                 </div>
             </div>
-        </div>
-    </>
+        </>
     );
 };
 

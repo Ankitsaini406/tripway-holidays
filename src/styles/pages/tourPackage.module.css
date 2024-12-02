@@ -5,7 +5,7 @@
 }
 
 .filters {
-    flex: 0.5;
+    flex: 0.5 1;
 }
 
 .tourBox {
@@ -81,6 +81,14 @@
     .tourCard  {
         flex-direction: column;
     }
+
+    .filters {
+        flex: 0.9 1;
+    }
+
+    .tourImage {
+        height: fit-content;
+    }
 }
 
 @media (max-width: 430px) {
@@ -121,9 +129,5 @@
 
     .tourCard {
         flex-direction: column;
-    }
-
-    .tourImage {
-        height: 100px;
     }
 }

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import LazyLoadImage from '@/utils/lazyLoadingImage';
+import Image from 'next/image';
 import LoadingSpinner from '@/utils/lodingSpinner';
 import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
@@ -105,7 +105,18 @@ function TourCard({ item }) {
 
     return (
         <div className={styles.tourCard}>
-            <LazyLoadImage className={styles.tourImage} src={`/tour-image/${item.imageUrl}`} alt={item.imageUrl} />
+            <div className={`${styles.tourImage}`}>
+                <Image
+                    data-src={`/tour-image/${item.imageUrl}`}
+                    src={`/tour-image/${item.imageUrl}`}
+                    alt={item.imageUrl}
+                    placeholder="blur"
+                    blurDataURL={`/tour-image/${item.imageUrl}`}
+                    layout="intrinsic"
+                    width={1600}
+                    height={900}
+                />
+            </div>
             <div className={styles.tourDetails}>
                 <h3>{item.name}</h3>
                 <h6>{item.category}</h6>

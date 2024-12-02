@@ -15,6 +15,10 @@ function Header() {
         setIsMenuOpen((prev) => !prev);
     };
 
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
     const handleGroupTourClick = (e) => {
         e.preventDefault();
         const targetSection = document.getElementById('groupTour');
@@ -33,7 +37,7 @@ function Header() {
                         <h1>TripWay&nbsp;Holidays</h1>
                     </Link>
                 </div>
-
+    
                 <div
                     className={styles.hamburger}
                     onClick={toggleMenu}
@@ -42,10 +46,14 @@ function Header() {
                 >
                     {isMenuOpen ? 'X' : '☰'}
                 </div>
-
-                <nav
-                    className={`${styles.desktop} ${isMenuOpen ? styles.open : styles.closed
-                        }`}
+    
+                {isMenuOpen && (
+                    <div className={`${styles.overlay} ${isMenuOpen ? styles.open : styles.close}`}
+                        onClick={toggleMenu}
+                        role="button"
+                        tabIndex={0}
+                    >
+                    <nav className={`${styles.mobile} ${styles.headeritems} ${isMenuOpen ? styles.open : styles.close}`}
                 >
                     <ul className={styles.headerList}>
                         <li>
@@ -73,40 +81,38 @@ function Header() {
                         )}
                     </ul>
                 </nav>
-
-                {isMenuOpen && (
-                    <div className={`${isMenuOpen ? styles.open : styles.close} ${styles.overlay}`} onClick={toggleMenu} role="button" tabIndex={0}>
-                        <nav
-                            className={`${styles.mobile} ${styles.headeritems} ${isMenuOpen ? styles.open : styles.close}`}
-                        >
-                            <ul className={styles.headerList}>
-                                <li>
-                                    <Link href="/" className={styles.headerName}>Home</Link>
-                                </li>
-                                <li>
-                                    <a href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>
-                                        Group Tours
-                                    </a>
-                                </li>
-                                <li>
-                                    <Link href="/about" className={styles.headerName}>About</Link>
-                                </li>
-                                <li>
-                                    <Link href="/contact" className={styles.headerName}>Contact</Link>
-                                </li>
-                                {user ? (
-                                    <li>
-                                        <Link href="/profile" className={styles.headerButton}>Profile</Link>
-                                    </li>
-                                ) : (
-                                    <li>
-                                        <Link href="/auth/client-login" className={styles.headerButton}>Login</Link>
-                                    </li>
-                                )}
-                            </ul>
-                        </nav>
-                    </div>
+                        </div>
                 )}
+    
+                <nav
+                    className={`${styles.desktop} ${styles.headeritems} ${isMenuOpen ? styles.open : styles.close}`}
+                >
+                    <ul className={styles.headerList}>
+                        <li>
+                            <Link href="/" className={styles.headerName}>Home</Link>
+                        </li>
+                        <li>
+                            <a href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>
+                                Group Tours
+                            </a>
+                        </li>
+                        <li>
+                            <Link href="/about" className={styles.headerName}>About</Link>
+                        </li>
+                        <li>
+                            <Link href="/contact" className={styles.headerName}>Contact</Link>
+                        </li>
+                        {user ? (
+                            <li>
+                                <Link href="/profile" className={styles.headerButton}>Profile</Link>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link href="/auth/client-login" className={styles.headerButton}>Login</Link>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
             </div>
         </div>
     );
