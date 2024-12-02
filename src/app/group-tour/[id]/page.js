@@ -37,9 +37,9 @@ function TourDetails() {
                     tour ? ( // Check if `tour` exists before rendering its properties
                         <div className={styles.tourdetails}>
                             <div className={styles.tourdetailsBox}>
-                                <div className={`lazyImageWrapper ${styles.tourdetailsImg}`}>
+                                <div className={`${styles.tourdetailsImg}`}>
                                     <Image
-                                        className="lazyImage"
+                                        // className="lazyImage"
                                         data-src={`${imageUrl}${tour.imageUrl}`}
                                         src={`${imageUrl}${tour.imageUrl}`}
                                         alt={tour.name}

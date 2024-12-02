@@ -14,17 +14,15 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-/* Float the image to the left with margin */
 .tourdetailsImg {
     float: left;
     width: 35%;
-    height: 300px;
+    height: auto;
     margin-right: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
 }
 
-/* Ensure text wraps around the image */
 .tourdetailsText {
     line-height: 1.6;
 }
@@ -47,7 +45,6 @@
 
 .tourdetailsInfo {
     clear: both;
-    /* Prevent floating issues */
     margin-top: 20px;
     font-weight: bold;
     padding: 1em;
@@ -55,13 +52,6 @@
     border-radius: 10px;
 }
 
-@media (max-width: 1024px) {
-    .tourdetailsImg {
-        height: 250px;
-    }
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
 
     .tourdetails {
@@ -71,7 +61,7 @@
     .tourdetailsImg {
         float: none;
         width: 100%;
-        /* Full width on smaller screens */
+        height: auto;
         margin: 0 auto 15px;
         display: block;
     }
