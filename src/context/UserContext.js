@@ -13,8 +13,7 @@ export const useClient = () => useContext(UserContext);
 export const UserProvider = (props) => {
     const [user, setUser] = useState(null);
 
-    const expires = new Date();
-    expires.setDate(expires.getDate() + 7);
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
     // Load user from cookie on initial load (client-side)
     useEffect(() => {
@@ -42,7 +41,7 @@ export const UserProvider = (props) => {
             });
 
             const idToken = await user.getIdToken();
-            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
+            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
 
             await updateProfile(user, {
                 displayName: additionalData.name,
@@ -68,8 +67,8 @@ export const UserProvider = (props) => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
 
-            const idToken = await user.getIdToken();
-            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
+            const idToken = await newUser.getIdToken();
+            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
 
             await updateProfile(newUser, {
                 displayName: additionalData.name,
@@ -118,8 +117,8 @@ export const UserProvider = (props) => {
                 email: loggedInUser.email,
             });
 
-            const idToken = await user.getIdToken();
-            setCookie('token', idToken, { secure: true, httpOnly: true, sameSite: 'Strict', expires: expires });
+            const idToken = await loggedInUser.getIdToken();
+            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
 
             return { user: loggedInUser };
         } catch (error) {

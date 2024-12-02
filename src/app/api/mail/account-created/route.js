@@ -26,7 +26,7 @@ export async function POST(req) {
                 Your Login Details:
                 <p>Email: ${email}<br>
                 Password: ${password}</p>
-                <p>👉 Log in now to explore exciting destinations: <a href=https://tripwayholidays.in/auth/client-login >Click here</a></p>
+                <p>👉 Log in now to explore exciting destinations: <a href=https://tripwayholidays.in/auth/client-login >Login Here</a></p>
                 <p>Need help? We’re here for you at ${emailApi}<br>
                 Let’s make your travel dreams come true!</p>
                     <p>Safe travels,<br>

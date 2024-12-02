@@ -5,10 +5,12 @@ import LazyLoadImage from "@/utils/lazyLoadingImage";
 
 const Hero = () => {
     const images = [
-        { src: 'https://images.unsplash.com/photo-1588356295620-3a53c9e50ba9?q=80&w=2670&auto=format&fit=crop', width: 2670, height: 1500 },
-        { src: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2670&auto=format&fit=crop', width: 2670, height: 1500 },
-        { src: 'https://images.unsplash.com/photo-1701523968149-e016f5473362?q=80&w=2670&auto=format&fit=crop', width: 2670, height: 1500 },
-        { src: 'https://images.unsplash.com/photo-1542708993627-b6e5bbae43c4?q=80&w=2644&auto=format&fit=crop', width: 2644, height: 1500 },
+        { src: '/slider/slider1.png', width: 2670, height: 1500 },
+        { src: '/slider/slider2.png', width: 2670, height: 1500 },
+        { src: '/slider/slider3.png', width: 2670, height: 1500 },
+        { src: '/slider/slider4.png', width: 2644, height: 1500 },
+        { src: '/slider/slider5.png', width: 2644, height: 1500 },
+        { src: '/slider/slider6.png', width: 2644, height: 1500 },
     ];
 
     const [index, setIndex] = useState(0);
