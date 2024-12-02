@@ -40,7 +40,7 @@ const Home = () => {
                             <Link className='readMore' href='/group-tour'>Read More</Link>
                         </div>
                         <div className={`lazyImageWrapper ${styles.tourImg}`}>
-                            <Image
+                            {/* <Image
                                 className={styles.tourImg}
                                 data-src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
                                 src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
@@ -50,7 +50,7 @@ const Home = () => {
                                 layout="intrinsic"
                                 width={1600}
                                 height={900}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>
