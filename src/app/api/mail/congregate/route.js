@@ -30,7 +30,7 @@ export async function POST(req) {
                 <p>Need help? We’re here for you at ${emailApi}<br>
                 Let’s make your travel dreams come true!</p>
                     <p>Safe travels,<br>
-                    <strong>Tripway Holidays Team</strong></p>                    
+                    <strong>Tripway Holidays Team</strong></p>
                     <hr>
                 <table style="width: 100%; text-align: center; margin-top: 20px;">
                     <tr>

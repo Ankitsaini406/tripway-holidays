@@ -11,6 +11,7 @@ const nextConfig = {
             "images.unsplash.com",
             "tripwayholidays",
             "tripway-holidays.vercel.app",
+            "upload.wikimedia.org",
         ],
     },
     env: {
