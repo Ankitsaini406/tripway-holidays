@@ -9,6 +9,7 @@ import { useSingleTourData } from '@/hook/useSingleTour';
 import useTourUserData from '@/hook/useTourUserData';
 import styles from '@/styles/pages/tourDetails.module.css';
 import style from '@/styles/pages/authpage.module.css';
+import { toast } from 'react-toastify';
 
 function TourDetails() {
 
@@ -17,11 +18,11 @@ function TourDetails() {
     const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
     const router = useRouter();
     const { addTourData, userData, loading, error, success } = useTourUserData();
-    
+
     // Initialize form state
     const [formData, setFormData] = useState({
-        userFrom: '', 
-        passenger: 1, 
+        userFrom: '',
+        passenger: 1,
         userPhoneNumber: userData?.phoneNumber || '',
         userEmail: userData?.email || '',
         userName: userData?.name || '',
@@ -54,6 +55,12 @@ function TourDetails() {
                 userEmail: formData.userEmail,
             }
             await addTourData(data);
+            if (success) {
+                toast.success(success, {
+                    draggable: true,
+                    closeOnClick: true,
+                })
+            }
         } catch (error) {
             console.error("Error adding tour data:", error);
         }
@@ -158,8 +165,10 @@ function TourDetails() {
                                     />
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <button onClick={handleAddTourData} className={styles.tourBuybutton}>Buy Now</button>
-                                    </div>
+                                    {
+                                        loading ? <button disabled className='loadingButton'>Adding...</button> : <button onClick={handleAddTourData} className={styles.tourBuybutton}>Buy Now</button>
+                                    }
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -87,9 +87,9 @@ const useTourUserData = () => {
             });
 
             if (response.ok) {
-                setSuccess("Tour created successfully!");
+                setSuccess("Your tour booking was successful!");
             } else {
-                throw new Error("Failed to create user tour.");
+                throw new Error("Failed to add details.");
             }
         } catch (err) {
             setError(err.message);

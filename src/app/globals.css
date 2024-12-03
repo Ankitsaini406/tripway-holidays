@@ -62,7 +62,7 @@
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 0px;
   height: 6px;
   border: 5px solid #949698bb;
@@ -118,7 +118,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   text-align: left;
   border: 1px solid #ddd;
@@ -165,30 +166,54 @@ th {
   border-radius: 5px;
 
   &:hover {
-      border: 1px solid var(--indigo-blue);
-      background-color: var(--white-color);
-      color: var(--indigo-blue);
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-      transition: all 0.3s ease-in-out;
+    border: 1px solid var(--indigo-blue);
+    background-color: var(--white-color);
+    color: var(--indigo-blue);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.loadingButton {
+  background-color: var(--grey-color);
+  color: var(--mystic-blue);
+  padding: 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+  width: 160px;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    transition: all 0.3s ease-in-out;
   }
 }
 
 .lazyImageWrapper {
-  width: 100%; /* Ensure the container spans the full width */
-  max-width: 100%; /* Prevent overflow */
-  position: relative; /* Required for responsive images */
+  width: 100%;
+  /* Ensure the container spans the full width */
+  max-width: 100%;
+  /* Prevent overflow */
+  position: relative;
+  /* Required for responsive images */
 }
 
 .lazyImage {
-  object-fit: cover; /* Ensures the image scales nicely without distortion */
-  width: 100%; /* Makes the image adapt to the container width */
-  height: auto; /* Maintains the aspect ratio */
+  object-fit: cover;
+  /* Ensures the image scales nicely without distortion */
+  width: 100%;
+  /* Makes the image adapt to the container width */
+  height: auto;
+  /* Maintains the aspect ratio */
 }
 
 @media (max-width: 768px) {
   .lazyImageWrapper {
-      width: 100%; /* Adjust the container for smaller screens */
-      max-width: 100%; /* Prevent overflow */
+    width: 100%;
+    /* Adjust the container for smaller screens */
+    max-width: 100%;
+    /* Prevent overflow */
   }
 
   .lazyImage {
@@ -196,12 +221,12 @@ th {
     width: 100%;
     /* height: 300px !important; */
     border-radius: 10px;
-}
+  }
 }
 
 @media (max-width: 430px) {
 
   .layout {
-      padding: 0.5em;
+    padding: 0.5em;
   }
 }
