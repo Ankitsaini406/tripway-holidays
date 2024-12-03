@@ -24,3 +24,12 @@
         transform: rotate(360deg);
     }
 }
+
+@media (max-width: 430px) {
+    .loader{ 
+        border: 8px solid var(--grey-color);
+        border-top: 8px solid var(--black-color);
+        height: 60px;
+        width: 60px;
+    }
+}

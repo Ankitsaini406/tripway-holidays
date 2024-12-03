@@ -6,21 +6,19 @@ export async function POST(req) {
     try {
         const { tourName, price, userName, userEmail, userPhoneNumber, tourDate, userFrom, passenger } = await req.json();
 
-        const tourRef = collection(firestore, "user-tours");
-
         // Prepare tour data
         const tourUserData = {
-            tourName,
+            passenger,
             price,
+            tourDate,
+            tourName,
+            userEmail,
+            userFrom,
             userName,
             userPhoneNumber,
-            userEmail,
-            tourDate,
-            userFrom,
-            passenger,
         };
 
-        // Add the tour data to Firestore
+        const tourRef = collection(firestore, "user-tours");
         await addDoc(tourRef, tourUserData);
 
         return new NextResponse(JSON.stringify({ message: "Tour created successfully!" }), {

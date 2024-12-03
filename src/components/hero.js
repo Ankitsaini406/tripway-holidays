@@ -36,7 +36,6 @@ const Hero = () => {
                             alt={`Slide ${i + 1}`}
                             placeholder="blur"
                             blurDataURL={image.src}
-                            layout="intrinsic"
                             width={1600}
                             height={900}
                         />

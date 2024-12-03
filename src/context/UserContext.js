@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWith
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
 import { set, ref, get, child, query, equalTo, orderByChild } from "firebase/database";
-import { setCookie, getCookie, removeCookie } from 'cookies-next';
+import { jwtDecode } from 'jwt-decode';
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
 const UserContext = createContext(null);
 
@@ -17,9 +18,14 @@ export const UserProvider = (props) => {
 
     // Load user from cookie on initial load (client-side)
     useEffect(() => {
-        const savedUser = getCookie('token');
-        if (savedUser) {
-            setUser(savedUser); // Set user from cookie if it exists
+        const savedToken = getCookie('token');
+        if (savedToken) {
+            try {
+                const decodedToken = jwtDecode(savedToken);
+                setUser(decodedToken);
+            } catch (error) {
+                console.error("Failed to decode token:", error);
+            }
         }
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -132,9 +138,7 @@ export const UserProvider = (props) => {
         try {
             await signOut(auth);
             setUser(null);
-
-            // Remove user data from cookie using cookies-next
-            removeCookie('token');
+            deleteCookie('token', { path: '/', domain: window.location.hostname });
         } catch (error) {
             console.error("Error signing out:", error);
         }

@@ -1,9 +1,24 @@
+.tourBox {
+    display: flex;
+    gap: 2em;
+}
+
 .tourdetails {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 60%;
-    margin: auto;
+    width: 100%;
+}
+
+.bookingFrom {
+    position: sticky;
+    top: 5em;
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    border-radius: 10px;
+    place-self: flex-start;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .tourdetailsBox {
@@ -23,6 +38,12 @@
     border-radius: 8px;
 }
 
+.tourImg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
 .tourdetailsText {
     line-height: 1.6;
 }
@@ -33,7 +54,7 @@
     border-radius: 10px;
     cursor: pointer;
     text-transform: capitalize;
-    background-color: var(--peacock-green);
+    background-color: var(--indigo-blue);
     color: var(--white-color);
     width: 160px;
 

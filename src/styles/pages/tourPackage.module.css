@@ -70,6 +70,12 @@
     border-radius: 10px;
 }
 
+.tourImg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
 .tourDetails {
     display: flex;
     flex-direction: column;

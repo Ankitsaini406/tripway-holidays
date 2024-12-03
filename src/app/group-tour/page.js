@@ -101,24 +101,22 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 
 function TourCard({ item }) {
 
-    const imageUrl = process.env.IMAGE_URL;
-
     return (
         <div className={styles.tourCard}>
             <div className={`${styles.tourImage}`}>
                 <Image
+                    className={styles.tourImg}
                     data-src={`/tour-image/${item.imageUrl}`}
                     src={`/tour-image/${item.imageUrl}`}
                     alt={item.imageUrl}
                     placeholder="blur"
                     blurDataURL={`/tour-image/${item.imageUrl}`}
-                    layout="intrinsic"
                     width={1600}
                     height={900}
                 />
             </div>
             <div className={styles.tourDetails}>
-                <h3>{item.name}</h3>
+                <h2>{item.name}</h2>
                 <h6>{item.category}</h6>
                 <p>{item.description}</p>
                 <Link href={`/group-tour/${item.id}`} className='readMore'>

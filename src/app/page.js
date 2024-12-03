@@ -35,22 +35,21 @@ const Home = () => {
                 <div className={styles.homeTour} id="groupTour">
                     <div className={styles.homeTourFlex}>
                         <div>
-                            <h4>Group Travel</h4>
+                            <h2>Group Travel</h2>
                             <p>This is for testing purposes</p>
                             <Link className='readMore' href='/group-tour'>Read More</Link>
                         </div>
-                        <div className={`lazyImageWrapper ${styles.tourImg}`}>
-                            {/* <Image
+                        <div className={styles.imgBox}>
+                            <Image
                                 className={styles.tourImg}
-                                data-src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
-                                src='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
+                                data-src='/slider/slider6.png'
+                                src='/slider/slider6.png'
                                 alt="multicolored-buntings"
                                 placeholder="blur"
-                                blurDataURL='https://images.unsplash.com/photo-1576557686977-eda3a3bb1ea2?q=80&w=2576&auto=format&fit=crop'
-                                layout="intrinsic"
+                                blurDataURL='/slider/slider6.png'
                                 width={1600}
                                 height={900}
-                            /> */}
+                            />
                         </div>
                     </div>
                 </div>

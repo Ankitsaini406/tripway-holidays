@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { database } from "@/firebase/firebaseConfig";
+import { jwtDecode } from 'jwt-decode';
 import { ref, query, orderByChild, equalTo, get } from "firebase/database";
 
 const useTourUserData = () => {
@@ -23,7 +24,7 @@ const useTourUserData = () => {
             }
 
             try {
-                const parsedToken = JSON.parse(token); // Parse the JSON token
+                const parsedToken = jwtDecode(token); // Parse the JSON token
                 const email = parsedToken.email; // Extract email from the token
 
                 setLoading(true);
@@ -67,12 +68,12 @@ const useTourUserData = () => {
             const addUserTour = {
                 tourName: data.tourName,
                 price: data.price,
-                userName: userData.name,
-                userEmail: userData.email,
-                userPhoneNumber: userData.phoneNumber,
+                userName: data.userName,
+                userEmail: data.userEmail,
+                userPhoneNumber: data.userPhoneNumber,
                 tourDate: data.tourDate,
-                userFrom: data.userFrom || "",
-                passenger: data.passenger || "",
+                userFrom: data.userFrom,
+                passenger: data.passenger,
                 userId: userData.uid,
                 tourId: data.id,
             };
