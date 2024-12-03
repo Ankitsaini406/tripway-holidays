@@ -76,7 +76,7 @@
 @media (max-width: 768px) {
 
     .tourdetails {
-        width: 80%;
+        width: 100%;
     }
 
     .tourdetailsImg {
@@ -89,6 +89,10 @@
 }
 
 @media (max-width: 430px) {
+
+    .tourBox {
+        flex-direction: column;
+    }
 
     .tourdetails {
         width: 100%;
