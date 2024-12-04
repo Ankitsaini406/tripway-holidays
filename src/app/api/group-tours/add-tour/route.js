@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { tourName, price, userName, userEmail, userPhoneNumber, tourDate, userFrom, passenger } = await req.json();
+        const { tourName, price, userName, userEmail, userPhoneNumber, tourDate, userFrom, passenger, isPast } = await req.json();
 
         // Prepare tour data
         const tourUserData = {
@@ -16,6 +16,7 @@ export async function POST(req) {
             userFrom,
             userName,
             userPhoneNumber,
+            isPast,
         };
 
         const tourRef = collection(firestore, "user-tours");

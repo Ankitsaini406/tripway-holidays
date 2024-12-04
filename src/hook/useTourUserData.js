@@ -76,6 +76,7 @@ const useTourUserData = () => {
                 passenger: data.passenger,
                 userId: userData.uid,
                 tourId: data.id,
+                isPast: data.isPast,
             };
 
             const response = await fetch(`${apiPoint}/api/group-tours/add-tour`, {

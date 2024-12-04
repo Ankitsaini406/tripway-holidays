@@ -18,8 +18,6 @@ function TourDetails() {
     const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
     const router = useRouter();
     const { addTourData, userData, loading, error, success } = useTourUserData();
-
-    // Initialize form state
     const [formData, setFormData] = useState({
         userFrom: '',
         passenger: 1,
@@ -27,6 +25,48 @@ function TourDetails() {
         userEmail: userData?.email || '',
         userName: userData?.name || '',
     });
+    const [isPastDate, setIsPastDate] = useState(false);
+
+    function getDateBack(startDate, daysBack) {
+        const date = new Date(startDate);
+        date.setDate(date.getDate() - daysBack);
+        return formatDate(date);
+    }
+    
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = date.toLocaleString('default', { month: 'short' });
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    }
+    
+    const date5DaysBack = getDateBack(tour?.startDate, 5);
+    
+    useEffect(() => {
+        if (date5DaysBack) {
+            const parsedDate5DaysBack = new Date(date5DaysBack);
+            const today = new Date();
+            
+            // Strip out the time component from both dates
+            const dateOnlyParsedDate = new Date(parsedDate5DaysBack.setHours(0, 0, 0, 0));
+            const dateOnlyToday = new Date(today.setHours(0, 0, 0, 0));
+    
+            // Compare dates without time
+            const isPast = dateOnlyParsedDate < dateOnlyToday;
+            setIsPastDate(isPast);
+        }
+    }, [tour]);
+
+    useEffect(() => {
+        if (success) toast.success(success, {
+            draggable: true,
+            closeOnClick: true,
+        });
+        if (error) toast.error(error, {
+            draggable: true,
+            closeOnClick: true,
+        });
+    }, [success, error]);
 
     useEffect(() => {
         if (userData) {
@@ -42,25 +82,10 @@ function TourDetails() {
 
     const handleAddTourData = async (e) => {
         e.preventDefault();
-        if (userData === null) return router.push('/auth/client-login');
+        if (!userData) return router.push('/auth/client-login');
         try {
-            const data = {
-                tourName: tour.name,
-                price: tour.price,
-                tourDate: tour.startDate,
-                userFrom: formData.userFrom,
-                userName: formData.userName,
-                passenger: parseInt(formData.passenger),
-                userPhoneNumber: formData.userPhoneNumber,
-                userEmail: formData.userEmail,
-            }
+            const data = { ...formData, tourName: tour.name, price: tour.price, tourDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
-            if (success) {
-                toast.success(success, {
-                    draggable: true,
-                    closeOnClick: true,
-                })
-            }
         } catch (error) {
             console.error("Error adding tour data:", error);
         }
@@ -89,11 +114,9 @@ function TourDetails() {
                                     <h2>{tour.name}</h2>
                                     <h4>Category: {tour.category}</h4>
                                     <h4>&#8377;&nbsp;{tour.price}</h4>
-                                    <h4>Tour&nbsp;Date:&nbsp;{tour.startDate}</h4>
+                                    <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;{date5DaysBack}</h4>
+                                    <h4>Departure&nbsp;Date:&nbsp;{tour.startDate}</h4>
                                     <p>{tour.description}</p>
-                                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <button onClick={handleAddTourData} className={styles.tourBuybutton}>Buy Now</button>
-                                    </div> */}
                                 </div>
                             </div>
                             <div className={styles.tourdetailsInfo}>
@@ -104,6 +127,7 @@ function TourDetails() {
                             <h1>Booking Form</h1>
                             <h2>{tour.name}</h2>
                             <form>
+                                {isPastDate && <p className='errorMsg'>*Sorry! This tour is currently unavailable for booking. We plan to offer it again within the next 30 days. Fill in your details below to receive a notification when bookings reopen!.</p>}
                                 <div className={style.formGroup}>
                                     <label htmlFor="name">Name</label>
                                     <input
@@ -116,24 +140,27 @@ function TourDetails() {
                                         required
                                     />
                                 </div>
-                                <div className={style.formGroup}>
-                                    <label htmlFor="from">From</label>
-                                    <input
-                                        className={style.authInput}
-                                        type="text"
-                                        id="from"
-                                        value={formData.userFrom || ''}
-                                        onChange={(e) => setFormData({ ...formData, userFrom: e.target.value })}
-                                        placeholder={'Enter your Location'}
-                                        required
-                                    />
-                                </div>
+                                {
+                                    !isPastDate && <div className={style.formGroup}>
+                                        <label htmlFor="from">From</label>
+                                        <input
+                                            className={style.authInput}
+                                            type="text"
+                                            id="from"
+                                            value={formData.userFrom || ''}
+                                            onChange={(e) => setFormData({ ...formData, userFrom: e.target.value })}
+                                            placeholder={'Enter your Location'}
+                                            required
+                                        />
+                                    </div>
+                                }
                                 <div className={style.formGroup}>
                                     <label htmlFor="phonenumber">Phone Number</label>
                                     <input
                                         className={style.authInput}
-                                        type="text"
-                                        id="phonenumber"
+                                        type="text" inputMode="numeric"
+                                        pattern="[0-9]+"
+                                        id="phoneNumber"
                                         value={formData.userPhoneNumber || ''}
                                         onChange={(e) => setFormData({ ...formData, userPhoneNumber: e.target.value })}
                                         placeholder={userData ? '' : 'Enter your Phone Number'}
@@ -152,22 +179,24 @@ function TourDetails() {
                                         required
                                     />
                                 </div>
-                                <div className={style.formGroup}>
-                                    <label htmlFor="passenger">Passengers</label>
-                                    <input
-                                        className={style.authInput}
-                                        type="number"
-                                        id="passenger"
-                                        value={formData.passenger || ''}
-                                        onChange={(e) => setFormData({ ...formData, passenger: e.target.value })}
-                                        placeholder="Enter number of passengers"
-                                        required
-                                    />
-                                </div>
+                                {
+                                    !isPastDate && <div className={style.formGroup}>
+                                        <label htmlFor="passenger">Passengers</label>
+                                        <input
+                                            className={style.authInput}
+                                            type="number"
+                                            id="passenger"
+                                            value={formData.passenger || ''}
+                                            onChange={(e) => setFormData({ ...formData, passenger: e.target.value })}
+                                            placeholder="Enter number of passengers"
+                                            required
+                                        />
+                                    </div>
+                                }
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    {
-                                        loading ? <button disabled className='loadingButton'>Adding...</button> : <button onClick={handleAddTourData} className={styles.tourBuybutton}>Buy Now</button>
-                                    }
+                                    <button className={` ${loading ? 'loadingButton' : styles.tourBuybutton}`} onClick={loading ? null : handleAddTourData} type="submit" disabled={loading}>
+                                        {loading ? 'Submitting...' : isPastDate ? 'Submit Details' : 'Book Now'}
+                                    </button>
                                 </div>
                             </form>
                         </div>
