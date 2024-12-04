@@ -41,6 +41,7 @@
   --white-color: #ffffff;
   --grey-color: #f4f4f4;
   --error-color: #ff0000;
+  --secondary-text: #333333;
 }
 
 @font-face {

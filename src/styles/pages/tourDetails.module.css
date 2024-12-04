@@ -18,6 +18,7 @@
     padding: 1em;
     border-radius: 10px;
     place-self: flex-start;
+    border: 1px solid var(--indigo-blue);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -73,7 +74,87 @@
     border-radius: 10px;
 }
 
+.tourdetailsInfo {
+    margin: 20px 0;
+}
+
+.tabButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
+    justify-content: flex-start;
+}
+
+.tabButton {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 5px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    outline: none !important;
+}
+
+.tabButton:hover {
+    border-color: #ccc;
+}
+
+.activeTab {
+    border-color: #0070f3;
+    color: #0070f3;
+}
+
+.tabContent {
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.spanText {
+    display: block;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--secondary-text);
+    margin: 0 0 20px 0;
+}
+
+.nameList {
+    margin: 0 0 8px 0;
+    color: var(--secondary-text);
+}
+
+.ulList {
+    margin: 0 0 16px 0;
+    color: var(--secondary-text);
+}
+
+.liList {
+    font-size: 14px;
+    padding-left: 15px;
+    position: relative;
+    color: var(--secondary-text);
+}
+
+.liList::before {
+    position: absolute;
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--black-color);
+    left: 0;
+    top: 6px;
+    border-radius: 100%;
+}
+
 @media (max-width: 768px) {
+
+    .tourBox {
+        flex-direction: column;
+    }
 
     .tourdetails {
         width: 100%;
@@ -89,10 +170,6 @@
 }
 
 @media (max-width: 430px) {
-
-    .tourBox {
-        flex-direction: column;
-    }
 
     .tourdetails {
         width: 100%;

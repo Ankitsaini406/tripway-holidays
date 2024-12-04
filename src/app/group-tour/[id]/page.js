@@ -132,99 +132,10 @@ function TourDetails() {
                                 </div>
                             </div>
                             <div className={styles.tourdetailsInfo}>
-                                Trip Details
+                                <TripDetails />
                             </div>
                         </div>
-                        <div className={styles.bookingFrom}>
-                            <h1>Booking Form</h1>
-                            <h2>{tour.name}</h2>
-                            <form>
-                                {isPastDate && <p className='errorMsg'>*Sorry! This tour is currently unavailable for booking. We plan to offer it again within the next 30 days. Fill in your details below to receive a notification when bookings reopen!.</p>}
-                                <div className={style.formGroup}>
-                                    <label htmlFor="name">Name</label>
-                                    <input
-                                        className={style.authInput}
-                                        type="text"
-                                        id="name"
-                                        value={formData.userName || ''}
-                                        onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                                        placeholder={userData ? '' : 'Enter your Name'}
-                                        required
-                                    />
-                                </div>
-                                {
-                                    !isPastDate && <div className={style.formGroup}>
-                                        <label htmlFor="from">From</label>
-                                        <input
-                                            className={style.authInput}
-                                            type="text"
-                                            id="from"
-                                            value={formData.userFrom || ''}
-                                            onChange={(e) => setFormData({ ...formData, userFrom: e.target.value })}
-                                            placeholder={'Enter your Location'}
-                                            required
-                                        />
-                                    </div>
-                                }
-                                <div className={style.formGroup}>
-                                    <label htmlFor="phonenumber">Phone Number</label>
-                                    <input
-                                        className={style.authInput}
-                                        type="text" inputMode="numeric"
-                                        pattern="[0-9]+"
-                                        id="phoneNumber"
-                                        value={formData.userPhoneNumber || ''}
-                                        onChange={(e) => setFormData({ ...formData, userPhoneNumber: e.target.value })}
-                                        placeholder={userData ? '' : 'Enter your Phone Number'}
-                                        required
-                                    />
-                                </div>
-                                <div className={style.formGroup}>
-                                    <label htmlFor="email">Email</label>
-                                    <input
-                                        className={style.authInput}
-                                        type="email"
-                                        id="email"
-                                        value={formData.userEmail || ''}
-                                        onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
-                                        placeholder={userData ? '' : 'Enter your Email'}
-                                        required
-                                    />
-                                </div>
-                                {
-                                    !isPastDate && <div className={style.formGroup}>
-                                        <label htmlFor="passenger">Passengers</label>
-                                        <input
-                                            className={style.authInput}
-                                            type="number"
-                                            id="passenger"
-                                            value={formData.passenger || ''}
-                                            onChange={(e) => setFormData({ ...formData, passenger: e.target.value })}
-                                            placeholder="Enter number of passengers"
-                                            required
-                                        />
-                                    </div>
-                                }
-                                <div className={style.formGroup}>
-                                    <label className="tremCondition">
-                                        <div>
-                                            <input
-                                                type="checkbox"
-                                                checked={isCheckboxChecked}
-                                                onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
-                                            />
-                                        </div>
-                                        <h4>By proceeding, you agree with our <a className='terms' href="/terms_and_condition" target="_blank">Terms and Condition</a> & <a className='privacy' href="/privacy_policy" target="_blank">Privacy Policy</a></h4>
-                                    </label>
-                                </div>
-                                {errors.checkbox && <p className="errorMsg">{errors.checkbox}</p>}
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <button className={` ${loading ? 'loadingButton' : styles.tourBuybutton}`} onClick={loading ? null : handleAddTourData} type="submit" disabled={loading}>
-                                        {loading ? 'Submitting...' : isPastDate ? 'Submit Details' : 'Book Now'}
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        <BookingForm tour={tour} isPastDate={isPastDate} formData={formData} setFormData={setFormData} userData={userData} isCheckboxChecked={isCheckboxChecked} setIsCheckboxChecked={setIsCheckboxChecked} errors={errors} loading={loading} handleAddTourData={handleAddTourData} />
                     </div>
                     ) : <p>Tour data not available</p>
             }
@@ -233,3 +144,171 @@ function TourDetails() {
 }
 
 export default TourDetails;
+
+export const TripDetails = () => {
+    const [activeTab, setActiveTab] = useState('itinerary'); // Default active section
+
+    return (
+        <>
+            <div className={styles.tabButtons}>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'itinerary' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('itinerary')}
+                >
+                    Itinerary
+                </button>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'inclusions' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('inclusions')}
+                >
+                    Inclusions&nbsp;/&nbsp;Exclusions
+                </button>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'tour-information' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('tour-information')}
+                >
+                    Tour&nbsp;Information
+                </button>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'need-know' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('need-know')}
+                >
+                    Need&nbsp;to&nbsp;Know
+                </button>
+            </div>
+
+            <div className={styles.tabContent}>
+                {activeTab === 'itinerary' && (
+                    <div>
+                        <h3>Itinerary</h3>
+                        <p>{'No itinerary details available.'}</p>
+                    </div>
+                )}
+                {activeTab === 'inclusions' && (
+                    <div>
+                        <h3>Inclusions</h3>
+                        <p>{'No inclusions details available.'}</p>
+                    </div>
+                )}
+                {activeTab === 'tour-information' && (
+                    <div>
+                        <h3>Tour Information</h3>
+                        <p>This is Tour Information.</p>
+                    </div>
+                )}
+                {activeTab === 'need-know' && (
+                    <div>
+                        <span className={styles.spanText}>Things to consider before the trip!</span>
+                        <h3 className={styles.nameList}>Weather</h3>
+                        <ul className={styles.ulList}><li className={styles.liList}>For detailed Information about weather kindly visit <a href='https://www.accuweather.com'>www.accuweather.com</a></li></ul>
+                        <h3 className={styles.nameList}>Transport</h3>
+                        <h4 className={styles.nameList}>Coach Tavel</h4>
+                        <ul className={styles.ulList}><li className={styles.liList}>A/C Vehicle Type - Depends upon group size</li></ul>
+                        <h3 className={styles.nameList}>Documnets Required for Travel</h3>
+                        <ul className={styles.ulList}><li className={styles.liList}>ADULT: Voters ID / Passport / Aadhar Card / Driving Licence</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>CHILD : Passport / Aadhar Card / School ID</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>INFANT: Aadhar Card/ Birth certificate</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>ID card, ID card type and ID card number is mandatory at time of booking, kindly carry the same ID card on tour.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>For NRI and Foreign National Guests alongwith Passport, Valid Indian Visa/ OCI Card/ PIO Card is mandatory.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>Carry one passport size photo.</li></ul>
+                    </div>
+                )}
+            </div>
+        </>
+    );
+};
+
+export const BookingForm = ({ tour, isPastDate, formData, setFormData, userData, isCheckboxChecked, setIsCheckboxChecked, errors, loading, handleAddTourData }) => {
+    return (
+        <div className={styles.bookingFrom}>
+            <h1>Booking Form</h1>
+            <h2>{tour.name}</h2>
+            <form>
+                {isPastDate && <p className='errorMsg'>*Sorry! This tour is currently unavailable for booking. We plan to offer it again within the next 30 days. Fill in your details below to receive a notification when bookings reopen!.</p>}
+                <div className={style.formGroup}>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        className={style.authInput}
+                        type="text"
+                        id="name"
+                        value={formData.userName || ''}
+                        onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                        placeholder={userData ? '' : 'Enter your Name'}
+                        required
+                    />
+                </div>
+                {
+                    !isPastDate && <div className={style.formGroup}>
+                        <label htmlFor="from">From</label>
+                        <input
+                            className={style.authInput}
+                            type="text"
+                            id="from"
+                            value={formData.userFrom || ''}
+                            onChange={(e) => setFormData({ ...formData, userFrom: e.target.value })}
+                            placeholder={'Enter your Location'}
+                            required
+                        />
+                    </div>
+                }
+                <div className={style.formGroup}>
+                    <label htmlFor="phonenumber">Phone Number</label>
+                    <input
+                        className={style.authInput}
+                        type="text" inputMode="numeric"
+                        pattern="[0-9]+"
+                        id="phoneNumber"
+                        value={formData.userPhoneNumber || ''}
+                        onChange={(e) => setFormData({ ...formData, userPhoneNumber: e.target.value })}
+                        placeholder={userData ? '' : 'Enter your Phone Number'}
+                        required
+                    />
+                </div>
+                <div className={style.formGroup}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        className={style.authInput}
+                        type="email"
+                        id="email"
+                        value={formData.userEmail || ''}
+                        onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
+                        placeholder={userData ? '' : 'Enter your Email'}
+                        required
+                    />
+                </div>
+                {
+                    !isPastDate && <div className={style.formGroup}>
+                        <label htmlFor="passenger">Passengers</label>
+                        <input
+                            className={style.authInput}
+                            type="number"
+                            id="passenger"
+                            value={formData.passenger || ''}
+                            onChange={(e) => setFormData({ ...formData, passenger: e.target.value })}
+                            placeholder="Enter number of passengers"
+                            required
+                        />
+                    </div>
+                }
+                <div className={style.formGroup}>
+                    <label className="tremCondition">
+                        <div>
+                            <input
+                                type="checkbox"
+                                checked={isCheckboxChecked}
+                                onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
+                            />
+                        </div>
+                        <h4>By proceeding, you agree with our <a className='terms' href="/terms_and_condition" target="_blank">Terms and Condition</a> & <a className='privacy' href="/privacy_policy" target="_blank">Privacy Policy</a></h4>
+                    </label>
+                </div>
+                {errors.checkbox && <p className="errorMsg">{errors.checkbox}</p>}
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <button className={` ${loading ? 'loadingButton' : styles.tourBuybutton}`} onClick={loading ? null : handleAddTourData} type="submit" disabled={loading}>
+                        {loading ? 'Submitting...' : isPastDate ? 'Submit Details' : 'Book Now'}
+                    </button>
+                </div>
+            </form>
+        </div>
+    )
+}
