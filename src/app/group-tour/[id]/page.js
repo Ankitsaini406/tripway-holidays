@@ -26,32 +26,32 @@ function TourDetails() {
         userName: userData?.name || '',
     });
     const [isPastDate, setIsPastDate] = useState(false);
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+    const [errors, setErrors] = useState({});
 
     function getDateBack(startDate, daysBack) {
         const date = new Date(startDate);
         date.setDate(date.getDate() - daysBack);
         return formatDate(date);
     }
-    
+
     function formatDate(date) {
         const day = String(date.getDate()).padStart(2, '0');
         const month = date.toLocaleString('default', { month: 'short' });
         const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     }
-    
+
     const date5DaysBack = getDateBack(tour?.startDate, 5);
-    
+
     useEffect(() => {
         if (date5DaysBack) {
             const parsedDate5DaysBack = new Date(date5DaysBack);
             const today = new Date();
-            
-            // Strip out the time component from both dates
+
             const dateOnlyParsedDate = new Date(parsedDate5DaysBack.setHours(0, 0, 0, 0));
             const dateOnlyToday = new Date(today.setHours(0, 0, 0, 0));
-    
-            // Compare dates without time
+
             const isPast = dateOnlyParsedDate < dateOnlyToday;
             setIsPastDate(isPast);
         }
@@ -82,6 +82,18 @@ function TourDetails() {
 
     const handleAddTourData = async (e) => {
         e.preventDefault();
+        let validationErrors = {};
+        if (!formData.userName) validationErrors.userName = "Name is required";
+        if (!formData.userPhoneNumber) validationErrors.userPhoneNumber = "Phone Number is required";
+        if (!formData.userEmail) validationErrors.userEmail = "Email is required";
+        if (!isCheckboxChecked) validationErrors.checkbox = "You must agree to the terms and conditions";
+        if (!formData.passenger || formData.passenger <= 0) validationErrors.passenger = "Number of passengers is required and must be greater than 0";
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+
         if (!userData) return router.push('/auth/client-login');
         try {
             const data = { ...formData, tourName: tour.name, price: tour.price, tourDate: tour.startDate, isPast: isPastDate };
@@ -193,6 +205,19 @@ function TourDetails() {
                                         />
                                     </div>
                                 }
+                                <div className={style.formGroup}>
+                                    <label className="tremCondition">
+                                        <div>
+                                            <input
+                                                type="checkbox"
+                                                checked={isCheckboxChecked}
+                                                onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
+                                            />
+                                        </div>
+                                        <h4>By proceeding, you agree with our <a className='terms' href="/terms_and_condition" target="_blank">Terms and Condition</a> & <a className='privacy' href="/privacy_policy" target="_blank">Privacy Policy</a></h4>
+                                    </label>
+                                </div>
+                                {errors.checkbox && <p className="errorMsg">{errors.checkbox}</p>}
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <button className={` ${loading ? 'loadingButton' : styles.tourBuybutton}`} onClick={loading ? null : handleAddTourData} type="submit" disabled={loading}>
                                         {loading ? 'Submitting...' : isPastDate ? 'Submit Details' : 'Book Now'}
