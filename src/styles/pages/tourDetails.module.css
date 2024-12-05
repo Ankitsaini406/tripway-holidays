@@ -187,6 +187,11 @@
     gap: 10px;
 }
 
+.arrow {
+    width: 26px;
+    display: block;
+}
+
 .inExboxes{
     width: 50%;
 
@@ -287,7 +292,11 @@
     .inclusionsFlex {
         flex-direction: column;
     }
-    
+
+    /* .arrow {
+        width: 8%;
+    } */
+
     .inExboxes{
         width: 100%;
     }

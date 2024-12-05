@@ -226,7 +226,7 @@ export const TripDetails = ({ tour }) => {
                                                         (<div className={styles.descBox}>
                                                             {day.activies.map((item, index) => {
                                                                 return (
-                                                                    <div key={index} style={{ display: 'flex' }}><div style={{ width: '8%'}}><MdDoubleArrow /></div><h5>{item}</h5></div>
+                                                                    <div key={index} style={{ display: 'flex' }}><div className={styles.arrow}><MdDoubleArrow /></div><h5 style={{width: '90%'}}>{item}</h5></div>
                                                                 );
                                                             })
                                                             }
