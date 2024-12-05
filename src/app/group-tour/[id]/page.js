@@ -10,9 +10,10 @@ import useTourUserData from '@/hook/useTourUserData';
 import { FiPlus } from "react-icons/fi";
 import { FaWindowMinimize } from "react-icons/fa6";
 import { SlLocationPin } from "react-icons/sl";
+import { MdDoubleArrow } from "react-icons/md";
+import { toast } from 'react-toastify';
 import styles from '@/styles/pages/tourDetails.module.css';
 import style from '@/styles/pages/authpage.module.css';
-import { toast } from 'react-toastify';
 
 function TourDetails() {
 
@@ -172,25 +173,6 @@ export const TripDetails = ({ tour }) => {
         "5 % GST Applicable",
     ];
 
-    const itineraryData = [
-        {
-            title: "Arrival in Shimla",
-            description:
-                "Welcome to Shimla, the queen of hills! On arrival, check in to your hotel. Spend the day at leisure exploring the local markets or relaxing at the hotel.",
-        },
-        {
-            title: "Shimla Sightseeing",
-            description:
-                "Visit Kufri, a scenic hill station. Enjoy local attractions like Jakhoo Temple and Mall Road. Spend the evening exploring the bustling streets of Shimla.",
-        },
-        {
-            title: "Transfer to Manali",
-            description:
-                "Check out from your hotel and proceed to Manali. En route, visit Kullu and enjoy the sights of river rafting and apple orchards.",
-        },
-        // Add more days as needed
-    ];
-
     return (
         <>
             <div className={styles.tabButtons}>
@@ -223,10 +205,10 @@ export const TripDetails = ({ tour }) => {
             <div className={styles.tabContent}>
                 {activeTab === 'itinerary' && (
                     <div className={styles.expenedMain}>
-                        { tour.itinerary ? 
+                        {tour.itinerary ?
                             tour.itinerary.map((day, index) => {
                                 return (
-                                    <div key={index} className={styles.expendBox} >
+                                    <div key={index} className={styles.expendBox}>
                                         <div className={styles.location}><SlLocationPin /></div>
                                         <div className={styles.titleFlex} onClick={() => toggleBox(index + 1)}>
                                             <h3>{day.title}</h3>
@@ -236,8 +218,22 @@ export const TripDetails = ({ tour }) => {
                                                 <div style={{ alignItems: 'center' }} className={styles.cireules}><FiPlus /></div>
                                             )}
                                         </div>
-                                        <div className={`${styles.boxContent} ${activeBoxes.includes(index + 1) ? styles.open : ""}`}>
-                                            {activeBoxes.includes(index + 1) && <p>{day.description}</p>}
+                                        <div className={`${styles.boxContent} ${activeBoxes.includes(index + 1) ? styles.open : styles.close}`}>
+                                            {activeBoxes.includes(index + 1) &&
+                                                <>
+                                                    <p>{day.description}</p>
+                                                    {day.activies &&
+                                                        (<div className={styles.descBox}>
+                                                            {day.activies.map((item, index) => {
+                                                                return (
+                                                                    <div key={index} style={{ display: 'flex', gap: '1em' }}><MdDoubleArrow /><h5>{item}</h5></div>
+                                                                );
+                                                            })
+                                                            }
+                                                        </div>)
+                                                    }
+                                                </>
+                                            }
                                         </div>
                                     </div>
                                 )
