@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import LoadingSpinner from '@/utils/lodingSpinner';
 import { useSingleTourData } from '@/hook/useSingleTour';
 import useTourUserData from '@/hook/useTourUserData';
+import { FiPlus } from "react-icons/fi";
+import { FaWindowMinimize } from "react-icons/fa6";
+import { SlLocationPin } from "react-icons/sl";
 import styles from '@/styles/pages/tourDetails.module.css';
 import style from '@/styles/pages/authpage.module.css';
 import { toast } from 'react-toastify';
@@ -132,7 +135,7 @@ function TourDetails() {
                                 </div>
                             </div>
                             <div className={styles.tourdetailsInfo}>
-                                <TripDetails />
+                                <TripDetails tour={tour} />
                             </div>
                         </div>
                         <BookingForm tour={tour} isPastDate={isPastDate} formData={formData} setFormData={setFormData} userData={userData} isCheckboxChecked={isCheckboxChecked} setIsCheckboxChecked={setIsCheckboxChecked} errors={errors} loading={loading} handleAddTourData={handleAddTourData} />
@@ -145,8 +148,17 @@ function TourDetails() {
 
 export default TourDetails;
 
-export const TripDetails = () => {
-    const [activeTab, setActiveTab] = useState('itinerary'); // Default active section
+export const TripDetails = ({ tour }) => {
+    const [activeTab, setActiveTab] = useState('itinerary');
+    const [activeBoxes, setActiveBoxes] = useState([]);
+
+    const toggleBox = (boxId) => {
+        setActiveBoxes((prevState) =>
+            prevState.includes(boxId)
+                ? prevState.filter((id) => id !== boxId) // Close the box
+                : [...prevState, boxId] // Open the box
+        );
+    };
 
     const inclusions = [
         "Accommodation on twin sharing basis as per plan",
@@ -158,6 +170,25 @@ export const TripDetails = () => {
         "Air Fare/Train fare.",
         "Personal Expenses such as Laundry, telephone calls, tips. Liquor & joy rides",
         "5 % GST Applicable",
+    ];
+
+    const itineraryData = [
+        {
+            title: "Arrival in Shimla",
+            description:
+                "Welcome to Shimla, the queen of hills! On arrival, check in to your hotel. Spend the day at leisure exploring the local markets or relaxing at the hotel.",
+        },
+        {
+            title: "Shimla Sightseeing",
+            description:
+                "Visit Kufri, a scenic hill station. Enjoy local attractions like Jakhoo Temple and Mall Road. Spend the evening exploring the bustling streets of Shimla.",
+        },
+        {
+            title: "Transfer to Manali",
+            description:
+                "Check out from your hotel and proceed to Manali. En route, visit Kullu and enjoy the sights of river rafting and apple orchards.",
+        },
+        // Add more days as needed
     ];
 
     return (
@@ -191,9 +222,27 @@ export const TripDetails = () => {
 
             <div className={styles.tabContent}>
                 {activeTab === 'itinerary' && (
-                    <div>
-                        <h3>Itinerary</h3>
-                        <p>{'No itinerary details available.'}</p>
+                    <div className={styles.expenedMain}>
+                        { tour.itinerary ? 
+                            tour.itinerary.map((day, index) => {
+                                return (
+                                    <div key={index} className={styles.expendBox} onClick={() => toggleBox(index + 1)}>
+                                        <div className={styles.location}><SlLocationPin /></div>
+                                        <div className={styles.titleFlex}>
+                                            <h3>{day.title}</h3>
+                                            {activeBoxes.includes(index + 1) ? (
+                                                <div className={styles.cireules}><FaWindowMinimize /></div>
+                                            ) : (
+                                                <div style={{ alignItems: 'center' }} className={styles.cireules}><FiPlus /></div>
+                                            )}
+                                        </div>
+                                        <div className={`${styles.boxContent} ${activeBoxes.includes(index + 1) ? styles.open : ""}`}>
+                                            {activeBoxes.includes(index + 1) && <p>{day.description}</p>}
+                                        </div>
+                                    </div>
+                                )
+                            }) : <p>No Data available</p>
+                        }
                     </div>
                 )}
                 {activeTab === 'inclusions' && (

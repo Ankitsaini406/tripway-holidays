@@ -117,6 +117,57 @@
     border-radius: 0px 0px 10px 10px;
 }
 
+.titleFlex {
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.cireules {
+    border: 1px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.cireules svg {
+    font-size: 18px;
+}
+
+.expenedMain {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.expendBox {
+    border-left: 1px dashed #c4c4c4;
+    padding: 0 0 10px 15px;
+    position: relative;
+}
+
+.location{
+    position: absolute;
+    top: 0px;
+    left: -9px;
+    background-color: var(--white-color);
+    font-size: larger;
+}
+
+.boxContent {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.boxContent.open {
+    max-height: 500px;
+    padding: 15px;
+}
+
 .inclusionsFlex {
     display: flex;
     gap: 10px;
