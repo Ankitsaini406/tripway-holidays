@@ -226,9 +226,9 @@ export const TripDetails = ({ tour }) => {
                         { tour.itinerary ? 
                             tour.itinerary.map((day, index) => {
                                 return (
-                                    <div key={index} className={styles.expendBox} onClick={() => toggleBox(index + 1)}>
+                                    <div key={index} className={styles.expendBox} >
                                         <div className={styles.location}><SlLocationPin /></div>
-                                        <div className={styles.titleFlex}>
+                                        <div className={styles.titleFlex} onClick={() => toggleBox(index + 1)}>
                                             <h3>{day.title}</h3>
                                             {activeBoxes.includes(index + 1) ? (
                                                 <div className={styles.cireules}><FaWindowMinimize /></div>
