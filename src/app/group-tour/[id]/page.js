@@ -148,6 +148,18 @@ export default TourDetails;
 export const TripDetails = () => {
     const [activeTab, setActiveTab] = useState('itinerary'); // Default active section
 
+    const inclusions = [
+        "Accommodation on twin sharing basis as per plan",
+        "Hotel",
+        "Meal",
+    ];
+
+    const exclusions = [
+        "Air Fare/Train fare.",
+        "Personal Expenses such as Laundry, telephone calls, tips. Liquor & joy rides",
+        "5 % GST Applicable",
+    ];
+
     return (
         <>
             <div className={styles.tabButtons}>
@@ -185,15 +197,40 @@ export const TripDetails = () => {
                     </div>
                 )}
                 {activeTab === 'inclusions' && (
-                    <div>
-                        <h3>Inclusions</h3>
-                        <p>{'No inclusions details available.'}</p>
+                    <div className={styles.inclusionsFlex}>
+                        <div className={styles.inExboxes}>
+                            <h5>Inclusions</h5>
+                            <ul className={styles.listGroup}>
+                                {inclusions.map((item, index) => (
+                                    <li key={`inclusion-${index}`} className={styles.listGroupItems}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className={styles.inExboxes}>
+                            <h5>Exclusions</h5>
+                            <ul className={styles.listGroup}>
+                                {exclusions.map((item, index) => (
+                                    <li key={`exclusion-${index}`} className={styles.listGroupItems}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 )}
                 {activeTab === 'tour-information' && (
                     <div>
-                        <h3>Tour Information</h3>
-                        <p>This is Tour Information.</p>
+                        <ul className={styles.ulList}><li className={styles.liList}>As everyone is becoming a frequent traveller now, we suggest that you make your own travel accessories kit to ensure a stress free holiday.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>Always make sure to carry less and light luggage, use a four wheel small or medium suitcase and please make sure that you are carrying only one suitcase per person. This will ensure that you will travel smartly and without any inconveniences.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>It is also recommended that you have one cross shoulder bag or haversack for your handy needs which will ensure that you are comfortable at the time of sightseeing and also easy for photography during your tour.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>A smart cap/hat and sunglasses are definitely something that you should have in your kit.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>Though Veena World provides all three meals, that is breakfast, lunch, dinner and Veena World treats as per the itinerary, you can carry dry snacks of your choice in small sealed packets for munching during air travel or road journeys.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>If you are travelling during the monsoon or to destinations where it is rainy, please carry a small umbrella or poncho.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>For international tours, please carry a universal adapter for charging your cameras and mobile phones.</li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>Ensure that your clothing and footwear is suitable for the destination you are travelling to.</li></ul>
+                        <h6><i>*Note: Contact to your tour mangaer for more details.</i></h6>
                     </div>
                 )}
                 {activeTab === 'need-know' && (
