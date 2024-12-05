@@ -161,18 +161,6 @@ export const TripDetails = ({ tour }) => {
         );
     };
 
-    const inclusions = [
-        "Accommodation on twin sharing basis as per plan",
-        "Hotel",
-        "Meal",
-    ];
-
-    const exclusions = [
-        "Air Fare/Train fare.",
-        "Personal Expenses such as Laundry, telephone calls, tips. Liquor & joy rides",
-        "5 % GST Applicable",
-    ];
-
     return (
         <>
             <div className={styles.tabButtons}>
@@ -246,21 +234,21 @@ export const TripDetails = ({ tour }) => {
                         <div className={styles.inExboxes}>
                             <h5>Inclusions</h5>
                             <ul className={styles.listGroup}>
-                                {inclusions.map((item, index) => (
+                                {tour?.inclusions ? tour.inclusions.map((item, index) => (
                                     <li key={`inclusion-${index}`} className={styles.listGroupItems}>
                                         {item}
                                     </li>
-                                ))}
+                                )) : <p>There is not any inclusions</p>}
                             </ul>
                         </div>
                         <div className={styles.inExboxes}>
                             <h5>Exclusions</h5>
                             <ul className={styles.listGroup}>
-                                {exclusions.map((item, index) => (
+                                {tour?.exclusions ? tour.exclusions.map((item, index) => (
                                     <li key={`exclusion-${index}`} className={styles.listGroupItems}>
                                         {item}
                                     </li>
-                                ))}
+                                )): <p>There is not any exclusions</p>}
                             </ul>
                         </div>
                     </div>
