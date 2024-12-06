@@ -62,6 +62,9 @@ export function CabSearchBar() {
             name: name,
             otp: otp,
             password: null,
+            tourDate: null,
+            tourTime: null,
+            tourLocation: null,
             url: 'send-otp',
         };
 
@@ -147,6 +150,9 @@ export function CabSearchBar() {
                 name: name,
                 otp: null,
                 password: password,
+                tourDate: null,
+                tourTime: null,
+                tourLocation: null,
                 url: 'account-created',
             };
     

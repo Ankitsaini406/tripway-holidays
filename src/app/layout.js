@@ -21,8 +21,8 @@ export default function Layout({ children }) {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.async = true;
-    // script.src = `${bot_url}`;
-    script.src = `https://embed.tawk.to/67517c5c2480f5b4f5a8085a/1ieb4riog`;
+    script.src = `${bot_url}`;
+    // script.src = `https://embed.tawk.to/67517c5c2480f5b4f5a8085a/1ieb4riog`;
     script.charset = "UTF-8";
     script.setAttribute("crossorigin", "*");
 

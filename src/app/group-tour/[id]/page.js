@@ -14,6 +14,7 @@ import { MdDoubleArrow } from "react-icons/md";
 import { toast } from 'react-toastify';
 import styles from '@/styles/pages/tourDetails.module.css';
 import style from '@/styles/pages/authpage.module.css';
+import useSendEmail from '@/hook/useSendEmail';
 
 function TourDetails() {
 
@@ -32,6 +33,7 @@ function TourDetails() {
     const [isPastDate, setIsPastDate] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [errors, setErrors] = useState({});
+    const { sendEmail, loading: emailLoding } = useSendEmail();
 
     function getDateBack(startDate, daysBack) {
         const date = new Date(startDate);
@@ -102,6 +104,20 @@ function TourDetails() {
         try {
             const data = { ...formData, tourName: tour.name, price: tour.price, tourDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
+            if (success) {
+                const emailContent = {
+                    email: formData.userEmail,
+                    subject: '🎉 Your Group Tour is Confirmed!',
+                    name: formData.userName,
+                    otp: null,
+                    password: null,
+                    tourDate: tour.startDate,
+                    tourTime: null,
+                    tourLocation: null,
+                    url: 'confirmed-tour',
+                }
+                sendEmail(emailContent);
+            }
         } catch (error) {
             console.error("Error adding tour data:", error);
         }
