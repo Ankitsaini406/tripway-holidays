@@ -270,7 +270,7 @@ export const TripDetails = ({ tour }) => {
                     <div>
                         <span className={styles.spanText}>Things to consider before the trip!</span>
                         <h3 className={styles.nameList}>Weather</h3>
-                        <ul className={styles.ulList}><li className={styles.liList}>For detailed Information about weather kindly visit <a href='https://www.accuweather.com'>www.accuweather.com</a></li></ul>
+                        <ul className={styles.ulList}><li className={styles.liList}>For detailed Information about weather kindly visit <a target='#' href='https://www.accuweather.com'>www.accuweather.com</a></li></ul>
                         <h3 className={styles.nameList}>Transport</h3>
                         <h4 className={styles.nameList}>Coach Tavel</h4>
                         <ul className={styles.ulList}><li className={styles.liList}>A/C Vehicle Type - Depends upon group size</li></ul>
