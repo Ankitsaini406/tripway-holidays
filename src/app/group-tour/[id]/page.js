@@ -59,7 +59,7 @@ function TourDetails() {
             const isPast = dateOnlyParsedDate < dateOnlyToday;
             setIsPastDate(isPast);
         }
-    }, [tour]);
+    }, [date5DaysBack, tour]);
 
     useEffect(() => {
         if (success) toast.success(success, {
@@ -210,16 +210,16 @@ export const TripDetails = ({ tour }) => {
                                             {activeBoxes.includes(index + 1) &&
                                                 <>
                                                     <p>{day.description}</p>
-                                                    {day.activies &&
-                                                        (<div className={styles.descBox}>
-                                                            {day.activies.map((item, index) => {
-                                                                return (
-                                                                    <div key={index} style={{ display: 'flex' }}><div className={styles.arrow}><MdDoubleArrow /></div><h5 style={{width: '90%'}}>{item}</h5></div>
-                                                                );
-                                                            })
-                                                            }
-                                                        </div>)
-                                                    }
+                                                    {Array.isArray(day.activities) && day.activities.length > 0 ? (
+                                                        <div className={styles.descBox}>
+                                                            {day.activities.map((item, index) => (
+                                                                <div key={index} style={{ display: 'flex' }}>
+                                                                    <div className={styles.arrow}><MdDoubleArrow /></div>
+                                                                    <h5 style={{ width: '90%' }}>{item}</h5>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : null}
                                                 </>
                                             }
                                         </div>
@@ -248,7 +248,7 @@ export const TripDetails = ({ tour }) => {
                                     <li key={`exclusion-${index}`} className={styles.listGroupItems}>
                                         {item}
                                     </li>
-                                )): <p>There is not any exclusions</p>}
+                                )) : <p>There is not any exclusions</p>}
                             </ul>
                         </div>
                     </div>
