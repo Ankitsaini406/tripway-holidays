@@ -53,6 +53,28 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className={styles.mainBox}>
+                    <h1>Why book with us?</h1>
+                    <div className={styles.whyBook}>
+                        <div className={styles.whyBox}>
+                            <h3>Easy Booking</h3>
+                            <p className={styles.whyText}>We offer easy and convenient bus booking with attractive offers.</p>
+                        </div>
+                        <div className={styles.whyBox}>
+                            <h3>Lowest Price</h3>
+                            <p className={styles.whyText}>We ensure low rates on hotel reservation, holiday packages and on bus tickets.</p>
+                        </div>
+                        <div className={styles.whyBox}>
+                            <h3>Exciting Deals</h3>
+                            <p className={styles.whyText}>Enjoy exciting deals on buses, hotel, car rental and tour packages.</p>
+                        </div>
+                        <div className={styles.whyBox}>
+                            <h3>24/7 Support</h3>
+                            <p className={styles.whyText}>Get assistance 24/7 on any kind of travel related query. We are happy to assist you.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
