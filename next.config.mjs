@@ -20,6 +20,7 @@ const nextConfig = {
         APP_EMAIL: process.env.NEXT_APP_EMAIL,
         APP_PASSWORD: process.env.NEXT_APP_PASSWORD,
         IMAGE_URL: process.env.NEXT_IMAGE_URL,
+        BOT_URL: process.env.NEXT_APP_BOT_URL,
     },
 };
 
