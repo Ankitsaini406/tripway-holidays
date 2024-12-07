@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Link from "next/link";
 import Hero from "@/components/hero";
 import Image from "next/image";
@@ -10,24 +8,12 @@ import { BiSolidOffer, BiSupport } from "react-icons/bi";
 import PopUp from "@/utils/popUp";
 import styles from "./page.module.css";
 
+export const metadata = {
+    title: "TripWay Holidays",
+    description: "Book Tour Next Tripway Holidays",
+};
+
 const Home = () => {
-    const imageRefs = useRef([]);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(({ isIntersecting, target }) => {
-                if (isIntersecting) {
-                    target.src = target.dataset.src;
-                    observer.unobserve(target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        imageRefs.current.forEach((img) => img && observer.observe(img));
-
-        return () => observer.disconnect();
-    }, []);
-
     return (
         <>
             {/* <PopUp title='New Pop' content='This is Pop up' popTime={5000} closeTime={10000} />

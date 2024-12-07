@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import AdvancedSearchBar from "./advanceserch";
 import styles from '../styles/components/hero.module.css'; // Importing the CSS module
