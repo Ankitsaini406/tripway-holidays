@@ -78,18 +78,49 @@
 }
 
 .whyBook {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(29ch, 1fr));
+  color: var(--secondary-text);
 }
 
 .whyBox {
+  position: relative;
   border: 1px solid var(--indigo-blue);
   border-radius: 10px;
   padding: 1em;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.3s ease-in-out;
+  box-shadow: 0px 5px 2px 0px var(--gray-flash);
 }
 
-.whyText {
-  color: var(--secondary-text);
+.whyBox h2,
+.whyBox p {
+  position: relative;
+  z-index: 2;
+}
+
+.whyBox::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--indigo-blue);
+  z-index: 1;
+  cursor: pointer;
+  transition: bottom 0.5s ease-in-out;
+}
+
+.whyBox:hover::before {
+  cursor: pointer;
+  bottom: 0;
+}
+
+.whyBox:hover {
+  color: var(--white-color);
 }
 
 @media (max-width: 770px) {
