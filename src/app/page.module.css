@@ -93,10 +93,20 @@
   z-index: 1;
   transition: color 0.3s ease-in-out;
   box-shadow: 0px 5px 2px 0px var(--gray-flash);
+  text-align: center;
+}
+
+.icons{
+  height: 2rem !important;
+}
+
+.icons>svg{
+  height: 100%;
+  width: 100%;
 }
 
 .whyBox h2,
-.whyBox p {
+.whyBox p, .whyBox .icons {
   position: relative;
   z-index: 2;
 }
