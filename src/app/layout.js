@@ -1,10 +1,9 @@
 import { UserProvider } from "@/context/UserContext";
 import ClientRootLayout from "./childLayout";
 
-// app/layout.js (or a parent layout file)
 export const metadata = {
   title: "TripWay Holidays",
-  description: "Welcome to Tripway Holidays",
+  description: "Book Tour Next Tripway Holidays",
 };
 
 export default function RootLayout({ children }) {
@@ -12,6 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <UserProvider>
+          {/* Pass metadata as a prop */}
           <ClientRootLayout>
             {children}
           </ClientRootLayout>
