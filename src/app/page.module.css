@@ -1,11 +1,10 @@
-
 .popupoverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,9 +33,9 @@
   right: 0;
 
   &:hover {
-      background-color: var(--grey-color);
-      color: var(--black-color);
-      transition: all 0.3s ease-in-out;
+    background-color: var(--grey-color);
+    color: var(--black-color);
+    transition: all 0.3s ease-in-out;
   }
 }
 
@@ -53,12 +52,12 @@
 }
 
 .homeTourFlex {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.imgBox{
-  width: 30%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 3rem;
+  align-items: stretch;
 }
 
 .tourImg {
@@ -96,17 +95,18 @@
   text-align: center;
 }
 
-.icons{
+.icons {
   height: 2rem !important;
 }
 
-.icons>svg{
+.icons>svg {
   height: 100%;
   width: 100%;
 }
 
 .whyBox h2,
-.whyBox p, .whyBox .icons {
+.whyBox p,
+.whyBox .icons {
   position: relative;
   z-index: 2;
 }
@@ -133,34 +133,47 @@
   color: var(--white-color);
 }
 
+@media (max-width: 1024px) {
+  .imgBox {
+    height: 100%;
+  }
+
+  .homeTourFlex{
+    padding: 0 2rem;
+  }
+}
+
 @media (max-width: 770px) {
 
+  .homeTourFlex {
+    grid-template-columns: 1fr;
+  }
+
   .tourImg {
-      /* width: 45%; */
-      height: 300px;
+    /* width: 45%; */
+    height: 300px;
   }
 }
 
 @media (max-width: 430px) {
 
   .homeTour {
-      padding: 0em 0 0.7em 0;
-      margin: 1em 0 0 0;
+    padding: 0em 0 0.7em 0;
+    margin: 1em 0 0 0;
   }
 
   .homeTourFlex {
-      flex-direction: column-reverse;
-      align-items: center;
-      gap: 1em;
-      padding: 1em 0 0.5em 0;
+    align-items: center;
+    gap: 1em;
+    padding: 0.5em 1em;
   }
 
-  .imgBox{
+  .imgBox {
     width: 100%;
   }
 
   .tourImg {
-      width: 100%;
-      height: 200px;
+    width: 100%;
+    height: 200px;
   }
 }

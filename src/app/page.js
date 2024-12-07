@@ -38,8 +38,8 @@ const Home = () => {
                 <div className={styles.homeTour} id="groupTour">
                     <div className={styles.homeTourFlex}>
                         <div>
-                            <h2>Group Travel</h2>
-                            <p>This is for testing purposes</p>
+                            <h2>Group Tours</h2>
+                            <p>At Tripway Holidays, we craft group tours that blend exploration, spirituality, and cultural discovery, creating unforgettable experiences for every traveler. Imagine embarking on a spiritual journey that inspires inner peace, where harmonious clusters of like-minded travelers share moments of reflection and connection. Our heritage tours delve into the heart of traditions, art, and history, offering a rich tapestry of cultural wonders. With our Freedom Tours, we provide the perfect mix of independence and camaraderie, allowing you to explore destinations with flexibility while enjoying the company of a supportive group. For those seeking excitement, our Special Event Tours celebrate vibrant festivals, grand concerts, and unique gatherings, turning every moment into a cherished memory. At Tripway Holidays, we ensure every journey is a balance of discovery, connection, and joy, designed to resonate with your spirit.</p>
                             <Link className='readMore' href='/group-tour'>Read More</Link>
                         </div>
                         <div className={styles.imgBox}>
