@@ -71,7 +71,7 @@
   text-align: center;
   padding: 1em;
 
-  &>h1 {
+  &>h2 {
     padding: 0 0 1em 0;
   }
 }
@@ -104,7 +104,7 @@
   width: 100%;
 }
 
-.whyBox h2,
+.whyBox h3,
 .whyBox p,
 .whyBox .icons {
   position: relative;

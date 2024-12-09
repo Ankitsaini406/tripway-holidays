@@ -1,5 +1,3 @@
-import sitemap from "./sitemap";
-
 
 export default function robots() {
 
