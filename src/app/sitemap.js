@@ -1,4 +1,3 @@
-import { useFetchTourData } from "@/hook/useFetchTourData";
 
 export default async function sitemap() {
 
@@ -6,9 +5,14 @@ export default async function sitemap() {
     const productionApi = process.env.HOST_URL;
     const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
-    const { tourData } = useFetchTourData('group-tours');
+    const response = await fetch(`${apiPoint}api/group-tours`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch tour data");
+    }
 
-    const tourDetails = tourData?.map((tour) => {
+    const data = await response.json();
+
+    const tourDetails = data?.map((tour) => {
         return {
             url: `${apiPoint}/${tour?.id}`,
             lastModified: tour?.created_at,
