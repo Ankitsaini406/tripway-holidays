@@ -5,12 +5,13 @@ import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Image from 'next/image';
-import LoadingSpinner from '@/utils/lodingSpinner';
 import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
 // import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/pages/tourPackage.module.css';
+import Loading from './loading';
+import FilterLoading from './fileterLoading';
 
 const TourPackages = () => {
     const { tourData, loading, error } = useFetchTourData('group-tours');
@@ -30,15 +31,17 @@ const TourPackages = () => {
         <div className='layout'>
             <div className={styles.tour}>
                 <div className={styles.filters}>
-                    <Filters
+                    {
+                        loading ? <FilterLoading /> : <Filters
                         filters={extractFilters(tourData)}
                         selectedFilters={selectedFilters}
                         toggleFilter={toggleFilter}
                     />
+                    }
                 </div>
                 <div className={styles.tourBox}>
                     {loading ? (
-                        <LoadingSpinner />
+                        <Loading />
                     ) : error ? (
                         <p className={styles.errorMessage}>{error}</p>
                     ) : visibleItems.length === 0 ? (

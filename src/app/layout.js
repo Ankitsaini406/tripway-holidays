@@ -1,9 +1,23 @@
 import { UserProvider } from "@/context/UserContext";
 import ClientRootLayout from "./childLayout";
 
+const localApi = process.env.API_URL;
+const productionApi = process.env.HOST_URL;
+const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+
 export const metadata = {
-  title: "TripWay Holidays",
-  description: "Book Tour Next Tripway Holidays",
+
+  metadataBase: new URL(`${apiPoint}`),
+  keywords: ["Tour", "Group Tour", "Travel", "Adventure", "Explore"],
+
+  title: {
+    default: "TripWay Holidays",
+    template: `%s | TripWay Holidays`
+  },
+  openGraph: {
+    description: "Book Tour Next Tripway Holidays",
+    images: [''],
+  }
 };
 
 export default function RootLayout({ children }) {
