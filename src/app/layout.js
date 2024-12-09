@@ -8,7 +8,7 @@ const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionA
 export const metadata = {
 
   metadataBase: new URL(`${apiPoint}`),
-  keywords: ["Tour", "Group Tour", "Travel", "Adventure", "Explore"],
+  keywords: ["Tour", "Group Tour", "Travel", "Adventure", "Explore", "Book One-way Tour", "Group Tour", "Multiple City Tour"],
 
   title: {
     default: "TripWay Holidays",
