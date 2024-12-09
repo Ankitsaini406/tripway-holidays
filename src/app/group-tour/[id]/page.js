@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useRouter } from "next/navigation";
-import LoadingSpinner from '@/utils/lodingSpinner';
 import { useSingleTourData } from '@/hook/useSingleTour';
 import useTourUserData from '@/hook/useTourUserData';
 import { FiPlus } from "react-icons/fi";
@@ -15,6 +14,7 @@ import { toast } from 'react-toastify';
 import styles from '@/styles/pages/tourDetails.module.css';
 import style from '@/styles/pages/authpage.module.css';
 import useSendEmail from '@/hook/useSendEmail';
+import Loading from './loading';
 
 function TourDetails() {
 
@@ -126,7 +126,7 @@ function TourDetails() {
     return (
         <div className="layout">
             {
-                singleLoading ? <LoadingSpinner /> :
+                singleLoading ? <Loading /> :
                     tour ? (<div className={styles.tourBox}>
                         <div className={styles.tourdetails}>
                             <div className={styles.tourdetailsBox}>

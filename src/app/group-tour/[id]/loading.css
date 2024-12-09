@@ -1,0 +1,133 @@
+.tourDetails {
+    display: flex;
+    gap: 1rem;
+}
+
+.tourCard{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    row-gap: 6rem;
+    overflow: hidden;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.tourImage {
+    width: 27%;
+    height: 150px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.tourData {
+    width: 70%;
+    height: 300px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.bookingForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 500px;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.bookingName {
+    height: 50px;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.bookingDetails {
+    height: 30px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.booking {
+    height: 280px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.bookingButton {
+    height: 50px;
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.tourDetailsbutton{
+    display: flex;
+    height: 500px;
+    width: 100%;
+    gap: 1rem;
+    border-radius: 8px;
+    flex-direction: column;
+}
+
+.tourAllButton {
+    display: flex;
+    gap: 1rem;
+}
+
+.tourButton {
+    height: 50px;
+    width: 25%;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+.tourDetailsbuttonDetails {
+    height: 500px;
+    width: 100%;
+    gap: 1rem;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
+@keyframes shimmering {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
