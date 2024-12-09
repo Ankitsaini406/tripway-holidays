@@ -126,38 +126,38 @@ function TourDetails() {
     return (
         <div className="layout">
             {
-                singleLoading ? <Loading /> :
-                    tour ? (<div className={styles.tourBox}>
-                        <div className={styles.tourdetails}>
-                            <div className={styles.tourdetailsBox}>
-                                <div className={`${styles.tourdetailsImg}`}>
-                                    <Image
-                                        className={styles.tourImg}
-                                        data-src={`${imageUrl}${tour.imageUrl}`}
-                                        src={`${imageUrl}${tour.imageUrl}`}
-                                        alt={tour.name}
-                                        placeholder="blur"
-                                        blurDataURL={`${imageUrl}${tour.imageUrl}`}
-                                        width={1600}
-                                        height={900}
-                                    />
-                                </div>
-                                <div className={styles.tourdetailsText}>
-                                    <h2>{tour.name}</h2>
-                                    <h4>Category: {tour.category}</h4>
-                                    <h4>&#8377;&nbsp;{tour.price}</h4>
-                                    <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;{date5DaysBack}</h4>
-                                    <h4>Departure&nbsp;Date:&nbsp;{tour.startDate}</h4>
-                                    <p>{tour.description}</p>
-                                </div>
-                            </div>
-                            <div className={styles.tourdetailsInfo}>
-                                <TripDetails tour={tour} />
-                            </div>
-                        </div>
-                        <BookingForm tour={tour} isPastDate={isPastDate} formData={formData} setFormData={setFormData} userData={userData} isCheckboxChecked={isCheckboxChecked} setIsCheckboxChecked={setIsCheckboxChecked} errors={errors} loading={loading} handleAddTourData={handleAddTourData} />
-                    </div>
-                    ) : <p>Tour data not available</p>
+                singleLoading ? <Loading /> : <Loading />
+                    // tour ? (<div className={styles.tourBox}>
+                    //     <div className={styles.tourdetails}>
+                    //         <div className={styles.tourdetailsBox}>
+                    //             <div className={`${styles.tourdetailsImg}`}>
+                    //                 <Image
+                    //                     className={styles.tourImg}
+                    //                     data-src={`${imageUrl}${tour.imageUrl}`}
+                    //                     src={`${imageUrl}${tour.imageUrl}`}
+                    //                     alt={tour.name}
+                    //                     placeholder="blur"
+                    //                     blurDataURL={`${imageUrl}${tour.imageUrl}`}
+                    //                     width={1600}
+                    //                     height={900}
+                    //                 />
+                    //             </div>
+                    //             <div className={styles.tourdetailsText}>
+                    //                 <h2>{tour.name}</h2>
+                    //                 <h4>Category: {tour.category}</h4>
+                    //                 <h4>&#8377;&nbsp;{tour.price}</h4>
+                    //                 <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;{date5DaysBack}</h4>
+                    //                 <h4>Departure&nbsp;Date:&nbsp;{tour.startDate}</h4>
+                    //                 <p>{tour.description}</p>
+                    //             </div>
+                    //         </div>
+                    //         <div className={styles.tourdetailsInfo}>
+                    //             <TripDetails tour={tour} />
+                    //         </div>
+                    //     </div>
+                    //     <BookingForm tour={tour} isPastDate={isPastDate} formData={formData} setFormData={setFormData} userData={userData} isCheckboxChecked={isCheckboxChecked} setIsCheckboxChecked={setIsCheckboxChecked} errors={errors} loading={loading} handleAddTourData={handleAddTourData} />
+                    // </div>
+                    // ) : <p>Tour data not available</p>
             }
         </div>
     );
