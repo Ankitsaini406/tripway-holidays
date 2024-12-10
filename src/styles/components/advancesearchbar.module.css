@@ -97,6 +97,9 @@
 .addButton, .removeButton {
     padding: 8px;
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 
 .timePicker {

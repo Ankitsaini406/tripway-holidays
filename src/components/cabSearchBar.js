@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
-import { FaPlus } from "react-icons/fa";
 import { useClient } from "@/context/UserContext";
 import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
 import styles from '../styles/components/advancesearchbar.module.css';
@@ -155,7 +154,7 @@ export function CabSearchBar() {
                 tourLocation: null,
                 url: 'account-created',
             };
-    
+
             // Send email using the hook
             await sendEmail(emailContent);
         } else {
@@ -276,7 +275,7 @@ export function CabSearchBar() {
                                 ))}
                             </div>
                             <button type="button" onClick={addDestination} className={styles.addButton} disabled={formData.destinations.length >= 10}>
-                                <FaPlus /> Add Destination
+                                Add Destination
                             </button>
                         </>
                     )}
