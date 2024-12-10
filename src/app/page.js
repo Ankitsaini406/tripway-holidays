@@ -19,7 +19,7 @@ const Home = () => {
                 <Hero />
 
                 <div className={styles.hadingBox}>
-                    <h1>Lets Travel Together with TripWay Holidays!</h1>
+                    <h1>Let's Travel Together with TripWay Holidays!</h1>
                 </div>
 
                 <div className={styles.homeTour} id="oneWay">
