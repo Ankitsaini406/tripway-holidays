@@ -8,6 +8,11 @@ import { BiSolidOffer, BiSupport } from "react-icons/bi";
 import TypeWriterLoop from "@/utils/typeWriter";
 import styles from "./page.module.css";
 
+export const metadata = {
+    title: "TripWay Holidays",
+    description: "Book Tour Next Tripway Holidays",
+};
+
 const Home = () => {
 
     const messages = ["One Way", "Round Trip", "Multi City", "Group Tour"];
