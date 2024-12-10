@@ -5,21 +5,29 @@ import Image from "next/image";
 import { PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
+import TypeWriterLoop from "@/utils/typeWriter";
 import styles from "./page.module.css";
 
-export const metadata = {
-    title: "TripWay Holidays",
-    description: "Book Tour Next Tripway Holidays",
-};
+// export const metadata = {
+//     title: "TripWay Holidays",
+//     description: "Book Tour Next Tripway Holidays",
+// };
 
 const Home = () => {
+
+    const messages = ["One Way", "Round Trip", "Multi City", "Group Tour"];
+
     return (
         <>
             <div className="layout">
                 <Hero />
 
                 <div className={styles.hadingBox}>
-                    <h1>Lets Travel Together with TripWay Holidays!</h1>
+                    <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
+                        <div className={styles.textBox}>
+                        <TypeWriterLoop messages={messages} duration={5} />
+                        </div>
+                    </h1>
                 </div>
 
                 <div className={styles.homeTour} id="oneWay">
