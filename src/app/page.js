@@ -75,7 +75,7 @@ const Home = () => {
                             <div>
                                 <h2>Multi City Trip</h2>
                                 <p>For those who want to visit several places in one trip, Tripway Holidays provides dependable and adaptable multi-city trip services. Our service guarantees a flawless experience whether it's an adventure, family holiday, or business tour.
-                                    Avoid the trouble of making numerous reservations by hiring a single taxi for all of your destinations. Depending on the size and requirements of your group, select from our large fleet of automobiles, which includes luxury cars, SUVs, and economy cars."<br></br>
+                                    Avoid the trouble of making numerous reservations by hiring a single taxi for all of your destinations. Depending on the size and requirements of your group, select from our large fleet of automobiles, which includes luxury cars, SUVs, and economy cars.<br></br>
                                     Our expert drivers and well-kept cars guarantee comfort, safety, and on-time arrivals. Just provide us your itinerary, and we'll take care of the rest. Traveling between cities is made simple with Tripway Holidays!</p>
                             </div>
                             <div className={styles.imgBox}>
