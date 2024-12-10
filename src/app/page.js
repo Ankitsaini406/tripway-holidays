@@ -27,7 +27,7 @@ const Home = () => {
                         <div>
                             <h2>One Way</h2>
                             <p>
-                                Tripway Holidays offers convenient one-way travel services with a wide range of vehicles, including hatchbacks, SUVs, and luxury cars. Perfect for business trips or leisure travel, booking is quick and easy. Our extensive network ensures smooth reservations across cities. Skilled drivers and well-maintained vehicles guarantee comfort, safety, and an affordable travel experience.
+                                Tripway Holidays offers convenient one-way travel services with a wide range of vehicles. Perfect for business trips or leisure travel booking is quick and easy. Our extensive network ensures smooth reservations across cities. Skilled drivers and well-maintained vehicles guarantee comfort, safety, and an affordable travel experience.
                             </p>
                         </div>
                         <div className={styles.imgBox}>
@@ -90,6 +90,30 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className={styles.homeTour} id="groupTour">
+                        <div className={styles.homeTourFlex}>
+                            <div>
+                                <h2>Group Tours</h2>
+                                <p>Tripway Holidays creates group excursions that blend spirituality, exploration, and cultural learning to provide life-changing travel experiences. Set out on a spiritual adventure that promotes inner tranquility and deep relationships with other travelers who share your interests. Explore our heritage excursions, which create a vibrant cultural tapestry by delving into the depths of customs, art, and history.
+                                    Our Freedom Tours offer the ideal mix of independence and group support for tourists looking for flexibility and companionship. If you want excitement, our Special Event Tours guarantee treasured moments by celebrating vibrant festivals, impressive performances, and distinctive get-togethers.
+                                    Every group tour offered by Tripway Holidays is designed to provide a well-balanced combination of joy, connection, and discovery, making each trip unique and customized to fit your interests and mood.</p>
+                                <Link className='readMore' href='/group-tour'>Read More</Link>
+                            </div>
+                            <div className={styles.imgBox}>
+                                <Image
+                                    className={styles.tourImg}
+                                    data-src='/slider/slider6.png'
+                                    src='/slider/slider6.png'
+                                    alt="multicolored-buntings"
+                                    placeholder="blur"
+                                    blurDataURL='/slider/slider6.png'
+                                    width={1600}
+                                    height={900}
+                                />
+                            </div>
+                        </div>
+                    </div>
 
                 <div className={styles.mainBox}>
                     <h2>Why Book with Tripway Holidays?</h2>
