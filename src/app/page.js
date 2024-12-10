@@ -51,8 +51,8 @@ const Home = () => {
                         <div className={styles.homeTourFlex}>
                             <div>
                                 <h2>Round Trip</h2>
-                                <p>Tripway Holidays provides dependable round-trip transportation options, including vehicles and taxis, making it ideal for getaways, business meetings, and family vacations. Travelers returning to their starting location can make flexible reservations thanks to our network's numerous city coverage.
-                                    To meet your demands, a variety of sedans, SUVs, and luxury vehicles are available at affordable costs. Professional drivers with knowledge on a variety of routes and well-maintained cars guarantee comfort and safety."<br></br>
+                                <p>Tripway Holidays provides dependable round-trip transportation options, including vehicles and taxis, making it ideal for getaways, business meetings, and family vacations. Travelers returning to their starting location can make flexible reservations thanks to our network&apos;s numerous city coverage.
+                                    To meet your demands, a variety of sedans, SUVs, and luxury vehicles are available at affordable costs. Professional drivers with knowledge on a variety of routes and well-maintained cars guarantee comfort and safety.<br />
                                     Simply enter your locations, select your vehicle, and personalize your schedule to make a quick and easy reservation on our website. Take advantage of hassle-free round-trip travel with Tripway Holidays, where we put your satisfaction first!</p>
                             </div>
                             <div className={styles.imgBox}>
