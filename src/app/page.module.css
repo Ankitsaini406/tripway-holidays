@@ -49,15 +49,19 @@
 
 .homeTour:nth-child(odd) {
   background-color: var(--white-color);
+  box-shadow: 0px 0px 10px 0px var(--gray-flash);
 }
 
 .homeTourFlex {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
   gap: 2rem;
   padding: 0 3rem;
   align-items: stretch;
+}
+
+.homeTour:nth-child(odd) .homeTourFlex > div:nth-child(2) {
+  order: -1;
 }
 
 .tourImg {
@@ -70,6 +74,8 @@
 .mainBox {
   text-align: center;
   padding: 1em;
+  margin: 1rem 0 0 0;
+  border-radius: 10px;
 
   &>h2 {
     padding: 0 0 1em 0;
@@ -147,6 +153,10 @@
 
   .homeTourFlex {
     grid-template-columns: 1fr;
+  }
+
+  .homeTour:nth-child(odd) .homeTourFlex > div:nth-child(2) {
+    order: 0;
   }
 
   .tourImg {
