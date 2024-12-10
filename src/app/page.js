@@ -19,7 +19,7 @@ const Home = () => {
                 <Hero />
 
                 <div className={styles.hadingBox}>
-                    <h1>Let's Travel Together with TripWay Holidays!</h1>
+                    <h1>Lets Travel Together with TripWay Holidays!</h1>
                 </div>
 
                 <div className={styles.homeTour} id="oneWay">
@@ -50,7 +50,7 @@ const Home = () => {
                         <div>
                             <h2>Round Trip</h2>
                             <p>
-                                Tripway Holidays provides seamless round-trip services with a variety of vehicles at affordable prices. You can easily customize your schedule with flexible reservations across cities. Our extensive network, experienced drivers and well-maintained vehicles ensure a smooth, comfortable and reliable travel experience whether it's for vacations, business trips or family outings.
+                                Tripway Holidays provides seamless round-trip services with a variety of vehicles at affordable prices. You can easily customize your schedule with flexible reservations across cities. Our extensive network, experienced drivers and well-maintained vehicles ensure a smooth, comfortable and reliable travel experience whether its for vacations, business trips or family outings.
                             </p>
                         </div>
                         <div className={styles.imgBox}>
