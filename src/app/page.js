@@ -9,8 +9,8 @@ import TypeWriterLoop from "@/utils/typeWriter";
 import styles from "./page.module.css";
 
 export const metadata = {
-    title: "TripWayHoliday: Book One-way | Group Tour | Multiple City",
-    description: "Experience the world with TripWayHoliday. Book One-way, Round Trip, Group Tour, Multiple City and holiday packages. Find the best deal.",
+    title: "TripWayHoliday: Book One-way | Group Tour | Multi City",
+    description: "Experience the world with TripWayHoliday. Book One-way, Round Trip, Multi City and Group Tours. Find the best deal.",
 };
 
 const Home = () => {
