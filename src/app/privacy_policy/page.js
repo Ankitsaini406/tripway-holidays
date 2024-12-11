@@ -42,14 +42,14 @@ const PrivacyPolicy = () => {
                 </li>
                 <li className={styles.liTag}>
                     <strong>Affiliate</strong> means an entity that controls, is
-                    controlled by or is under common control with a party, where "control"
+                    controlled by or is under common control with a party, where &quot;control&quot;
                     means ownership of 50% or more of the shares, equity interest or other
                     securities entitled to vote for election of directors or other
                     managing authority.
                 </li>
                 <li className={styles.liTag}>
-                    <strong>Company</strong> (referred to as either "the Company", "We",
-                    "Us" or "Our" in this Agreement) refers to TripwayHolidays Pvt Ltd.,
+                    <strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;,
+                    &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to TripwayHolidays Pvt Ltd.,
                     Near Chandpole Gate, Sikar, 332001.
                 </li>
                 <li className={styles.liTag}>
@@ -91,7 +91,7 @@ const PrivacyPolicy = () => {
                     infrastructure itself (for example, the duration of a page visit).
                 </li>
                 <li className={styles.liTag}>
-                    <strong>Website</strong> refers to TripwayHolidays, accessible from{" "}
+                    <strong>Website</strong> refers to TripwayHolidays, accessible from
                     <a
                         href="https://tripwayholidays.in"
                         target="_blank"
@@ -201,7 +201,7 @@ const PrivacyPolicy = () => {
                 </li>
             </ul>
             <p>
-                Cookies can be "Persistent" or "Session" Cookies. Persistent Cookies
+                Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies
                 remain on Your personal computer or mobile device when You go offline,
                 while Session Cookies are deleted as soon as You close Your web browser.
                 You can learn more about cookies on TermsFeed website article.
@@ -495,7 +495,7 @@ const PrivacyPolicy = () => {
             </p>
             <p>
                 We will let You know via email and/or a prominent notice on Our Service,
-                prior to the change becoming effective and update the "Last updated"
+                prior to the change becoming effective and update the &quot;Last updated&quot;
                 date at the top of this Privacy Policy.
             </p>
             <p>
@@ -510,7 +510,7 @@ const PrivacyPolicy = () => {
             </p>
             <ul className={styles.ulTag}>
                 <li className={styles.liTag}>
-                    Email:{" "}
+                    Email:
                     <a href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a>
                 </li>
                 <li className={styles.liTag}>Phone: +91 8233101033</li>
