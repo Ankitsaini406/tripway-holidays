@@ -9,8 +9,8 @@ import TypeWriterLoop from "@/utils/typeWriter";
 import styles from "./page.module.css";
 
 export const metadata = {
-    title: "TripWay Holidays",
-    description: "Book Tour Next Tripway Holidays",
+    title: "TripWayHoliday: Book One-way Tour | Group Tour | Multiple City Tour |",
+    description: "Experience the world with TripWayHoliday. Book One-way Tour, Group Tour, Multiple City Tour, and holiday packages. Find the best deals and customize your trip.",
 };
 
 const Home = () => {
@@ -25,7 +25,9 @@ const Home = () => {
                 <div className={styles.hadingBox}>
                     <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
                         <div className={styles.textBox}>
+                            <strong>
                         <TypeWriterLoop messages={messages} duration={5} />
+                            </strong>
                         </div>
                     </h1>
                 </div>
