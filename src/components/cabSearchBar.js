@@ -207,6 +207,7 @@ export function CabSearchBar() {
                         {["one-way", "round-trip", "multi-city"].map((option) => (
                             <div key={option}>
                                 <input
+                                    name={option}
                                     type="radio"
                                     value={option}
                                     checked={formData.selectedRadio === option}

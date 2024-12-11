@@ -8,7 +8,7 @@ export async function GET() {
     const robots = `
         User-agent: *
         Allow: /
-        Disallow: []
+        Disallow: /admin/
         Sitemap: ${apiPoint}/sitemap.xml
     `;
 
