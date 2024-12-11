@@ -26,6 +26,12 @@
     margin: 1em 0;
 }
 
+.h4Tag {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
 .ulTag {
     padding: 0 0 0 40px;
 

@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
             </ul>
             <h2 className={styles.h2Tag}>Collecting and Using Your Personal Data</h2>
             <h3 className={styles.h3Tag}>Types of Data Collected</h3>
-            <h4>Personal Data</h4>
+            <h4 className={styles.h4Tag}>Personal Data</h4>
             <p>
                 While using Our Service, We may ask You to provide Us with certain
                 personally identifiable information that can be used to contact or
@@ -126,7 +126,7 @@ const PrivacyPolicy = () => {
                 <li className={styles.liTag}>Usage Data</li>
             </ul>
 
-            <h4>Usage Data</h4>
+            <h4 className={styles.h4Tag}>Usage Data</h4>
             <p>Usage Data is collected automatically when using the Service.</p>
             <p>
                 Usage Data may include information such as Your Device's Internet
@@ -148,7 +148,7 @@ const PrivacyPolicy = () => {
                 visit our Service or when You access the Service by or through a mobile
                 device.
             </p>
-            <h4>Information from Third-Party Social Media services</h4>
+            <h4 className={styles.h4Tag}>Information from Third-Party Social Media services</h4>
             <p>
                 The Company allows You to create an account and log in to use the
                 Service through the following Third-party Social Media Services:
@@ -174,7 +174,7 @@ const PrivacyPolicy = () => {
                 registration or otherwise, You are giving the Company permission to use,
                 share, and store it in a manner consistent with this Privacy Policy.
             </p>
-            <h4>Tracking Technologies and Cookies</h4>
+            <h4 className={styles.h4Tag}>Tracking Technologies and Cookies</h4>
             <p>
                 We use Cookies and similar tracking technologies to track the activity
                 on Our Service and store certain information. Tracking technologies used
@@ -416,7 +416,7 @@ const PrivacyPolicy = () => {
             <h3 className={styles.h3Tag}>Disclosure of Your Personal Data</h3>
 
             <h2 className={styles.h2Tag}>Security of Your Personal Data</h2>
-            <h4>Business Transactions</h4>
+            <h4 className={styles.h4Tag}>Business Transactions</h4>
             <p>
                 If the Company is involved in a merger, acquisition or asset sale, Your
                 Personal Data may be transferred. We will provide notice before Your
@@ -424,14 +424,14 @@ const PrivacyPolicy = () => {
                 Policy.
             </p>
 
-            <h4>Law enforcement</h4>
+            <h4 className={styles.h4Tag}>Law enforcement</h4>
             <p>
                 Under certain circumstances, the Company may be required to disclose
                 Your Personal Data if required to do so by law or in response to valid
                 requests by public authorities (e.g. a court or a government agency).
             </p>
 
-            <h4>Other legal requirements</h4>
+            <h4 className={styles.h4Tag}>Other legal requirements</h4>
             <p>
                 The Company may disclose Your Personal Data in the good faith belief
                 that such action is necessary to:
