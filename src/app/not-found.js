@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import styles from '@/styles/pages/not-found.module.css';
 
