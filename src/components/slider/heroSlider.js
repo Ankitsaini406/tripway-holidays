@@ -30,6 +30,7 @@ const HeroSlider = ({ images }) => {
                     }`}
                 >
                     <Image
+                        title={`Slide ${i + 1}`}
                         className={styles.img}
                         data-src={image.src}
                         src={image.src}

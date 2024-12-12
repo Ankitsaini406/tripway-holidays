@@ -104,6 +104,7 @@ export const TourSection = ({ id, title, description, imageSrc }) => (
             </div>
             <div className={styles.imgBox}>
                 <Image
+                    title={title}
                     className={styles.tourImg}
                     src={imageSrc}
                     alt={title}
