@@ -196,10 +196,10 @@
     .advancedSearchBar {
         flex-direction: column;
         min-height: 20dvh;
-        max-height: 85dvh;
+        max-height: 74dvh;
         width: 85%;
         margin: auto;
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     .radioOption {
