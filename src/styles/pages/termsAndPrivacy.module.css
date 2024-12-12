@@ -41,3 +41,8 @@
     list-style-type: disc;
     line-height: 40px;
 }
+
+.aTag {
+    color: var(--black-color);
+    text-decoration: underline;
+}
