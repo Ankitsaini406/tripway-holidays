@@ -51,7 +51,17 @@ export default function RootLayout({ children }) {
         <meta property="og:url" content={apiPoint} />
         <meta property="og:type" content="website" />
 
-        {/* Add more metadata if required */}
+        {/* Twitter Card Metadata */}
+        <meta name="twitter:card" content="/favicon.ico" />
+        <meta name="twitter:site" content="@tripwayholidays" />
+        <meta name="twitter:creator" content="@tripwayholidays" />
+        <meta name="twitter:title" content="TripWay Holidays" />
+        <meta
+          name="twitter:description"
+          content="Book your next tour with TripWay Holidays and explore amazing destinations!"
+        />
+        <meta name="twitter:image" content="/favicon.ico" />
+        <meta name="twitter:url" content='https://x.com/tripwayholidays' />
       </head>
       <body>
         <UserProvider>

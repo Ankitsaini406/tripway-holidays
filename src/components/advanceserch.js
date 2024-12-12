@@ -18,7 +18,7 @@ function AdvancedSearchBar() {
     return (
         <div className={styles.selectionBox}>
             <ul className={styles.selectionList}>
-                {["cabs", "group-Tours"].map((link) => (
+                {["cabs", "group"].map((link) => (
                     <li key={link}>
                         <a
                             className={`${styles.searchSelectButton} ${activeLink === link ? styles.active : ""}`}
@@ -27,7 +27,7 @@ function AdvancedSearchBar() {
                         >
                             <span className={styles.searchSpanIcons}>
                                 {link === "cabs" && <PiCarProfileLight />}
-                                {link === "group-Tours" && <HiOutlineUserGroup />}
+                                {link === "group" && <HiOutlineUserGroup />}
                             </span>
                             &nbsp;{link.charAt(0).toUpperCase() + link.slice(1).replace(/-/g, " ")}
                         </a>
@@ -39,7 +39,7 @@ function AdvancedSearchBar() {
                 {activeLink === "cabs" && (
                     <CabSearchBar />
                 )}
-                {activeLink === "group-Tours" && <GroupSearchBar />}
+                {activeLink === "group" && <GroupSearchBar />}
             </div>
         </div>
     );
