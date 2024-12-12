@@ -11,7 +11,7 @@ const HeroSlider = ({ images }) => {
     useEffect(() => {
         intervalRef.current = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 10000);
+        }, 3000);
 
         return () => clearInterval(intervalRef.current);
     }, [images.length]);

@@ -1,6 +1,6 @@
 import AdvancedSearchBar from "../advanceserch";
-import styles from '@/styles/components/hero.module.css'; // Importing the CSS module
 import HeroSlider from "./heroSlider";
+import styles from '@/styles/components/hero.module.css';
 
 const Hero = () => {
     const images = [

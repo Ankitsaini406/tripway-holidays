@@ -2,13 +2,36 @@
 import React from 'react';
 import Script from 'next/script';
 
-const GoogleAnalytics = () => {
+const GoogleTagManagerAndAnalytics = () => {
 
-    const GA_TRACK_ID = process.env.NEXT_APP_GA_TRACKING_ID;
     const GA_TACAK = process.env.GA_TRACKING_ID;
+    const GTM_TRACK = process.env.GTM_TRACKING_ID;
 
     return (
         <>
+            {/* GTM Script */}
+            <Script id="google-tag-manager" strategy="afterInteractive">
+                {`
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','${GTM_TRACK}');
+        `}
+            </Script>
+
+            {/* GTM NoScript */}
+            <noscript>
+                <iframe
+                    src={`https://www.googletagmanager.com/ns.html?id=${GTM_TRACK}`}
+                    height="0"
+                    width="0"
+                    style={{ display: 'none', visibility: 'hidden' }}
+                />
+            </noscript>
+
+
+            {/* GA Script */}
             <Script
                 strategy='lazyOnload'
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_TACAK}`}
@@ -28,4 +51,4 @@ const GoogleAnalytics = () => {
     );
 };
 
-export default GoogleAnalytics;
+export default GoogleTagManagerAndAnalytics;

@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
-import GoogleAnalytics from "./googleAnalytics";
+import GoogleTagManagerAndAnalytics from "./googleAnalytics";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
@@ -36,7 +36,7 @@ export default function ClientRootLayout({ children }) {
 
     return (
         <>
-            <GoogleAnalytics />
+            <GoogleTagManagerAndAnalytics />
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
             <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />
