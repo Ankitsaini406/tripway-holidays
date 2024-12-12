@@ -33,9 +33,9 @@ const Hero = () => {
     // Calculate height based on active tab and viewport size
     const calculateHeight = () => {
         if (isMobile) {
-            return activeTab === "cabs" ? "87vh" : "33vh";
+            return activeTab === "cabs" ? "88vh" : "35vh";
         }
-        return "87vh"; // Default for larger screens
+        return "88vh"; // Default for larger screens
     };
 
     return (
