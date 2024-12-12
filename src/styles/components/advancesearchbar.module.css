@@ -196,7 +196,7 @@
     .advancedSearchBar {
         flex-direction: column;
         min-height: 20dvh;
-        max-height: 74dvh;
+        max-height: 74vh;
         width: 85%;
         margin: auto;
         overflow-y: scroll;
