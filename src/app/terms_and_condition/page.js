@@ -6,7 +6,7 @@ function TermsAndCondition() {
         <div className={styles.mainWidth}>
             <div>
                 <h1 className={styles.h1Tag}>TERMS OF CONDITION</h1>
-                <h2 className={styles.h2Tag}>OVERVIEW</h2>
+                <h3 className={styles.h2Tag}>OVERVIEW</h3>
                 <p>
                     This website is operated by Tripway Holiday Pvt Ltd.. Throughout the
                     site, the terms “we”, “us” and “our” refer to Tripway Holiday Pvt
@@ -39,7 +39,7 @@ function TermsAndCondition() {
                     products and Services to you.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 1 - ONLINE STORE TERMS</h2>
+                <h3 className={styles.h3Tag}>SECTION 1 - ONLINE STORE TERMS</h3>
                 <p>
                     By agreeing to these Terms of Service, you represent that you are at
                     least the age of majority in your state or province of residence, or
@@ -53,7 +53,7 @@ function TermsAndCondition() {
                     the Terms will result in an immediate termination of your Services.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 2 - GENERAL CONDITIONS</h2>
+                <h3 className={styles.h3Tag}>SECTION 2 - GENERAL CONDITIONS</h3>
                 <p>
                     We reserve the right to refuse service to anyone for any reason at any
                     time. You understand that your content (not including credit card
@@ -77,9 +77,9 @@ function TermsAndCondition() {
                     </li>
                 </ul>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION
-                </h2>
+                </h3>
                 <p>
                     We are not responsible if information made available on this site is
                     not accurate, complete or current. The material on this site is
@@ -95,9 +95,9 @@ function TermsAndCondition() {
                     changes to our site.
                 </p>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 4 - MODIFICATIONS TO THE SERVICE AND PRICES
-                </h2>
+                </h3>
                 <p>
                     Prices for our products are subject to change without notice. We
                     reserve the right at any time to modify or discontinue the Service (or
@@ -106,7 +106,7 @@ function TermsAndCondition() {
                     change, suspension or discontinuance of the Service.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 5 - PRODUCTS OR SERVICES</h2>
+                <h3 className={styles.h3Tag}>SECTION 5 - PRODUCTS OR SERVICES</h3>
                 <p>
                     (if applicable) Certain products or Services may be available
                     exclusively online through the website. These products or Services may
@@ -129,9 +129,9 @@ function TermsAndCondition() {
                     that any errors in the Service will be corrected.
                 </p>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 6 - ACCURACY OF BILLING AND ACCOUNT INFORMATION
-                </h2>
+                </h3>
                 <p>
                     We reserve the right to refuse any order you place with us. We may, in
                     our sole discretion, limit or cancel quantities purchased per person,
@@ -151,7 +151,7 @@ function TermsAndCondition() {
                     our Returns Policy.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 7 - OPTIONAL TOOLS</h2>
+                <h3 className={styles.h3Tag}>SECTION 7 - OPTIONAL TOOLS</h3>
                 <p>
                     We may provide you with access to third-party tools over which we
                     neither monitor nor have any control nor input. You acknowledge and
@@ -168,7 +168,7 @@ function TermsAndCondition() {
                     shall also be subject to these Terms of Service.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 8 - THIRD-PARTY LINKS</h2>
+                <h3 className={styles.h3Tag}>SECTION 8 - THIRD-PARTY LINKS</h3>
                 <p>
                     Certain content, products and Services available via our Service may
                     include materials from third-parties. Third-party links on this site
@@ -186,9 +186,9 @@ function TermsAndCondition() {
                     third-party.
                 </p>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 9 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
-                </h2>
+                </h3>
                 <p>
                     If, at our request, you send certain specific submissions (for example
                     contest entries) or without a request from us you send creative ideas,
@@ -227,7 +227,7 @@ function TermsAndCondition() {
                     </li>
                 </ul>
 
-                <h2 className={styles.h2Tag}>SECTION 10 - PERSONAL INFORMATION</h2>
+                <h3 className={styles.h3Tag}>SECTION 10 - PERSONAL INFORMATION</h3>
                 <p>
                     Your submission of personal information through the store is governed
                     by our Privacy Policy. To view our Privacy Policy, please see
@@ -236,9 +236,9 @@ function TermsAndCondition() {
                     </a>
                 </p>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 11 - ERRORS, INACCURACIES AND OMISSIONS
-                </h2>
+                </h3>
                 <p>
                     Occasionally there may be information on our site or in the Service
                     that contains typographical errors, inaccuracies or omissions that may
@@ -256,7 +256,7 @@ function TermsAndCondition() {
                     website has been modified or updated.
                 </p>
 
-                <h2 className={styles.h2Tag}>SECTION 12 - PROHIBITED USES</h2>
+                <h3 className={styles.h3Tag}>SECTION 12 - PROHIBITED USES</h3>
                 <p>
                     In addition to other prohibitions as set forth in the Terms of
                     Service, you are prohibited from using the site or its content:
@@ -309,9 +309,9 @@ function TermsAndCondition() {
                     </li>
                 </ul>
 
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 13 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
-                </h2>
+                </h3>
                 <p>
                     We do not guarantee, represent or warrant that your use of our service
                     will be uninterrupted, timely, secure or error-free. We do not warrant
@@ -345,7 +345,7 @@ function TermsAndCondition() {
                     consequential or incidental damages, in such states or jurisdictions,
                     our liability shall be limited to the maximum extent permitted by law.
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 14 - INDEMNIFICATION</h2>
+                <h3 className={styles.h3Tag}>SECTION 14 - INDEMNIFICATION</h3>
                 <p>
                     You agree to indemnify, defend and hold harmless Tripway Holiday Pvt
                     Ltd. and our parent, subsidiaries, affiliates, partners, officers,
@@ -356,7 +356,7 @@ function TermsAndCondition() {
                     Service or the documents they incorporate by reference, or your
                     violation of any law or the rights of a third-party.
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 15 - SEVERABILITY</h2>
+                <h3 className={styles.h3Tag}>SECTION 15 - SEVERABILITY</h3>
                 <p>
                     In the event that any provision of these Terms of Service is
                     determined to be unlawful, void or unenforceable, such provision shall
@@ -366,7 +366,7 @@ function TermsAndCondition() {
                     affect the validity and enforceability of any other remaining
                     provisions.
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 16 - TERMINATION</h2>
+                <h3 className={styles.h3Tag}>SECTION 16 - TERMINATION</h3>
                 <p>
                     The obligations and liabilities of the parties incurred prior to the
                     termination date shall survive the termination of this agreement for
@@ -380,7 +380,7 @@ function TermsAndCondition() {
                     all amounts due up to and including the date of termination; and/or
                     accordingly may deny you access to our Services (or any part thereof).
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 17 - ENTIRE AGREEMENT</h2>
+                <h3 className={styles.h3Tag}>SECTION 17 - ENTIRE AGREEMENT</h3>
                 <p>
                     The failure of us to exercise or enforce any right or provision of
                     these Terms of Service shall not constitute a waiver of such right or
@@ -394,15 +394,15 @@ function TermsAndCondition() {
                     these Terms of Service shall not be construed against the drafting
                     party.
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 18 - GOVERNING LAW</h2>
+                <h3 className={styles.h3Tag}>SECTION 18 - GOVERNING LAW</h3>
                 <p>
                     These Terms of Service and any separate agreements whereby we provide
                     you Services shall be governed by and construed in accordance with the
                     laws of India.
                 </p>
-                <h2 className={styles.h2Tag}>
+                <h3 className={styles.h3Tag}>
                     SECTION 19 - CHANGES TO TERMS OF SERVICE
-                </h2>
+                </h3>
                 <p>
                     You can review the most current version of the Terms of Service at any
                     time at this page. We reserve the right, at our sole discretion, to
@@ -413,7 +413,7 @@ function TermsAndCondition() {
                     changes to these Terms of Service constitutes acceptance of those
                     changes.
                 </p>
-                <h2 className={styles.h2Tag}>SECTION 20 - CONTACT INFORMATION</h2>
+                <h3 className={styles.h3Tag}>SECTION 20 - CONTACT INFORMATION</h3>
                 <p>Questions about the Terms of Service should be sent to us at</p>
                 <p>
                     <a
