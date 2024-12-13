@@ -212,7 +212,7 @@
 
     .selectionList {
         padding: 0 10px 10px 10px;
-        overflow: scroll;
+        /* overflow: scroll; */
         justify-content: flex-start;
     }
 

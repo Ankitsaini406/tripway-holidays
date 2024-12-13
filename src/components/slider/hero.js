@@ -21,7 +21,7 @@ const Hero = () => {
     // Check if the viewport is mobile-sized after mounting
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
+            setIsMobile(window.innerWidth <= 430);
         };
 
         handleResize(); // Set initial value
