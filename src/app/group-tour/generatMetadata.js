@@ -21,7 +21,7 @@ export async function generateMetadata(params) {
         }
         return {
             openGraph: {
-                title: 'Tripway Holidays',
+                title: 'Tripway Holidays - Group Tours',
                 description: 'BooK Tours | Wildlife | Adventure | Mountain | ShowFall | Desert | Amazon',
             },
         }

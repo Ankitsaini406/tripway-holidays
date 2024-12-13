@@ -229,7 +229,7 @@ export const TripDetails = ({ tour }) => {
                                                     {Array.isArray(day.activities) && day.activities.length > 0 ? (
                                                         <div className={styles.descBox}>
                                                             {day.activities.map((item, index) => (
-                                                                <div key={index} style={{ display: 'flex' }}>
+                                                                <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                                                                     <div className={styles.arrow}><MdDoubleArrow /></div>
                                                                     <h5 style={{ width: '90%' }}>{item}</h5>
                                                                 </div>
