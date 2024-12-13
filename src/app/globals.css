@@ -234,79 +234,19 @@ th {
   text-decoration: underline;
 }
 
-/* @media (max-width: 1440px) {
-
-  h1 {
-    font-size: 3vmax;
-  }
-
-  h2 {
-    font-size: 2.5vmax;
-  }
-
-  h3 {
-    font-size: 1vmax;
-  }
-
-  h4 {
-    font-size: 1.5vmax;
-  }
-
-  p {
-    font-size: 1.2vmax;
-  }
+@media (max-width: 1440px) {
 
 }
 
 @media (max-width: 1030px) {
 
-  h1 {
-    font-size: 4vmax;
-  }
-
-  h2 {
-    font-size: 3vmax;
-  }
-
-  p {
-    font-size: 1.5vw;
-  }
-
 }
 
 @media (max-width: 770px) {
 
-  h1 {
-    font-size: 4.5vmax;
-  }
-
-  h2 {
-    font-size: 3.5vmax;
-  }
-
-  h3 {
-    font-size: 2.5vmax;
-  }
-
-  p {
-    font-size: 2vw;
-  }
-
-} */
+}
 
 @media (max-width: 430px) {
-
-  /* h1 {
-    font-size: 6vmin;
-  }
-
-  h2 {
-    font-size: 2.5vmax;
-  }
-
-  p {
-    font-size: 1.5vmax;
-  } */
 
   .layout {
     padding: 0.5em;
