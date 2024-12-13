@@ -207,9 +207,9 @@
     height: 200px;
   }
 
-  .fixedText{
+  /* .fixedText{
     font-size: larger;
-  }
+  } */
 
   .whyBook {
     grid-template-columns: auto;
