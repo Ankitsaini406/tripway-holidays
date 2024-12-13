@@ -143,7 +143,7 @@ function TourDetails() {
                                     />
                                 </div>
                                 <div className={styles.tourdetailsText}>
-                                    <h2>{tour.name}</h2>
+                                    <h1>{tour.name}</h1>
                                     <h4>Category: {tour.category}</h4>
                                     <h4>&#8377;&nbsp;{tour.price}</h4>
                                     <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;{date5DaysBack}</h4>
