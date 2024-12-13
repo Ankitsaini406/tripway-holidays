@@ -14,7 +14,7 @@
 .popupcontent {
   background-color: var(--white-color);
   padding: 2em;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -26,7 +26,7 @@
   background-color: transparent;
   color: var(--white-color);
   border: none;
-  border-radius: 4px;
+  border-radius: calc(var(--border-radius) / 2);
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -42,7 +42,7 @@
 .hadingBox {
   margin: 2rem 0 0 0;
   text-align: center;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .fixedText {
@@ -59,7 +59,7 @@
   padding: 3em 0 3em 0;
   margin: 2rem 0 0 0;
   background-color: var(--grey-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .homeTour:nth-child(even) {
@@ -83,14 +83,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .mainBox {
   text-align: center;
   padding: 1em;
   margin: 1rem 0 0 0;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 
   &>h2 {
     padding: 0 0 1em 0;
@@ -107,7 +107,7 @@
 .whyBox {
   position: relative;
   border: 1px solid var(--indigo-blue);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 1em;
   overflow: hidden;
   z-index: 1;
@@ -156,7 +156,7 @@
 
 .imgBox {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 @media (max-width: 1024px) {

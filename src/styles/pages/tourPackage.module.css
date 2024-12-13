@@ -19,7 +19,7 @@
 
 .filtersBox {
     /* min-height: 300px; */
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
     padding: 1em;
     display: flex;
@@ -55,7 +55,7 @@
     gap: 1em;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 
     &:hover {
         box-shadow: rgba(149, 157, 165, 0.5) 0px 10px 24px 5px;
@@ -67,14 +67,14 @@
     height: 200px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
 .tourImg {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .tourDetails {
@@ -121,7 +121,7 @@
         display: flex;
         gap: 10px;
         align-items: center;
-        border-radius: 10px;
+        border-radius: var(--border-radius);
         background-color: var(--indigo-blue);
         /* box-shadow: rgba(149, 157, 165) 0px 8px 10px; */
         color: white;

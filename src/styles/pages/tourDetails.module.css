@@ -16,7 +16,7 @@
     width: 100%;
     text-align: center;
     padding: 1em;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     place-self: flex-start;
     border: 1px solid var(--indigo-blue);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -26,7 +26,7 @@
     position: relative;
     overflow: hidden;
     padding: 1em;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -36,14 +36,14 @@
     height: auto;
     margin-right: 15px;
     margin-bottom: 15px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
 .tourImg {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .tourdetailsText {
@@ -53,7 +53,7 @@
 .tourBuybutton {
     padding: 1em;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     text-transform: capitalize;
     background-color: var(--indigo-blue);
@@ -72,7 +72,7 @@
     /* font-weight: bold; */
     /* padding: 1em; */
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 
 .tourdetailsInfo {
@@ -115,7 +115,7 @@
     padding: 15px;
     /* background: #f9f9f9; */
     border: 1px solid var(--indigo-blue);
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0 0 10px 10px;
 }
 
 .titleFlex {

@@ -21,7 +21,7 @@
   max-width: 400px;
   padding: 30px;
   background: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
   backdrop-filter: blur(5px);
@@ -45,7 +45,7 @@
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: calc(var(--border-radius) / 2);
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
@@ -78,7 +78,7 @@
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: calc(var(--border-radius) / 2);
   outline: none;
 }
 
@@ -139,7 +139,7 @@
   background-color: #2f80ed;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: calc(var(--border-radius) / 2);
   cursor: pointer;
   transition: background-color 0.3s;
 }

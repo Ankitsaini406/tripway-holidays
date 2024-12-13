@@ -59,8 +59,8 @@
     padding: 0.5rem 1rem;
     background-color: var(--safforn-orange);
     color: var(--cream-white);
-    border: none;
-    border-radius: 5px;
+    border: 1px solid var(--safforn-orange);
+    border-radius: calc(var(--border-radius) / 2);
     cursor: pointer;
     transition: all 0.3s ease;
 }

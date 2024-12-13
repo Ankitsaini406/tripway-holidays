@@ -30,7 +30,7 @@
     text-decoration: none;
     padding: 10px 20px;
     border: 2px solid var(--black-color);
-    border-radius: 5px;
+    border-radius: calc(var(--border-radius) / 2);
     transition: all 0.3s ease-in-out;
 }
 
