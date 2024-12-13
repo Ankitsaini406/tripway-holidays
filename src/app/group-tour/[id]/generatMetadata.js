@@ -21,7 +21,7 @@ export async function generateMetadata(params) {
         }
         return {
             openGraph: {
-                title: data.name,
+                title: `Tripway Holidays - ${data.name}`,
                 description: data.description,
                 images: [`${process.env.IMAGE_URL}${data.imageUrl}`],
             },
