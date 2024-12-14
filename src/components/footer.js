@@ -11,8 +11,9 @@ function Footer() {
                 <Image
                     src='/footer.webp'
                     alt='footer'
-                    layout="fill"
-                    objectFit="fill"
+                    fill
+                    loading="lazy"
+                    style={{ objectFit: 'fill' }}
                 />
                 <div className={styles.textOverlay}>
                     <div className={styles.footer}>
@@ -21,6 +22,7 @@ function Footer() {
                                 alt='Tripway Holidays'
                                 width={100}
                                 height={100}
+                                className={styles.logo}
                             />
                             <h3>Follow Us</h3>
                             <div className={styles.scoialLinks}>
@@ -29,6 +31,7 @@ function Footer() {
                                         alt="Instagram"
                                         width={100}
                                         height={100}
+                                        loading='lazy'
                                     />
                                 </Link>
                                 <Link href="https://www.facebook.com/tripwayholidays" target="_blank">
@@ -36,6 +39,7 @@ function Footer() {
                                         alt="Facebook"
                                         width={100}
                                         height={100}
+                                        loading='lazy'
                                     />
                                 </Link>
                                 <Link href="https://www.youtube.com/@tripwayholidays" target="_blank">
@@ -43,6 +47,7 @@ function Footer() {
                                         alt="You Tube"
                                         width={100}
                                         height={100}
+                                        loading='lazy'
                                     />
                                 </Link>
                                 <Link href="https://x.com/tripwayholidays" target="_blank">
@@ -50,6 +55,7 @@ function Footer() {
                                         alt="Twitter"
                                         width={100}
                                         height={100}
+                                        loading='lazy'
                                     />
                                 </Link>
                             </div>
@@ -58,21 +64,21 @@ function Footer() {
                         <div className={styles.footerFlex}>
                             <h3>Useful Links</h3>
                             <ul className={styles.footerFlexList}>
-                                <Link className={styles.lnkTag} href='/'>Home</Link>
-                                <Link className={styles.lnkTag} href='#cabs'>Cabs</Link>
-                                <Link className={styles.lnkTag} href='/group-tours'>Group Tours</Link>
-                                <Link className={styles.lnkTag} href='/auth/client-login'>Login</Link>
-                                <Link className={styles.lnkTag} href='/auth/signup'>Sign Up</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/'>Home</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='#cabs'>Cabs</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/group-tours'>Group Tours</Link>
                             </ul>
                         </div>
 
                         <div className={styles.footerFlex}>
                             <h3>Condition</h3>
                             <ul className={styles.footerFlexList}>
-                                <Link className={styles.lnkTag} href='/privacy_policy'>Pricay policy</Link>
-                                <Link className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link>
-                                <Link className={styles.lnkTag} href="/about" >About Us</Link>
-                                <Link className={styles.lnkTag} href='/contact_us'>Contact Us</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/privacy_policy'>Pricay policy</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link>
+                                <Link rel="preload" className={styles.lnkTag} href="/about" >About Us</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/contact_us'>Contact Us</Link>
                             </ul>
                         </div>
                     </div>
