@@ -1,11 +1,20 @@
 import React from 'react';
 import styles from '@/styles/components/footer.module.css';
+import Image from 'next/image';
 
 function Footer() {
 
     return (
         <div className={styles.mainFooter}>
-            <div className={styles.footer}>
+            <div className={styles.imageContainer}>
+                <Image 
+                    src='/footer.webp'
+                    alt='footer'
+                    layout="fill"
+                    objectFit="fill"
+                />
+                <div className={styles.textOverlay}>
+                <div className={styles.footer}>
                 <div className={styles.footerFlex}>
                     <div style={{ width: '8rem' }}>Quick Links</div>
                     <ul className={styles.footerFlexList}>
@@ -14,6 +23,7 @@ function Footer() {
                         <li>Contact Us</li>
                     </ul>
                 </div>
+
                 <div className={styles.footerFlex}>
                     <div style={{ width: '8rem' }}>
                         Programs
@@ -24,6 +34,7 @@ function Footer() {
                         <li>Group Tour</li>
                     </ul>
                 </div>
+
                 <div className={styles.footerFlex}>
                     <div style={{ width: '8rem' }}>
                         Get In Touch
@@ -33,8 +44,10 @@ function Footer() {
                     </div>
                 </div>
             </div>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
 
 export default Footer;

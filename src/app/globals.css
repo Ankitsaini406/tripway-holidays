@@ -93,6 +93,23 @@ body {
   line-height: 1.6;
 }
 
+h1 {
+  font-size: clamp(0.1rem, 1rem + 2vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 1vw + 1rem, 6rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 1vw + 0.9rem, 4rem);
+}
+
+p {
+  font-size: clamp(0.9rem, 1vmin + 0.7rem, 2rem);
+  color: var(--secondary-text);
+}
+
 h1,
 h2,
 h3,
@@ -250,5 +267,17 @@ th {
 
   .layout {
     padding: 0.5em;
+  }
+
+  h1 {
+    font-size: clamp(1rem, 1vw + 1rem, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(1rem, 1vmax + 0.6rem, 3rem);
+  }
+
+  h3 {
+    font-size: clamp(1rem, 1vmax + 0.5rem, 2rem);
   }
 }

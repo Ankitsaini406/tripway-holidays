@@ -215,7 +215,7 @@ export const TripDetails = ({ tour }) => {
                                     <div key={index} className={styles.expendBox}>
                                         <div className={styles.location}><SlLocationPin /></div>
                                         <div className={styles.titleFlex} onClick={() => toggleBox(index + 1)}>
-                                            <h3>{day.title}</h3>
+                                            <h5>{day.title}</h5>
                                             {activeBoxes.includes(index + 1) ? (
                                                 <div className={styles.cireules}><FaWindowMinimize /></div>
                                             ) : (
@@ -225,7 +225,7 @@ export const TripDetails = ({ tour }) => {
                                         <div className={`${styles.boxContent} ${activeBoxes.includes(index + 1) ? styles.open : styles.close}`}>
                                             {activeBoxes.includes(index + 1) &&
                                                 <>
-                                                    <p>{day.description}</p>
+                                                    <h5>{day.description}</h5>
                                                     {Array.isArray(day.activities) && day.activities.length > 0 ? (
                                                         <div className={styles.descBox}>
                                                             {day.activities.map((item, index) => (
