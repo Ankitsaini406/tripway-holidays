@@ -16,7 +16,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    height: 350px;
+    height: 400px;
 }
 
 .testimonialBox {
@@ -106,8 +106,41 @@
     /* transform: scale(1); */
 }
 
+@media (max-width: 1030px) {
+
+    .testimonialBoxFlex {
+        height: 450px;
+    }
+
+    .testimonialBox {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 770px) { 
+
+    .testimonialBoxFlex {
+        height: 380px;
+    }
+
+    .testimonialBox {
+        width: 50%;
+    }
+}
 
 @media (max-width: 430px) {
+
+    .testimonialMainBox {
+        padding: 0;
+    }
+
+    .testimonialMainBox h2 {
+        margin: 1rem 0 0.5rem 0;
+    }
+
+    .testimonialBoxFlex {
+        height: 330px;
+    }
 
     .testimonialBox {
         width: 100%;
@@ -120,11 +153,5 @@
         opacity: 1;
         transform: scale(1);
         z-index: 3;
-    }
-
-    .testimonialBox.prev,
-    .testimonialBox.next,
-    .testimonialBox.hidden {
-        display: none;
     }
 }
