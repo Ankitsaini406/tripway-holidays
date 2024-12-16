@@ -3,20 +3,21 @@
     width: 100%;
     min-height: 150px;
     margin: 2rem 0 0 0;
+    background-color: var(--black-color);
 }
 
 /* Container to place the image with text */
-.imageContainer {
+/* .imageContainer {
     position: relative;
     width: 100%;
     height: 400px;
     overflow: hidden;
-}
+} */
 
-.imageContainer img {
+/* .imageContainer img {
     height: 100%; 
-    /* object-fit: cover; */
-}
+    object-fit: cover;
+} */
 
 .logo {
     height: 50% !important;
@@ -25,10 +26,6 @@
 }
 
 .textOverlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: white;
     width: 100%;
     height: 100%;
@@ -102,11 +99,12 @@
 @media (max-width: 430px) {
 
     .imageContainer {
-        height: 100vh;
+        height: 900px;
     }
 
     .footer {
         flex-direction: column;
+        height: auto;
     }
 
     .footerFlex {

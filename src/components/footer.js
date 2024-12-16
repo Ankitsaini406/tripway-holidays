@@ -7,23 +7,23 @@ function Footer() {
 
     return (
         <div className={styles.mainFooter}>
-            <div className={styles.imageContainer}>
-                <Image
+            {/* <div className={styles.imageContainer}> */}
+                {/* <Image
                     src='/footer.webp'
                     alt='footer'
                     fill
                     loading="lazy"
                     style={{ objectFit: 'fill' }}
-                />
+                /> */}
                 <div className={styles.textOverlay}>
                     <div className={styles.footer}>
                         <div className={styles.footerFlex}>
-                            <Image src='/favicon.ico'
+                            {/* <Image src='/favicon.ico'
                                 alt='Tripway Holidays'
                                 width={100}
                                 height={100}
                                 className={styles.logo}
-                            />
+                            /> */}
                             <h3>Follow Us</h3>
                             <div className={styles.scoialLinks}>
                                 <Link href="https://www.instagram.com/tripwayholiday" target="_blank">
@@ -59,6 +59,11 @@ function Footer() {
                                     />
                                 </Link>
                             </div>
+                            {/* <div>
+                                <h3>Get in Touch</h3>
+                                <li>Near Chandpool Gate</li>
+                                <li>tripwayholidays@gmail.com</li>
+                            </div> */}
                         </div>
 
                         <div className={styles.footerFlex}>
@@ -83,7 +88,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </div>
     );
 }
