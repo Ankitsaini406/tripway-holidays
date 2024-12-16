@@ -7,6 +7,7 @@ import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
 import TypeWriterLoop from "@/utils/typeWriter";
 import styles from "./page.module.css";
+import Testimonials from "@/components/testimonials";
 
 export const metadata = {
     title: "TripWayHoliday: Book One-way | Group Tour | Multi City",
@@ -89,6 +90,7 @@ const Home = () => {
                     </div>
                 </div>
                 <WhyBookUs />
+                <Testimonials />
             </div>
         </>
     );
