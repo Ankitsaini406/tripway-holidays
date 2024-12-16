@@ -63,12 +63,13 @@ const Home = () => {
 
                 <div className={styles.homeTour} id="groupTour">
                     <div className={styles.homeTourFlex}>
-                        <div>
-                            <h2>Group Tours</h2>
-                            <p>
+                        <div className={styles.scrollRevel}>
+                            <h2> <span>Group Tours</span></h2>
+                            <p><span>
                                 Tripway Holidays creates group excursions that blend spirituality, exploration and cultural learning to provide life-changing travel experiences. Set out on a spiritual adventure that promotes inner tranquility and deep relationships with other travelers who share your interests. Explore our heritage excursions which create a vibrant cultural tapestry by delving into the depths of customs, art and history.
                                 Our Freedom Tours offer the ideal mix of independence and group support for tourists looking for flexibility and companionship. If you want excitement our Special Event Tours guarantee treasured moments by celebrating vibrant festivals, impressive performances and distinctive get-togethers.
                                 Every group tour offered by Tripway Holidays is designed to provide a well-balanced combination of joy, connection and discovery making each trip unique and customized to fit your interests and mood.
+                                </span>
                             </p>
                             <Link className='readMore' href='/group-tour'>Read More</Link>
                         </div>
@@ -98,9 +99,9 @@ export default Home;
 export const TourSection = ({ id, title, description, imageSrc }) => (
     <div className={styles.homeTour} id={id}>
         <div className={styles.homeTourFlex}>
-            <div>
-                <h2>{title}</h2>
-                <p>{description}</p>
+            <div className={styles.scrollRevel}>
+                <h2><span>{title}</span></h2>
+                <p><span>{description}</span></p>
             </div>
             <div className={styles.imgBox}>
                 <Image

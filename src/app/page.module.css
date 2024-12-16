@@ -67,6 +67,28 @@
   box-shadow: 0px 0px 10px 0px var(--gray-flash);
 }
 
+.scrollRevel span {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  animation: scroll-reveal linear forwards;
+  animation-timeline: view();
+}
+
+.scrollRevel span {
+  animation-range-start: cover 10vh;
+  animation-range-end: cover 40vh;
+}
+
+@keyframes scroll-reveal {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 0.8s ease-out, opacity 1s ease-out;
+  }
+}
+
 .homeTourFlex {
   display: grid;
   grid-template-columns: 1fr 1fr;
