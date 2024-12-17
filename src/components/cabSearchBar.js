@@ -325,9 +325,9 @@ export function CabSearchBar() {
                         />
                     </div>
 
-                    {
+                    {/* {
                         user ? null : (
-                            <>
+                            <> */}
                                 <div className={styles.radioOption}>
                                     <ContactDetails
                                         type='text'
@@ -345,9 +345,10 @@ export function CabSearchBar() {
                                         className={styles.searchInput}
                                         palceholder='Last Name'
                                     />
-                                </div> </>
+                                </div> 
+                                {/* </>
                         )
-                    }
+                    } */}
 
                     <div className={styles.radioOption}>
                         <ContactDetails
