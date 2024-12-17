@@ -133,9 +133,9 @@
     width: 400px;
     height: 300px;
     position: absolute;
-    /* background-color: var(--gray-flash); */
     top: 1rem;
     left: 1rem;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
 .flexBox {
