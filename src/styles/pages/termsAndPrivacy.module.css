@@ -58,6 +58,36 @@
     color: var(--white-color);
 }
 
+.bannerFlex {
+    display: flex;
+    gap: 3rem;
+    padding: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    margin: auto;
+}
+
+.detailsBox {
+    width: 50%;
+}
+
+.backBox {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    border: 10px solid var(--white-color);
+}
+
+.imageBox {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    background-color: var(--gray-flash);
+    top: 1rem;
+    left: 1rem;
+}
+
 .flexBox {
     display: flex;
     gap: 1rem;
@@ -123,8 +153,38 @@
 
 @media (max-width: 770px) {
 
+    .contectBord {
+        height: 60vh;
+    }
+
+    .detailsBox {
+        width: 100%;
+        text-align: center;
+    }
+
+    .bannerFlex {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
     .flexBox {
         flex-direction: column;
     }
 
+}
+
+@media (max-width: 430px) {
+
+    .contectBord {
+        height: 67vh;
+    }
+
+    .backBox {
+        width: 80%;
+    }
+
+    .imageBox {
+        width: 100%;
+    }
 }

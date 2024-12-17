@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { addDoc, collection, firestore } from "@/firebase/firebaseConfig";
 import { toast } from 'react-toastify';
 import styles from "@/styles/pages/termsAndPrivacy.module.css";
+import Image from "next/image";
 
 function ContactUs() {
     const [formData, setFormData] = useState({
@@ -41,9 +42,23 @@ function ContactUs() {
     return (
         <div className={`layout`}>
             <div className={styles.contectBord}>
-                <div className={styles.mainWidth}>
+                <div className={styles.bannerFlex}>
+                    <div className={styles.detailsBox}>
                     <h1 className={styles.h1Tag}>Get in Touch</h1>
                     <h4>Want to get in touch? We love to hear from you. Here is how you can reach us.</h4>
+                    </div>
+                    <div className={styles.backBox}>
+                        <div className={styles.imageBox}>
+                            <Image 
+                            src='/tour-image/4.webp'
+                            alt="contact us"
+                            placeholder="blur"
+                            blurDataURL={`/tour-image/4.webp`}
+                            width={500}
+                            height={300}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
 
