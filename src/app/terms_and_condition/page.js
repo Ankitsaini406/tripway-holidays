@@ -111,8 +111,8 @@ function TermsAndCondition() {
                     (if applicable) Certain products or Services may be available
                     exclusively online through the website. These products or Services may
                     have limited quantities and are subject to return or exchange only
-                    according to our Return Policy. To view our Return Policy, please
-                    visit [LINK TO RETURN POLICY] We have made every effort to display as
+                    according to our Return Policy. To view our Return Policy, <a className={styles.aTag} href="/return_policy" target="_blank" rel="noopener noreferrer">please visit. </a>
+                    We have made every effort to display as
                     accurately as possible the colors and images of our products that
                     appear at the store. We cannot guarantee that your computer monitor&apos;s
                     display of any color will be accurate. We reserve the right, but are
@@ -231,9 +231,7 @@ function TermsAndCondition() {
                 <p>
                     Your submission of personal information through the store is governed
                     by our Privacy Policy. To view our Privacy Policy, please see
-                    <a className={styles.aTag} href="/privacy_policy">
-                        Click Here
-                    </a>
+                    <a className={styles.aTag} href="/privacy_policy"> Click Here</a>
                 </p>
 
                 <h3 className={styles.h3Tag}>

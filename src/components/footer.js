@@ -84,6 +84,7 @@ function Footer() {
                                 <Link rel="preload" className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link>
                                 <Link rel="preload" className={styles.lnkTag} href="/about" >About Us</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/contact_us'>Contact Us</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/return_policy'>Return Policy</Link>
                             </ul>
                         </div>
                     </div>

@@ -91,15 +91,7 @@ const PrivacyPolicy = () => {
                     infrastructure itself (for example, the duration of a page visit).
                 </li>
                 <li className={styles.liTag}>
-                    <strong>Website</strong> refers to TripwayHolidays, accessible from
-                    <a
-                        href="https://tripwayholidays.in"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        TripwayHolidays
-                    </a>
-                    .
+                    <strong>Website</strong> refers to TripwayHolidays, accessible from <a className={styles.aTag} href="https://tripwayholidays.in" target="_blank" rel="noopener noreferrer">TripwayHolidays</a>.
                 </li>
                 <li className={styles.liTag}>
                     <strong>You</strong> means the individual accessing or using the
@@ -510,8 +502,7 @@ const PrivacyPolicy = () => {
             </p>
             <ul className={styles.ulTag}>
                 <li className={styles.liTag}>
-                    Email:
-                    <a href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a>
+                    Email: <a className={styles.aTag} href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a>
                 </li>
                 <li className={styles.liTag}>Phone: +91 8233101033</li>
             </ul>
