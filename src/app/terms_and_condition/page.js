@@ -1,6 +1,36 @@
 import React from "react";
 import styles from "@/styles/pages/termsAndPrivacy.module.css";
 
+// app/terms-and-conditions/page.js
+
+export const metadata = {
+    title: "Terms and Conditions",
+    description: "Read the Terms and Conditions of Tripway Holidays. Information regarding bookings, cancellations, refunds, and travel services.",
+    keywords: [
+        "Terms and Conditions",
+        "Tripway Holidays Terms",
+        "Booking Policy",
+        "Refund Terms",
+        "Cancellation Rules",
+        "Travel Services Agreement",
+        "Customer Rights"
+    ],
+    openGraph: {
+        title: "Terms and Conditions",
+        description: "Familiarize yourself with the Terms and Conditions of Tripway Holidays, covering booking policies, cancellations, refunds, and travel services.",
+        url: "https://tripwayholidays.in/terms_and_conditions",
+        type: "website",
+        // images: [
+        //     {
+        //         url: "/terms-conditions-banner.jpg",
+        //         width: 1200,
+        //         height: 630,
+        //         alt: "Tripway Holidays Terms and Conditions",
+        //     }
+        // ]
+    },
+};
+
 function TermsAndCondition() {
     return (
         <div className={styles.mainWidth}>

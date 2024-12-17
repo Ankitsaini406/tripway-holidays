@@ -19,7 +19,7 @@ export const metadata = {
   ],
   title: {
     default: "TripWay Holidays",
-    template: `%s | TripWay Holidays`,
+    template: `TripWay Holidays | %s`,
   },
   openGraph: {
     description: "Book Tour Next Tripway Holidays",

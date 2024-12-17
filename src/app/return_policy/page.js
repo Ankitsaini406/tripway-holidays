@@ -1,5 +1,33 @@
 import styles from '@/styles/pages/termsAndPrivacy.module.css';
 
+export const metadata = {
+    title: "Return and Cancellation Policy",
+    description: "Learn about the return and cancellation policies for Tripway Holidays. Information about group tours, roundtrips, refunds, and rescheduling details.",
+    keywords: [
+        "Return Policy",
+        "Cancellation Policy",
+        "Tripway Holidays Refunds",
+        "Group Tours Cancellation",
+        "Roundtrip Modifications",
+        "Refund Process",
+        "Force Majeure Policy"
+    ],
+    openGraph: {
+        title: "Return and Cancellation Policy",
+        description: "Understand the return and cancellation policies of Tripway Holidays, covering group tours, roundtrips, refunds, and more.",
+        url: "https://tripwayholidays.in/return_policy",
+        type: "website",
+        // images: [
+        //     {
+        //         url: "/return-policy-banner.jpg",
+        //         width: 1200,
+        //         height: 630,
+        //         alt: "Tripway Holidays Return and Cancellation Policy",
+        //     }
+        // ]
+    },
+};
+
 function ReturnPolicy() {
     return (
         <div className={styles.mainWidth}>

@@ -1,6 +1,34 @@
 import React from "react";
 import styles from "@/styles/pages/termsAndPrivacy.module.css";
 
+export const metadata = {
+    title: "Privacy Policy",
+    description: "Read the Privacy Policy of Tripway Holidays to understand how we handle your personal information and data.",
+    keywords: [
+        "Privacy Policy",
+        "Data Protection",
+        "User Information",
+        "Tripway Holidays Privacy",
+        "Personal Data Handling",
+        "Privacy Terms",
+        "Data Security"
+    ],
+    openGraph: {
+        title: "Privacy Policy",
+        description: "Discover how Tripway Holidays safeguards your personal information and handles your data.",
+        url: "https://tripwayholidays.in/privacy_policy",
+        type: "website",
+        // images: [
+        //     {
+        //         url: "/privacy-banner.jpg",
+        //         width: 1200,
+        //         height: 630,
+        //         alt: "Tripway Holidays Privacy Policy",
+        //     }
+        // ]
+    },
+};
+
 const PrivacyPolicy = () => {
     return (
         <div

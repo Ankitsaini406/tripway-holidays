@@ -1,9 +1,32 @@
-import React from "react";
 import styles from "@/styles/pages/termsAndPrivacy.module.css";
 
 export const metadata = {
-    title: "TripWay Holidays - About Us",
-    description: "Know More About Tripway Holidays",
+    title: "About Us",
+    description: "Learn more about Tripway Holidays, your trusted travel partner, offering personalized tours, group trips, and multi-city travel experiences.",
+    keywords: [
+        "About Tripway Holidays",
+        "Travel Company",
+        "Group Tours",
+        "Multi-City Tours",
+        "Round Trips",
+        "Personalized Itineraries",
+        "Affordable Travel Services",
+        "Sandeep Kumar Soni"
+    ],
+    openGraph: {
+        title: "About Us",
+        description: "Discover Tripway Holidays - committed to delivering seamless travel experiences, personalized itineraries, and a customer-centric approach.",
+        url: "https://tripwayholidays.in/about_us",
+        type: "website",
+        // images: [
+        //     {
+        //         url: "/about-us-banner.jpg",
+        //         width: 1200,
+        //         height: 630,
+        //         alt: "Tripway Holidays About Us",
+        //     }
+        // ]
+    },
 };
 
 function AboutPage() {
