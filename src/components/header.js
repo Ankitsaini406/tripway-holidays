@@ -61,8 +61,8 @@ function Header() {
                     <ul className={styles.headerList}>
                         {/* <li><Link href="/" className={styles.headerName} onClick={closeMenu}>Home</Link></li> */}
                         <li><Link href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>Group&nbsp;Tours</Link></li>
-                        <li><Link href="/about" className={styles.headerName} onClick={closeMenu}>About</Link></li>
-                        <li><Link href="/contact" className={styles.headerName} onClick={closeMenu}>Contact</Link></li>
+                        <li><Link href="/about_us" className={styles.headerName} onClick={closeMenu}>About</Link></li>
+                        <li><Link href="/contact_us" className={styles.headerName} onClick={closeMenu}>Contact</Link></li>
                         {user ? (
                             <li><Link href="/profile" className={styles.headerButton} onClick={closeMenu}>Profile</Link></li>
                         ) : (
