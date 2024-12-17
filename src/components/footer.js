@@ -73,7 +73,7 @@ function Footer() {
                                 <Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='#cabs'>Cabs</Link>
-                                <Link rel="preload" className={styles.lnkTag} href='/group-tours'>Group Tours</Link>
+                                <Link rel="preload" className={styles.lnkTag} href='/group-tour'>Group Tours</Link>
                             </ul>
                         </div>
 
@@ -82,7 +82,7 @@ function Footer() {
                             <ul className={styles.footerFlexList}>
                                 <Link rel="preload" className={styles.lnkTag} href='/privacy_policy'>Pricay policy</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link>
-                                <Link rel="preload" className={styles.lnkTag} href="/about" >About Us</Link>
+                                <Link rel="preload" className={styles.lnkTag} href="/about_us" >About Us</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/contact_us'>Contact Us</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/return_policy'>Return Policy</Link>
                             </ul>

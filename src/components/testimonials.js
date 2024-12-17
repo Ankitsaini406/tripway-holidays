@@ -11,13 +11,13 @@ const testimonials = [
         stars: 4.5,
     },
     {
-        name: "Rohit Sharma",
+        name: "Rohit Jangir",
         text: "Exceptional service with great attention to detail. The professionalism and commitment displayed by the team exceeded all my expectations.",
         address: "Mumbai, India",
         stars: 3.5,
     },
     {
-        name: "Sandeep Soni",
+        name: "James Jone",
         text: "A fantastic experience with a team committed to customer satisfaction, bringing professionalism, creativity, and unmatched expertise to every interaction.",
         address: "Pune, India",
         stars: 5,
