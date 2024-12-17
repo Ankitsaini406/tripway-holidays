@@ -50,11 +50,11 @@ function ContactUs() {
                     <div className={styles.backBox}>
                         <div className={styles.imageBox}>
                             <Image 
-                            src='/tour-image/4.webp'
+                            src='/contact.jpg'
                             alt="contact us"
                             placeholder="blur"
-                            blurDataURL={`/tour-image/4.webp`}
-                            width={500}
+                            blurDataURL='/contact.jpg'
+                            width={450}
                             height={300}
                             />
                         </div>
