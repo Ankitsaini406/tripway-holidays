@@ -1,8 +1,0 @@
-{
-    "routes": [
-        {
-            "src": "/tour-image/(.*)",
-            "dest": "https://srv1676-files.hstgr.io/caccd20eeb65c418/files/public_html/tour-image/$1"
-        }
-    ]
-}
