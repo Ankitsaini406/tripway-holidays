@@ -1,5 +1,4 @@
 .testimonialMainBox {
-    /* max-width: 1200px; */
     padding: 2rem;
     text-align: center;
     margin: auto;
@@ -103,16 +102,59 @@
 
 .dot.activeDot {
     background-color: var(--black-color);
-    /* transform: scale(1); */
 }
 
+/* Shimmering Effect */
+.shimmerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 400px; /* Matches the height of the testimonial boxes */
+    overflow: hidden;
+}
+
+.shimmerBox {
+    flex: 1 1 calc(33.333% - 20px); /* Ensures three shimmering boxes are visible */
+    height: 100%; /* Full height to match the container */
+    background: linear-gradient(
+        90deg,
+        var(--white-color) 0%,
+        var(--gray-flash) 50%,
+        var(--white-color) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+    border-radius: 10px;
+}
+
+/* Keyframes for shimmering */
+@keyframes shimmering {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1030px) {
 
     .testimonialBoxFlex {
         height: 450px;
     }
 
-    .testimonialBox {
+    .shimmerContainer {
+        gap: 15px;
+    }
+
+    .shimmerBox {
+        flex: 1 1 calc(50% - 15px);
+    }
+
+    .testimonialBox,
+    .shimmerBox {
         padding: 1rem;
     }
 }
@@ -123,12 +165,17 @@
         height: 380px;
     }
 
-    .testimonialBox {
+    .testimonialBox,
+    .shimmerBox {
         width: 50%;
     }
 }
 
 @media (max-width: 430px) {
+
+    .shimmerBox {
+        flex: 1 1 100%; /* Single shimmering box on mobile */
+    }
 
     .testimonialMainBox {
         padding: 0;
