@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+            // "dest": "https://srv1676-files.hstgr.io/caccd20eeb65c418/files/public_html/tour-image/$1"
+
 ## Getting Started
 
 First, run the development server:
