@@ -1,0 +1,8 @@
+{
+    "routes": [
+        {
+            "src": "/tour-image/(.*)",
+            "dest": "https://tripwayholidays.in/tour-image/$1"
+        }
+    ]
+}
