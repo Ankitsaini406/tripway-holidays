@@ -1,137 +1,72 @@
-'use client';
+export async function generateMetadata() {
+    const localApi = process.env.API_URL;
+    const productionApi = process.env.HOST_URL;
+    const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
-import React, { useEffect } from 'react';
-import Link from 'next/link';
-import InfiniteScroll from '@/utils/infinitScroll';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import Image from 'next/image';
-import { useFetchTourData } from '@/hook/useFetchTourData';
-import { useFilters } from '@/hook/useFilers';
-import { usePagination } from '@/hook/usePagination';
-// import { useSearchParams } from 'next/navigation';
-import styles from '@/styles/pages/tourPackage.module.css';
-import Loading from './loading';
-import FilterLoading from './fileterLoading';
+    try {
+        const response = await fetch(`${apiPoint}api/group-tours`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch tour data");
+        }
 
-const TourPackages = () => {
-    const { tourData, loading, error } = useFetchTourData('group-tours');
-    // const searchParams = useSearchParams();
-    // const tourOption = searchParams.get('tourOption');
-    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
-    const { visibleItems, loadMore, reset } = usePagination(5);
+        const tours = await response.json();
 
-    useEffect(() => {
-        const filtered = filterData(tourData);
-        setFilteredItems(filtered);
-        reset(filtered);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tourData, selectedFilters]);
+        if (tours && tours.length > 0) {
+            const primaryTour = tours[0];  // Use the first tour package for metadata
 
-    return (
-        <div className='layout'>
-            <div className={styles.tour}>
-                <div className={styles.filters}>
-                    {
-                        loading ? <FilterLoading /> : <Filters
-                        filters={extractFilters(tourData)}
-                        selectedFilters={selectedFilters}
-                        toggleFilter={toggleFilter}
-                    />
-                    }
-                </div>
-                <div className={styles.tourBox}>
-                    {loading ? (
-                        <Loading />
-                    ) : error ? (
-                        <p className={styles.errorMessage}>{error}</p>
-                    ) : visibleItems.length === 0 ? (
-                        <p className={styles.noDataMessage}>No tours available.</p>
-                    ) : (
-                        <InfiniteScroll
-                            loadMore={() => loadMore(filterData(tourData))}
-                            hasMore={visibleItems.length < filterData(tourData).length}
-                        >
-                            {visibleItems.map((item) => (
-                                <TourCard key={item.id} item={item} />
-                            ))}
-                        </InfiniteScroll>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+            return {
+                title: `Group Tours`,
+                description: `Join our exclusive group tour. Discover amazing experiences, adventure, and memories.`,
+                keywords: [
+                    "Group Tour",
+                    "Tripway Holidays",
+                    "Adventure Tour",
+                    "Travel Packages",
+                    "Book Group Tour",
+                    primaryTour.name,
+                ],
+                openGraph: {
+                    title: `Group Tour: ${primaryTour.name}`,
+                    description: `Explore our group tours. Book now and create unforgettable experiences.`,
+                    url: `https://tripwayholidays.in/group-tour/${primaryTour.id}`,
+                    type: "website",
+                    images: [
+                        {
+                            url: primaryTour.imageUrl,  // Dynamically get the tour image
+                            width: 1200,
+                            height: 630,
+                            alt: `Tripway Holidays ${primaryTour.name} Tour`,
+                        },
+                    ],
+                },
+            };
+        }
+
+        return {
+            title: "Group Tours | Tripway Holidays",
+            description: "Explore our group tours and discover memorable experiences with Tripway Holidays.",
+            openGraph: {
+                title: "Group Tours - Tripway Holidays",
+                description: "Join our adventure-packed group tours and explore new destinations.",
+                url: "https://tripwayholidays.in/group-tour",
+            }
+        };
+
+    } catch (error) {
+        console.error("Failed to generate metadata", error);
+        return {
+            title: "Group Tours Not Found",
+            description: "No group tours are currently available. Stay tuned for upcoming experiences.",
+            openGraph: {
+                title: "Group Tours",
+                description: "Discover amazing tours with Tripway Holidays.",
+            }
+        };
+    }
 }
 
-function Filters({ filters, selectedFilters, toggleFilter }) {
-    const [isMobile, setIsMobile] = React.useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+import TourPackages from "./touPackages";
 
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 430);
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return (
-        <div className={styles.filtersContainer}>
-            {isMobile ? (
-                <button
-                    className={styles.dropdownToggle}
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                >
-                    Filters {isDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
-                </button>
-            ) : null}
-            {(isMobile ? isDropdownOpen : true) && (
-                <div className={styles.filtersBox}>
-                    {filters.map((category) => (
-                        <div className={styles.filterItem} key={category}>
-                            <input
-                                type="checkbox"
-                                id={`filter-${category}`}
-                                checked={selectedFilters.includes(category)}
-                                onChange={() => toggleFilter(category)}
-                            />
-                            <label htmlFor={`filter-${category}`}>{category}</label>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
+export default function Page() {
+    return <TourPackages />;
 }
-
-function TourCard({ item }) {
-
-    return (
-        <div className={styles.tourCard}>
-            <div className={`${styles.tourImage}`}>
-                <Image
-                    className={styles.tourImg}
-                    data-src={`/tour-image/${item.imageUrl}`}
-                    src={`/tour-image/${item.imageUrl}`}
-                    alt={item.imageUrl}
-                    placeholder="blur"
-                    blurDataURL={`/tour-image/${item.imageUrl}`}
-                    width={1600}
-                    height={900}
-                />
-            </div>
-            <div className={styles.tourDetails}>
-                <h1>{item.name}</h1>
-                <h4>{item.category}</h4>
-                <p>{item.description}</p>
-                <Link href={`/group-tour/${item.id}`} className='readMore'>
-                    View Tour Details
-                </Link>
-            </div>
-        </div>
-    );
-}
-
-function extractFilters(data) {
-    return [...new Set(data.map((item) => item.category))].sort();
-}
-
-export default TourPackages;
