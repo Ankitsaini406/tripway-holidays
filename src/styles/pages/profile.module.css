@@ -1,0 +1,120 @@
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 0 10px 10px var(--gray-flash);
+    border-radius: 10px;
+}
+
+.profileMain {
+    padding: 1rem;
+    text-align: center;
+    /* box-shadow: 0 0 10px 10px var(--gray-flash); */
+}
+
+.profileBox {
+    display: flex;
+    justify-content: space-between;
+    text-align: justify;
+}
+
+.logOutButton {
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    background-color: var(--vermilion-red);
+    color: var(--white-color);
+    outline: none;
+    border: none;
+
+    &:hover {
+        box-shadow: 0 0 10px 0px var(--vermilion-red);
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+.profileDetailsBox {
+    padding: 1rem;
+    min-height: 60dvh;
+    /* box-shadow: 0 0 10px 10px var(--gray-flash); */
+}
+
+.buttonFlex {
+    display: flex;
+    gap: 1rem;
+    border-radius: 10px;
+    background-color: var(--gray-flash);
+    padding: 1rem;
+}
+
+.button {
+    width: 100%;
+    cursor: pointer;
+    padding: 1em;
+    background-color: var(--gray-flash);
+    color: var(--black-color);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: var(--white-color);
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+.button.active {
+    background-color: var(--white-color);
+    color: var(--black-color);
+}
+
+.bookingTableContainer {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    width: 100%; /* Ensures the container fits within the parent */
+}
+
+.bookingTable {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Ensures the table doesn't shrink too much */
+    margin-top: 20px;
+}
+
+.bookingTable th,
+.bookingTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* Prevents wrapping of text */
+}
+
+.bookingTable th {
+    font-weight: bold;
+    position: sticky; /* Makes the header sticky */
+    top: 0; /* Sticks to the top of the container when scrolling vertically */
+    z-index: 2; /* Ensures the header stays above the table rows */
+}
+
+.bookingTable td:first-child {
+    position: sticky; /* Makes the first column (Date) sticky */
+    left: 0; /* Sticks to the left edge when scrolling horizontally */
+    background-color: var(--white-color); /* Matches the table background */
+    z-index: 1; /* Ensures it stays above the other columns */
+}
+
+.evenRow:hover, 
+.oddRow:hover {
+    background-color: var(--table-hover);
+    color: #000;
+}
+
+@media (max-width: 430px) {
+    .bookingTableContainer {
+        overflow-x: scroll;
+    }
+
+    .bookingTable {
+        min-width: 800px;
+    }
+}
