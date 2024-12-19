@@ -71,7 +71,7 @@ const useTourUserData = () => {
                 userName: data.userName,
                 userEmail: data.userEmail,
                 userPhoneNumber: data.userPhoneNumber,
-                tourDate: data.tourDate,
+                startDate: data.startDate,
                 userFrom: data.userFrom,
                 passenger: data.passenger,
                 userId: userData.uid,

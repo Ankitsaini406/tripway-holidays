@@ -4,8 +4,9 @@ import OtpVerification from "@/utils/otpVeriification";
 import DatePicker from "react-datepicker";
 import useSendEmail from "@/hook/useSendEmail";
 import { useClient } from "@/context/UserContext";
-import { collection, addDoc, firestore } from "@/firebase/firebaseConfig";
+import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
 import styles from '../styles/components/advancesearchbar.module.css';
+import { ref, set } from "firebase/database";
 
 export function CabSearchBar() {
     const { user, signupUserWithEmailAndPassword } = useClient();
@@ -58,7 +59,7 @@ export function CabSearchBar() {
         const emailContent = {
             email: formData.email,
             subject: 'Your OTP for Travel Booking Confirmation',
-            name: name,
+            name: formData.firstName + " " + formData.lastName,
             otp: otp,
             password: null,
             tourDate: null,
@@ -87,7 +88,7 @@ export function CabSearchBar() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
+        setFormData((prevData) => ({ ...prevData, [name]: name === "phoneNumber" ? value.replace(/\D/g, "") : value }));
     };
 
     const handleMultiCityChange = (index, value) => {
@@ -112,11 +113,17 @@ export function CabSearchBar() {
     const validateForm = (e) => {
         e.preventDefault();
         const { from, phoneNumber, carOption, passenger, email } = formData;
-
+    
         if (!from || !phoneNumber || !carOption || !passenger || !email) {
             setError("Please fill all required fields.");
             return false;
         }
+    
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            setError("Phone number must be 10 digits.");
+            return false;
+        }
+    
         setError("");
         return true;
     };
@@ -142,7 +149,10 @@ export function CabSearchBar() {
                 "users"
             );
             if (!newUser) return setError("Failed to create user. Please try again.");
-            userData = { agentId: newUser.uid, agentPhoneNumber: formData.phoneNumber };
+            userData = {
+                agentId: user?.uid || "N/A",
+                agentPhoneNumber: user?.phoneNumber || formData.phoneNumber || "Unknown",
+            };
             const emailContent = {
                 email: formData.email,
                 subject: 'Welcome to TripWay Holidays! 🌍',
@@ -158,16 +168,24 @@ export function CabSearchBar() {
             // Send email using the hook
             await sendEmail(emailContent);
         } else {
-            userData = { agentId: user.uid, agentPhoneNumber: user.phoneNumber };
+            userData = { agentId: user.uid, agentPhoneNumber: user?.phoneNumber || formData.phoneNumber };
         }
 
-        const dataToSend = { ...filteredData, ...userData, name };
+        const validDestinations = formData.destinations.filter((destination) => destination.trim() !== "");
+        const dataToSend = { ...filteredData, ...userData, name, destinations: validDestinations };
         const collectionName = formData.selectedRadio === "one-way" ? "one-way"
             : formData.selectedRadio === "round-trip" ? "round-trip"
                 : "multi-city";
 
         try {
-            await addDoc(collection(firestore, collectionName), dataToSend);
+            console.log("Data being sent to Firestore:", dataToSend);
+            const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
+
+            const dbRef = ref(database, `users/${user.uid}/tours/${docRef.id}`);
+            await set(dbRef, {
+                tourId: docRef.id,
+            });
+
             alert("Data successfully sent to Firebase");
             setFormData({
                 from: "",

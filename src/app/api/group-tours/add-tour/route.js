@@ -1,26 +1,33 @@
-import { firestore } from "@/firebase/firebaseConfig";
+import { database, firestore } from "@/firebase/firebaseConfig";
+import { ref, set } from "firebase/database";
 import { collection, addDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
     try {
-        const { tourName, price, userName, userEmail, userPhoneNumber, tourDate, userFrom, passenger, isPast } = await req.json();
+        const { userId, tourName, price, userName, userEmail, userPhoneNumber, startDate, userFrom, passenger, isPast } = await req.json();
 
         // Prepare tour data
         const tourUserData = {
             passenger,
             price,
-            tourDate,
+            startDate,
             tourName,
             userEmail,
             userFrom,
             userName,
             userPhoneNumber,
+            userId,
             isPast,
         };
 
         const tourRef = collection(firestore, "user-tours");
-        await addDoc(tourRef, tourUserData);
+        const docRef = await addDoc(tourRef, tourUserData);
+
+        const dbRef = ref(database, `users/${userId}/tours/${docRef.id}`);
+        await set(dbRef, {
+            tourId: docRef.id,
+        });
 
         return new NextResponse(JSON.stringify({ message: "Tour created successfully!" }), {
             status: 201,

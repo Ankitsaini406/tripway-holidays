@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useClient } from '@/context/UserContext';
 import { get, ref } from 'firebase/database';
-import { database } from '@/firebase/firebaseConfig';
+import { database, firestore } from '@/firebase/firebaseConfig';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 import styles from "@/styles/pages/profile.module.css";
 
 function ProfilePage() {
@@ -14,41 +16,124 @@ function ProfilePage() {
     const [activeBtn, setActiveBtn] = useState('bookingHistory');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const bookingData = [
-        { date: '2024-12-01', name: 'John Doe', from: 'New York', to: 'Los Angeles', price: '$300' },
-        { date: '2024-12-05', name: 'Jane Smith', from: 'Chicago', to: 'Miami', price: '$200' },
-        { date: '2024-12-10', name: 'Alice Johnson', from: 'Houston', to: 'San Francisco', price: '$400' },
-        { date: '2024-12-15', name: 'Bob Brown', from: 'Seattle', to: 'Denver', price: '$150' },
-    ];
+    const [bookings, setBookings] = useState([]); // Combined booking data
 
     useEffect(() => {
         if (user?.uid) {
-            const fetchUserData = async () => {
+            const fetchData = async () => {
                 setLoading(true);
                 setError(null);
 
                 try {
+                    // Fetch user data
                     const userRef = ref(database, `users/${user.uid}`);
                     const snapshot = await get(userRef);
 
                     if (snapshot.exists()) {
                         setUserData(snapshot.val());
+
+                        const toursRef = ref(database, `users/${user.uid}/tours`);
+                        const toursSnapshot = await get(toursRef);
+
+                        if (toursSnapshot.exists()) {
+                            const tourIds = Object.keys(toursSnapshot.val());
+
+                            const allBookings = await fetchBookings(tourIds);
+                            setBookings(allBookings);
+                        } else {
+                            setError('No tour is booking by you.');
+                        }
                     } else {
-                        console.error('No data available for this user.');
+                        console.error('No user data available.');
                         setError('User data not found.');
                     }
+
                 } catch (err) {
-                    console.error('Error fetching user data:', err);
-                    setError('Failed to load user data.');
+                    console.error('Error fetching data:', err);
+                    setError('Failed to load data.');
                 } finally {
                     setLoading(false);
                 }
             };
 
-            fetchUserData();
+            fetchData();
         }
     }, [user?.uid]);
+
+    const fetchBookings = async (tourIds) => {
+        const allBookings = [];
+        for (const tourId of tourIds) {
+            // You can fetch the individual tour document based on tourId from Firestore
+            const tourRef = doc(firestore, 'user-tours', tourId);
+            const tourSnapshot = await getDoc(tourRef);
+
+            if (tourSnapshot.exists()) {
+                const tourData = { id: tourSnapshot.id, ...tourSnapshot.data() };
+                allBookings.push(tourData);
+            }
+        }
+
+        for (const tourId of tourIds) {
+            // You can fetch the individual tour document based on tourId from Firestore
+            const tourRef = doc(firestore, 'one-way', tourId);
+            const tourSnapshot = await getDoc(tourRef);
+
+            if (tourSnapshot.exists()) {
+                const tourData = { id: tourSnapshot.id, ...tourSnapshot.data() };
+                allBookings.push(tourData);
+            }
+        }
+
+        for (const tourId of tourIds) {
+            // You can fetch the individual tour document based on tourId from Firestore
+            const tourRef = doc(firestore, 'round-trip', tourId);
+            const tourSnapshot = await getDoc(tourRef);
+
+            if (tourSnapshot.exists()) {
+                const tourData = { id: tourSnapshot.id, ...tourSnapshot.data() };
+                allBookings.push(tourData);
+            }
+        }
+
+        for (const tourId of tourIds) {
+            // You can fetch the individual tour document based on tourId from Firestore
+            const tourRef = doc(firestore, 'multi-city', tourId);
+            const tourSnapshot = await getDoc(tourRef);
+
+            if (tourSnapshot.exists()) {
+                const tourData = { id: tourSnapshot.id, ...tourSnapshot.data() };
+                allBookings.push(tourData);
+            }
+        }
+
+        allBookings.sort((a, b) => {
+            const dateA = a.startDate?.toDate ? a.startDate.toDate() : new Date(a.startDate);
+            const dateB = b.startDate?.toDate ? b.startDate.toDate() : new Date(b.startDate);
+            return dateB - dateA; // Descending order
+        });
+
+        console.log(allBookings);
+        return allBookings;
+    };
+
+    const formatTimestamp = (timestamp) => {
+        if (timestamp instanceof Timestamp) {
+            const date = timestamp.toDate();
+            return formatDate(date);
+        } else if (typeof timestamp === 'string' || timestamp instanceof Date) {
+            const date = new Date(timestamp);
+            return formatDate(date);
+        }
+        return timestamp;
+    };
+
+    const formatDate = (date) => {
+        const day = date.getDate();
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const month = monthNames[date.getMonth()];
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
 
     const handleLogOut = () => {
         router.push('/');
@@ -56,7 +141,7 @@ function ProfilePage() {
     };
 
     const handleButtonClick = (buttonName) => {
-        setActiveBtn(buttonName); // Set the clicked button as active
+        setActiveBtn(buttonName);
     };
 
     return (
@@ -83,7 +168,7 @@ function ProfilePage() {
                                 className={`${styles.button} ${activeBtn === 'bookingHistory' ? styles.active : ''}`}
                                 onClick={() => handleButtonClick('bookingHistory')}
                             >
-                                Booking History
+                                Booking History ({bookings.length})
                             </button>
                             <button
                                 className={`${styles.button} ${activeBtn === 'accountSetting' ? styles.active : ''}`}
@@ -106,28 +191,38 @@ function ProfilePage() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {bookingData.map((booking, index) => (
-                                                <tr
-                                                    key={index}
-                                                    className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
-                                                >
-                                                    <td>{booking.date}</td>
-                                                    <td>{booking.name}</td>
-                                                    <td>{booking.from}</td>
-                                                    <td>{booking.to}</td>
-                                                    <td>{booking.price}</td>
+                                            {bookings.length > 0 ? (
+                                                bookings.map((booking, index) => (
+                                                    <tr
+                                                        key={index}
+                                                        className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                                                    >
+                                                        <td>{formatTimestamp(booking.startDate)}</td>
+                                                        <td>{booking.name || 'N/A'}</td>
+                                                        <td>{booking.from || booking.userFrom || 'N/A'}</td>
+                                                        <td>
+                                                            {booking.destinations?.length > 0
+                                                                ? booking.destinations.join(", ")
+                                                                : booking.destination || booking.to || booking.tourName ||'N/A'}
+                                                        </td>
+                                                        <td>{booking.price || 'Cab'}</td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan="5">No bookings found.</td>
                                                 </tr>
-                                            ))}
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
                             )}
                             {activeBtn === 'accountSetting' && (
-                                    <div className={styles.buttonBox}>
-                                        <h3>Account Setting</h3>
-                                        <p>Display Account Setting</p>
-                                    </div>
-                                )}
+                                <div className={styles.buttonBox}>
+                                    <h3>Account Setting</h3>
+                                    <p>Display Account Setting</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

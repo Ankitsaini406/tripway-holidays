@@ -102,7 +102,7 @@ function TourDetails() {
 
         if (!userData) return router.push('/auth/client-login');
         try {
-            const data = { ...formData, tourName: tour.name, price: tour.price, tourDate: tour.startDate, isPast: isPastDate };
+            const data = { ...formData, tourName: tour.name, price: tour.price, startDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
             if (success) {
                 const emailContent = {
@@ -111,7 +111,7 @@ function TourDetails() {
                     name: formData.userName,
                     otp: null,
                     password: null,
-                    tourDate: tour.startDate,
+                    startDate: tour.startDate,
                     tourTime: null,
                     tourLocation: null,
                     url: 'confirmed-tour',
