@@ -14,16 +14,17 @@ function ProfilePage() {
     const { user, logoutUser } = useClient();
     const [userData, setUserData] = useState(null);
     const [activeBtn, setActiveBtn] = useState('bookingHistory');
-    const [loading, setLoading] = useState(true);
+    const [loadingUser, setLoadingUser] = useState(true);
+    const [loadingBookings, setLoadingBookings] = useState(false);
     const [error, setError] = useState(null);
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
         if (!user?.uid) return;
 
-        const fetchData = async () => {
+        const fetchUserData = async () => {
             try {
-                setLoading(true);
+                setLoadingUser(true);
                 const userRef = ref(database, `users/${user.uid}`);
                 const snapshot = await get(userRef);
 
@@ -33,12 +34,28 @@ function ProfilePage() {
                 }
 
                 setUserData(snapshot.val());
+            } catch (err) {
+                console.error('Error fetching user data:', err);
+                setError('Failed to load user data.');
+            } finally {
+                setLoadingUser(false);
+            }
+        };
 
+        fetchUserData();
+    }, [user?.uid]);
+
+    useEffect(() => {
+        if (!userData) return;
+
+        const fetchUserBookings = async () => {
+            try {
+                setLoadingBookings(true);
                 const toursRef = ref(database, `users/${user.uid}/tours`);
                 const toursSnapshot = await get(toursRef);
 
                 if (!toursSnapshot.exists()) {
-                    setError('No tours booked by you.');
+                    setBookings([]);
                     return;
                 }
 
@@ -46,15 +63,15 @@ function ProfilePage() {
                 const allBookings = await fetchBookings(tourIds);
                 setBookings(allBookings);
             } catch (err) {
-                console.error('Error fetching data:', err);
-                setError('Failed to load data.');
+                console.error('Error fetching bookings:', err);
+                setError('Failed to load bookings.');
             } finally {
-                setLoading(false);
+                setLoadingBookings(false);
             }
         };
 
-        fetchData();
-    }, [user?.uid]);
+        fetchUserBookings();
+    }, [userData]);
 
     const fetchBookings = async (tourIds) => {
         const bookingPromises = tourIds.flatMap((tourId) => [
@@ -97,8 +114,8 @@ function ProfilePage() {
 
     return (
         <div className="layout">
-            {loading ? (
-                <p>Loading...</p>
+            {loadingUser ? (
+                <p>Loading user data...</p>
             ) : error ? (
                 <p>{error}</p>
             ) : (
@@ -130,45 +147,49 @@ function ProfilePage() {
                         </div>
                         <div>
                             {activeBtn === 'bookingHistory' ? (
-                                <div className={styles.bookingTableContainer}>
-                                    <table className={styles.bookingTable}>
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Name</th>
-                                                <th>From</th>
-                                                <th>To</th>
-                                                <th>Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {bookings.length > 0 ? (
-                                                bookings.map((booking, index) => (
-                                                    <tr
-                                                        key={index}
-                                                        className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
-                                                    >
-                                                        <td>{formatTimestamp(booking.startDate)}</td>
-                                                        <td>{booking.name || 'N/A'}</td>
-                                                        <td>{booking.from || booking.userFrom || 'N/A'}</td>
-                                                        <td>
-                                                            {booking.destinations?.join(", ") ||
-                                                                booking.destination ||
-                                                                booking.to ||
-                                                                booking.tourName ||
-                                                                'N/A'}
-                                                        </td>
-                                                        <td>{booking.price ? `₹${new Intl.NumberFormat('en-IN').format(booking.price)}` : 'Cab'}</td>
-                                                    </tr>
-                                                ))
-                                            ) : (
+                                loadingBookings ? (
+                                    <p>Loading bookings...</p>
+                                ) : (
+                                    <div className={styles.bookingTableContainer}>
+                                        <table className={styles.bookingTable}>
+                                            <thead>
                                                 <tr>
-                                                    <td colSpan="5">No bookings found.</td>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Price</th>
                                                 </tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </thead>
+                                            <tbody>
+                                                {bookings.length > 0 ? (
+                                                    bookings.map((booking, index) => (
+                                                        <tr
+                                                            key={index}
+                                                            className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                                                        >
+                                                            <td>{formatTimestamp(booking.startDate)}</td>
+                                                            <td>{booking.name || 'N/A'}</td>
+                                                            <td>{booking.from || booking.userFrom || 'N/A'}</td>
+                                                            <td>
+                                                                {booking.destinations?.join(", ") ||
+                                                                    booking.destination ||
+                                                                    booking.to ||
+                                                                    booking.tourName ||
+                                                                    'N/A'}
+                                                            </td>
+                                                            <td>{booking.price ? `₹${new Intl.NumberFormat('en-IN').format(booking.price)}` : 'Cab'}</td>
+                                                        </tr>
+                                                    ))
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan="5">No bookings found.</td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )
                             ) : (
                                 <div className={styles.buttonBox}>
                                     <h3>Account Setting</h3>
