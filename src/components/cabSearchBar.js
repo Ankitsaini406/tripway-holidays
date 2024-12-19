@@ -33,7 +33,7 @@ export function CabSearchBar() {
     const [enteredOtp, setEnteredOtp] = useState("");
     const { sendEmail, loading, success } = useSendEmail();
 
-    const name = user ? user.displayName : formData.firstName + " " + formData.lastName;
+    const name = user?.displayName || `${formData.firstName} ${formData.lastName}`;
 
     // Function to generate a 6-digit OTP
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
@@ -179,12 +179,12 @@ export function CabSearchBar() {
 
         try {
             console.log("Data being sent to Firestore:", dataToSend);
-            const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
+            // const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
 
-            const dbRef = ref(database, `users/${user.uid}/tours/${docRef.id}`);
-            await set(dbRef, {
-                tourId: docRef.id,
-            });
+            // const dbRef = ref(database, `users/${user.uid}/tours/${docRef.id}`);
+            // await set(dbRef, {
+            //     tourId: docRef.id,
+            // });
 
             alert("Data successfully sent to Firebase");
             setFormData({
@@ -213,13 +213,15 @@ export function CabSearchBar() {
 
     return (
         <>
-            {activeOtp ? (
-                <div>
-                    <label style={{ display: 'block', margin: '0 0 15px 0' }} htmlFor="otp">Your OTP for Travel Booking Confirmation</label>
-                    <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} handleSendOtp={handleSendOtp} />
-                    {msg && <p className={styles.errorMessage}>{msg}</p>}
-                </div>
-            ) : (
+            {
+            // activeOtp ? (
+            //     <div>
+            //         <label style={{ display: 'block', margin: '0 0 15px 0' }} htmlFor="otp">Your OTP for Travel Booking Confirmation</label>
+            //         <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} handleSendOtp={handleSendOtp} />
+            //         {msg && <p className={styles.errorMessage}>{msg}</p>}
+            //     </div>
+            // ) : 
+            (
                 <>
                     <div className={styles.radioOption}>
                         {["one-way", "round-trip", "multi-city"].map((option) => (
@@ -404,7 +406,11 @@ export function CabSearchBar() {
 
             <button
                 className={styles.searchButton}
-                onClick={activeOtp ? handleSubmit : handleSendOtp}
+                onClick={
+                    // activeOtp ? 
+                    handleSubmit 
+                    // : handleSendOtp
+                }
                 disabled={enteredOtp !== correctOtp && activeOtp}
             >
                 {activeOtp ? "Submit" : 'Book Now'}
