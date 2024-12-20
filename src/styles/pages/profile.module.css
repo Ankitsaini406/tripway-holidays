@@ -101,6 +101,14 @@
     z-index: 1;
 }
 
+.naText {
+    color: var(--vermilion-red);
+}
+
+.offerText {
+    color: var(--peacock-green);
+}
+
 .evenRow:hover, 
 .oddRow:hover {
     background-color: var(--table-hover);

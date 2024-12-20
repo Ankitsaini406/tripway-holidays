@@ -160,8 +160,18 @@ function ProfilePage() {
                                                                 className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
                                                             >
                                                                 <td>{formatTimestamp(booking.startDate)}</td>
-                                                                <td>{booking.name || 'N/A'}</td>
-                                                                <td>{booking.from || booking.userFrom || 'N/A'}</td>
+
+                                                                {/* Name or UserName */}
+                                                                <td className={(booking.name === null || booking.name === '' || booking.userName === null || booking.userName === '') ? styles.naText : ''}>
+                                                                    {booking.name || booking.userName || 'N/A'}
+                                                                </td>
+
+                                                                {/* From or UserFrom */}
+                                                                <td className={(booking.from === null || booking.from === '' || booking.userFrom === null || booking.userFrom === '') ? styles.naText : ''}>
+                                                                    {booking.from || booking.userFrom || 'N/A'}
+                                                                </td>
+
+                                                                {/* Destinations or other possible fields */}
                                                                 <td>
                                                                     {booking.destinations?.join(", ") ||
                                                                         booking.destination ||
@@ -169,21 +179,32 @@ function ProfilePage() {
                                                                         booking.tourName ||
                                                                         'N/A'}
                                                                 </td>
-                                                                <td>{booking.passenger || 'N/A'}</td>
+
+                                                                {/* Passengers */}
+                                                                <td className={(booking.passenger === null || booking.passenger === '' || booking.passenger === 'N/A') ? styles.naText : ''}>
+                                                                    {booking.passenger || 'N/A'}
+                                                                </td>
+
+                                                                {/* Price or other price-related info */}
                                                                 <td>
                                                                     {booking.price
                                                                         ? `₹${new Intl.NumberFormat('en-IN').format(totalPrice)}`
                                                                         : booking.destination ? 'Round Trip' : booking.to ? 'One Way' : booking.destinations?.join(", ") ? 'Multi City' : 'N/A'}
                                                                 </td>
-                                                                <td>{booking.offerFrom || ''}</td>
+
+                                                                {/* Offer From */}
+                                                                <td className={(booking.offerFrom === null || booking.offerFrom === '') ? styles.naText : styles.offerText}>
+                                                                    {booking.offerFrom || ''}
+                                                                </td>
                                                             </tr>
                                                         );
                                                     })
                                                 ) : (
                                                     <tr>
-                                                        <td colSpan="8">No bookings found.</td>
+                                                        <td colSpan="7">No bookings found.</td>
                                                     </tr>
                                                 )}
+
 
                                             </tbody>
                                         </table>
