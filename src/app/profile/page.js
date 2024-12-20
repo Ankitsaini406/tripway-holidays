@@ -13,7 +13,7 @@ function ProfilePage() {
     const router = useRouter();
     const { user, logoutUser } = useClient();
     const [userData, setUserData] = useState(null);
-    const [activeBtn, setActiveBtn] = useState('agentRef');
+    const [activeBtn, setActiveBtn] = useState('bookingHistory');
     const [loadingUser, setLoadingUser] = useState(true);
     const [loadingBookings, setLoadingBookings] = useState(false);
     const [error, setError] = useState(null);
@@ -119,13 +119,17 @@ function ProfilePage() {
                     </div>
                     <div className={styles.profileDetailsBox}>
                         <div className={styles.buttonFlex}>
-                            {/* Refrel History Button */}
-                            <button
+
+                            {
+                                // user.agentCode ? 
+                                <button
                                 className={`${styles.button} ${activeBtn === 'agentRef' ? styles.active : ''}`}
                                 onClick={() => setActiveBtn('agentRef')}
                             >
-                                Referral&nbsp;History&nbsp;({bookings.length}) {/* Adjust this count based on referral history if needed */}
-                            </button>
+                                Referral&nbsp;History&nbsp;({bookings.length})
+                            </button>  
+                            // : null
+                            }
 
                             {/* Booking History Button */}
                             <button

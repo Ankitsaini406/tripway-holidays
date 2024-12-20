@@ -7,6 +7,7 @@ import { useClient } from "@/context/UserContext";
 import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
 import styles from '../styles/components/advancesearchbar.module.css';
 import { ref, set } from "firebase/database";
+import { findAgentByAgentCode } from "@/utils/findAgent";
 
 export function CabSearchBar() {
     const { user, signupUserWithEmailAndPassword } = useClient();
@@ -150,8 +151,8 @@ export function CabSearchBar() {
             );
             if (!newUser) return setError("Failed to create user. Please try again.");
             userData = {
-                agentId: user?.uid || "N/A",
-                agentPhoneNumber: user?.phoneNumber || formData.phoneNumber || "Unknown",
+                agentId: user?.uid || null,
+                agentPhoneNumber: user?.phoneNumber || formData.phoneNumber || null,
             };
             const emailContent = {
                 email: formData.email,
@@ -184,6 +185,8 @@ export function CabSearchBar() {
             await set(dbRef, {
                 tourId: docRef.id,
             });
+
+            findAgentByAgentCode(formData.offerFrom, docRef.id);
 
             alert("Data successfully sent to Firebase");
             setFormData({
