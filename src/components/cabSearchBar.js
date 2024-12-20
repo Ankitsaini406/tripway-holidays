@@ -113,17 +113,17 @@ export function CabSearchBar() {
     const validateForm = (e) => {
         e.preventDefault();
         const { from, phoneNumber, carOption, passenger, email } = formData;
-    
+
         if (!from || !phoneNumber || !carOption || !passenger || !email) {
             setError("Please fill all required fields.");
             return false;
         }
-    
+
         if (!/^\d{10}$/.test(phoneNumber)) {
             setError("Phone number must be 10 digits.");
             return false;
         }
-    
+
         setError("");
         return true;
     };
@@ -138,7 +138,7 @@ export function CabSearchBar() {
         }
         setMsg("✅ OTP Verified Successfully!");
 
-        const { selectedRadio, firstName, lastName, ...filteredData } = formData;
+        const { firstName, lastName, ...filteredData } = formData;
         let userData = {};
         if (!user) {
             const password = generateRandomPassword();
@@ -165,7 +165,6 @@ export function CabSearchBar() {
                 url: 'account-created',
             };
 
-            // Send email using the hook
             await sendEmail(emailContent);
         } else {
             userData = { agentId: user.uid, agentPhoneNumber: user?.phoneNumber || formData.phoneNumber };
@@ -343,30 +342,24 @@ export function CabSearchBar() {
                         />
                     </div>
 
-                    {/* {
-                        user ? null : (
-                            <> */}
-                                <div className={styles.radioOption}>
-                                    <ContactDetails
-                                        type='text'
-                                        name='firstName'
-                                        value={formData.firstName}
-                                        handleChange={handleChange}
-                                        className={styles.searchInput}
-                                        palceholder='First Name'
-                                    />
-                                    <ContactDetails
-                                        type='text'
-                                        name='lastName'
-                                        value={formData.lastName}
-                                        handleChange={handleChange}
-                                        className={styles.searchInput}
-                                        palceholder='Last Name'
-                                    />
-                                </div> 
-                                {/* </>
-                        )
-                    } */}
+                    <div className={styles.radioOption}>
+                        <ContactDetails
+                            type='text'
+                            name='firstName'
+                            value={formData.firstName}
+                            handleChange={handleChange}
+                            className={styles.searchInput}
+                            palceholder='First Name'
+                        />
+                        <ContactDetails
+                            type='text'
+                            name='lastName'
+                            value={formData.lastName}
+                            handleChange={handleChange}
+                            className={styles.searchInput}
+                            palceholder='Last Name'
+                        />
+                    </div>
 
                     <div className={styles.radioOption}>
                         <ContactDetails
@@ -387,16 +380,14 @@ export function CabSearchBar() {
                         />
                     </div>
 
-                    {formData.selectedRadio === "one-way" && (
-                        <input
-                            type="text"
-                            name="offerFrom"
-                            placeholder="Offer From"
-                            value={formData.offerFrom}
-                            onChange={handleChange}
-                            className={styles.searchInput}
-                        />
-                    )}
+                    <input
+                        type="text"
+                        name="offerFrom"
+                        placeholder="Offer From"
+                        value={formData.offerFrom}
+                        onChange={handleChange}
+                        className={styles.searchInput}
+                    />
                 </>
             )}
 

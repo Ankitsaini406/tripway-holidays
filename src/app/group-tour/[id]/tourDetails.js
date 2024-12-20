@@ -119,6 +119,14 @@ function TourDetails() {
                     url: 'confirmed-tour',
                 }
                 sendEmail(emailContent);
+                setFormData({
+                    userFrom: '',
+                    passenger: '',
+                    userPhoneNumber: '',
+                    userEmail: '',
+                    userName: '',
+                    offerFrom: '',
+                });
             }
         } catch (error) {
             console.error("Error adding tour data:", error);
