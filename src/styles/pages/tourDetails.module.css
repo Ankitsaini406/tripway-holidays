@@ -122,7 +122,6 @@
 .tabContent {
     padding: 15px;
     border: 1px solid var(--indigo-blue);
-    border-radius: 0 0 10px 10px;
 
     & > div > h3 {
         font-size: clamp(1rem, 1vw + 0.5rem, 3rem);

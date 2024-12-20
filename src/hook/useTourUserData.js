@@ -66,17 +66,8 @@ const useTourUserData = () => {
 
         try {
             const addUserTour = {
-                tourName: data.tourName,
-                price: data.price,
-                userName: data.userName,
-                userEmail: data.userEmail,
-                userPhoneNumber: data.userPhoneNumber,
-                startDate: data.startDate,
-                userFrom: data.userFrom,
-                passenger: data.passenger,
+                ...data,
                 userId: userData.uid,
-                tourId: data.id,
-                isPast: data.isPast,
             };
 
             const response = await fetch(`${apiPoint}/api/group-tours/add-tour`, {

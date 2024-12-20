@@ -145,34 +145,46 @@ function ProfilePage() {
                                                     <th>Name</th>
                                                     <th>From</th>
                                                     <th>To</th>
-                                                    <th>Price</th>
+                                                    <th>Passengers</th>
+                                                    <th>Total Price</th>
+                                                    <th>Copen Code</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bookings.length > 0 ? (
-                                                    bookings.map((booking, index) => (
-                                                        <tr
-                                                            key={index}
-                                                            className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
-                                                        >
-                                                            <td>{formatTimestamp(booking.startDate)}</td>
-                                                            <td>{booking.name || 'N/A'}</td>
-                                                            <td>{booking.from || booking.userFrom || 'N/A'}</td>
-                                                            <td>
-                                                                {booking.destinations?.join(", ") ||
-                                                                    booking.destination ||
-                                                                    booking.to ||
-                                                                    booking.tourName ||
-                                                                    'N/A'}
-                                                            </td>
-                                                            <td>{booking.price ? `₹${new Intl.NumberFormat('en-IN').format(booking.price)}` : 'Cab'}</td>
-                                                        </tr>
-                                                    ))
+                                                    bookings.map((booking, index) => {
+                                                        const totalPrice = booking.price * booking.passenger;
+                                                        return (
+                                                            <tr
+                                                                key={index}
+                                                                className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                                                            >
+                                                                <td>{formatTimestamp(booking.startDate)}</td>
+                                                                <td>{booking.name || 'N/A'}</td>
+                                                                <td>{booking.from || booking.userFrom || 'N/A'}</td>
+                                                                <td>
+                                                                    {booking.destinations?.join(", ") ||
+                                                                        booking.destination ||
+                                                                        booking.to ||
+                                                                        booking.tourName ||
+                                                                        'N/A'}
+                                                                </td>
+                                                                <td>{booking.passenger || 'N/A'}</td>
+                                                                <td>
+                                                                    {booking.price
+                                                                        ? `₹${new Intl.NumberFormat('en-IN').format(totalPrice)}`
+                                                                        : booking.destination ? 'Round Trip' : booking.to ? 'One Way' : booking.destinations?.join(", ") ? 'Multi City' : 'N/A'}
+                                                                </td>
+                                                                <td>{booking.offerFrom || ''}</td>
+                                                            </tr>
+                                                        );
+                                                    })
                                                 ) : (
                                                     <tr>
-                                                        <td colSpan="5">No bookings found.</td>
+                                                        <td colSpan="8">No bookings found.</td>
                                                     </tr>
                                                 )}
+
                                             </tbody>
                                         </table>
                                     </div>

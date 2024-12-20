@@ -29,6 +29,7 @@ function TourDetails() {
         userPhoneNumber: userData?.phoneNumber || '',
         userEmail: userData?.email || '',
         userName: userData?.name || '',
+        offerFrom: '',
     });
     const [isPastDate, setIsPastDate] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -82,6 +83,7 @@ function TourDetails() {
                 userPhoneNumber: userData.phoneNumber || '',
                 userEmail: userData.email || '',
                 userName: userData.name || '',
+                offerFrom: '',
             });
         }
     }, [userData]);
@@ -373,6 +375,19 @@ export const BookingForm = ({ tour, isPastDate, formData, setFormData, userData,
                             onChange={(e) => setFormData({ ...formData, passenger: e.target.value })}
                             placeholder="Enter number of passengers"
                             required
+                        />
+                    </div>
+                }
+                {
+                    !isPastDate && <div className={style.formGroup}>
+                        <label htmlFor="offerFrom">Offer From</label>
+                        <input
+                            className={style.authInput}
+                            type="text"
+                            id="offerFrom"
+                            value={formData.offerFrom || ''}
+                            onChange={(e) => setFormData({ ...formData, offerFrom: e.target.value })}
+                            placeholder="Offer From"
                         />
                     </div>
                 }
