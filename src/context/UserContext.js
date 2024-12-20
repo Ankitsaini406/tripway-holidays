@@ -58,6 +58,7 @@ export const UserProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
                 password: password,
+                isAgent: false,
                 ...additionalData
             });
 
@@ -83,6 +84,7 @@ export const UserProvider = (props) => {
             await putData(`${dataBaseName}/${newUser.uid}`, {
                 uid: newUser.uid,
                 email: newUser.email,
+                isAgent: false,
                 ...additionalData
             });
 
@@ -107,11 +109,11 @@ export const UserProvider = (props) => {
         return emailSnapshot.exists(); // Return true if the email exists
     };
 
-    const loginUser = async (email, password, url) => {
+    const loginUser = async (email, password) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-            const isEmail = await checkEmailExists(email, `${url}`);
+            const isEmail = await checkEmailExists(email, `users`);
 
             if (!isEmail) {
                 throw new Error("No account found with this email.");
@@ -145,7 +147,7 @@ export const UserProvider = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, signupUserWithEmailAndPassword, createNewUser, putData, loginUser, checkEmailExists, logoutUser }}>
+        <UserContext.Provider value={{ user, signupUserWithEmailAndPassword, createNewUser, loginUser, logoutUser }}>
             {props.children}
         </UserContext.Provider>
     );

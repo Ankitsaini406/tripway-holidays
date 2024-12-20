@@ -27,7 +27,7 @@ function AgentLogin({ setAgentLogin }) {
         }
 
         try {
-            const personExists = await loginUser(email, password, 'agents');
+            const personExists = await loginUser(email, password);
             if (!personExists) {
                 setError("No agent found with this email.");
                 return;

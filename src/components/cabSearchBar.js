@@ -32,7 +32,7 @@ export function CabSearchBar() {
     const [correctOtp, setCorrectOtp] = useState("");
     const [msg, setMsg] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
-    const { sendEmail, loading, success } = useSendEmail();
+    const { sendEmail, success } = useSendEmail();
 
     const name = user?.displayName || `${formData.firstName} ${formData.lastName}`;
 
@@ -146,7 +146,7 @@ export function CabSearchBar() {
             const newUser = await signupUserWithEmailAndPassword(
                 formData.email,
                 password,
-                { name, phoneNumber: formData.phoneNumber, password },
+                { name, phoneNumber: formData.phoneNumber, password, isAgnet: false },
                 "users"
             );
             if (!newUser) return setError("Failed to create user. Please try again.");

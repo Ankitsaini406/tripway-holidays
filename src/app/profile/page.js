@@ -3,96 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useClient } from '@/context/UserContext';
-import { get, ref } from 'firebase/database';
-import { database, firestore } from '@/firebase/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
 import styles from "@/styles/pages/profile.module.css";
 import { formatTimestamp } from '@/utils/formatData';
+import useUserBookings from '@/hook/useUseerBooking';
 
 function ProfilePage() {
     const router = useRouter();
     const { user, logoutUser } = useClient();
-    const [userData, setUserData] = useState(null);
     const [activeBtn, setActiveBtn] = useState('bookingHistory');
-    const [loadingUser, setLoadingUser] = useState(true);
-    const [loadingBookings, setLoadingBookings] = useState(false);
-    const [error, setError] = useState(null);
-    const [bookings, setBookings] = useState([]);
 
-    useEffect(() => {
-        if (!user?.uid) return;
-
-        const fetchUserData = async () => {
-            try {
-                setLoadingUser(true);
-                const userRef = ref(database, `users/${user.uid}`);
-                const snapshot = await get(userRef);
-
-                if (!snapshot.exists()) {
-                    setError('User data not found.');
-                    return;
-                }
-
-                setUserData(snapshot.val());
-            } catch (err) {
-                console.error('Error fetching user data:', err);
-                setError('Failed to load user data.');
-            } finally {
-                setLoadingUser(false);
-            }
-        };
-
-        fetchUserData();
-    }, [user?.uid]);
-
-    useEffect(() => {
-        if (!userData) return;
-
-        const fetchUserBookings = async () => {
-            try {
-                setLoadingBookings(true);
-                const toursRef = ref(database, `users/${user.uid}/tours`);
-                const toursSnapshot = await get(toursRef);
-
-                if (!toursSnapshot.exists()) {
-                    setBookings([]);
-                    return;
-                }
-
-                const tourIds = Object.keys(toursSnapshot.val());
-                const allBookings = await fetchBookings(tourIds);
-                setBookings(allBookings);
-            } catch (err) {
-                console.error('Error fetching bookings:', err);
-                setError('Failed to load bookings.');
-            } finally {
-                setLoadingBookings(false);
-            }
-        };
-
-        fetchUserBookings();
-    }, [userData]);
-
-    const fetchBookings = async (tourIds) => {
-        const bookingPromises = tourIds.flatMap((tourId) => [
-            getDoc(doc(firestore, 'user-tours', tourId)),
-            getDoc(doc(firestore, 'one-way', tourId)),
-            getDoc(doc(firestore, 'round-trip', tourId)),
-            getDoc(doc(firestore, 'multi-city', tourId)),
-        ]);
-
-        const snapshots = await Promise.all(bookingPromises);
-
-        const allBookings = snapshots
-            .filter((snapshot) => snapshot.exists())
-            .map((snapshot) => ({ id: snapshot.id, ...snapshot.data() }));
-
-        return allBookings.sort((a, b) => {
-            const dateA = new Date(a.startDate?.toDate ? a.startDate.toDate() : a.startDate);
-            const dateB = new Date(b.startDate?.toDate ? b.startDate.toDate() : b.startDate);
-            return dateB - dateA; // Descending order
-        });
-    };
+    const { userData, bookings, loadingUser, loadingBookings, error} = useUserBookings(user);
 
     const handleLogOut = () => {
         logoutUser();
@@ -110,9 +30,9 @@ function ProfilePage() {
                     <div className={styles.profileMain}>
                         <div className={styles.profileBox}>
                             <div>
-                                <h2>Welcome, {userData.name || 'User'}</h2>
-                                <p>Email: {userData.email}</p>
-                                <p>Address: {userData.address || 'N/A'}</p>
+                                <h2>Welcome, {userData?.name || 'User'}</h2>
+                                <p>Email: {userData?.email}</p>
+                                <p>Address: {userData?.address || 'N/A'}</p>
                             </div>
                         </div>
                         <button className={styles.logOutButton} onClick={handleLogOut}>Logout</button>
@@ -121,14 +41,14 @@ function ProfilePage() {
                         <div className={styles.buttonFlex}>
 
                             {
-                                // user.agentCode ? 
+                                user?.agentCode ?
                                 <button
                                 className={`${styles.button} ${activeBtn === 'agentRef' ? styles.active : ''}`}
                                 onClick={() => setActiveBtn('agentRef')}
                             >
                                 Referral&nbsp;History&nbsp;({bookings.length})
                             </button>  
-                            // : null
+                            : null
                             }
 
                             {/* Booking History Button */}

@@ -29,7 +29,7 @@ function ClientLoaginPage() {
         }
 
         try {
-            const personExists = await loginUser(email, password, 'users');
+            const personExists = await loginUser(email, password);
             if (!personExists) {
                 setError("No user found with this email.");
                 return;
