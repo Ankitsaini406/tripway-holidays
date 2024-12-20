@@ -6,8 +6,8 @@ import { useClient } from '@/context/UserContext';
 import { get, ref } from 'firebase/database';
 import { database, firestore } from '@/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { Timestamp } from 'firebase/firestore';
 import styles from "@/styles/pages/profile.module.css";
+import { formatTimestamp } from '@/utils/formatData';
 
 function ProfilePage() {
     const router = useRouter();
@@ -92,19 +92,6 @@ function ProfilePage() {
             const dateB = new Date(b.startDate?.toDate ? b.startDate.toDate() : b.startDate);
             return dateB - dateA; // Descending order
         });
-    };
-
-    const formatTimestamp = (timestamp) => {
-        if (timestamp instanceof Timestamp) {
-            return formatDate(timestamp.toDate());
-        }
-        return formatDate(new Date(timestamp));
-    };
-
-    const formatDate = (date) => {
-        const day = date.getDate();
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return `${day}-${monthNames[date.getMonth()]}-${date.getFullYear()}`;
     };
 
     const handleLogOut = () => {

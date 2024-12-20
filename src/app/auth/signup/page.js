@@ -13,6 +13,7 @@ function SignUpPage() {
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +38,7 @@ function SignUpPage() {
         }
 
         try {
-            await signupUserWithEmailAndPassword(email, password, { name, phoneNumber, verifyPassword }, 'users');
+            await signupUserWithEmailAndPassword(email, password, { name, phoneNumber, verifyPassword, address }, 'users');
             router.push("/");
         } catch (err) {
             setError("Failed to sign up. Please try again.");
@@ -104,6 +105,18 @@ function SignUpPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Enter your email"
+                                    required
+                                />
+                            </div>
+                            <div className={styles.formGroup}>
+                                <label htmlFor="address">Address</label>
+                                <input
+                                    className={styles.authInput}
+                                    type="text"
+                                    id="address"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    placeholder="Enter your Address"
                                     required
                                 />
                             </div>
