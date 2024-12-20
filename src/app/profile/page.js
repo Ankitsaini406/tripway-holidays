@@ -13,7 +13,7 @@ function ProfilePage() {
     const router = useRouter();
     const { user, logoutUser } = useClient();
     const [userData, setUserData] = useState(null);
-    const [activeBtn, setActiveBtn] = useState('bookingHistory');
+    const [activeBtn, setActiveBtn] = useState('agentRef');
     const [loadingUser, setLoadingUser] = useState(true);
     const [loadingBookings, setLoadingBookings] = useState(false);
     const [error, setError] = useState(null);
@@ -119,20 +119,33 @@ function ProfilePage() {
                     </div>
                     <div className={styles.profileDetailsBox}>
                         <div className={styles.buttonFlex}>
+                            {/* Refrel History Button */}
+                            <button
+                                className={`${styles.button} ${activeBtn === 'agentRef' ? styles.active : ''}`}
+                                onClick={() => setActiveBtn('agentRef')}
+                            >
+                                Referral&nbsp;History&nbsp;({bookings.length}) {/* Adjust this count based on referral history if needed */}
+                            </button>
+
+                            {/* Booking History Button */}
                             <button
                                 className={`${styles.button} ${activeBtn === 'bookingHistory' ? styles.active : ''}`}
                                 onClick={() => setActiveBtn('bookingHistory')}
                             >
-                                Booking History ({bookings.length})
+                                Booking&nbsp;History&nbsp;({bookings.length}) {/* Adjust this count based on booking data */}
                             </button>
+
+                            {/* Account Setting Button */}
                             <button
                                 className={`${styles.button} ${activeBtn === 'accountSetting' ? styles.active : ''}`}
                                 onClick={() => setActiveBtn('accountSetting')}
                             >
-                                Account Setting
+                                Account&nbsp;Setting
                             </button>
                         </div>
+
                         <div>
+                            {/* Conditional rendering based on active button */}
                             {activeBtn === 'bookingHistory' ? (
                                 loadingBookings ? (
                                     <p>Loading bookings...</p>
@@ -147,7 +160,7 @@ function ProfilePage() {
                                                     <th>To</th>
                                                     <th>Passengers</th>
                                                     <th>Total Price</th>
-                                                    <th>Copen Code</th>
+                                                    <th>Offer From</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -204,20 +217,25 @@ function ProfilePage() {
                                                         <td colSpan="7">No bookings found.</td>
                                                     </tr>
                                                 )}
-
-
                                             </tbody>
                                         </table>
                                     </div>
                                 )
+                            ) : activeBtn === 'agentRef' ? (
+                                <div>
+                                    <h3>Referral History</h3>
+                                    {/* Display referral history here */}
+                                    <p>No referrals found.</p>
+                                </div>
                             ) : (
                                 <div className={styles.buttonBox}>
                                     <h3>Account Setting</h3>
-                                    <p>Display Account Setting</p>
+                                    <p>Display Account Settings</p>
                                 </div>
                             )}
                         </div>
                     </div>
+
                 </div>
             )}
         </div>

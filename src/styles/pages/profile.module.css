@@ -121,6 +121,10 @@
         padding: 0.5rem;
     }
 
+    .buttonFlex {
+        overflow-x: scroll;
+    }
+
     .bookingTableContainer {
         overflow-x: scroll;
     }
