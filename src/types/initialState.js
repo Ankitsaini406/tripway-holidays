@@ -1,0 +1,21 @@
+
+export const cabInitialState = {
+    from: "",
+    to: "",
+    destination: "",
+    destinations: [""],
+    startDate: null,
+    passenger: "1",
+    phoneNumber: "",
+    carOption: "",
+    selectedRadio: "one-way",
+    time: "",
+    offerFrom: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    error: "",
+    msg: "",
+    success: "",
+    loading: false,
+};

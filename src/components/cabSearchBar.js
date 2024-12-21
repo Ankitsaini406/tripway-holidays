@@ -1,217 +1,13 @@
-
-import React, { useState } from "react";
-import OtpVerification from "@/utils/otpVeriification";
+import React from "react";
 import DatePicker from "react-datepicker";
-import useSendEmail from "@/hook/useSendEmail";
 import { useClient } from "@/context/UserContext";
-import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
-import styles from '../styles/components/advancesearchbar.module.css';
-import { ref, set } from "firebase/database";
-import { findAgentByAgentCode } from "@/utils/findAgent";
+import OtpVerification from "@/utils/otpVeriification";
+import useCabSearchForm from "@/hook/useCabSerachForm";
+import styles from "@/styles/components/advancesearchbar.module.css";
 
 export function CabSearchBar() {
     const { user, signupUserWithEmailAndPassword } = useClient();
-    const [formData, setFormData] = useState({
-        from: "",
-        to: "",
-        destination: "",
-        destinations: [""],
-        startDate: null,
-        passenger: "1",
-        phoneNumber: "",
-        carOption: "",
-        selectedRadio: "one-way",
-        time: "",
-        offerFrom: "",
-        email: "",
-        firstName: '',
-        lastName: '',
-    });
-    const [error, setError] = useState("");
-    const [activeOtp, setActiveOtp] = useState(false);
-    const [correctOtp, setCorrectOtp] = useState("");
-    const [msg, setMsg] = useState("");
-    const [enteredOtp, setEnteredOtp] = useState("");
-    const { sendEmail, success } = useSendEmail();
-
-    const name = user?.displayName || `${formData.firstName} ${formData.lastName}`;
-
-    // Function to generate a 6-digit OTP
-    const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
-
-    function generateRandomPassword() {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        let password = '';
-        for (let i = 0; i < 6; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            password += characters[randomIndex];
-        }
-        return password;
-    }
-
-    const handleSendOtp = async (e) => {
-        if (!validateForm(e)) return;
-        e.preventDefault();
-        const otp = generateOtp();
-        setCorrectOtp(otp);
-        setActiveOtp(true);
-
-        // Prepare the email content
-        const emailContent = {
-            email: formData.email,
-            subject: 'Your OTP for Travel Booking Confirmation',
-            name: name,
-            otp: otp,
-            password: null,
-            tourDate: null,
-            tourTime: null,
-            tourLocation: null,
-            url: 'send-otp',
-        };
-
-        // Send email using the hook
-        await sendEmail(emailContent);
-
-        // Check success or error
-        if (success) {
-            alert('OTP sent successfully!');
-        } else if (error) {
-            alert(`Failed to send OTP. Please try again. Error: ${error}`);
-        }
-    };
-
-    const options = [
-        { value: "", label: "Select Car" },
-        { value: "Seden", label: "Sedan" },
-        { value: "Suv", label: "SUV" },
-        { value: "Hatchback", label: "Hatchback" },
-    ];
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: name === "phoneNumber" ? value.replace(/\D/g, "") : value }));
-    };
-
-    const handleMultiCityChange = (index, value) => {
-        const updatedDestinations = [...formData.destinations];
-        updatedDestinations[index] = value;
-        setFormData((prevData) => ({ ...prevData, destinations: updatedDestinations }));
-    };
-
-    const addDestination = () => {
-        if (formData.destinations.length < 10) {
-            setFormData((prevData) => ({ ...prevData, destinations: [...prevData.destinations, ""] }));
-        }
-    };
-
-    const removeDestination = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            destinations: prevData.destinations.filter((_, i) => i !== index),
-        }));
-    };
-
-    const validateForm = (e) => {
-        e.preventDefault();
-        const { from, phoneNumber, carOption, passenger, email } = formData;
-
-        if (!from || !phoneNumber || !carOption || !passenger || !email) {
-            setError("Please fill all required fields.");
-            return false;
-        }
-
-        if (!/^\d{10}$/.test(phoneNumber)) {
-            setError("Phone number must be 10 digits.");
-            return false;
-        }
-
-        setError("");
-        return true;
-    };
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateForm(e)) return;
-        if (enteredOtp !== correctOtp) {
-            setMsg("❌ Invalid OTP. Please try again.");
-            return;
-        }
-        setMsg("✅ OTP Verified Successfully!");
-
-        const { firstName, lastName, ...filteredData } = formData;
-        let userData = {};
-        if (!user) {
-            const password = generateRandomPassword();
-            const newUser = await signupUserWithEmailAndPassword(
-                formData.email,
-                password,
-                { name, phoneNumber: formData.phoneNumber, password, isAgnet: false },
-                "users"
-            );
-            if (!newUser) return setError("Failed to create user. Please try again.");
-            userData = {
-                agentId: user?.uid || null,
-                agentPhoneNumber: user?.phoneNumber || formData.phoneNumber || null,
-            };
-            const emailContent = {
-                email: formData.email,
-                subject: 'Welcome to TripWay Holidays! 🌍',
-                name: name,
-                otp: null,
-                password: password,
-                tourDate: null,
-                tourTime: null,
-                tourLocation: null,
-                url: 'account-created',
-            };
-
-            await sendEmail(emailContent);
-        } else {
-            userData = { agentId: user.uid, agentPhoneNumber: user?.phoneNumber || formData.phoneNumber };
-        }
-
-        const validDestinations = formData.destinations.filter((destination) => destination.trim() !== "");
-        const dataToSend = { ...filteredData, ...userData, name, destinations: validDestinations };
-        const collectionName = formData.selectedRadio === "one-way" ? "one-way"
-            : formData.selectedRadio === "round-trip" ? "round-trip"
-                : "multi-city";
-
-        try {
-            console.log("Data being sent to Firestore:", dataToSend);
-            const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-
-            const dbRef = ref(database, `users/${user.uid}/tours/${docRef.id}`);
-            await set(dbRef, {
-                tourId: docRef.id,
-            });
-
-            findAgentByAgentCode(formData.offerFrom, docRef.id);
-
-            alert("Data successfully sent to Firebase");
-            setFormData({
-                from: "",
-                to: "",
-                destination: "",
-                destinations: [""],
-                startDate: null,
-                passenger: "1",
-                phoneNumber: "",
-                carOption: "",
-                selectedRadio: "one-way",
-                time: "",
-                offerFrom: "",
-                email: "",
-                firstName: '',
-                lastName: '',
-            });
-        } catch (err) {
-            console.error(err);
-            setError("Error sending data to Firebase.");
-        }
-
-        setActiveOtp(false);
-    };
+    const { formData, activeOtp, correctOtp, enteredOtp, options, setFormData, handleChange, handleMultiCityChange, addDestination, removeDestination, handleSendOtp, handleSubmit, setEnteredOtp } = useCabSearchForm(user, signupUserWithEmailAndPassword);
 
     return (
         <>
@@ -219,7 +15,7 @@ export function CabSearchBar() {
                 <div>
                     <label style={{ display: 'block', margin: '0 0 15px 0' }} htmlFor="otp">Your OTP for Travel Booking Confirmation</label>
                     <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} handleSendOtp={handleSendOtp} />
-                    {msg && <p className={styles.errorMessage}>{msg}</p>}
+                    {formData.msg && <p className={styles.errorMessage}>{formData.msg}</p>}
                 </div>
             ) : (
                 <>
@@ -394,14 +190,21 @@ export function CabSearchBar() {
                 </>
             )}
 
-            {error && <p className={styles.errorMessage}>{error}</p>}
+            {formData.error && <p className={styles.errorMessage}>{formData.error}</p>}
 
             <button
-                className={styles.searchButton}
-                onClick={activeOtp ? handleSubmit : handleSendOtp}
-                disabled={enteredOtp !== correctOtp && activeOtp}
+                className={`${styles.searchButton} ${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                onClick={
+                    formData.loading
+                        ? null
+                        : activeOtp
+                            ? handleSubmit
+                            : handleSendOtp
+                }
+                type="submit"
+                disabled={formData.loading || (activeOtp && enteredOtp !== correctOtp)}
             >
-                {activeOtp ? "Submit" : 'Book Now'}
+                {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
             </button>
         </>
     );
@@ -409,15 +212,13 @@ export function CabSearchBar() {
 
 export function ContactDetails({ type, name, value, handleChange, className, palceholder }) {
     return (
-        <>
-            <input
-                type={type}
-                name={name}
-                value={value}
-                onChange={handleChange}
-                className={className}
-                placeholder={palceholder}
-            />
-        </>
+        <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            className={className}
+            placeholder={palceholder}
+        />
     );
 }
