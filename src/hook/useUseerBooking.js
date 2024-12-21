@@ -10,83 +10,64 @@ const useUserBookings = (user) => {
     const [loadingBookings, setLoadingBookings] = useState(false);
     const [error, setError] = useState('');
 
-    // Fetch user data from Firebase (check both 'users' and 'agents' tables)
     useEffect(() => {
         if (!user?.uid) return;
 
-        const fetchUserData = async () => {
-            setLoadingUser(true);
+        const fetchData = async () => {
+            setLoadingUser(true); // Set loading for user data
             try {
-                // First check the 'users' table
+                // Fetch user data from 'users' table
                 let userRef = ref(database, `users/${user.uid}`);
                 let snapshot = await get(userRef);
 
                 if (snapshot.exists()) {
-                    setUserData({ ...snapshot.val(), from: 'users' });
-                    return;
+                    const userData = { ...snapshot.val(), from: 'users' };
+                    setUserData(userData);
+                    setLoadingUser(false); // Set loadingUser to false once user data is fetched
+                } else {
+                    setError('User or agent data not found.');
+                    setLoadingUser(false); // Set loadingUser to false if there's an error
                 }
-
-                // If not found in 'users', check the 'agents' table
-                userRef = ref(database, `agents/${user.uid}`);
-                snapshot = await get(userRef);
-
-                if (snapshot.exists()) {
-                    setUserData({ ...snapshot.val(), from: 'agents' });
-                    return;
-                }
-
-                console.log(snapshot.val())
-                setError('User or agent data not found.');
             } catch (err) {
                 console.error('Error fetching user data:', err);
                 setError('Failed to load user data.');
-            } finally {
-                setLoadingUser(false);
+                setLoadingUser(false); // Set loadingUser to false on error
             }
         };
 
-        fetchUserData();
+        fetchData();
     }, [user?.uid]);
 
-    // Fetch user bookings from Firebase once userData is available
     useEffect(() => {
-        if (!userData) return;
+        if (!userData) return; // Wait until userData is available
 
-        const fetchUserBookings = async () => {
-            setLoadingBookings(true);
+        const fetchBookings = async () => {
+            setLoadingBookings(true); // Set loading for bookings
             try {
                 let toursRef = ref(database, `users/${user.uid}/tours`);
                 let toursSnapshot = await get(toursRef);
 
                 if (!toursSnapshot.exists()) {
                     setBookings([]);
-                    return;
-                }
-
-                toursRef = ref(database, `agents/${user.uid}/tours`);
-                toursSnapshot = await get(toursRef);
-
-                if (!toursSnapshot.exists()) {
-                    setBookings([]);
+                    setLoadingBookings(false); // Set loadingBookings to false if no tours
                     return;
                 }
 
                 const tourIds = Object.keys(toursSnapshot.val());
-                const allBookings = await fetchBookings(tourIds);
+                const allBookings = await fetchBookingsData(tourIds);
                 setBookings(allBookings);
+                setLoadingBookings(false); // Set loadingBookings to false after bookings are fetched
             } catch (err) {
                 setError('Error fetching bookings.');
-                console.error(err);
-            } finally {
-                setLoadingBookings(false);
+                setLoadingBookings(false); // Set loadingBookings to false on error
+                console.error('Error fetching bookings:', err);
             }
         };
 
-        fetchUserBookings();
-    }, [userData]);
+        fetchBookings();
+    }, [userData]); // Trigger fetching bookings once userData is available
 
-    // Fetch bookings for the given tour IDs
-    const fetchBookings = async (tourIds) => {
+    const fetchBookingsData = async (tourIds) => {
         const bookingPromises = tourIds.flatMap((tourId) => [
             getDoc(doc(firestore, 'user-tours', tourId)),
             getDoc(doc(firestore, 'one-way', tourId)),

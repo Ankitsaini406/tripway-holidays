@@ -104,7 +104,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         setFormData((prev) => ({ ...prev, success: "OTP Verified Successfully!", loading: true }));
 
         const name = user?.displayName || `${formData.firstName} ${formData.lastName}`;
-        const { firstName, lastName, ...filteredData } = formData;
+        const { firstName, lastName, loading, msg, error, success, ...filteredData } = formData;
         let userData = {};
 
         if (!user) {
@@ -162,12 +162,13 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
             findAgentByAgentCode(formData.offerFrom, docRef.id);
 
             setFormData({
-                ...initialState, // Reset form to initial state
+                ...cabInitialState, // Reset form to initial state
                 success: "Data successfully sent to Firebase",
             });
+            setActiveOtp(false);
         } catch (err) {
             setFormData((prev) => ({ ...prev, loading: false }));
-            setFormData((prev) => ({ ...prev, error: "Error sending data to Firebase." }));
+            setFormData((prev) => ({ ...prev, error: `Error sending data to Firebase. ${err}` }));
         }
         finally {
             setFormData((prev) => ({ ...prev, loading: false }));
@@ -178,7 +179,6 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         formData,
         activeOtp,
         correctOtp,
-        enteredOtp,
         options,
         setFormData,
         handleChange,

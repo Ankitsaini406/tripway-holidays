@@ -233,6 +233,8 @@ th {
 
 .errorMsg {
   color: var(--error-color);
+  margin: 0;
+  font-size: medium;
 }
 
 .tremCondition {

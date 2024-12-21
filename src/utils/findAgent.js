@@ -5,7 +5,7 @@ export async function findAgentByAgentCode(agentCode, docId) {
     try {
 
         // Reference to the agents node
-        const agentsRef = ref(database, 'agents');
+        const agentsRef = ref(database, 'users');
         const snapshot = await get(agentsRef);
 
         if (!snapshot.exists()) {
@@ -26,7 +26,7 @@ export async function findAgentByAgentCode(agentCode, docId) {
         if (foundAgent) {
 
             console.log(foundAgent);
-            const dbRef = ref(database, `agents/${foundAgent.uid}/agentTours/${docId}`);
+            const dbRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
             await set(dbRef, {
                 tourId: docId,
             });

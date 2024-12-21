@@ -7,7 +7,7 @@ import styles from "@/styles/components/advancesearchbar.module.css";
 
 export function CabSearchBar() {
     const { user, signupUserWithEmailAndPassword } = useClient();
-    const { formData, activeOtp, correctOtp, enteredOtp, options, setFormData, handleChange, handleMultiCityChange, addDestination, removeDestination, handleSendOtp, handleSubmit, setEnteredOtp } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const { formData, activeOtp, correctOtp, options, setFormData, handleChange, handleMultiCityChange, addDestination, removeDestination, handleSendOtp, handleSubmit, setEnteredOtp } = useCabSearchForm(user, signupUserWithEmailAndPassword);
 
     return (
         <>
@@ -15,7 +15,7 @@ export function CabSearchBar() {
                 <div>
                     <label style={{ display: 'block', margin: '0 0 15px 0' }} htmlFor="otp">Your OTP for Travel Booking Confirmation</label>
                     <OtpVerification numberOfDigits={6} correctOtp={correctOtp} setEnteredOtp={setEnteredOtp} handleSendOtp={handleSendOtp} />
-                    {formData.msg && <p className={styles.errorMessage}>{formData.msg}</p>}
+                    {formData.msg && <p className='errorMsg'>{formData.msg}</p>}
                 </div>
             ) : (
                 <>
@@ -190,7 +190,7 @@ export function CabSearchBar() {
                 </>
             )}
 
-            {formData.error && <p className={styles.errorMessage}>{formData.error}</p>}
+            {formData.error && <p className='errorMsg'>{formData.error}</p>}
 
             <button
                 className={`${styles.searchButton} ${formData.loading ? 'loadingButton' : styles.searchButton}`}
@@ -202,7 +202,7 @@ export function CabSearchBar() {
                             : handleSendOtp
                 }
                 type="submit"
-                disabled={formData.loading || (activeOtp && enteredOtp !== correctOtp)}
+                disabled={formData.loading}
             >
                 {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
             </button>

@@ -23,18 +23,11 @@ function TourDetails() {
     const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
     const router = useRouter();
     const { addTourData, userData, loading, error, success } = useTourUserData();
-    const [formData, setFormData] = useState({
-        userFrom: '',
-        passenger: 1,
-        userPhoneNumber: userData?.phoneNumber || '',
-        userEmail: userData?.email || '',
-        userName: userData?.name || '',
-        offerFrom: '',
-    });
+    const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userPhoneNumber: userData?.phoneNumber || '', userEmail: userData?.email || '', userName: userData?.name || '', offerFrom: '', });
     const [isPastDate, setIsPastDate] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [errors, setErrors] = useState({});
-    const { sendEmail, loading: emailLoding } = useSendEmail();
+    const { sendEmail } = useSendEmail();
 
     function getDateBack(startDate, daysBack) {
         const date = new Date(startDate);
@@ -77,14 +70,7 @@ function TourDetails() {
 
     useEffect(() => {
         if (userData) {
-            setFormData({
-                userFrom: '',
-                passenger: '',
-                userPhoneNumber: userData.phoneNumber || '',
-                userEmail: userData.email || '',
-                userName: userData.name || '',
-                offerFrom: '',
-            });
+            setFormData({ userFrom: '', passenger: '', userPhoneNumber: userData.phoneNumber || '', userEmail: userData.email || '', userName: userData.name || '', offerFrom: '', });
         }
     }, [userData]);
 
@@ -119,14 +105,7 @@ function TourDetails() {
                     url: 'confirmed-tour',
                 }
                 sendEmail(emailContent);
-                setFormData({
-                    userFrom: '',
-                    passenger: '',
-                    userPhoneNumber: '',
-                    userEmail: '',
-                    userName: '',
-                    offerFrom: '',
-                });
+                setFormData({ userFrom: '', passenger: '', userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
             }
         } catch (error) {
             console.error("Error adding tour data:", error);
