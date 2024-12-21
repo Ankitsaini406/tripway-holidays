@@ -34,6 +34,9 @@ function ProfilePage() {
                                 <p>Email: {userData?.email}</p>
                                 <p>Address: {userData?.address || 'N/A'}</p>
                             </div>
+                            {
+                                userData?.isAgent ? <div className={styles.flexCode}>Agent&nbsp;Code&nbsp;:&nbsp;<div className={styles.agentCode}>{userData?.agentCode}</div></div> : null
+                            }
                         </div>
                         <button className={styles.logOutButton} onClick={handleLogOut}>Logout</button>
                     </div>

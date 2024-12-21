@@ -18,6 +18,19 @@
     text-align: justify;
 }
 
+.flexCode {
+    display: flex;
+}
+
+.agentCode {
+    background-color: var(--gray-flash);
+    color: var(--black-color);
+    max-height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
 .logOutButton {
     width: 100px;
     height: 30px;
@@ -123,6 +136,11 @@
 }
 
 @media (max-width: 430px) {
+
+    .profileBox {
+        flex-direction: column;
+        padding: 1em 0;
+    }
 
     .profileMain, .profileDetailsBox, .buttonFlex {
         padding: 0.5rem;
