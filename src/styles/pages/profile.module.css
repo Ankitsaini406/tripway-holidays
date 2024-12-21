@@ -97,8 +97,8 @@
 .bookingTable td:first-child {
     position: sticky;
     left: 0;
-    background-color: var(--white-color);
     z-index: 1;
+    background-color: var(--white-color);
 }
 
 .naText {
@@ -107,6 +107,13 @@
 
 .offerText {
     color: var(--peacock-green);
+}
+
+.disabledRow {
+    background-color: var(--gray-flash);
+    color: var(--secondary-text);
+    pointer-events: none; /* Prevent interaction */
+    opacity: 0.6; /* Dim the row */
 }
 
 .evenRow:hover, 

@@ -58,8 +58,8 @@ function AgentLogin({ setAgentLogin }) {
                             <FaHome />&nbsp;
                             {isHovered && <span className={styles.tooltipText}>Home</span>}
                         </Link>
-                        <h2 className={styles.loginTitle}>Agent Login</h2>
-                        <form onSubmit={handleSubmit}>
+                        <h2 className={styles.loginTitle}>Patner Login</h2>
+                        <form onSubmit={handleSubmit} style={{ margin: "0 0 1em 0" }}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="email">Email</label>
                                 <input
@@ -105,7 +105,7 @@ function AgentLogin({ setAgentLogin }) {
                             </p> */}
                             {error && <p className={styles.errorMessage}>{error}</p>}
                             <button type="submit" className={styles.loginButton}>
-                                Login
+                                Sign In
                             </button>
                         </form>
                         <Link
@@ -113,7 +113,7 @@ function AgentLogin({ setAgentLogin }) {
                             className={styles.forgetPassword}
                             onClick={() => setAgentLogin(false)}
                         >
-                            Client Login
+                            Login
                         </Link>
                     </div>
                 </div>

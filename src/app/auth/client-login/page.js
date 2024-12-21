@@ -68,7 +68,7 @@ function ClientLoaginPage() {
                                     &nbsp;
                                     {isHovered && <span className={styles.tooltipText}>Home</span>}
                                 </Link>
-                                <h2 className={styles.loginTitle}>Client Login</h2>
+                                <h2 className={styles.loginTitle}>Login</h2>
                                 <form onSubmit={handleSubmit}>
                                     <div className={styles.formGroup}>
                                         <label htmlFor="email">Email</label>
@@ -115,7 +115,7 @@ function ClientLoaginPage() {
                                     </p>
                                     {error && <p className={styles.errorMessage}>{error}</p>}
                                     <button type="submit" className={styles.loginButton}>
-                                        Login
+                                        Sign In
                                     </button>
                                 </form>
                                 <p className={styles.signupLink}>
@@ -126,7 +126,7 @@ function ClientLoaginPage() {
                                     className={styles.forgetPassword}
                                     onClick={() => setAgentLogin(true)}
                                 >
-                                    Agent Login
+                                    Patner Login
                                 </a>
                             </div>
                         </div>

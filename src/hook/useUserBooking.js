@@ -5,11 +5,13 @@ import { database, firestore } from '@/firebase/firebaseConfig';
 
 const useUserBookings = (user) => {
     const [userData, setUserData] = useState(null);
-    const [bookings, setBookings] = useState([]);
+    const [agentBookings, setAgentBookings] = useState([]); // Separate state for agent bookings
+    const [userBookings, setUserBookings] = useState([]); // Separate state for user bookings
     const [loadingUser, setLoadingUser] = useState(false);
     const [loadingBookings, setLoadingBookings] = useState(false);
     const [error, setError] = useState('');
 
+    // Fetch user data on component mount or when the user changes
     useEffect(() => {
         if (!user?.uid) return;
 
@@ -38,35 +40,52 @@ const useUserBookings = (user) => {
         fetchData();
     }, [user?.uid]);
 
+    // Fetch bookings once userData is available
     useEffect(() => {
         if (!userData) return; // Wait until userData is available
 
         const fetchBookings = async () => {
             setLoadingBookings(true); // Set loading for bookings
             try {
-                let toursRef = ref(database, `users/${user.uid}/tours`);
-                let toursSnapshot = await get(toursRef);
+                // Define paths for agent tours and user tours
+                const agentToursPath = `users/${userData.uid}/agentTours`;
+                const userToursPath = `users/${user.uid}/tours`;
 
-                if (!toursSnapshot.exists()) {
-                    setBookings([]);
-                    setLoadingBookings(false); // Set loadingBookings to false if no tours
-                    return;
+                // Fetch both agent and user tours concurrently
+                const [agentToursSnapshot, userToursSnapshot] = await Promise.all([
+                    get(ref(database, agentToursPath)),
+                    get(ref(database, userToursPath)),
+                ]);
+
+                // Fetch booking details for agent tours
+                if (agentToursSnapshot.exists()) {
+                    const agentTourIds = Object.keys(agentToursSnapshot.val());
+                    const agentBookingsData = await fetchBookingsData(agentTourIds);
+                    setAgentBookings(agentBookingsData); // Update state for agent bookings
+                } else {
+                    setAgentBookings([]); // No agent bookings found
                 }
 
-                const tourIds = Object.keys(toursSnapshot.val());
-                const allBookings = await fetchBookingsData(tourIds);
-                setBookings(allBookings);
-                setLoadingBookings(false); // Set loadingBookings to false after bookings are fetched
+                // Fetch booking details for user tours
+                if (userToursSnapshot.exists()) {
+                    const userTourIds = Object.keys(userToursSnapshot.val());
+                    const userBookingsData = await fetchBookingsData(userTourIds);
+                    setUserBookings(userBookingsData); // Update state for user bookings
+                } else {
+                    setUserBookings([]); // No user bookings found
+                }
             } catch (err) {
-                setError('Error fetching bookings.');
-                setLoadingBookings(false); // Set loadingBookings to false on error
                 console.error('Error fetching bookings:', err);
+                setError('Error fetching bookings.');
+            } finally {
+                setLoadingBookings(false); // Set loadingBookings to false after fetching
             }
         };
 
         fetchBookings();
-    }, [userData]); // Trigger fetching bookings once userData is available
+    }, [userData]);
 
+    // Fetch booking details from Firestore
     const fetchBookingsData = async (tourIds) => {
         const bookingPromises = tourIds.flatMap((tourId) => [
             getDoc(doc(firestore, 'user-tours', tourId)),
@@ -90,7 +109,8 @@ const useUserBookings = (user) => {
 
     return {
         userData,
-        bookings,
+        agentBookings, // Separate state for agent bookings
+        userBookings, // Separate state for user bookings
         loadingUser,
         loadingBookings,
         error,

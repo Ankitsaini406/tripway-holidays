@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useClient } from '@/context/UserContext';
 import styles from "@/styles/pages/profile.module.css";
 import { formatTimestamp } from '@/utils/formatData';
-import useUserBookings from '@/hook/useUseerBooking';
+import useUserBookings from '@/hook/useUserBooking';
 
 function ProfilePage() {
     const router = useRouter();
     const { user, logoutUser } = useClient();
     const [activeBtn, setActiveBtn] = useState('bookingHistory');
 
-    const { userData, bookings, loadingUser, loadingBookings, error} = useUserBookings(user);
+    const { userData, agentBookings, userBookings, loadingUser, loadingBookings, error } = useUserBookings(user);
 
     const handleLogOut = () => {
         logoutUser();
@@ -41,14 +41,14 @@ function ProfilePage() {
                         <div className={styles.buttonFlex}>
 
                             {
-                                user?.agentCode ?
-                                <button
-                                className={`${styles.button} ${activeBtn === 'agentRef' ? styles.active : ''}`}
-                                onClick={() => setActiveBtn('agentRef')}
-                            >
-                                Referral&nbsp;History&nbsp;({bookings.length})
-                            </button>  
-                            : null
+                                userData?.isAgent ?
+                                    <button
+                                        className={`${styles.button} ${activeBtn === 'agentRef' ? styles.active : ''}`}
+                                        onClick={() => setActiveBtn('agentRef')}
+                                    >
+                                        Referral&nbsp;History&nbsp;({agentBookings.length})
+                                    </button>
+                                    : null
                             }
 
                             {/* Booking History Button */}
@@ -56,7 +56,7 @@ function ProfilePage() {
                                 className={`${styles.button} ${activeBtn === 'bookingHistory' ? styles.active : ''}`}
                                 onClick={() => setActiveBtn('bookingHistory')}
                             >
-                                Booking&nbsp;History&nbsp;({bookings.length}) {/* Adjust this count based on booking data */}
+                                Booking&nbsp;History&nbsp;({userBookings.length}) {/* Adjust this count based on booking data */}
                             </button>
 
                             {/* Account Setting Button */}
@@ -88,15 +88,19 @@ function ProfilePage() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {bookings.length > 0 ? (
-                                                    bookings.map((booking, index) => {
+                                                {userBookings.length > 0 ? (
+                                                    userBookings.map((booking, index) => {
                                                         const totalPrice = booking.price * booking.passenger;
+                                                        const bookingDate = new Date(formatTimestamp(booking.startDate));
+                                                        const todayDate = new Date();
+                                                        todayDate.setHours(0, 0, 0, 0);
+                                                        const isFutureBooking = bookingDate < todayDate;
                                                         return (
                                                             <tr
                                                                 key={index}
-                                                                className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                                                                className={`${index % 2 === 0 ? styles.evenRow : styles.oddRow} ${isFutureBooking ? styles.disabledRow : ''}`}
                                                             >
-                                                                <td>{formatTimestamp(booking.startDate)}</td>
+                                                                <td style={{backgroundColor: isFutureBooking ? '#F0EFF5' : ''}}>{formatTimestamp(booking.startDate)}</td>
 
                                                                 {/* Name or UserName */}
                                                                 <td className={(booking.name === null || booking.name === '' || booking.userName === null || booking.userName === '') ? styles.naText : ''}>
@@ -146,11 +150,84 @@ function ProfilePage() {
                                     </div>
                                 )
                             ) : activeBtn === 'agentRef' ? (
-                                <div>
-                                    <h3>Referral History</h3>
-                                    {/* Display referral history here */}
-                                    <p>No referrals found.</p>
-                                </div>
+                                loadingBookings ? (
+                                    <p>Loading Agent Referrals...</p>
+                                ) : (
+                                    <div className={styles.bookingTableContainer}>
+                                        <table className={styles.bookingTable}>
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Passengers</th>
+                                                    <th>Total Price</th>
+                                                    <th>Offer From</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {agentBookings.length > 0 ? (
+                                                    agentBookings.map((booking, index) => {
+                                                        const totalPrice = booking.price * booking.passenger;
+                                                        const bookingDate = new Date(formatTimestamp(booking.startDate));
+                                                        const todayDate = new Date();
+                                                        todayDate.setHours(0, 0, 0, 0);
+                                                        const isFutureBooking = bookingDate < todayDate;
+                                                        return (
+                                                            <tr
+                                                                key={index}
+                                                                className={`${index % 2 === 0 ? styles.evenRow : styles.oddRow} ${isFutureBooking ? styles.disabledRow : ''}`}
+                                                            >
+                                                                <td style={{backgroundColor: isFutureBooking ? '#F0EFF5' : ''}}>{formatTimestamp(booking.startDate)}</td>
+
+                                                                {/* Name or UserName */}
+                                                                <td className={(booking.name === null || booking.name === '' || booking.userName === null || booking.userName === '') ? styles.naText : ''}>
+                                                                    {booking.name || booking.userName || 'N/A'}
+                                                                </td>
+
+                                                                {/* From or UserFrom */}
+                                                                <td className={(booking.from === null || booking.from === '' || booking.userFrom === null || booking.userFrom === '') ? styles.naText : ''}>
+                                                                    {booking.from || booking.userFrom || 'N/A'}
+                                                                </td>
+
+                                                                {/* Destinations or other possible fields */}
+                                                                <td>
+                                                                    {booking.destinations?.join(", ") ||
+                                                                        booking.destination ||
+                                                                        booking.to ||
+                                                                        booking.tourName ||
+                                                                        'N/A'}
+                                                                </td>
+
+                                                                {/* Passengers */}
+                                                                <td className={(booking.passenger === null || booking.passenger === '' || booking.passenger === 'N/A') ? styles.naText : ''}>
+                                                                    {booking.passenger || 'N/A'}
+                                                                </td>
+
+                                                                {/* Price or other price-related info */}
+                                                                <td>
+                                                                    {booking.price
+                                                                        ? `₹${new Intl.NumberFormat('en-IN').format(totalPrice)}`
+                                                                        : booking.destination ? 'Round Trip' : booking.to ? 'One Way' : booking.destinations?.join(", ") ? 'Multi City' : 'N/A'}
+                                                                </td>
+
+                                                                {/* Offer From */}
+                                                                <td className={(booking.offerFrom === null || booking.offerFrom === '') ? styles.naText : styles.offerText}>
+                                                                    {booking.offerFrom || ''}
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan="7">No bookings found.</td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )
                             ) : (
                                 <div className={styles.buttonBox}>
                                     <h3>Account Setting</h3>
