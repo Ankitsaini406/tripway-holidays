@@ -24,14 +24,10 @@ export async function findAgentByAgentCode(agentCode, docId) {
         });
 
         if (foundAgent) {
-
-            console.log(foundAgent);
             const dbRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
             await set(dbRef, {
                 tourId: docId,
             });
-
-            console.log(dbRef);
 
             return foundAgent;
         } else {
