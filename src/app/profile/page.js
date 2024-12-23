@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useClient } from '@/context/UserContext';
 import styles from "@/styles/pages/profile.module.css";
@@ -13,6 +13,33 @@ function ProfilePage() {
     const [activeBtn, setActiveBtn] = useState('bookingHistory');
 
     const { userData, agentBookings, userBookings, loadingUser, loadingBookings, error } = useUserBookings(user);
+
+    const [accountDetails, setAccountDetails] = useState({
+        displayName: '',
+        phoneNumber: '',
+        address: '',
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setAccountDetails((prevDetails) => ({
+            ...prevDetails,
+            [name]: value,
+        }));
+    };
+
+    const handleCancel = () => {
+        setAccountDetails({
+            displayName: userData?.name || '',
+            phoneNumber: userData?.phoneNumber || '',
+            address: userData?.address || '',
+        });
+    };
+
+    const handleSaveChanges = () => {
+        // Add logic to save the updated details
+        console.log("Updated Account Details:", accountDetails);
+    };
 
     const handleLogOut = () => {
         logoutUser();
@@ -103,7 +130,7 @@ function ProfilePage() {
                                                                 key={index}
                                                                 className={`${index % 2 === 0 ? styles.evenRow : styles.oddRow} ${isFutureBooking ? styles.disabledRow : ''}`}
                                                             >
-                                                                <td style={{backgroundColor: isFutureBooking ? '#F0EFF5' : ''}}>{formatTimestamp(booking.startDate)}</td>
+                                                                <td style={{ backgroundColor: isFutureBooking ? '#F0EFF5' : '' }}>{formatTimestamp(booking.startDate)}</td>
 
                                                                 {/* Name or UserName */}
                                                                 <td className={(booking.name === null || booking.name === '' || booking.userName === null || booking.userName === '') ? styles.naText : ''}>
@@ -182,7 +209,7 @@ function ProfilePage() {
                                                                 key={index}
                                                                 className={`${index % 2 === 0 ? styles.evenRow : styles.oddRow} ${isFutureBooking ? styles.disabledRow : ''}`}
                                                             >
-                                                                <td style={{backgroundColor: isFutureBooking ? '#F0EFF5' : ''}}>{formatTimestamp(booking.startDate)}</td>
+                                                                <td style={{ backgroundColor: isFutureBooking ? '#F0EFF5' : '' }}>{formatTimestamp(booking.startDate)}</td>
 
                                                                 {/* Name or UserName */}
                                                                 <td className={(booking.name === null || booking.name === '' || booking.userName === null || booking.userName === '') ? styles.naText : ''}>
@@ -233,8 +260,49 @@ function ProfilePage() {
                                 )
                             ) : (
                                 <div className={styles.buttonBox}>
-                                    <h3>Account Setting</h3>
-                                    <p>Display Account Settings</p>
+                                    <form>
+                                        <div className={styles.inputGroup}>
+                                            <label htmlFor="displayName">Name:</label>
+                                            <input
+                                                type="text"
+                                                name="displayName"
+                                                id="displayName"
+                                                placeholder={`${userData?.name || 'Name'}`}
+                                                value={accountDetails.displayName}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label htmlFor="phoneNumber">Phone Number:</label>
+                                            <input
+                                                type="number"
+                                                name="phoneNumber"
+                                                id="phoneNumber"
+                                                placeholder={`${userData?.phoneNumber || 'Phone Number'}`}
+                                                value={accountDetails.phoneNumber}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label htmlFor="address">Address:</label>
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                id="address"
+                                                placeholder={`${userData?.address || 'Address'}`}
+                                                value={accountDetails.address}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className={styles.buttonBox}>
+                                            <button type="button" onClick={handleCancel} className={styles.cancelButton}>
+                                                Cancel
+                                            </button>
+                                            <button type="button" onClick={handleSaveChanges} className={styles.saveButton}>
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             )}
                         </div>

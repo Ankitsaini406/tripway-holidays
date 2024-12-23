@@ -139,7 +139,7 @@
     }
 
     .dropdownToggle:focus {
-        outline: none;
+        outline: 1px solid transparent;
     }
 
     .tourCard {

@@ -78,7 +78,6 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: calc(var(--border-radius) / 2);
-  outline: none;
 }
 
 .formGroup input:focus {
@@ -121,7 +120,7 @@
   background: var(--white-color);
   border: none;
   cursor: pointer;
-  outline: 0px solid transparent;
+  outline: 1px solid transparent;
   position: absolute;
   top: 8px;
   right: 5px;

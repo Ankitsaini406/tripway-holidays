@@ -98,7 +98,7 @@
     padding: 8px;
     cursor: pointer;
     border: none;
-    outline: none;
+    outline: 1px solid transparent;
     background-color: transparent;
 }
 

@@ -164,7 +164,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: calc(var(--border-radius) / 2);
-    outline: none;
+    outline: 1px solid transparent;
     margin: 10px 10px 10px 0;
 }
 
@@ -174,7 +174,7 @@
     height: 150px;
     border: 1px solid #ddd;
     border-radius: calc(var(--border-radius) / 2);
-    outline: none;
+    outline: 1px solid transparent;
     margin: 10px 10px 10px 0;
 }
 
