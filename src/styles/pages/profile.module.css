@@ -17,6 +17,10 @@
     text-align: justify;
 }
 
+.profileName {
+    width: 60%;
+}
+
 .flexCode {
     display: flex;
 }
@@ -87,6 +91,15 @@
     width: 100%;
 }
 
+.searchBar{
+    display: flex;
+    padding: 0.5rem;
+    border: 1px solid var(--indigo-blue);
+    outline: none;
+    margin: 1rem 0 0 0;
+    width: 25%;
+}
+
 .bookingTable {
     width: 100%;
     border-collapse: collapse;
@@ -133,12 +146,6 @@
     /* Dim the row */
 }
 
-.evenRow:hover,
-.oddRow:hover {
-    background-color: var(--table-hover);
-    color: #000;
-}
-
 .accountSettings {
     margin-top: 20px;
 }
@@ -176,7 +183,7 @@
     background-color: var(--vermilion-red);
     color: white;
     padding: 10px 15px;
-    border: none;
+    border: 1px solid;
     cursor: pointer;
 
     &:hover {
@@ -192,7 +199,7 @@
     background-color: var(--indigo-blue);
     color: white;
     padding: 10px 15px;
-    border: none;
+    border: 1px solid;
     cursor: pointer;
 
     &:hover {
@@ -217,6 +224,10 @@
         padding: 0.5rem;
     }
 
+    .profileName {
+        width: 100%;
+    }
+
     .buttonFlex {
         overflow-x: scroll;
     }
@@ -227,5 +238,13 @@
 
     .bookingTable {
         min-width: 800px;
+    }
+
+    .buttonBox {
+        flex-direction: column;
+    }
+
+    .searchBar {
+        width: 70%;
     }
 }
