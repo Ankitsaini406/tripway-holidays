@@ -91,7 +91,7 @@
     width: 100%;
 }
 
-.searchBar{
+.searchBar {
     display: flex;
     padding: 0.5rem;
     border: 1px solid var(--indigo-blue);
@@ -175,8 +175,9 @@
 
 .buttonBox {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     margin-top: 20px;
+    justify-content: space-around;
 }
 
 .cancelButton {

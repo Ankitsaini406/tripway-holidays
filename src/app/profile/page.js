@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { updateProfile } from 'firebase/auth';
+import { EmailAuthProvider, reauthenticateWithCredential, updatePassword, updatePhoneNumber, updateProfile } from 'firebase/auth';
 import { ref, update } from 'firebase/database';
 import { useClient } from '@/context/UserContext';
 import useUserBookings from '@/hook/useUserBooking';
 import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { auth, database } from '@/firebase/firebaseConfig';
+import { toast } from 'react-toastify';
 
 function ProfilePage() {
     const router = useRouter();
@@ -36,6 +37,13 @@ function ProfilePage() {
         phoneNumber: userData?.phoneNumber || '',
         address: userData?.address || '',
     });
+
+    const [passwordDetails, setPasswordDetails] = useState({
+        oldPassword: '',
+        newPassword: '',
+        confirmNewPassword: '',
+    });
+    const [passwordMatch, setPasswordMatch] = useState(false);
 
     useEffect(() => {
         setFilteredAgentBookings(agentBookings);
@@ -90,7 +98,8 @@ function ProfilePage() {
 
                 const user = auth.currentUser;
                 if (user && updatedValues.displayName) {
-                    await updateProfile(user, { displayName: updatedValues.displayName, phoneNumber: updatedValues.phoneNumber });
+                    await updateProfile(user, { displayName: updatedValues.displayName });
+                    await updatePhoneNumber(user, { phoneNumber: updatedValues.phoneNumber });
                 }
 
                 // Update the original account details to reflect the changes
@@ -109,6 +118,55 @@ function ProfilePage() {
             console.log('No changes detected');
         }
     };
+
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswordDetails((prev) => ({ ...prev, [name]: value }));
+
+        if (name === 'confirmNewPassword' || name === 'newPassword') {
+            setPasswordMatch(passwordDetails.newPassword === value);
+        }
+    };
+
+    const handlePasswordUpdate = async () => {
+        const { oldPassword, newPassword, confirmNewPassword } = passwordDetails;
+
+        if (!passwordMatch || newPassword !== confirmNewPassword) {
+            toast.error('New passwords do not match!');
+            return;
+        }
+
+        const user = auth.currentUser;
+
+        if (user) {
+            try {
+                // Reauthenticate user before updating the password
+                const credential = EmailAuthProvider.credential(user.email, oldPassword);
+                await reauthenticateWithCredential(user, credential);
+
+                // Update password
+                await updatePassword(user, newPassword);
+
+                const userRef = ref(database, `users/${userData?.uid}`);
+                await update(userRef, {
+                    password: newPassword,
+                    verifyPassword: confirmNewPassword,
+                });
+                toast.success('Password updated successfully!');
+                setPasswordDetails({
+                    oldPassword: '',
+                    password: '',
+                    verifyPassword: '',
+                });
+            } catch (error) {
+                console.error('Error updating password:', error);
+                toast.error('Failed to update password. Please check your old password.');
+            }
+        } else {
+            toast.error('User not authenticated.');
+        }
+    };
+
 
     const handleLogOut = () => {
         logoutUser();
@@ -254,6 +312,51 @@ function ProfilePage() {
                                             Save Changes
                                         </button>
                                     </div>
+                                </form>
+
+                                <form>
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor="oldPassword">Old Password:</label>
+                                        <input
+                                            type="password"
+                                            name="oldPassword"
+                                            placeholder="Enter your old password"
+                                            value={passwordDetails.oldPassword}
+                                            onChange={handlePasswordChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor="newPassword">New Password:</label>
+                                        <input
+                                            type="password"
+                                            name="newPassword"
+                                            placeholder="Enter new password"
+                                            value={passwordDetails.newPassword}
+                                            onChange={handlePasswordChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor="confirmNewPassword">Confirm New Password:</label>
+                                        <input
+                                            type="password"
+                                            name="confirmNewPassword"
+                                            placeholder="Confirm new password"
+                                            value={passwordDetails.confirmNewPassword}
+                                            onChange={handlePasswordChange}
+                                            required
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        onClick={handlePasswordUpdate}
+                                        className={styles.saveButton}
+                                        disabled={!passwordMatch || !passwordDetails.oldPassword || !passwordDetails.newPassword}
+                                    >
+                                        Change Password
+                                    </button>
                                 </form>
                             </div>
                         ) : (
