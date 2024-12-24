@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import { usePathname } from "next/navigation";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import GoogleTagManagerAndAnalytics from "./googleAnalytics";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
@@ -39,7 +39,7 @@ export default function ClientRootLayout({ children }) {
             <GoogleTagManagerAndAnalytics />
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
-            <ToastContainer position="top-right" autoClose={10000} hideProgressBar={true} draggable={true} closeOnClick transition={Flip} theme="dark" />
+            <ToastContainer position="top-right" autoClose={10000} hideProgressBar={true} draggable={true} closeOnClick transition={Zoom} theme="dark" />
             {!hideHeaderFooter && <Footer />}
         </>
     );
