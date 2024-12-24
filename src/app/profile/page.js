@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword, updatePhoneNumber, updateProfile } from 'firebase/auth';
 import { ref, update } from 'firebase/database';
 import { useClient } from '@/context/UserContext';
@@ -13,7 +12,6 @@ import { VscUnverified , VscVerifiedFilled } from "react-icons/vsc";
 import { toast } from 'react-toastify';
 
 function ProfilePage() {
-    const router = useRouter();
     const { user, verificationEmail, logoutUser } = useClient();
     const {
         userData,
@@ -171,7 +169,6 @@ function ProfilePage() {
 
     const handleLogOut = () => {
         logoutUser();
-        router.push('/');
     };
 
     const renderTable = (bookings) => (

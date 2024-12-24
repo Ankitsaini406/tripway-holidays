@@ -160,6 +160,7 @@ export const UserProvider = (props) => {
             await signOut(auth);
             setUser(null);
             deleteCookie('token', { path: '/', domain: window.location.hostname });
+            router.push('/auth/client-login');
         } catch (error) {
             console.error("Error signing out:", error);
         }
