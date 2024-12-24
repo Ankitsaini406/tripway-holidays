@@ -62,21 +62,6 @@ export default function RootLayout({ children }) {
         />
         <meta name="twitter:image" content="/favicon.ico" />
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />
-
-        {/* Content Security Policy */}
-        {/* <meta
-          httpEquiv="Content-Security-Policy"
-          content="
-            default-src 'self';
-            script-src 'self' https://apis.google.com;
-            style-src 'self' 'unsafe-inline';
-            img-src 'self' https://cdn.example.com;
-            font-src 'self';
-            object-src 'none';
-            frame-ancestors 'none';
-            base-uri 'self';
-          "
-        /> */}
       </head>
       <body>
         <UserProvider>
