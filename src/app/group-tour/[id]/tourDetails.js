@@ -101,7 +101,7 @@ function TourDetails() {
                     password: null,
                     startDate: tour.startDate,
                     tourTime: null,
-                    tourLocation: null,
+                    tourLocation: tour.pickuppoints,
                     url: 'confirmed-tour',
                 }
                 sendEmail(emailContent);
@@ -133,10 +133,11 @@ function TourDetails() {
                                 </div>
                                 <div className={styles.tourdetailsText}>
                                     <h1>{tour.name}</h1>
-                                    <h4>Category: {tour.category}</h4>
-                                    <h4>&#8377;&nbsp;{tour.price}</h4>
-                                    <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;{date5DaysBack}</h4>
-                                    <h4>Departure&nbsp;Date:&nbsp;{tour.startDate}</h4>
+                                    <h4>Category:&nbsp;<strong>{tour.category}</strong></h4>
+                                    <h4>Price:&nbsp;&#8377;&nbsp;<strong>{tour.price}</strong></h4>
+                                    <h4>Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;<strong>{date5DaysBack}</strong></h4>
+                                    <h4>Departure&nbsp;Date:&nbsp;<strong>{tour.startDate}</strong></h4>
+                                    <h4>Pick&nbsp;Up&nbsp;Points:&nbsp;<strong>{tour.pickuppoints}</strong></h4>
                                     <p>{tour.description}</p>
                                 </div>
                             </div>
