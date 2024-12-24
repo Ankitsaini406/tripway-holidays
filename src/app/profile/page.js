@@ -198,7 +198,7 @@ function ProfilePage() {
                                     <td style={{ backgroundColor: isFutureBooking ? '#F0EFF5' : '' }}>{formatTimestamp(booking.startDate)}</td>
                                     <td>{booking.name || booking.userName || 'N/A'}</td>
                                     <td>{booking.from || booking.userFrom || 'N/A'}</td>
-                                    <td>{booking.destinations?.join(', ') || booking.to || 'N/A'}</td>
+                                    <td>{booking.destinations?.join(", ") || booking.destination || booking.to || booking.tourName || 'N/A'}</td>
                                     <td>{booking.passenger || 'N/A'}</td>
                                     <td>
                                         {booking.price
