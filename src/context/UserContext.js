@@ -1,11 +1,13 @@
 'use client';
 
-import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
 import { set, ref, get, child, query, equalTo, orderByChild } from "firebase/database";
 import { jwtDecode } from 'jwt-decode';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const UserContext = createContext(null);
 
@@ -13,6 +15,7 @@ export const useClient = () => useContext(UserContext);
 
 export const UserProvider = (props) => {
     const [user, setUser] = useState(null);
+    const router = useRouter();
 
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
@@ -62,6 +65,7 @@ export const UserProvider = (props) => {
                 ...additionalData
             });
 
+            router.push('/auth/client-login');
             return user;
         } catch (error) {
             console.log("Error signing up:", error);
@@ -109,6 +113,21 @@ export const UserProvider = (props) => {
         return emailSnapshot.exists(); // Return true if the email exists
     };
 
+    const verificationEmail = async () => {
+        try {
+            const currentUser = auth.currentUser;
+            if (currentUser && !currentUser.emailVerified) {
+                await sendEmailVerification(currentUser);
+                toast("Verification email resent. Please check your inbox.");
+            } else {
+                throw new Error("User is already verified or not logged in.");
+            }
+        } catch (error) {
+            console.error("Error resending verification email:", error);
+            toast.error("Could not resend verification email.");
+        }
+    };
+
     const loginUser = async (email, password) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -147,7 +166,7 @@ export const UserProvider = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, signupUserWithEmailAndPassword, createNewUser, loginUser, logoutUser }}>
+        <UserContext.Provider value={{ user, signupUserWithEmailAndPassword, createNewUser, verificationEmail, loginUser, logoutUser }}>
             {props.children}
         </UserContext.Provider>
     );

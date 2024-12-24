@@ -19,7 +19,6 @@ function SignUpPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showVerifyPassword, setShowVerifyPassword] = useState(false);
     const [error, setError] = useState("");
-    const router = useRouter();
 
     const { signupUserWithEmailAndPassword } = useClient();
 
@@ -39,7 +38,6 @@ function SignUpPage() {
 
         try {
             await signupUserWithEmailAndPassword(email, password, { name, phoneNumber, verifyPassword, address }, 'users');
-            router.push("/");
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);
