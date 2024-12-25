@@ -59,11 +59,9 @@ function Footer() {
                                     />
                                 </Link>
                             </div>
-                            {/* <div>
-                                <h3>Get in Touch</h3>
-                                <li>Near Chandpool Gate</li>
-                                <li>tripwayholidays@gmail.com</li>
-                            </div> */}
+                            <div style={{ textAlign: 'left' }}>
+                                <h4>Copyright © 2024 TripWay Holidays. Developed and Managed by Eduengine.</h4>
+                            </div>
                         </div>
 
                         <div className={styles.footerFlex}>
@@ -78,7 +76,7 @@ function Footer() {
                         </div>
 
                         <div className={styles.footerFlex}>
-                            <h3>Condition</h3>
+                            <h3>Support</h3>
                             <ul className={styles.footerFlexList}>
                                 <Link rel="preload" className={styles.lnkTag} href='/privacy_policy'>Pricay policy</Link>
                                 <Link rel="preload" className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link>
