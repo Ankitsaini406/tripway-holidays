@@ -42,6 +42,24 @@ const nextConfig = {
             },
         ];
     },
+
+    async headers() {
+        return [
+            {
+                source: "/videos/:path*",
+                headers: [
+                    {
+                        key: "Access-Control-Allow-Origin",
+                        value: "*",
+                    },
+                    {
+                        key: "Access-Control-Allow-Headers",
+                        value: "Origin, Content-Type, Accept",
+                    },
+                ],
+            },
+        ];
+    },
     // webpack(config) {
     //     // Example Webpack customizations
     //     config.resolve.alias['@components'] = path.join(__dirname, 'components');

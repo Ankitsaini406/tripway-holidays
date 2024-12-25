@@ -28,7 +28,7 @@ const Video = () => {
             }}
         >
             <div className={styles.heroImageContainer}>
-                <video className={styles.video} autoPlay loop muted>
+                <video className={styles.video} autoPlay muted loop playsInline>
                     <source src="/video/video.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
