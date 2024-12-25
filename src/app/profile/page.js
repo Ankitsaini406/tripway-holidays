@@ -10,6 +10,7 @@ import styles from '@/styles/pages/profile.module.css';
 import { auth, database } from '@/firebase/firebaseConfig';
 import { VscUnverified , VscVerifiedFilled } from "react-icons/vsc";
 import { toast } from 'react-toastify';
+import { ProfileLoding, ProfileTbale } from './lodingProfile';
 
 function ProfilePage() {
     const { user, verificationEmail, logoutUser } = useClient();
@@ -222,7 +223,7 @@ function ProfilePage() {
     return (
         <div className="layout">
             {loadingUser ? (
-                <p>Loading user data...</p>
+                <ProfileLoding />
             ) : error ? (
                 <p>{error}</p>
             ) : (
@@ -366,7 +367,7 @@ function ProfilePage() {
                                     placeholder="Search here..."
                                 />
                                 {loadingBookings ? (
-                                    <p>Loading...</p>
+                                    <ProfileTbale />
                                 ) : (
                                     renderTable(
                                         activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings

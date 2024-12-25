@@ -222,6 +222,48 @@
     }
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.shimmer {
+    animation: shimmer 1.5s infinite linear;
+    background: linear-gradient(90deg, var(--gray-flash), #e0e0e0, var(--gray-flash));
+    background-size: 200% 100%;
+    border-radius: 10px;
+}
+
+.loadingProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    height: 200px;
+    background-color: var(--gray-flash);
+}
+
+.loadingText {
+    height: 20px;
+    width: 60%;
+}
+
+.loadingButton {
+    width: 100px;
+    height: 30px;
+}
+
+.loadingTable {
+    width: 100%;
+    height: 200px;
+}
+
 @media (max-width: 430px) {
 
     .profileBox {

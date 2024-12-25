@@ -253,18 +253,6 @@ th {
   text-decoration: underline;
 }
 
-@media (max-width: 1440px) {
-
-}
-
-@media (max-width: 1030px) {
-
-}
-
-@media (max-width: 770px) {
-
-}
-
 @media (max-width: 430px) {
 
   .layout {
