@@ -59,7 +59,7 @@ function Footer() {
                                     />
                                 </Link>
                             </div>
-                            <div style={{ textAlign: 'left' }}>
+                            <div className={styles.getInTouch}>
                                 <h4>Copyright © 2024 TripWay Holidays. Developed and Managed by Eduengine Technologies Pvt. Ltd.</h4>
                             </div>
                         </div>

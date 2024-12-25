@@ -79,6 +79,10 @@
     column-count: 2;
 }
 
+.getInTouch {
+    text-align: left;
+}
+
 .lnkTag {
     color: var(--white-color);
     cursor: pointer;
@@ -105,6 +109,10 @@
     .footer {
         flex-direction: column;
         height: auto;
+    }
+
+    .getInTouch {
+        margin: 2rem 0 0 0;
     }
 
     .footerFlex {
