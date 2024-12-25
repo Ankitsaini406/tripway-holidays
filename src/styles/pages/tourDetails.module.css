@@ -301,6 +301,14 @@
         padding: 0 10px;
     }
 
+    .tabContent {
+        padding: 10px;
+    }
+
+    .titleFlex > h5 {
+        width: 90%;
+    }
+
     .inclusionsFlex {
         flex-direction: column;
     }
