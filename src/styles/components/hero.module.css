@@ -7,6 +7,12 @@
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
 .heroImageContainer {
     position: relative;
     width: 100%;
@@ -76,6 +82,10 @@
 
     .hero { 
         height: 86dvh;
+    }
+
+    .video {
+        object-fit: cover;
     }
 
     /* .img {

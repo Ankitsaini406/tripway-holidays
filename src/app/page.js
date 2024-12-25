@@ -10,6 +10,7 @@ const TypeWriterLoop = dynamic(() => import("@/utils/typeWriter"));
 const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import styles from "./page.module.css";
+import Video from "@/components/slider/video";
 
 export const metadata = {
     title: "TripWayHolidays: Book One-way | Group Tour | Multi City",
@@ -44,7 +45,8 @@ const Home = () => {
     return (
         <>
             <div className="layout">
-                <Hero />
+                {/* <Hero /> */}
+                <Video />
 
                 <div className={styles.hadingBox}>
                     <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
