@@ -1,16 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import Hero from "@/components/slider/hero";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
-import TypeWriterLoop from "@/utils/typeWriter";
+const Hero = dynamic(() => import("@/components/slider/hero"));
+const TypeWriterLoop = dynamic(() => import("@/utils/typeWriter"));
+const Testimonials = dynamic(() => import("@/components/testimonials"));
+const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import styles from "./page.module.css";
-import Testimonials from "@/components/testimonials";
 
 export const metadata = {
-    title: "TripWayHoliday: Book One-way | Group Tour | Multi City",
+    title: "TripWayHolidays: Book One-way | Group Tour | Multi City",
     description: "Experience the world with TripWayHoliday. Book One-way, Round Trip, Multi City and Group Tours. Find the best deal.",
 };
 
@@ -53,14 +55,15 @@ const Home = () => {
                 </div>
 
                 {tourData.map((tour) => (
-                <TourSection
-                    key={tour.id}
-                    id={tour.id}
-                    title={tour.title}
-                    description={tour.description}
-                    imageSrc={tour.imageSrc}
-                />
-            ))}
+
+                    <TourSection
+                        key={tour.id}
+                        id={tour.id}
+                        title={tour.title}
+                        description={tour.description}
+                        imageSrc={tour.imageSrc}
+                    />
+                ))}
 
                 <div className={styles.homeTour} id="groupTour">
                     <div className={styles.homeTourFlex}>
@@ -70,7 +73,7 @@ const Home = () => {
                                 Tripway Holidays creates group excursions that blend spirituality, exploration and cultural learning to provide life-changing travel experiences. Set out on a spiritual adventure that promotes inner tranquility and deep relationships with other travelers who share your interests. Explore our heritage excursions which create a vibrant cultural tapestry by delving into the depths of customs, art and history.
                                 Our Freedom Tours offer the ideal mix of independence and group support for tourists looking for flexibility and companionship. If you want excitement our Special Event Tours guarantee treasured moments by celebrating vibrant festivals, impressive performances and distinctive get-togethers.
                                 Every group tour offered by Tripway Holidays is designed to provide a well-balanced combination of joy, connection and discovery making each trip unique and customized to fit your interests and mood.
-                                </span>
+                            </span>
                             </p>
                             <Link className='readMore' href='/group-tour'>Read More</Link>
                         </div>
@@ -89,8 +92,10 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <WhyBookUs />
-                <Testimonials />
+                <DelayedComponent delay={1000} >
+                    <WhyBookUs />
+                    <Testimonials />
+                </DelayedComponent>
             </div>
         </>
     );

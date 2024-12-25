@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect } from "react";
-import Footer from "../components/footer";
+import dynamic from "next/dynamic";
 import Header from "../components/header";
 import { usePathname } from "next/navigation";
-import { ToastContainer, Zoom } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import GoogleTagManagerAndAnalytics from "./googleAnalytics";
+const Footer = dynamic(() => import("@/components/footer"));
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 

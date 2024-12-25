@@ -18,7 +18,7 @@ export const metadata = {
     "Multi City Tour",
   ],
   title: {
-    default: "TripWay Holidays",
+    default: "TripWayHoliday: Book One-way | Group Tour | Multi City",
     template: `TripWay Holidays | %s`,
   },
   openGraph: {
@@ -39,10 +39,10 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="TripWay Holidays" />
+        <meta name="apple-mobile-web-app-title" content="TripWayHolidays : Book One-way | Group Tour | Multi City" />
 
         {/* OpenGraph Metadata */}
-        <meta property="og:title" content="TripWay Holidays" />
+        <meta property="og:title" content="TripWayHolidays : Book One-way | Group Tour | Multi City" />
         <meta
           property="og:description"
           content="Book your next tour with TripWay Holidays and explore amazing destinations!"
@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content="TripWay Holidays" />
         <meta
           name="twitter:description"
-          content="Book your next tour with TripWay Holidays and explore amazing destinations!"
+          content="Experience Travel Like Never Before with TripWayHolidays"
         />
         <meta name="twitter:image" content="/favicon.ico" />
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />

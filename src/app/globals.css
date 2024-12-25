@@ -201,10 +201,10 @@ th {
 .readMore {
   border: 1px solid transparent;
   width: max-content;
-  padding: 0.3em;
+  padding: 0.6em;
   color: var(--white-color);
   background-color: var(--indigo-blue);
-  border-radius: calc(var(--border-radius) / 2);
+  border-radius: 5px;
 
   &:hover {
     border: 1px solid var(--indigo-blue);
