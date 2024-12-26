@@ -5,7 +5,7 @@ const useSendEmail = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
-    const sendEmail = async ({ email, subject, name, otp, password, tourDate, tourTime, tourLocation, url }) => {
+    const sendEmail = async ({ email, subject, name, otp, password, startDate, tourLocation, url }) => {
         setLoading(true);
         setSuccess('');
         setError('');
@@ -20,7 +20,7 @@ const useSendEmail = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, subject, name, otp, password, tourDate, tourTime, tourLocation, }),
+                body: JSON.stringify({ email, subject, name, otp, password, startDate, tourLocation, }),
             });
     
             const result = await response.json();

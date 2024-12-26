@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 
 export async function POST(req) {
     try {
-        const { email, subject, name, tourDate, tourTime,tourLocation } = await req.json();
+        const { email, subject, name, startDate, tourLocation } = await req.json();
 
         const emailApi = process.env.NEXT_APP_EMAIL;
         const emailPassword = process.env.NEXT_APP_PASSWORD;
@@ -25,8 +25,7 @@ export async function POST(req) {
                 Your adventure awaits! Your group tour is officially confirmed. Check out the details below:
                 <h3>🗓 Tour Info</h3>
                 <ul>
-                <li>Date: ${tourDate}</li>
-                <li>Time: ${tourTime}</li>
+                <li>Date: ${startDate}</li>
                 <li>Meeting Point: ${tourLocation}</li>
                 </ul><br>
                 <h3>🛂 What to Bring</h3>
@@ -35,8 +34,8 @@ export async function POST(req) {
                 <p>3. Comfortable clothing & walking shoes.</p><br>
                 <p>Need help? We’re here for you at ${emailApi}
                 See you soon!</p><br>
-                    <p>Best regards,
-                    <strong>Team TripwayHolidays</strong></p><br>
+                    <p>Best regards,<br>
+                    <strong>Team TripwayHolidays,</strong></p><br>
                     <h3>🌐 Stay Connected</h3><br>
                     <hr>
                 <table style="width: 100%; text-align: center; margin-top: 20px;">

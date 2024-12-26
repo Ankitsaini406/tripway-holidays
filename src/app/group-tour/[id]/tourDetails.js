@@ -100,7 +100,6 @@ function TourDetails() {
                     otp: null,
                     password: null,
                     startDate: tour.startDate,
-                    tourTime: null,
                     tourLocation: tour.pickuppoints,
                     url: 'confirmed-tour',
                 }

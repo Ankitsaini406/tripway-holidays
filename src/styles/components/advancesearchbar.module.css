@@ -175,6 +175,10 @@
         padding: 0;
     }
 
+    .searchInput {
+        width: 166px;
+    }
+
     .selectionList { 
         justify-content: center;
     }
@@ -191,6 +195,10 @@
 
     .selectionBox {
         top: 3em;
+    }
+
+    .searchInput {
+        width: 183px;
     }
 
     .advancedSearchBar {

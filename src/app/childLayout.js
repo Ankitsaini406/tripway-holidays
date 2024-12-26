@@ -40,7 +40,7 @@ export default function ClientRootLayout({ children }) {
             <GoogleTagManagerAndAnalytics />
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
-            <ToastContainer position="top-right" autoClose={10000} hideProgressBar={true} draggable={true} closeOnClick />
+            <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />
             {!hideHeaderFooter && <Footer />}
         </>
     );

@@ -62,6 +62,7 @@
     color: var(--cream-white);
     border: 1px solid var(--safforn-orange);
     border-radius: calc(var(--border-radius) / 2);
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
