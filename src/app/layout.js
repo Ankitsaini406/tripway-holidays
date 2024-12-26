@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
           property="og:description"
           content="Book your next tour with TripWay Holidays and explore amazing destinations!"
         />
-        <meta property="og:image" content="/apple-touch-icon.png" />
+        <meta property="og:image" content="/favicon.ico" />
         <meta property="og:url" content={apiPoint} />
         <meta property="og:type" content="website" />
 
