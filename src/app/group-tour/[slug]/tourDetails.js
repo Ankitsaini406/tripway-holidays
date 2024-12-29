@@ -18,9 +18,9 @@ import Loading from './loading';
 
 function TourDetails() {
 
-    const { id } = useParams();
+    const { slug } = useParams();
     const imageUrl = process.env.IMAGE_URL;
-    const { tour, singleLoading } = useSingleTourData(`group-tours/${id}`);
+    const { tour, singleLoading } = useSingleTourData(`group-tours/${slug}`);
     const router = useRouter();
     const { addTourData, userData, loading, error, success } = useTourUserData();
     const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userPhoneNumber: userData?.phoneNumber || '', userEmail: userData?.email || '', userName: userData?.name || '', offerFrom: '', });

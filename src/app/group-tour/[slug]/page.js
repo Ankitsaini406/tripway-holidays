@@ -1,5 +1,5 @@
 export async function generateMetadata({ params }) {
-    const id = params.id;
+    const { slug } = await params; // This is the crorrect way to get the slug or id from the params
 
     const localApi = process.env.API_URL;
     const productionApi = process.env.HOST_URL;
@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
 
     try {
         // Fetch the tour data for a specific tour ID
-        const response = await fetch(`${apiPoint}api/group-tours/${id}`);
+        const response = await fetch(`${apiPoint}api/group-tours/${slug}`);
         
         if (!response.ok) {
             throw new Error("Failed to fetch tour data");
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }) {
                 openGraph: {
                     title: `Group Tour: ${name}`,
                     description: `Explore our ${name} tour. Book now and enjoy unforgettable experiences.`,
-                    url: `https://tripwayholidays.in/group-tour/${id}`,
+                    url: `https://tripwayholidays.in/group-tour/${slug}`,
                     type: "website",
                     images: [
                         {

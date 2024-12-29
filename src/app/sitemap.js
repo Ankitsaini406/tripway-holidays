@@ -14,8 +14,8 @@ export default async function sitemap() {
 
     const tourDetails = data?.map((tour) => {
         return {
-            url: `${apiPoint}group-tours/${tour?.id}`,
-            lastModified: tour?.created_at,
+            url: `${apiPoint}group-tours/${tour?.slug}`,
+            lastModified: tour?.createdAt,
         };
     });
 

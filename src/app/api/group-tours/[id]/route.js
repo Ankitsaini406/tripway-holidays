@@ -1,23 +1,26 @@
 import { firestore } from "@/firebase/firebaseConfig";
 import { NextResponse } from "next/server";
-import { getDoc, doc } from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 export async function GET(req, { params }) {
     try {
-        // Await the params before accessing them
-        const { id } = await params;  // This should be awaited properly
-        
-        if (!id) {
-            return NextResponse.json({ error: "ID not provided" }, { status: 400 });
+        const { id:slug } = await params; // Directly access params
+
+        if (!slug) {
+            return NextResponse.json({ error: "Slug not provided" }, { status: 400 });
         }
 
-        const tourDocRef = doc(firestore, "group-tours", id);
-        const tourDoc = await getDoc(tourDocRef);
+        // Query Firestore for documents with the matching slug
+        const tourCollection = collection(firestore, "group-tours");
+        const slugQuery = query(tourCollection, where("slug", "==", slug));
+        const querySnapshot = await getDocs(slugQuery); // Use getDocs for querying
 
-        if (!tourDoc.exists()) {
+        if (querySnapshot.empty) {
             return NextResponse.json({ error: "Tour not found" }, { status: 404 });
         }
 
+        // Retrieve the first matching document
+        const tourDoc = querySnapshot.docs[0];
         const tour = {
             id: tourDoc.id,
             ...tourDoc.data(),

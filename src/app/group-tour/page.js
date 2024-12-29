@@ -28,7 +28,7 @@ export async function generateMetadata() {
                 openGraph: {
                     title: `Group Tour: ${primaryTour.name}`,
                     description: `Explore our group tours. Book now and create unforgettable experiences.`,
-                    url: `https://tripwayholidays.in/group-tour/${primaryTour.id}`,
+                    url: `https://tripwayholidays.in/group-tour/${primaryTour.slug}`,
                     type: "website",
                     images: [
                         {

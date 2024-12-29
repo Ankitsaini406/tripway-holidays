@@ -122,7 +122,7 @@ function TourCard({ item }) {
                 <h1>{item.name}</h1>
                 <h4>{item.category}</h4>
                 <p>{item.description}</p>
-                <Link href={`/group-tour/${item.id}`} className='readMore'>
+                <Link href={`/group-tour/${item.slug}`} className='readMore'>
                     View Tour Details
                 </Link>
             </div>
