@@ -23,6 +23,7 @@ const nextConfig = {
         BOT_URL: process.env.NEXT_APP_BOT_URL,
         GA_TRACKING_ID: process.env.NEXT_APP_GA_TRACKING_ID,
         GTM_TRACKING_ID: process.env.NEXT_APP_GTM_TRACKING_ID,
+        FACEBOOK_ID: process.env.NEXT_APP_FACEBOOK_ID,
         FIREBASE_API_KEY: process.env.NEXT_FIREBASE_API_KEY,
         FIREBASE_AUTH_DOMAIN: process.env.NEXT_FIREBASE_AUTH_DOMAIN,
         FIREBASE_DATABASE_URL: process.env.NEXT_FIREBASE_DATABASE_URL,

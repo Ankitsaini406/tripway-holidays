@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import Header from "../components/header";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
-import GoogleTagManagerAndAnalytics from "./googleAnalytics";
 const Footer = dynamic(() => import("@/components/footer"));
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
@@ -37,7 +36,6 @@ export default function ClientRootLayout({ children }) {
 
     return (
         <>
-            <GoogleTagManagerAndAnalytics />
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
             <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />
