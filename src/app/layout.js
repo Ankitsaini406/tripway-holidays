@@ -64,14 +64,10 @@ export default function RootLayout({ children }) {
         />
         <meta name="twitter:image" content="/favicon.ico" />
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />
-
-        {/* Facebook Analyistic */}
-        <FaceBookAnalytics />
-
-        {/* Google Analytics */}
-        <GoogleTagManagerAndAnalytics />
       </head>
       <body>
+        <FaceBookAnalytics />
+        <GoogleTagManagerAndAnalytics />
         <UserProvider>
           <ClientRootLayout>{children}</ClientRootLayout>
         </UserProvider>
