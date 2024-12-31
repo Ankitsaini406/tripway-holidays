@@ -1,7 +1,5 @@
 import { UserProvider } from "@/context/UserContext";
 import ClientRootLayout from "./childLayout";
-import FaceBookAnalytics from "./facebookAnalytics";
-import GoogleTagManagerAndAnalytics from "./googleAnalytics";
 
 const localApi = process.env.API_URL;
 const productionApi = process.env.HOST_URL;
@@ -66,8 +64,6 @@ export default function RootLayout({ children }) {
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />
       </head>
       <body>
-        <FaceBookAnalytics />
-        <GoogleTagManagerAndAnalytics />
         <UserProvider>
           <ClientRootLayout>{children}</ClientRootLayout>
         </UserProvider>
