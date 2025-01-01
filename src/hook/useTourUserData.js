@@ -18,8 +18,8 @@ const useTourUserData = () => {
         const fetchUserData = async () => {
             const token = getCookie("token"); // Retrieve the token from cookies
             if (!token) {
-                console.error("Token not found.");
-                setError("User is not authenticated.");
+                // console.error("Token not found.");
+                // setError("User is not authenticated.");
                 return;
             }
 

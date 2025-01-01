@@ -73,6 +73,7 @@ export async function generateMetadata({ params }) {
 
 import TourDetails from "./tourDetails";
 
-export default function Page() {
-    return <TourDetails />;
+export default async function Page({ params }) {
+    const { slug:slug } = await params;
+    return <TourDetails slug={slug} />;
 }

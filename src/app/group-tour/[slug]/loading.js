@@ -9,10 +9,10 @@ export default function Loading() {
                     <div className="tourData"></div>
                     <div className="tourDetailsbutton">
                         <div className="tourAllButton">
-                        <div className="tourButton"></div>
-                        <div className="tourButton"></div>
-                        <div className="tourButton"></div>
-                        <div className="tourButton"></div>
+                            <div className="tourButton"></div>
+                            <div className="tourButton"></div>
+                            <div className="tourButton"></div>
+                            <div className="tourButton"></div>
                         </div>
                         <div className="tourDetailsbuttonDetails"></div>
                     </div>
@@ -26,4 +26,15 @@ export default function Loading() {
             </div>
         </>
     );
+}
+
+export function BookingLoding() {
+    return (
+        <div className="bookingForm">
+            <div className="bookingName"></div>
+            <div className="bookingDetails"></div>
+            <div className="booking"></div>
+            <div className="bookingButton"></div>
+        </div>
+    )
 }
