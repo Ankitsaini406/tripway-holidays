@@ -10,7 +10,7 @@ const GoogleTagManagerAndAnalytics = () => {
     return (
         <>
             {/* GTM Script */}
-            <Script id="google-tag-manager" strategy="afterInteractive">
+            <Script defer={true} id="google-tag-manager" strategy="afterInteractive">
                 {`
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,11 +33,12 @@ const GoogleTagManagerAndAnalytics = () => {
 
             {/* GA Script */}
             <Script
+                defer={true}
                 strategy='lazyOnload'
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_TACAK}`}
             />
 
-            <Script id='' strategy='lazyOnload'>
+            <Script defer={true} id='' strategy='lazyOnload'>
                 {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}

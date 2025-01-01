@@ -31,9 +31,11 @@
 }
 
 .tourdetailsImg {
+    position: relative;
     float: left;
-    width: 35%;
-    height: auto;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1/1;
     margin-right: 15px;
     margin-bottom: 15px;
     border-radius: var(--border-radius);
@@ -279,15 +281,19 @@
     }
 
     .tourdetailsImg {
-        float: none;
+        float: left;
         width: 100%;
-        height: auto;
-        margin: 0 auto 15px;
+        /* max-width: 300px; */
         display: block;
     }
 }
 
 @media (max-width: 430px) {
+
+    .tourdetailsImg {
+        float: none;
+        max-width: 100%;
+    }
 
     .tourImg {
         height: auto;

@@ -7,8 +7,7 @@ import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 const Footer = dynamic(() => import("@/components/footer"));
 import "react-toastify/dist/ReactToastify.css";
-import FaceBookAnalytics from "./facebookAnalytics";
-import GoogleTagManagerAndAnalytics from "./googleAnalytics";
+
 import "./globals.css";
 
 export default function ClientRootLayout({ children }) {
@@ -38,8 +37,7 @@ export default function ClientRootLayout({ children }) {
 
     return (
         <>
-            <FaceBookAnalytics />
-            <GoogleTagManagerAndAnalytics />
+
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
             <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />

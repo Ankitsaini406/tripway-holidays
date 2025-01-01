@@ -22,7 +22,7 @@ export default function FacebookAnalytics() {
 
         // Dynamically load Facebook Pixel script
         const script = document.createElement("script");
-        script.async = true;
+        script.defer = true;
         script.src = "https://connect.facebook.net/en_US/fbevents.js";
 
         script.onload = () => {
