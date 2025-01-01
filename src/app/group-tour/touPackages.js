@@ -106,16 +106,17 @@ function TourCard({ item }) {
 
     return (
         <div className={styles.tourCard}>
-            <div className={`${styles.tourImage}`}>
+            <div className={styles.tourImage}>
                 <Image
                     className={styles.tourImg}
+                    sizes="(max-width: 400px) 100vw, 200px"
                     data-src={`/tour-image/${item.imageUrl}`}
                     src={`/tour-image/${item.imageUrl}`}
                     alt={item.imageUrl}
                     placeholder="blur"
                     blurDataURL={`/tour-image/${item.imageUrl}`}
-                    width={1600}
-                    height={900}
+                    fill
+                    priority
                 />
             </div>
             <div className={styles.tourDetails}>
