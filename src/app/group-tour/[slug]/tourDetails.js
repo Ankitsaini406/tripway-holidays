@@ -8,7 +8,7 @@ const BookingForm = dynamic(() => import('./component').then((mod) => mod.Bookin
 const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDetails));
 import styles from '@/styles/pages/tourDetails.module.css';
 
-export default function TourDetailsPage({ tourData }) {
+export default function TourDetailsPage({ tourData, blurImg }) {
     const [isPastDate, setIsPastDate] = useState(false);
     const [showBookingForm, setShowBookingForm] = useState(false);
 
@@ -64,8 +64,8 @@ export default function TourDetailsPage({ tourData }) {
                                     sizes="(max-width: 400px) 100vw, 200px"
                                     src={`${imageUrl}${tourData.imageUrl}`}
                                     alt={tourData.name}
-                                    blurDataURL={`${imageUrl}${tourData.imageUrl}`}
                                     placeholder="blur"
+                                    blurDataURL={blurImg}
                                     fill
                                     priority
                                 />

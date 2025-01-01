@@ -1,3 +1,4 @@
+import { getPlaiceholder } from "plaiceholder";
 import TourDetails from "./tourDetails";
 
 async function fetchTourData(slug) {
@@ -77,11 +78,29 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-    const { slug:slug } = await params;
+    const { slug } = params;
+
+    const imageUrl = process.env.IMAGE_URL;
 
     // Fetch tour data
     const tourData = await fetchTourData(slug);
+    if (!tourData || !tourData.imageUrl) {
+        return <div>Error loading tour details.</div>;
+    }
 
-    // Pass data to the TourDetails component
-    return <TourDetails tourData={tourData}/>;
+    const fullImageUrl = `${imageUrl}${tourData.imageUrl}`;
+
+    try {
+        const res = await fetch(fullImageUrl);
+
+        if (!res.ok) {
+            return <div>Error loading image.</div>;
+        }
+        const buffer = await res.arrayBuffer();
+        const { base64 } = await getPlaiceholder(Buffer.from(buffer));
+
+        return <TourDetails tourData={tourData} blurImg={base64} />;
+    } catch (error) {
+        return <div>Error processing image.</div>;
+    }
 }
