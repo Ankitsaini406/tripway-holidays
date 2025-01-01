@@ -4,7 +4,6 @@ import { FiPlus } from "react-icons/fi";
 import { FaWindowMinimize } from "react-icons/fa6";
 import { SlLocationPin } from "react-icons/sl";
 import { MdDoubleArrow } from "react-icons/md";
-import { useRouter } from "next/navigation";
 import useTourUserData from '@/hook/useTourUserData';
 import { toast } from 'react-toastify';
 import useSendEmail from '@/hook/useSendEmail';
@@ -154,8 +153,7 @@ export const BookingForm = ({ tour, isPastDate }) => {
 
     const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-    const router = useRouter();
-    const { addTourData, userData, loading, error, success } = useTourUserData();
+    const { addTourData, loading, error, success } = useTourUserData();
     const [errors, setErrors] = useState({});
     const { sendEmail } = useSendEmail();
 
@@ -184,7 +182,6 @@ export const BookingForm = ({ tour, isPastDate }) => {
             return;
         }
 
-        if (!userData) return router.push('/auth/client-login');
         try {
             const data = { ...formData, tourName: tour.name, price: tour.price, startDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);

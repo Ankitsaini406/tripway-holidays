@@ -6,7 +6,6 @@ import Loading, { BookingLoding } from './loading';
 import dynamic from 'next/dynamic';
 const BookingForm = dynamic(() => import('./component').then((mod) => mod.BookingForm));
 const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDetails));
-// const styles = dynamic(() => import('@/styles/pages/tourDetails.module.css').then((mod) => mod.TripDetails))
 import styles from '@/styles/pages/tourDetails.module.css';
 
 async function fetchTourData(slug) {
@@ -86,7 +85,7 @@ export default function TourDetailsPage({ slug }) {
                             <div className={styles.tourdetailsImg}>
                                 <Image
                                     className={styles.tourImg}
-                                    sizes='(max-width: 400px) 100vw, 700px'
+                                    sizes='(max-width: 400px) 100vw, 200px'
                                     src={`${imageUrl}${tourData.imageUrl}`}
                                     alt={tourData.name}
                                     blurDataURL={`${imageUrl}${tourData.imageUrl}`}
