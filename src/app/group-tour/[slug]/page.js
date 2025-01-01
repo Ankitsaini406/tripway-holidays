@@ -1,19 +1,25 @@
-export async function generateMetadata({ params }) {
-    const { slug } = await params; // This is the crorrect way to get the slug or id from the params
+import TourDetails from "./tourDetails";
 
+async function fetchTourData(slug) {
     const localApi = process.env.API_URL;
     const productionApi = process.env.HOST_URL;
     const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
     try {
-        // Fetch the tour data for a specific tour ID
         const response = await fetch(`${apiPoint}api/group-tours/${slug}`);
-        
-        if (!response.ok) {
-            throw new Error("Failed to fetch tour data");
-        }
+        if (!response.ok) throw new Error("Failed to fetch tour data");
+        return response.json();
+    } catch (error) {
+        console.error("Error fetching tour data:", error);
+        return null;
+    }
+}
 
-        const tour = await response.json();
+export async function generateMetadata({ params }) {
+    const { slug } = params;
+
+    try {
+        const tour = await fetchTourData(slug);
 
         if (tour) {
             const { name, description, startDate, imageUrl } = tour;
@@ -37,7 +43,7 @@ export async function generateMetadata({ params }) {
                     type: "website",
                     images: [
                         {
-                            url: imageUrl,  // Dynamically sourced tour image
+                            url: imageUrl,
                             width: 1200,
                             height: 630,
                             alt: `Tripway Holidays ${name} Tour`,
@@ -54,9 +60,8 @@ export async function generateMetadata({ params }) {
                 title: "Group Tours - Tripway Holidays",
                 description: "Join our group tours and visit exciting destinations.",
                 url: "https://tripwayholidays.in/group-tour",
-            }
+            },
         };
-
     } catch (error) {
         console.error("Metadata generation error:", error);
 
@@ -66,14 +71,17 @@ export async function generateMetadata({ params }) {
             openGraph: {
                 title: "Group Tours - Tripway Holidays",
                 description: "Discover group tours with Tripway Holidays.",
-            }
+            },
         };
     }
 }
 
-import TourDetails from "./tourDetails";
-
 export default async function Page({ params }) {
     const { slug:slug } = await params;
-    return <TourDetails slug={slug} />;
+
+    // Fetch tour data
+    const tourData = await fetchTourData(slug);
+
+    // Pass data to the TourDetails component
+    return <TourDetails tourData={tourData}/>;
 }

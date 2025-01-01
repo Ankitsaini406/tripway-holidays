@@ -8,43 +8,9 @@ const BookingForm = dynamic(() => import('./component').then((mod) => mod.Bookin
 const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDetails));
 import styles from '@/styles/pages/tourDetails.module.css';
 
-async function fetchTourData(slug) {
-    const localApi = process.env.API_URL;
-    const productionApi = process.env.HOST_URL;
-    const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
-
-    try {
-        const response = await fetch(`${apiPoint}api/group-tours/${slug}`);
-        if (!response.ok) throw new Error('Failed to fetch tour data');
-        return response.json();
-    } catch (error) {
-        console.error("Error fetching tour data:", error);
-        return null;
-    }
-}
-
-export default function TourDetailsPage({ slug }) {
+export default function TourDetailsPage({ tourData }) {
     const [isPastDate, setIsPastDate] = useState(false);
-    const [tourData, setTourData] = useState(null);
     const [showBookingForm, setShowBookingForm] = useState(false);
-
-    useEffect(() => {
-        async function getTourData() {
-            const data = await fetchTourData(slug);
-            setTourData(data);
-        }
-        getTourData();
-    }, [slug]);
-
-    useEffect(() => {
-        if (tourData) {
-            const timer = setTimeout(() => {
-                setShowBookingForm(true);
-            }, 1000);
-
-            return () => clearTimeout(timer); // Cleanup timeout if the component unmounts
-        }
-    }, [tourData]);
 
     const imageUrl = process.env.IMAGE_URL;
 
@@ -76,6 +42,16 @@ export default function TourDetailsPage({ slug }) {
         }
     }, [date5DaysBack]);
 
+    useEffect(() => {
+        if (tourData) {
+            const timer = setTimeout(() => {
+                setShowBookingForm(true);
+            }, 1000);
+
+            return () => clearTimeout(timer); // Cleanup timeout if the component unmounts
+        }
+    }, [tourData]);
+
     return (
         <div className="layout">
             {tourData ? (
@@ -85,10 +61,11 @@ export default function TourDetailsPage({ slug }) {
                             <div className={styles.tourdetailsImg}>
                                 <Image
                                     className={styles.tourImg}
-                                    sizes='(max-width: 400px) 100vw, 200px'
+                                    sizes="(max-width: 400px) 100vw, 200px"
                                     src={`${imageUrl}${tourData.imageUrl}`}
                                     alt={tourData.name}
                                     blurDataURL={`${imageUrl}${tourData.imageUrl}`}
+                                    placeholder="blur"
                                     fill
                                     priority
                                 />
