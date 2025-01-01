@@ -2,42 +2,46 @@
 
 import { useEffect } from "react";
 
-export default function FaceBookAnalytics() {
-    const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_ID;
+export default function FacebookAnalytics() {
+    const FACEBOOK_ID = process.env.FACEBOOK_ID;
 
     useEffect(() => {
-        if (!FACEBOOK_ID) {
-            console.warn("Facebook Pixel ID is missing!");
-            return;
-        }
 
-        // Initialize Meta Pixel
-        (function (f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function () {
-                n.callMethod
-                    ? n.callMethod.apply(n, arguments)
-                    : n.queue.push(arguments);
+        // Ensure 'fbq' is defined as a fallback
+        window.fbq =
+            window.fbq ||
+            function () {
+                window.fbq.callMethod
+                    ? window.fbq.callMethod(...arguments)
+                    : window.fbq.queue.push(arguments);
             };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = "2.0";
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s);
-        })(
-            window,
-            document,
-            "script",
-            "https://connect.facebook.net/en_US/fbevents.js"
-        );
 
-        fbq("init", FACEBOOK_ID);
-        fbq("track", "PageView");
+        window.fbq.queue = window.fbq.queue || [];
+        window.fbq.version = '2.0';
+        window.fbq.loaded = true;
+
+        // Dynamically load Facebook Pixel script
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://connect.facebook.net/en_US/fbevents.js";
+
+        script.onload = () => {
+            try {
+                if (window.fbq) {
+                    window.fbq("init", FACEBOOK_ID);
+                    window.fbq("track", "PageView");
+                }
+            } catch (error) {
+                console.error("Error initializing Facebook Pixel:", error);
+            }
+        };
+
+        document.body.appendChild(script);
+
+        // Cleanup script on component unmount
+        return () => {
+            document.body.removeChild(script);
+        };
     }, [FACEBOOK_ID]);
 
     return (
