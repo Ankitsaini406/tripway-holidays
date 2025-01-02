@@ -42,7 +42,7 @@ export default function TourDetailsPage({ tourData, blurImg }) {
         }
     }, [date5DaysBack]);
 
-    const discountPrice = tourData?.price ? (tourData.price * 0.8).toFixed(2) : 0;
+    const discountPrice = tourData?.price ? (tourData.price * (1 - tourData.discount / 100)).toFixed(0) : null;
 
     return (
         <div className="layout">
@@ -67,10 +67,19 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                 <h4>
                                     Category:&nbsp;<strong>{tourData.category}</strong>
                                 </h4>
-                                <h4 className={styles.priceBox}>Price:&nbsp;<strong>&#8377;&nbsp;{discountPrice}</strong>&nbsp;<span className={styles.offPrice}>20%&nbsp;off</span>
-                                    <span className={styles.priceLine}>
-                                        &#8377;&nbsp;{tourData.price}
-                                    </span>
+                                <h4 className={styles.priceBox}>
+                                    Price:&nbsp;
+                                    {tourData?.discount && tourData.discount > 0 ? (
+                                        <>
+                                            <strong>&#8377;&nbsp;{discountPrice}</strong>&nbsp;
+                                            <span className={styles.offPrice}>{tourData.discount}% off</span>
+                                            <span className={styles.priceLine}>
+                                                &#8377;&nbsp;{tourData.price}
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <strong>&#8377;&nbsp;{tourData.price}</strong>
+                                    )}
                                 </h4>
                                 <h4>
                                     Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;<strong>{date5DaysBack}</strong>
@@ -89,11 +98,11 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                         </div>
                     </div>
                     {
-                    // showBookingForm ? (
-                        <BookingForm tour={tourData} isPastDate={isPastDate} discountPrice={discountPrice}/>
-                    // ) : (
-                    //     <BookingLoding />
-                    // )
+                        // showBookingForm ? (
+                        <BookingForm tour={tourData} isPastDate={isPastDate} discountPrice={discountPrice} />
+                        // ) : (
+                        //     <BookingLoding />
+                        // )
                     }
                 </div>
             ) : (

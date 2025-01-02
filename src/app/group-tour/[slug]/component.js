@@ -184,7 +184,7 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
         }
 
         try {
-            const data = { ...formData, tourName: tour.name, price: tour.discountPrice, startDate: tour.startDate, isPast: isPastDate };
+            const data = { ...formData, tourName: tour.name, price: tour.discount && tour.discount > 0 ? discountPrice : tour.price, startDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
             if (success) {
                 const emailContent = {
