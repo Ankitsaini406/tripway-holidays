@@ -6,6 +6,11 @@ export default function FacebookAnalytics() {
     const FACEBOOK_ID = process.env.FACEBOOK_ID;
 
     useEffect(() => {
+        // Only run in production
+        if (process.env.NODE_ENV !== "production") {
+            console.log("Facebook Pixel is disabled in development.");
+            return;
+        }
 
         // Ensure 'fbq' is defined as a fallback
         window.fbq =
@@ -44,7 +49,8 @@ export default function FacebookAnalytics() {
         };
     }, [FACEBOOK_ID]);
 
-    return (
+    // Render the fallback for production only
+    return process.env.NODE_ENV === "production" ? (
         <>
             {/* Meta Pixel noscript fallback */}
             <noscript>
@@ -57,5 +63,5 @@ export default function FacebookAnalytics() {
                 />
             </noscript>
         </>
-    );
+    ) : null;
 }

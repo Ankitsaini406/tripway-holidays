@@ -5,18 +5,12 @@ import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Image from 'next/image';
-import { useFetchTourData } from '@/hook/useFetchTourData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
-// import { useSearchParams } from 'next/navigation';
 import styles from '@/styles/pages/tourPackage.module.css';
 import Loading from './loading';
-import FilterLoading from './fileterLoading';
 
-const TourPackages = () => {
-    const { tourData, loading, error } = useFetchTourData('group-tours');
-    // const searchParams = useSearchParams();
-    // const tourOption = searchParams.get('tourOption');
+function TourPackages({ tourData, allImages }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
 
@@ -32,7 +26,7 @@ const TourPackages = () => {
             <div className={styles.tour}>
                 <div className={styles.filters}>
                     {
-                        loading ? <FilterLoading /> : <Filters
+                        <Filters
                         filters={extractFilters(tourData)}
                         selectedFilters={selectedFilters}
                         toggleFilter={toggleFilter}
@@ -40,19 +34,15 @@ const TourPackages = () => {
                     }
                 </div>
                 <div className={styles.tourBox}>
-                    {loading ? (
+                    { visibleItems.length === 0 ? (
                         <Loading />
-                    ) : error ? (
-                        <p className={styles.errorMessage}>{error}</p>
-                    ) : visibleItems.length === 0 ? (
-                        <p className={styles.noDataMessage}>No tours available.</p>
                     ) : (
                         <InfiniteScroll
                             loadMore={() => loadMore(filterData(tourData))}
                             hasMore={visibleItems.length < filterData(tourData).length}
                         >
                             {visibleItems.map((item) => (
-                                <TourCard key={item.id} item={item} />
+                                <TourCard key={item.id} item={item} allImages={allImages} />
                             ))}
                         </InfiniteScroll>
                     )}
@@ -102,7 +92,12 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
     );
 }
 
-function TourCard({ item }) {
+function TourCard({ item, allImages }) {
+
+    const imageData = allImages.find((image) => image.url.includes(item.imageUrl)) || {
+        url: `/tour-image/${item.imageUrl}`,
+        placeholder: null,
+    };
 
     return (
         <div className={styles.tourCard}>
@@ -110,11 +105,11 @@ function TourCard({ item }) {
                 <Image
                     className={styles.tourImg}
                     sizes="(max-width: 400px) 100vw, 200px"
-                    data-src={`/tour-image/${item.imageUrl}`}
-                    src={`/tour-image/${item.imageUrl}`}
-                    alt={item.imageUrl}
+                    data-src={imageData.url}
+                    src={imageData.url}
+                    alt={item.name}
                     placeholder="blur"
-                    blurDataURL={`/tour-image/${item.imageUrl}`}
+                    blurDataURL={imageData.placeholder}
                     fill
                     priority
                 />
