@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 import useSendEmail from '@/hook/useSendEmail';
 import style from '@/styles/pages/authpage.module.css';
 import styles from '@/styles/pages/tourDetails.module.css';
-import { BookingLoding } from "./loading";
 
 export const TripDetails = ({ tour }) => {
     const [activeTab, setActiveTab] = useState('itinerary');
@@ -151,7 +150,7 @@ export const TripDetails = ({ tour }) => {
     );
 };
 
-export const BookingForm = ({ tour, isPastDate }) => {
+export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
 
     const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -185,7 +184,7 @@ export const BookingForm = ({ tour, isPastDate }) => {
         }
 
         try {
-            const data = { ...formData, tourName: tour.name, price: tour.price, startDate: tour.startDate, isPast: isPastDate };
+            const data = { ...formData, tourName: tour.name, price: tour.discountPrice, startDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
             if (success) {
                 const emailContent = {

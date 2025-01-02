@@ -11,7 +11,6 @@ import styles from '@/styles/pages/tourDetails.module.css';
 
 export default function TourDetailsPage({ tourData, blurImg }) {
     const [isPastDate, setIsPastDate] = useState(false);
-    const [showBookingForm, setShowBookingForm] = useState(false);
 
     const imageUrl = process.env.IMAGE_URL;
 
@@ -43,16 +42,7 @@ export default function TourDetailsPage({ tourData, blurImg }) {
         }
     }, [date5DaysBack]);
 
-    useEffect(() => {
-        if (tourData) {
-            // Set loading state to false after data is available
-            const timer = setTimeout(() => {
-                setShowBookingForm(true); // Show the booking form after 1 second
-            }, 1000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [tourData]);
+    const discountPrice = tourData?.price ? (tourData.price * 0.8).toFixed(2) : 0;
 
     return (
         <div className="layout">
@@ -77,8 +67,10 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                 <h4>
                                     Category:&nbsp;<strong>{tourData.category}</strong>
                                 </h4>
-                                <h4>
-                                    Price:&nbsp;&#8377;&nbsp;<strong>{tourData.price}</strong>
+                                <h4 className={styles.priceBox}>Price:&nbsp;<strong>&#8377;&nbsp;{discountPrice}</strong>&nbsp;<span className={styles.offPrice}>20%&nbsp;off</span>
+                                    <span className={styles.priceLine}>
+                                        &#8377;&nbsp;{tourData.price}
+                                    </span>
                                 </h4>
                                 <h4>
                                     Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;<strong>{date5DaysBack}</strong>
@@ -98,7 +90,7 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                     </div>
                     {
                     // showBookingForm ? (
-                        <BookingForm tour={tourData} isPastDate={isPastDate}/>
+                        <BookingForm tour={tourData} isPastDate={isPastDate} discountPrice={discountPrice}/>
                     // ) : (
                     //     <BookingLoding />
                     // )

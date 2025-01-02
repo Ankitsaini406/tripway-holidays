@@ -60,6 +60,24 @@
     }
 }
 
+.priceBox {
+    display: flex;
+    align-items: center;
+}
+
+.offPrice {
+    background-color: var(--indigo-blue);
+    color: var(--white-color);
+    border-radius: 20px;
+    padding: 0 5px;
+}
+
+.priceLine {
+    text-decoration: line-through;
+    color: var(--secondary-text);
+    margin-left: 10px;
+}
+
 .tourBuybutton {
     padding: 1em;
     border: none;
