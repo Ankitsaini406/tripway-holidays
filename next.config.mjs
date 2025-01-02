@@ -8,8 +8,6 @@ const nextConfig = {
     images: {
         domains: [
             "tripwayholidays.in",
-            "images.unsplash.com",
-            "tripwayholidays",
             "tripway-holidays.vercel.app",
             "upload.wikimedia.org",
         ],
@@ -32,6 +30,15 @@ const nextConfig = {
         FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,
         FIREBASE_APP_ID: process.env.NEXT_FIREBASE_APP_ID,
         FIREBASE_MEASUREMENT_ID: process.env.NEXT_FIREBASE_MEASUREMENT_ID,
+    },
+
+    async rewrites() {
+        return [
+            {
+                source: '/tour-images/:path*',
+                destination: 'https://tripwayholidays.in/tour-images/:path*', // Replace with Hostinger's direct static file serving URL
+            },
+        ];
     },
 
     async redirects() {
@@ -61,6 +68,7 @@ const nextConfig = {
             },
         ];
     },
+
     // webpack(config) {
     //     // Example Webpack customizations
     //     config.resolve.alias['@components'] = path.join(__dirname, 'components');
