@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Loading, { BookingLoding } from './loading';
+import Loading from './loading';
 import dynamic from 'next/dynamic';
-const BookingForm = dynamic(() => import('./component').then((mod) => mod.BookingForm));
+import { BookingForm } from './component';
+// const BookingForm = dynamic(() => import('./component').then((mod) => mod.BookingForm));
 const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDetails));
 import styles from '@/styles/pages/tourDetails.module.css';
 
@@ -44,11 +45,12 @@ export default function TourDetailsPage({ tourData, blurImg }) {
 
     useEffect(() => {
         if (tourData) {
+            // Set loading state to false after data is available
             const timer = setTimeout(() => {
-                setShowBookingForm(true);
+                setShowBookingForm(true); // Show the booking form after 1 second
             }, 1000);
 
-            return () => clearTimeout(timer); // Cleanup timeout if the component unmounts
+            return () => clearTimeout(timer);
         }
     }, [tourData]);
 
@@ -94,11 +96,13 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                             <TripDetails tour={tourData} />
                         </div>
                     </div>
-                    {showBookingForm ? (
-                        <BookingForm tour={tourData} isPastDate={isPastDate} />
-                    ) : (
-                        <BookingLoding />
-                    )}
+                    {
+                    // showBookingForm ? (
+                        <BookingForm tour={tourData} isPastDate={isPastDate}/>
+                    // ) : (
+                    //     <BookingLoding />
+                    // )
+                    }
                 </div>
             ) : (
                 <Loading />

@@ -30,11 +30,6 @@ export default function Loading() {
 
 export function BookingLoding() {
     return (
-        <div className="bookingForm">
-            <div className="bookingName"></div>
-            <div className="bookingDetails"></div>
-            <div className="booking"></div>
-            <div className="bookingButton"></div>
-        </div>
+        <div className="bookingName"></div>
     )
 }

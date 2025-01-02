@@ -1,5 +1,6 @@
 import { getPlaiceholder } from "plaiceholder";
-import TourDetails from "./tourDetails";
+import dynamic from 'next/dynamic';
+const TourDetails = dynamic(() => import('./tourDetails'));
 
 async function fetchTourData(slug) {
     const localApi = process.env.API_URL;
@@ -17,52 +18,49 @@ async function fetchTourData(slug) {
 }
 
 export async function generateMetadata({ params }) {
-    const { slug } = params;
+    const { slug } = await params;
 
     try {
         const tour = await fetchTourData(slug);
-
-        if (tour) {
-            const { name, description, startDate, imageUrl } = tour;
+        if (!tour) {
+            return {
+                title: "Group Tours | Tripway Holidays",
+                description: "Explore our group tours and create unforgettable travel experiences.",
+                openGraph: {
+                    title: "Group Tours - Tripway Holidays",
+                    description: "Join our group tours and visit exciting destinations.",
+                    url: "https://tripwayholidays.in/group-tour",
+                },
+            };
+        };
 
             return {
-                title: `${name}`,
-                description: `Join our exclusive group tour to experience ${description}. A perfect adventure for travel lovers.`,
+                title: `${tour.name}`,
+                description: `Join our exclusive group tour to experience ${tour.description}. A perfect adventure for travel lovers.`,
                 keywords: [
                     "Group Tour",
                     "Tripway Holidays",
                     "Adventure Tour",
                     "Travel Packages",
                     "Book Group Tour",
-                    name,
-                    startDate,
+                    tour.name,
+                    tour.startDate,
                 ],
                 openGraph: {
-                    title: `Group Tour: ${name}`,
-                    description: `Explore our ${name} tour. Book now and enjoy unforgettable experiences.`,
-                    url: `https://tripwayholidays.in/group-tour/${slug}`,
+                    title: `Group Tour: ${tour.name}`,
+                    description: `Explore our ${tour.name} tour. Book now and enjoy unforgettable experiences.`,
+                    url: `https://tripwayholidays.in/group-tour/${tour.slug}`,
                     type: "website",
                     images: [
                         {
-                            url: imageUrl,
-                            width: 1200,
-                            height: 630,
-                            alt: `Tripway Holidays ${name} Tour`,
+                            url: tour.imageUrl,
+                            width: 400,
+                            height: 400,
+                            alt: `Tripway Holidays ${tour.name} Tour`,
                         },
                     ],
                 },
             };
-        }
-
-        return {
-            title: "Group Tours | Tripway Holidays",
-            description: "Explore our group tours and create unforgettable travel experiences.",
-            openGraph: {
-                title: "Group Tours - Tripway Holidays",
-                description: "Join our group tours and visit exciting destinations.",
-                url: "https://tripwayholidays.in/group-tour",
-            },
-        };
     } catch (error) {
         console.error("Metadata generation error:", error);
 
@@ -78,7 +76,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-    const { slug } = params;
+    const { slug } = await params;
 
     const imageUrl = process.env.IMAGE_URL;
 

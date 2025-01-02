@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import useSendEmail from '@/hook/useSendEmail';
 import style from '@/styles/pages/authpage.module.css';
 import styles from '@/styles/pages/tourDetails.module.css';
+import { BookingLoding } from "./loading";
 
 export const TripDetails = ({ tour }) => {
     const [activeTab, setActiveTab] = useState('itinerary');
