@@ -23,19 +23,19 @@ const Home = () => {
             id: "oneWay",
             title: "One Way",
             description: "Tripway Holidays offers convenient one-way travel services with a wide range of vehicles. Perfect for business trips or leisure travel booking is quick and easy. Our extensive network ensures smooth reservations across cities. Skilled drivers and well-maintained vehicles guarantee comfort and safety and an affordable travel experience.",
-            imageSrc: "/slider/slider6.webp",
+            imageSrc: "/slider/slider4.webp",
         },
         {
             id: "roundTrip",
             title: "Round Trip",
             description: "Tripway Holidays provides seamless round-trip services with a variety of vehicles at affordable prices. You can easily customize your schedule with flexible reservations across cities. Our extensive network, experienced drivers and well-maintained vehicles ensure a smooth, comfortable and reliable travel experience whether its for vacations, business trips or family outings.",
-            imageSrc: "/slider/slider6.webp",
+            imageSrc: "/slider/slider3.webp",
         },
         {
             id: "multiCity",
             title: "Multi City Trip",
             description: "For those planning multi-city trips Tripway Holidays offers reliable and flexible services. You can hire a single vehicle for multiple destinations avoiding multiple bookings. Our fleet includes luxury SUVs and economy vehicles. With experienced drivers and well-maintained cars we guarantee safety, on-time arrivals and a hassle-free travel experience tailored to your itinerary and group size.",
-            imageSrc: "/slider/slider6.webp",
+            imageSrc: "/slider/slider2.webp",
         },
     ];
 
