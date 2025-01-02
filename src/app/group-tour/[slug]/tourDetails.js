@@ -8,6 +8,7 @@ import { BookingForm } from './component';
 // const BookingForm = dynamic(() => import('./component').then((mod) => mod.BookingForm));
 const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDetails));
 import styles from '@/styles/pages/tourDetails.module.css';
+import { formatPrice } from '@/utils/formatData';
 
 export default function TourDetailsPage({ tourData, blurImg }) {
     const [isPastDate, setIsPastDate] = useState(false);
@@ -71,14 +72,14 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                     Price:&nbsp;
                                     {tourData?.discount && tourData.discount > 0 ? (
                                         <>
-                                            <strong>&#8377;&nbsp;{discountPrice}</strong>&nbsp;
+                                            <strong>{formatPrice(discountPrice)}</strong>&nbsp;
                                             <span className={styles.offPrice}>{tourData.discount}% off</span>
                                             <span className={styles.priceLine}>
-                                                &#8377;&nbsp;{tourData.price}
+                                                &#8377;&nbsp;{formatPrice(tourData.price)}
                                             </span>
                                         </>
                                     ) : (
-                                        <strong>&#8377;&nbsp;{tourData.price}</strong>
+                                        <strong>&#8377;&nbsp;{formatPrice(tourData.price)}</strong>
                                     )}
                                 </h4>
                                 <h4>
