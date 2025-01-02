@@ -75,11 +75,11 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                             <strong>{formatPrice(discountPrice)}</strong>&nbsp;
                                             <span className={styles.offPrice}>{tourData.discount}% off</span>
                                             <span className={styles.priceLine}>
-                                                &#8377;&nbsp;{formatPrice(tourData.price)}
+                                                {formatPrice(tourData.price)}
                                             </span>
                                         </>
                                     ) : (
-                                        <strong>&#8377;&nbsp;{formatPrice(tourData.price)}</strong>
+                                        <strong>{formatPrice(tourData.price)}</strong>
                                     )}
                                 </h4>
                                 <h4>
