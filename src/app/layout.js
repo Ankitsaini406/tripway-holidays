@@ -24,8 +24,10 @@ export const metadata = {
     template: `TripWay Holidays | %s`,
   },
   openGraph: {
-    description: "Book Tour Next Tripway Holidays",
-    images: [""],
+    description: "Book your next tour with TripWay Holidays and explore amazing destinations!",
+    images: [`/favicon.png`],
+    url: apiPoint,
+    type: "website",
   },
 };
 
@@ -33,28 +35,33 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Apple Touch Icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-        <link rel="icon" href="/favicon.ico" />
+        {/* Favicon and Icons */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/png/ico" sizes="16x16" href="/favicon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
 
-        {/* Web App Metadata */}
+        {/* Mobile Web App Settings */}
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="TripWayHolidays : Book One-way | Group Tour | Multi City" />
+        <meta
+          name="apple-mobile-web-app-title"
+          content="TripWayHolidays: Book One-way | Group Tour | Multi City"
+        />
 
         {/* OpenGraph Metadata */}
-        <meta property="og:title" content="TripWayHolidays : Book One-way | Group Tour | Multi City" />
+        <meta property="og:title" content="TripWayHolidays: Book One-way | Group Tour | Multi City" />
         <meta
           property="og:description"
           content="Book your next tour with TripWay Holidays and explore amazing destinations!"
         />
-        <meta property="og:image" content="/favicon.ico" />
+        <meta property="og:image" content={`/favicon.png`} />
         <meta property="og:url" content={apiPoint} />
         <meta property="og:type" content="website" />
 
-        {/* Twitter Card Metadata */}
-        <meta name="twitter:card" content="/favicon.ico" />
+        {/* Twitter Metadata */}
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@tripwayholidays" />
         <meta name="twitter:creator" content="@tripwayholidays" />
         <meta name="twitter:title" content="TripWay Holidays" />
@@ -62,8 +69,10 @@ export default function RootLayout({ children }) {
           name="twitter:description"
           content="Experience Travel Like Never Before with TripWayHolidays"
         />
-        <meta name="twitter:image" content="/favicon.ico" />
+        <meta name="twitter:image" content={`/favicon.png`} />
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />
+
+        {/* Analytics */}
         <FaceBookAnalytics />
         <GoogleTagManagerAndAnalytics />
       </head>
