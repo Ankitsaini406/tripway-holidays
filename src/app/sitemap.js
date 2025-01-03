@@ -15,21 +15,21 @@ export default async function sitemap() {
     const tourDetails = data?.map((tour) => {
         return {
             url: `${apiPoint}group-tours/${tour?.slug}`,
-            lastModified: new Date(),
+            lastModified: tour?.createdAt,
         };
     });
 
     const staticPages = [
         {
-            url: `${apiPoint}/group-tour`,
+            url: `${apiPoint}group-tour`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}/about`,
+            url: `${apiPoint}about`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}/contact_us`,
+            url: `${apiPoint}contact_us`,
             lastModified: new Date().toISOString(),
         },
     ];
