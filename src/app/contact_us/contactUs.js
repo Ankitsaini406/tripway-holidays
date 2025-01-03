@@ -116,7 +116,7 @@ function ContactUs() {
                 {/* Google Map Embed */}
                 <div style={{ width: "100%", height: "400px", margin: "auto" }}>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d310.23572193367585!2d75.13499593871069!3d27.609144593095422!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396ca5c6b764d8ad%3A0x4cc2cfdc103c4783!2sWeBrainTech%20Pvt%20Ltd.!5e0!3m2!1sen!2sin!4v1734423685289!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d883.8729873834669!2d75.13409962853268!3d27.60927659850874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396ca5e2416b8d37%3A0x716d3d18c7f0316f!2sTripway%20Holidays!5e0!3m2!1sen!2sin!4v1735880431371!5m2!1sen!2sin"
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}

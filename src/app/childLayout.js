@@ -37,7 +37,6 @@ export default function ClientRootLayout({ children }) {
 
     return (
         <>
-
             {!hideHeaderFooter && <Header />}
             <main>{children}</main>
             <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />

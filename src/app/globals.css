@@ -154,6 +154,12 @@ input:user-invalid {
   outline-color: var(--deep-maroon);
 }
 
+.bodyflex {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -194,7 +200,7 @@ th {
 
 
 .layout {
-  min-height: 90dvh;
+  min-height: 70vh;
   padding: 1em;
 }
 

@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
         <FaceBookAnalytics />
         <GoogleTagManagerAndAnalytics />
       </head>
-      <body>
+      <body className="bodyflex">
         <UserProvider>
           <ClientRootLayout>{children}</ClientRootLayout>
         </UserProvider>
