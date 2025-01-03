@@ -11,6 +11,6 @@ export default function robots() {
             allow: ["/", "/group-tour"],
             disallow: [],
         },
-        sitemap: `${apiPoint}/sitemap.xml`,
+        sitemap: `${apiPoint}sitemap.xml`,
     }
 }
