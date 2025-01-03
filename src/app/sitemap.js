@@ -29,7 +29,7 @@ export default async function sitemap() {
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}contact_us`,
+            url: `${apiPoint}contact-us`,
             lastModified: new Date().toISOString(),
         },
     ];

@@ -14,13 +14,13 @@ export const metadata = {
     openGraph: {
         title: "Contact Us",
         description: "Reach out to Tripway Holidays for inquiries, support, or to learn more about our services. Visit our office or drop us a message today!",
-        url: "https://tripwayholidays.in/contact_us",
+        url: "https://tripwayholidays.in/contact-us",
         type: "website",
         images: [
             {
                 url: "/contact.jpg",
-                width: 1200,
-                height: 630,
+                width: 400,
+                height: 400,
                 alt: "Tripway Holidays Contact Banner",
             },
         ],

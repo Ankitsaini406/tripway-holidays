@@ -18,7 +18,7 @@ export const metadata = {
     openGraph: {
         title: "Terms and Conditions",
         description: "Familiarize yourself with the Terms and Conditions of Tripway Holidays, covering booking policies, cancellations, refunds, and travel services.",
-        url: "https://tripwayholidays.in/terms_and_conditions",
+        url: "https://tripwayholidays.in/terms-and-conditions",
         type: "website",
         // images: [
         //     {
@@ -141,7 +141,7 @@ function TermsAndCondition() {
                     (if applicable) Certain products or Services may be available
                     exclusively online through the website. These products or Services may
                     have limited quantities and are subject to return or exchange only
-                    according to our Return Policy. To view our Return Policy, <a className={styles.aTag} href="/return_policy" target="_blank" rel="noopener noreferrer">please visit. </a>
+                    according to our Return Policy. To view our Return Policy, <a className={styles.aTag} href="/return-policy" target="_blank" rel="noopener noreferrer">please visit. </a>
                     We have made every effort to display as
                     accurately as possible the colors and images of our products that
                     appear at the store. We cannot guarantee that your computer monitor&apos;s
@@ -261,7 +261,7 @@ function TermsAndCondition() {
                 <p>
                     Your submission of personal information through the store is governed
                     by our Privacy Policy. To view our Privacy Policy, please see
-                    <a className={styles.aTag} href="/privacy_policy"> Click Here</a>
+                    <a className={styles.aTag} href="/privacy-policy"> Click Here</a>
                 </p>
 
                 <h3 className={styles.h3Tag}>

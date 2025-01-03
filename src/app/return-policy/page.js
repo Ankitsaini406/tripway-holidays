@@ -15,7 +15,7 @@ export const metadata = {
     openGraph: {
         title: "Return and Cancellation Policy",
         description: "Understand the return and cancellation policies of Tripway Holidays, covering group tours, roundtrips, refunds, and more.",
-        url: "https://tripwayholidays.in/return_policy",
+        url: "https://tripwayholidays.in/return-policy",
         type: "website",
         // images: [
         //     {

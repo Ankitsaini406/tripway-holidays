@@ -16,7 +16,7 @@ export const metadata = {
     openGraph: {
         title: "Privacy Policy",
         description: "Discover how Tripway Holidays safeguards your personal information and handles your data.",
-        url: "https://tripwayholidays.in/privacy_policy",
+        url: "https://tripwayholidays.in/privacy-policy",
         type: "website",
         // images: [
         //     {
@@ -119,7 +119,7 @@ const PrivacyPolicy = () => {
                     infrastructure itself (for example, the duration of a page visit).
                 </li>
                 <li className={styles.liTag}>
-                    <strong>Website</strong> refers to TripwayHolidays, accessible from <a className={styles.aTag} href="https://tripwayholidays.in" target="_blank" rel="noopener noreferrer">TripwayHolidays</a>.
+                    <strong>Website</strong> refers to TripwayHolidays, accessible from <a className={styles.aTag} href="https://tripwayholidays.in/" target="_blank" rel="noopener noreferrer">TripwayHolidays</a>.
                 </li>
                 <li className={styles.liTag}>
                     <strong>You</strong> means the individual accessing or using the

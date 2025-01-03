@@ -16,7 +16,7 @@ export const metadata = {
     openGraph: {
         title: "About Us",
         description: "Discover Tripway Holidays - committed to delivering seamless travel experiences, personalized itineraries, and a customer-centric approach.",
-        url: "https://tripwayholidays.in/about_us",
+        url: "https://tripwayholidays.in/about-us",
         type: "website",
         // images: [
         //     {

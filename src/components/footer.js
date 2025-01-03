@@ -80,11 +80,11 @@ function Footer() {
                     <div className={styles.footerFlex}>
                         <h3>Support</h3>
                         <ul className={styles.footerFlexList}>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/privacy_policy'>Pricay policy</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/terms_and_condition'>Trems & Condition</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href="/about_us" >About Us</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/contact_us'>Contact Us</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/return_policy'>Return Policy</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/privacy-policy'>Pricay policy</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/terms-and-condition'>Trems & Condition</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/about-us" >About Us</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/contact-us'>Contact Us</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/return-policy'>Return Policy</Link></li>
                         </ul>
                     </div>
                 </div>
