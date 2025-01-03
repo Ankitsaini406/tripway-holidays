@@ -11,11 +11,12 @@ export default async function sitemap() {
 
     const data = await response.json();
 
-    // Generate dynamic tour URLs
+    // Generate dynamic tour URLs with date validation
     const tourDetails = data?.map((tour) => {
+        const createdAt = tour?.createdAt ? new Date(tour.createdAt) : new Date();
         return {
             url: `${apiPoint}group-tours/${tour?.slug}`,
-            lastModified: `${new Date(tour?.createdAt).toISOString()}`,
+            lastModified: createdAt.toISOString(),
         };
     });
 
