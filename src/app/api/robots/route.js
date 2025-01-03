@@ -9,7 +9,7 @@ export async function GET() {
         User-agent: *
         Allow: /
         Disallow: /admin/
-        Sitemap: ${apiPoint}/sitemap.xml
+        Sitemap: ${apiPoint}sitemap.xml
     `;
 
     return new Response(robots.trim(), {
