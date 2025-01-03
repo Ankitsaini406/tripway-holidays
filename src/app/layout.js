@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       <head>
         {/* Favicon and Icons */}
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-192.png" />
         <link rel="icon" type="image/png/ico" sizes="16x16" href="/favicon.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
@@ -56,12 +56,12 @@ export default function RootLayout({ children }) {
           property="og:description"
           content="Book your next tour with TripWay Holidays and explore amazing destinations!"
         />
-        <meta property="og:image" content={`/favicon.png`} />
+        <meta property="og:image" content={`/favicon-192.png`} />
         <meta property="og:url" content={apiPoint} />
         <meta property="og:type" content="website" />
 
         {/* Twitter Metadata */}
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="/favicon-192.png" />
         <meta name="twitter:site" content="@tripwayholidays" />
         <meta name="twitter:creator" content="@tripwayholidays" />
         <meta name="twitter:title" content="TripWay Holidays" />
@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
           name="twitter:description"
           content="Experience Travel Like Never Before with TripWayHolidays"
         />
-        <meta name="twitter:image" content={`/favicon.png`} />
+        <meta name="twitter:image" content={`/favicon-192.png`} />
         <meta name="twitter:url" content="https://x.com/tripwayholidays" />
 
         {/* Analytics */}
