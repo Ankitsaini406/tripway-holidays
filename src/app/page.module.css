@@ -192,7 +192,6 @@
   }
 }
 
-
 .imgBox {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
   border-radius: var(--border-radius);
