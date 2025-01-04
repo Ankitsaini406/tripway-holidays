@@ -65,6 +65,7 @@ export default function RootLayout({ children }) {
         <meta property="og:description" content={metadata.openGraph.description} />
         <meta property="og:image" content={metadata.openGraph.images[0]} />
         <meta property="og:url" content={apiPoint} />
+        <meta property="og:site_name" content="TripWay Holidays" />
         <meta property="og:type" content={metadata.openGraph.type} />
 
         {/* Twitter Metadata */}
