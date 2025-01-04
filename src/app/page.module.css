@@ -73,11 +73,15 @@
   opacity: 0;
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
   animation: scroll-reveal linear forwards;
+  --webkit-animation: scroll-reveal linear forwards;
   animation-timeline: view();
+  --webkit-animation-timeline: view();
 }
 
 .scrollRevel span {
+  --webkit-animation-range-start: cover 10vh;
   animation-range-start: cover 10vh;
+  --webkit-animation-range-end: cover 40vh;
   animation-range-end: cover 40vh;
 }
 
@@ -86,6 +90,14 @@
     transform: translateY(0);
     opacity: 1;
     transition: transform 0.8s ease-out, opacity 1s ease-out;
+  }
+}
+
+@-webkit-keyframes scroll-reveal {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    -webkit-transition: transform 0.8s ease-out, opacity 1s ease-out;
   }
 }
 
