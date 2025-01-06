@@ -443,16 +443,8 @@ function TermsAndCondition() {
                 </p>
                 <h3 className={styles.h3Tag}>SECTION 20 - CONTACT INFORMATION</h3>
                 <p>Questions about the Terms of Service should be sent to us at</p>
-                <p>
-                    <a
-                        className={styles.aTag}
-                        href="mailto:shreevivekanandcenter@gmail.com"
-                    >
-                        shreevivekanandcenter@gmail.com
-                    </a>
-                </p>
                 <p>Our contact information is posted below: </p>
-                <p> TripwayHoliday Pvt Ltd.</p>
+                <p> Tripway Holidays</p>
                 <p>
                     <a className={styles.aTag} href="mailto:tripwayholiday@gmail.com">
                         tripwayholiday@gmail.com
