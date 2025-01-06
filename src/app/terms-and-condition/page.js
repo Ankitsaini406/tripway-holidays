@@ -38,9 +38,8 @@ function TermsAndCondition() {
                 <h1 className={styles.h1Tag}>TERMS OF CONDITION</h1>
                 <h3 className={styles.h2Tag}>OVERVIEW</h3>
                 <p>
-                    This website is operated by Tripway Holiday Pvt Ltd.. Throughout the
-                    site, the terms “we”, “us” and “our” refer to Tripway Holiday Pvt
-                    Ltd.. Tripway Holiday Pvt Ltd. offers this website, including all
+                    This website is operated by Edu Engine Technologies Pvt. Ltd. Throughout the
+                    site, the terms “we”, “us” and “our” refer to Tripway Holidays. Offers this website, including all
                     information, tools and Services available from this site to you, the
                     user, conditioned upon your acceptance of all terms, conditions,
                     policies and notices stated here. By visiting our site and/ or
@@ -94,7 +93,7 @@ function TermsAndCondition() {
                         transmissions over various networks; and
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         changes to conform and adapt to technical requirements of connecting
                         networks or devices. Credit card information is always encrypted
                         during transfer over networks. You agree not to reproduce,
@@ -295,17 +294,17 @@ function TermsAndCondition() {
                         to solicit others to perform or participate in any unlawful acts.
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         to violate any international, federal, provincial or state
                         regulations, rules, laws, or local ordinances.
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         to infringe upon or violate our intellectual property rights or the
                         intellectual property rights of others.
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         to harass, abuse, insult, harm, defame, slander, disparage,
                         intimidate, or discriminate based on gender, sexual orientation,
                         religion, ethnicity, race, age, national origin, or disability.
@@ -320,16 +319,16 @@ function TermsAndCondition() {
                         other websites, or the Internet.
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         to collect or track the personal information of others.
                     </li>
                     <li className={styles.liTag}>
-                        
+
                         to spam, phish, pharm, pretext, spider, crawl, or scrape.
                     </li>
                     <li className={styles.liTag}> for any obscene or immoral purpose.</li>
                     <li className={styles.liTag}>
-                        
+
                         to interfere with or circumvent the security features of the Service
                         or any related website, other websites, or the Internet. We reserve
                         the right to terminate your use of the Service or any related
@@ -354,7 +353,7 @@ function TermsAndCondition() {
                     conditions of any kind, either express or implied, including all
                     implied warranties or conditions of merchantability, merchantable
                     quality, fitness for a particular purpose, durability, title, and
-                    non-infringement. In no case shall Tripway Holiday Pvt Ltd., our
+                    non-infringement. In no case shall Tripway Holidays, our
                     directors, officers, employees, affiliates, agents, contractors,
                     interns, suppliers, service providers or licensors be liable for any
                     injury, loss, claim, or any direct, indirect, incidental, punitive,
@@ -375,8 +374,8 @@ function TermsAndCondition() {
                 </p>
                 <h3 className={styles.h3Tag}>SECTION 14 - INDEMNIFICATION</h3>
                 <p>
-                    You agree to indemnify, defend and hold harmless Tripway Holiday Pvt
-                    Ltd. and our parent, subsidiaries, affiliates, partners, officers,
+                    You agree to indemnify, defend and hold harmless Tripway Holidays
+                    and our parent, subsidiaries, affiliates, partners, officers,
                     directors, agents, contractors, licensors, service providers,
                     subcontractors, suppliers, interns and employees, harmless from any
                     claim or demand, including reasonable attorneys fees, made by any
@@ -450,7 +449,7 @@ function TermsAndCondition() {
                         tripwayholiday@gmail.com
                     </a>
                 </p>
-                <p> +91 8233101033</p>
+                <p>+91 8890906400</p>
             </div>
         </div>
     );

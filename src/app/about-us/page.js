@@ -75,7 +75,7 @@ function AboutPage() {
             <p>Your satisfaction is our top priority.</p>
 
             <h3 className={styles.h3Tag}>Our Mission</h3>
-            <p>At TripwayHoliday, our mission is to provide exceptional travel experiences that combine affordability, convenience, and adventure. We aim to inspire people to explore the world, connect with different cultures, and create memories that last a lifetime.</p>
+            <p>At Tripway Holidays, our mission is to provide exceptional travel experiences that combine affordability, convenience, and adventure. We aim to inspire people to explore the world, connect with different cultures, and create memories that last a lifetime.</p>
             <p>Start Your Journey Today!</p>
             <p>Whether you&apos;re planning a quick getaway or an extended tour, TripwayHoliday is here to guide you every step of the way. Let us help you explore the world, one destination at a time.</p>
             <p>Contact us now and let&apos;s make your travel dreams come true!</p>

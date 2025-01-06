@@ -532,7 +532,7 @@ const PrivacyPolicy = () => {
                 <li className={styles.liTag}>
                     Email: <a className={styles.aTag} href="mailto:tripwayholiday@gmail.com">tripwayholiday@gmail.com</a>
                 </li>
-                <li className={styles.liTag}>Phone: +91 8233101033</li>
+                <li className={styles.liTag}>Phone: +91 8890906400</li>
             </ul>
         </div>
     );
