@@ -32,7 +32,7 @@ function ReturnPolicy() {
     return (
         <div className={styles.mainWidth}>
             <h1 className={styles.h1Tag}>Return and Cancellation Policy</h1>
-            <p>At Tripwayholiday Pvt Ltd, we strive to provide a seamless travel experience for our customers. Our policies are designed to ensure transparency and satisfaction for all services, including group tours, roundtrips, and one-way trips.</p>
+            <p>At Tripway Holidays, we strive to provide a seamless travel experience for our customers. Our policies are designed to ensure transparency and satisfaction for all services, including group tours, roundtrips, and one-way trips.</p>
             <h2 className={styles.h2Tag}>1. Cancellation Policy</h2>
             <h3 className={styles.h3Tag}>For Group Tours:</h3>
             <ul className={styles.ulTag}>
