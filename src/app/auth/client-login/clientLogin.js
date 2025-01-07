@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import AgentLogin from "../agent-login/page";
+import AgentLogin from "../agent-login/agentLogin";
 import ForgetPassword from "@/utils/forgetPassword";
 import { FaHome } from "react-icons/fa";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
@@ -51,8 +51,6 @@ function ClientLoaginPage() {
             {agentLogin ?
                 <AgentLogin
                     setAgentLogin={setAgentLogin}
-                    setActiveContainer={setActiveContainer}
-                    activeContainer={activeContainer}
                 />
                 : <div className={styles.loginPage}>
                     <div className={styles.loginBlur}>

@@ -1,9 +1,5 @@
 import SignUpPage from "./signup";
 
-const localApi = process.env.API_URL;
-const productionApi = process.env.HOST_URL;
-const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
-
 export const metadata = {
 
     title: "Sign Up",

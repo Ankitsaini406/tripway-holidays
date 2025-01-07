@@ -1,6 +1,7 @@
 import AgentLoginPage from "./agentLogin";
 
 export const metadata = {
+
     title: "Agent Login",
     description: "Log in to your Tripway Holidays agent account. Manage bookings, access client details, and explore exclusive resources designed for agents.",
     keywords: [

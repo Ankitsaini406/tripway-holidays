@@ -57,7 +57,7 @@ function AgentLoginPage({ setAgentLogin }) {
                             <FaHome />&nbsp;
                             {isHovered && <span className={styles.tooltipText}>Home</span>}
                         </Link>
-                        <h2 className={styles.loginTitle}>Patner Login</h2>
+                        <h2 className={styles.loginTitle}>Partner Login</h2>
                         <form onSubmit={handleSubmit} style={{ margin: "0 0 1em 0" }}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="email">Email</label>
@@ -96,12 +96,6 @@ function AgentLoginPage({ setAgentLogin }) {
                                     </button>
                                 </div>
                             </div>
-                            {/* <p
-                                className={styles.forgetPassword}
-                                onClick={() => setActiveContainer(false)}
-                            >
-                                Forget Password
-                            </p> */}
                             {error && <p className={styles.errorMessage}>{error}</p>}
                             <button type="submit" className={styles.loginButton}>
                                 Sign In
@@ -116,7 +110,6 @@ function AgentLoginPage({ setAgentLogin }) {
                         </Link>
                     </div>
                 </div>
-                {/* <ForgetPassword aciveContainer={aciveContainer} setActiveContainer={setActiveContainer} /> */}
             </div>
         </div>
     );
