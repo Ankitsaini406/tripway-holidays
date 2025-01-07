@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -22,42 +22,49 @@ function TourPackages({ tourData, allImages }) {
     }, [tourData, selectedFilters]);
 
     return (
-        <div className='layout'>
-            <div className={styles.tour}>
-                <div className={styles.filters}>
-                    {
-                        <Filters
-                        filters={extractFilters(tourData)}
-                        selectedFilters={selectedFilters}
-                        toggleFilter={toggleFilter}
-                    />
-                    }
-                </div>
-                <div className={styles.tourBox}>
-                    { visibleItems.length === 0 ? (
-                        <Loading />
-                    ) : (
-                        <InfiniteScroll
-                            loadMore={() => loadMore(filterData(tourData))}
-                            hasMore={visibleItems.length < filterData(tourData).length}
-                        >
-                            {visibleItems.map((item) => (
-                                <TourCard key={item.id} item={item} allImages={allImages} />
-                            ))}
-                        </InfiniteScroll>
-                    )}
+        <>
+            <div className='heroSection'>
+                <div className='overlay'></div>
+                <Image className='heroImage' src='/slider/slider6.webp' fill alt='Group Tour Image' />
+                <h1 className='heroText'>Group Tours</h1>
+            </div>
+            <div className='layout'>
+                <div className={styles.tour}>
+                    <div className={styles.filters}>
+                        {
+                            <Filters
+                                filters={extractFilters(tourData)}
+                                selectedFilters={selectedFilters}
+                                toggleFilter={toggleFilter}
+                            />
+                        }
+                    </div>
+                    <div className={styles.tourBox}>
+                        {visibleItems.length === 0 ? (
+                            <Loading />
+                        ) : (
+                            <InfiniteScroll
+                                loadMore={() => loadMore(filterData(tourData))}
+                                hasMore={visibleItems.length < filterData(tourData).length}
+                            >
+                                {visibleItems.map((item) => (
+                                    <TourCard key={item.id} item={item} allImages={allImages} />
+                                ))}
+                            </InfiniteScroll>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
 function Filters({ filters, selectedFilters, toggleFilter }) {
-    const [isMobile, setIsMobile] = React.useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 430);
+        const handleResize = () => setIsMobile(window.innerWidth <= 770);
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -104,7 +111,6 @@ function TourCard({ item, allImages }) {
             <div className={styles.tourImage}>
                 <Image
                     className={styles.tourImg}
-                    sizes="(max-width: 400px) 100vw, 200px"
                     data-src={imageData.url}
                     src={imageData.url}
                     alt={item.name}
@@ -117,9 +123,9 @@ function TourCard({ item, allImages }) {
             <div className={styles.tourDetails}>
                 <h1>{item.name}</h1>
                 <h4>{item.category}</h4>
-                <p>{item.description}</p>
+                {/* <p>{item.description}</p> */}
                 <Link href={`/group-tour/${item.slug}`} className='readMore'>
-                    View Tour Details
+                    View Details
                 </Link>
             </div>
         </div>

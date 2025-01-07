@@ -63,6 +63,7 @@
 .priceBox {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .offPrice {
@@ -182,7 +183,7 @@
 .location{
     position: absolute;
     top: 0px;
-    left: -9px;
+    left: -10px;
     background-color: var(--white-color);
     font-size: larger;
 }

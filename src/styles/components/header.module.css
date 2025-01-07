@@ -14,8 +14,6 @@
     padding: 1rem 2rem;
     background-color: var(--white-color);
     color: var(--black-color);
-    margin: auto;
-    max-width: 1400px;
 }
 
 .logo {
