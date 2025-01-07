@@ -20,7 +20,7 @@ export const metadata = {
     openGraph: {
         title: "Sign Up",
         description: "Join Tripway Holidays to unlock amazing travel experiences, curated holiday packages, and exclusive offers. Sign up and get started on your journey today!",
-        url: `${apiPoint}auth/signup`,
+        url: "https://tripwayholidays.in/auth/signup",
         type: "website",
         images: [
             {

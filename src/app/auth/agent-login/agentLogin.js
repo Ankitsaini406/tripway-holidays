@@ -8,7 +8,7 @@ import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useClient } from "@/context/UserContext";
 import styles from "@/styles/pages/authpage.module.css";
 
-function AgentLogin({ setAgentLogin }) {
+function AgentLoginPage({ setAgentLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -122,4 +122,4 @@ function AgentLogin({ setAgentLogin }) {
     );
 }
 
-export default AgentLogin;
+export default AgentLoginPage;

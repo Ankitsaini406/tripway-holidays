@@ -1,125 +1,33 @@
-'use client';
+import AgentLoginPage from "./agentLogin";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FaHome } from "react-icons/fa";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { useClient } from "@/context/UserContext";
-import styles from "@/styles/pages/authpage.module.css";
+export const metadata = {
+    title: "Agent Login",
+    description: "Log in to your Tripway Holidays agent account. Manage bookings, access client details, and explore exclusive resources designed for agents.",
+    keywords: [
+        "Agent Login Tripway Holidays",
+        "Agent Portal Login",
+        "Tripway Holidays Agent Account",
+        "Login for Travel Agents",
+        "Manage Bookings Agent Portal",
+        "Agent Sign In Tripway",
+        "Tripway Holidays Agent Login Page",
+    ],
+    openGraph: {
+        title: "Agent Login",
+        description: "Access your Tripway Holidays agent account. Log in to manage client bookings, view travel packages, and leverage tools to enhance your services.",
+        url: "https://tripwayholidays.in/auth/agent-login",
+        type: "website",
+        images: [
+            {
+                url: "/favicon-512.png",
+                width: 400,
+                height: 400,
+                alt: "Agent Login to Tripway Holidays",
+            },
+        ],
+    },
+};
 
-function AgentLogin({ setAgentLogin }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [aciveContainer, setActiveContainer] = useState(true);
-    const [isHovered, setIsHovered] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const { loginUser } = useClient();
-    const router = useRouter();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!email || !password) {
-            setError("Please fill in all fields.");
-            return;
-        }
-
-        try {
-            const personExists = await loginUser(email, password);
-            if (!personExists) {
-                setError("No agent found with this email.");
-                return;
-            }
-
-            router.push("/");
-        } catch (error) {
-            setError("An unknown error occurred.");
-            console.error("Error during sign-in:", error);
-        }
-    };
-
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-
-    return (
-        <div className={styles.agentLogin}>
-            <div className={styles.loginBlur}>
-                <div className={`${styles.loginContainer} ${aciveContainer ? styles.activeCon : styles.closeCon}`}>
-                    <div className={styles.loginCard}>
-                        <Link
-                            className={styles.backToWeb}
-                            href="/"
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                        >
-                            <FaHome />&nbsp;
-                            {isHovered && <span className={styles.tooltipText}>Home</span>}
-                        </Link>
-                        <h2 className={styles.loginTitle}>Patner Login</h2>
-                        <form onSubmit={handleSubmit} style={{ margin: "0 0 1em 0" }}>
-                            <div className={styles.formGroup}>
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    className={styles.authInput}
-                                    type="email"
-                                    id="agent-email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter your email"
-                                    required
-                                />
-                            </div>
-                            <div className={styles.formGroup}>
-                                <label htmlFor="password">Password</label>
-                                <div className={styles.inputIcon}>
-                                    <input
-                                        className={styles.authInput}
-                                        type={showPassword ? "text" : "password"}
-                                        id="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Enter your password"
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className={styles.passwordToggleBtn}
-                                        onClick={togglePasswordVisibility}
-                                    >
-                                        {showPassword ? (
-                                            <MdOutlineVisibilityOff />
-                                        ) : (
-                                            <MdOutlineVisibility />
-                                        )}
-                                    </button>
-                                </div>
-                            </div>
-                            {/* <p
-                                className={styles.forgetPassword}
-                                onClick={() => setActiveContainer(false)}
-                            >
-                                Forget Password
-                            </p> */}
-                            {error && <p className={styles.errorMessage}>{error}</p>}
-                            <button type="submit" className={styles.loginButton}>
-                                Sign In
-                            </button>
-                        </form>
-                        <Link
-                            href="/auth/client-login"
-                            className={styles.forgetPassword}
-                            onClick={() => setAgentLogin(false)}
-                        >
-                            Login
-                        </Link>
-                    </div>
-                </div>
-                {/* <ForgetPassword aciveContainer={aciveContainer} setActiveContainer={setActiveContainer} /> */}
-            </div>
-        </div>
-    );
+export default function Page() {
+    return <AgentLoginPage />;
 }
-
-export default AgentLogin;
