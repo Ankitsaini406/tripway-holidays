@@ -201,6 +201,8 @@ th {
 
 .layout {
   padding: 1em;
+  margin: auto;
+  max-width: 1400px;
 }
 
 .readMore {

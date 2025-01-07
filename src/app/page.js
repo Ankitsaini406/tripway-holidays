@@ -41,19 +41,19 @@ const Home = () => {
 
     return (
         <>
+            {/* <Hero /> */}
+            <Video />
+
+            <div className={styles.hadingBox}>
+                <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
+                    <div className={styles.textBox}>
+                        <TypeWriterLoop messages={messages} duration={3} />
+                    </div>
+                </h1>
+            </div>
+
             <div className="layout">
-                {/* <Hero /> */}
-                <Video />
-
-                <div className={styles.hadingBox}>
-                    <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
-                        <div className={styles.textBox}>
-                            <TypeWriterLoop messages={messages} duration={3} />
-                        </div>
-                    </h1>
-                </div>
                 {tourData.map((tour) => (
-
                     <TourSection
                         key={tour.id}
                         id={tour.id}
@@ -68,9 +68,7 @@ const Home = () => {
                         <div className={styles.scrollRevel}>
                             <h2> <span>Group Tours</span></h2>
                             <p><span>
-                                Tripway Holidays creates group excursions that blend spirituality, exploration and cultural learning to provide life-changing travel experiences. Set out on a spiritual adventure that promotes inner tranquility and deep relationships with other travelers who share your interests. Explore our heritage excursions which create a vibrant cultural tapestry by delving into the depths of customs, art and history.
-                                Our Freedom Tours offer the ideal mix of independence and group support for tourists looking for flexibility and companionship. If you want excitement our Special Event Tours guarantee treasured moments by celebrating vibrant festivals, impressive performances and distinctive get-togethers.
-                                Every group tour offered by Tripway Holidays is designed to provide a well-balanced combination of joy, connection and discovery making each trip unique and customized to fit your interests and mood.
+                                Tripway Holidays offers group tours blending spirituality, culture, and exploration for unforgettable experiences. Embark on spiritual journeys fostering tranquility and connections, or dive into heritage tours exploring customs, art, and history. Enjoy Freedom Tours for flexibility and companionship, or celebrate vibrant festivals with Special Event Tours. Every trip combines joy, connection, and discovery, tailored to your interests and mood.
                             </span>
                             </p>
                             <Link className='readMore' href='/group-tour'>Read More</Link>

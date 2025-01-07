@@ -22,6 +22,7 @@ function AdvancedSearchBar({ onTabChange }) {
     }, [activeLink, onTabChange]);
 
     return (
+        <div className="layout">
         <div className={styles.selectionBox}>
             <ul className={styles.selectionList}>
                 {["cabs", "group"].map((link) => (
@@ -30,7 +31,7 @@ function AdvancedSearchBar({ onTabChange }) {
                             className={`${styles.searchSelectButton} ${activeLink === link ? styles.active : ""}`}
                             href={`#${link}`}
                             onClick={() => handleClick(link)}
-                        >
+                            >
                             <span className={styles.searchSpanIcons}>
                                 {link === "cabs" && <PiCarProfileLight />}
                                 {link === "group" && <HiOutlineUserGroup />}
@@ -46,6 +47,7 @@ function AdvancedSearchBar({ onTabChange }) {
                 {activeLink === "group" && <GroupSearchBar />}
             </div>
         </div>
+                </div>
     );
 }
 

@@ -38,7 +38,7 @@ function ContactUs() {
     };
 
     return (
-        <div className={`layout`}>
+        <div>
             <div className={styles.contectBord}>
                 <div className={styles.bannerFlex}>
                     <div className={styles.detailsBox}>
