@@ -26,7 +26,7 @@ function TourPackages({ tourData, allImages }) {
             <div className='heroSection'>
                 <div className='overlay'></div>
                 <Image className='heroImage' src='/slider/slider6.webp' fill alt='Group Tour Image' />
-                <h1 className='heroText'>Group Tours</h1>
+                <h1 className='heroText'>Connecting Hearts, Exploring Cultures, and Creating Unforgettable Adventures Together!</h1>
             </div>
             <div className='layout'>
                 <div className={styles.tour}>
