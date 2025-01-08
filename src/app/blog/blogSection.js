@@ -9,36 +9,40 @@ import { usePagination } from '@/hook/usePagination';
 import styles from '@/styles/pages/blogsection.module.css';
 import Image from 'next/image';
 import InfiniteScroll from '@/utils/infinitScroll';
+import Link from 'next/link';
 
 function BlogSection({ blogData, allImages }) {
-        const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
-        const { visibleItems, loadMore, reset } = usePagination(5);
+    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
+    const { visibleItems, loadMore, reset } = usePagination(5);
 
-            useEffect(() => {
-                const filtered = filterData(blogData);
-                setFilteredItems(filtered);
-                reset(filtered);
-                // eslint-disable-next-line react-hooks/exhaustive-deps
-            }, [blogData, selectedFilters]);
+    useEffect(() => {
+        const filtered = filterData(blogData);
+        setFilteredItems(filtered);
+        reset(filtered);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blogData, selectedFilters]);
 
     return (
         <>
             <div className='heroSection'>
                 <div className='overlay'></div>
-                <Image className='heroImage' src='/slider/slider2.webp' fill alt='Group Tour Image' />
+                <Image className='heroImage' src='/slider/slider2.webp' fill alt='Group Tour Image' priority />
                 <h1 className='heroText'>Bringing Stories to Life: Discover Cultures, Share Adventures, and Inspire Together!</h1>
             </div>
             <div className="layout">
+                <div className={styles.recentBlogsHeader}>
+                    <h2>Recent Blogs</h2>
+                </div>
                 <div className={styles.blogsection}>
                     {
                         visibleItems.length === 0 ? (
                             <p>Loading...</p>
                         ) : (
-                            <InfiniteScroll 
-                            loadMore={() => loadMore(filterData(blogData))}
-                            hasMore={visibleItems.length < filterData(blogData).length}
+                            <InfiniteScroll
+                                loadMore={() => loadMore(filterData(blogData))}
+                                hasMore={visibleItems.length < filterData(blogData).length}
                             >
-                                { visibleItems.map((item) => (
+                                {visibleItems.map((item) => (
                                     <BlogCard key={item.id} item={item} allImages={allImages}></BlogCard>
                                 ))}
                             </InfiniteScroll>
@@ -60,6 +64,7 @@ function BlogCard({ item, allImages }) {
     const formattedDate = formatBlogTime(new Timestamp(item.date.seconds, item.date.nanoseconds));
 
     return (
+        <Link href={`/blog/${item.slug}`} >
             <div className={styles.mainblog}>
                 <div className={styles.blogImgBox}>
                     <Image
@@ -70,7 +75,6 @@ function BlogCard({ item, allImages }) {
                         placeholder="blur"
                         blurDataURL={imageData.placeholder}
                         fill
-                        priority
                     />
                 </div>
                 <div className={styles.blogText}>
@@ -82,6 +86,7 @@ function BlogCard({ item, allImages }) {
                     <p className={styles.blogDescription}>{truncateDescription(item.description, 100)}</p>
                 </div>
             </div>
+        </Link>
     )
 }
 
