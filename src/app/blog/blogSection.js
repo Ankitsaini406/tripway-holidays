@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { Timestamp } from 'firebase/firestore';
-import { formatBlogTime, truncateDescription } from '@/utils/formatData';
+import { truncateDescription } from '@/utils/formatData';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
@@ -61,8 +60,6 @@ function BlogCard({ item, allImages }) {
         placeholder: null,
     };
 
-    const formattedDate = formatBlogTime(new Timestamp(item.date.seconds, item.date.nanoseconds));
-
     return (
         <Link href={`/blog/${item.slug}`} >
             <div className={styles.mainblog}>
@@ -80,7 +77,7 @@ function BlogCard({ item, allImages }) {
                 <div className={styles.blogText}>
                     <div className={styles.blogCatDate}>
                         <p className={styles.blogCategories}>{item.categories}</p>
-                        <p className={styles.blogDate}>{formattedDate}</p>
+                        <p className={styles.blogDate}>{item.date}</p>
                     </div>
                     <h3 className={styles.blogTitle}>{item.title}</h3>
                     <p className={styles.blogDescription}>{truncateDescription(item.description, 100)}</p>

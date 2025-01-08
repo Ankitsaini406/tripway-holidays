@@ -1,13 +1,10 @@
 
 import Image from "next/image";
 import styles from "@/styles/pages/blogsection.module.css";
-import { formatBlogTime } from "@/utils/formatData";
-import { Timestamp } from "firebase/firestore";
 
 function BlogDetails({ blogData, blurImg }) {
 
     const imageUrl = process.env.BLOG_URL;
-    const formattedDate = formatBlogTime(new Timestamp(blogData.date.seconds, blogData.date.nanoseconds));
 
     return (
         <div className="layout">
@@ -29,7 +26,7 @@ function BlogDetails({ blogData, blurImg }) {
                         <div className={styles.blogText}>
                             <div className={styles.blogCatDate}>
                                 <p className={styles.blogSingleCategories}>{blogData.categories}</p>
-                                <p className={styles.blogSingleDate}>{formattedDate}</p>
+                                <p className={styles.blogSingleDate}>{blogData.date}</p>
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
