@@ -33,18 +33,25 @@ function BlogDetails({ blogData, blurImg }) {
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
-                            {
-                                blogData.points ? (
-                                    blogData.points.map((item, index) => (
-                                        <div key={index}>
-                                            <h3>{item.point}</h3>
-                                            <p className={styles.blogSingleDescription}>{item.detail}</p>
-                                        </div>
-                                    ))
-                                ) : (
-                                    null
-                                )
-                            }
+                            {blogData.points ? (
+                                blogData.points.map((item, index) => (
+                                    <div key={index}>
+                                        <h3 className={styles.blogSingleTitle}>{item.point}</h3>
+                                        <p className={styles.blogSingleDescription}>{item.detail}</p>
+                                        {item.bullets ? (
+                                            <ul>
+                                                {item.bullets.map((bullet, index) => (
+                                                    <li key={index} className={styles.blogBullet}>{bullet}</li>
+                                                )
+                                                )}
+                                            </ul>) : (
+                                            null
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                null
+                            )}
                             <p className={styles.blogSingleDescription}>{blogData.summary}</p>
                         </div>
                     </div>

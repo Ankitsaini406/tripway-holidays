@@ -141,6 +141,12 @@
     font-size: medium;
 }
 
+.blogBullet {
+    list-style: disc;
+    margin: 0 0 0 2rem;
+    font-size: large;
+}
+
 /* Medium screens (tablets) */
 @media (max-width: 1024px) {
     .blogsection {
@@ -162,5 +168,9 @@
 
     .blogSingleTitle {
         font-size: 1.5rem;
+    }
+
+    .blogBullet { 
+        font-size: medium;
     }
 }
