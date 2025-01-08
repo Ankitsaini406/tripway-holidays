@@ -34,24 +34,24 @@ function BlogDetails({ blogData, blurImg }) {
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
                             {blogData.points ? (
-                                blogData.points.map((item, index) => (
-                                    <div key={index}>
-                                        <h3 className={styles.blogSingleTitle}>{item.point}</h3>
-                                        <p className={styles.blogSingleDescription}>{item.detail}</p>
-                                        {item.bullets ? (
-                                            <ul>
-                                                {item.bullets.map((bullet, index) => (
-                                                    <li key={index} className={styles.blogBullet}>{bullet}</li>
-                                                )
-                                                )}
-                                            </ul>) : (
-                                            null
-                                        )}
-                                    </div>
-                                ))
-                            ) : (
-                                null
-                            )}
+                                blogData.points.map((item, index) => {
+                                    // Sanitize the bullets data
+                                    const sanitizedBullets = Array.isArray(item.bullets) && item.bullets.filter(bullet => bullet.trim() !== "");
+                                    return (
+                                        <div key={index}>
+                                            <h3 className={styles.blogSingleTitle}>{item.point}</h3>
+                                            <p className={styles.blogSingleDescription}>{item.detail}</p>
+                                            {sanitizedBullets && sanitizedBullets.length > 0 ? (
+                                                <ul>
+                                                    {sanitizedBullets.map((bullet, bulletIndex) => (
+                                                        <li key={bulletIndex} className={styles.blogBullet}>{bullet}</li>
+                                                    ))}
+                                                </ul>
+                                            ) : null}
+                                        </div>
+                                    );
+                                })
+                            ) : null}
                             <p className={styles.blogSingleDescription}>{blogData.summary}</p>
                         </div>
                     </div>
