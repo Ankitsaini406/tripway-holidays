@@ -72,7 +72,7 @@ function Footer() {
                             </li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='#cabs'>Cabs</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/blog'>Blog</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/group-tour'>Group Tours</Link></li>
                         </ul>
                     </div>

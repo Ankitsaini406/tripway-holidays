@@ -1,48 +1,90 @@
 .blogsection {
-    column-count: 4;
-    column-gap: 1em;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr)) 1fr;
+    gap: 1rem;
+    padding: 1em 0 0 0;
 }
 
 .mainblog {
-    border: 1px solid #ccc;
-    margin: 0 0 1em 0;
-    -webkit-column-break-inside: avoid;
-    break-inside: avoid;
-    page-break-inside: avoid;
     height: auto;
-    padding: 1em;
+    margin: 0 0 1em 0;
+    border-radius: 10px;
+    border: 1px solid var(--lvory-color);
+    box-shadow: 0 0 20px 0px #dbdbdb;
+
+    &:hover {
+        box-shadow: 0 0 20px 0px #484646;
+        transition: all 0.3s ease-in-out;
+    }
 }
 
 .blogImgBox {
     position: relative;
     width: 100%;
     max-width: 600px;
-    min-height: 300px;
+    min-height: 200px;
     max-height: 500px;
-    border-radius: var(--border-radius);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
 .blogImg {
     max-width: 100%;
     height: auto;
-    border-radius: var(--border-radius);
+    border-radius: 10px 10px 0px 0px;
 }
 
-@media (max-width: 1200px) {
+.blogText {
+    padding: 1em;
+}
+
+.blogTitle {
+    font-size: large;
+    margin: 10px 0;
+}
+
+.blogDescription {
+    margin: 0;
+    font-size:medium;
+    color: var(--secondary-text);
+}
+
+.blogCatDate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blogCategories {
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    width: max-content;
+    color: var(--earthy-brown);
+    background-color: var(--turmeric-yellow);
+    font-size: small;
+}
+
+.blogDate {
+    margin: 0;
+    font-size: smaller;
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
     .blogsection {
-        column-count: 3;
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
     }
 }
 
-@media (max-width: 770px) {
+/* Small screens (mobile) */
+@media (max-width: 768px) {
     .blogsection {
-        column-count: 2;
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
     }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
     .blogsection {
-        column-count: 1;
+        grid-template-columns: repeat(1, minmax(200px, 1fr));
     }
 }
