@@ -1,5 +1,20 @@
 import { Timestamp } from 'firebase/firestore';
 
+export const formatBlogTime = (timestamp) => {
+    // Check if it's a Firestore Timestamp or a regular date
+    const date = timestamp instanceof Timestamp ? timestamp.toDate() : new Date(timestamp);
+
+    if (!(date instanceof Date) || isNaN(date)) return "Invalid Date"; // Validate the date
+
+    // Format the date to DD-MMM-YYYY
+    const day = date.getDate().toString().padStart(2, '0');
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+};
+
 export const formatTimestamp = (timestamp) => {
     if (timestamp instanceof Timestamp) {
         return formatDate(timestamp.toDate());

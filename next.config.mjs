@@ -18,6 +18,7 @@ const nextConfig = {
         APP_EMAIL: process.env.NEXT_APP_EMAIL,
         APP_PASSWORD: process.env.NEXT_APP_PASSWORD,
         IMAGE_URL: process.env.NEXT_IMAGE_URL,
+        BLOG_URL: process.env.NEXT_BLOG_IMAGE_URL,
         BOT_URL: process.env.NEXT_APP_BOT_URL,
         GA_TRACKING_ID: process.env.NEXT_APP_GA_TRACKING_ID,
         GTM_TRACKING_ID: process.env.NEXT_APP_GTM_TRACKING_ID,
