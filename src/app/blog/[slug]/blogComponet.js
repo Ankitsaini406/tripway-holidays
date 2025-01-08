@@ -33,6 +33,19 @@ function BlogDetails({ blogData, blurImg }) {
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
+                            {
+                                blogData.points ? (
+                                    blogData.points.map((item, index) => (
+                                        <div key={index}>
+                                            <h3>{item.point}</h3>
+                                            <p className={styles.blogSingleDescription}>{item.detail}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    null
+                                )
+                            }
+                            <p className={styles.blogSingleDescription}>{blogData.summary}</p>
                         </div>
                     </div>
                 ) : (
