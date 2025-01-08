@@ -44,6 +44,7 @@ export async function generateMetadata({ params }) {
                 "Destination Guides",
                 "Holiday Inspiration",
                 blog.title,
+                ...(blog.points ? blog.points.map(item => item.point) : []),
             ],
             openGraph: {
                 title: `${blog.title}`,
