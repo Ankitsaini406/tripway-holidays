@@ -57,7 +57,7 @@ function AgentLoginPage({ setAgentLogin }) {
                             <FaHome />&nbsp;
                             {isHovered && <span className={styles.tooltipText}>Home</span>}
                         </Link>
-                        <h2 className={styles.loginTitle}>Partner Login</h2>
+                        <h1 className={styles.loginTitle}>Partner Login</h1>
                         <form onSubmit={handleSubmit} style={{ margin: "0 0 1em 0" }}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="email">Email</label>

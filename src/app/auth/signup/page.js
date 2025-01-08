@@ -1,7 +1,6 @@
 import SignUpPage from "./signup";
 
 export const metadata = {
-
     title: "Sign Up",
     description: "Create your account with Tripway Holidays. Sign up today to explore personalized holiday packages, exclusive deals, and seamless bookings.",
     keywords: [
@@ -27,8 +26,15 @@ export const metadata = {
             },
         ],
     },
+    meta: [
+        { name: "robots", content: "index, follow" },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        { name: "author", content: "Tripway Holidays - Sign Up" },
+        { name: "theme-color", content: "#ffffff" },
+        { charset: "UTF-8" },
+    ],
 };
 
 export default function Page() {
-    return <SignUpPage />
+    return <SignUpPage />;
 }

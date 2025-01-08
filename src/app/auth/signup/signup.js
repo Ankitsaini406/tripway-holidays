@@ -65,7 +65,7 @@ function SignUpPage() {
                             <FaHome />&nbsp;
                             {isHovered && <span className={styles.tooltipText}>Home</span>}
                         </Link>
-                        <h2 className={styles.loginTitle}>Sign Up</h2>
+                        <h1 className={styles.loginTitle}>Sign Up</h1>
                         <form onSubmit={handleSubmit}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="name">Name</label>

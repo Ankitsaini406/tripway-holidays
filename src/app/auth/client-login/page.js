@@ -26,8 +26,15 @@ export const metadata = {
             },
         ],
     },
+    meta: [
+        { name: "robots", content: "index, follow" },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        { name: "author", content: "Tripway Holidays - Login" },
+        { name: "theme-color", content: "#ffffff" },
+        { charset: "UTF-8" },
+    ],
 };
 
 export default function Page() {
-    return <ClientLoaginPage />
+    return <ClientLoaginPage />;
 }

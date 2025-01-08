@@ -1,7 +1,6 @@
 import AgentLoginPage from "./agentLogin";
 
 export const metadata = {
-
     title: "Agent Login",
     description: "Log in to your Tripway Holidays agent account. Manage bookings, access client details, and explore exclusive resources designed for agents.",
     keywords: [
@@ -27,6 +26,13 @@ export const metadata = {
             },
         ],
     },
+    meta: [
+        { name: "robots", content: "index, follow" },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        { name: "author", content: "Tripway Holidays - Agent Login" },
+        { name: "theme-color", content: "#ffffff" },
+        { charset: "UTF-8" },
+    ],
 };
 
 export default function Page() {

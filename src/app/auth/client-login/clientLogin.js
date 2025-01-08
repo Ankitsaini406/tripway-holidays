@@ -66,7 +66,7 @@ function ClientLoaginPage() {
                                     &nbsp;
                                     {isHovered && <span className={styles.tooltipText}>Home</span>}
                                 </Link>
-                                <h2 className={styles.loginTitle}>Login</h2>
+                                <h1 className={styles.loginTitle}>Login</h1>
                                 <form onSubmit={handleSubmit}>
                                     <div className={styles.formGroup}>
                                         <label htmlFor="email">Email</label>
