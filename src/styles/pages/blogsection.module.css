@@ -3,7 +3,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 20px 0; /* Add spacing above and below the section */
+    margin: 20px 0;
+    /* Add spacing above and below the section */
 }
 
 .recentBlogsHeader h2 {
@@ -102,7 +103,7 @@
 
 .blogDescription {
     margin: 0;
-    font-size:medium;
+    font-size: medium;
     color: var(--secondary-text);
 }
 
@@ -149,12 +150,14 @@
 
 .blogWriten {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     margin: 3rem 0 0 0;
+    flex-direction: column-reverse;
+    gap: 1rem;
 
-    & > h4 {
+    &>h4 {
         font-weight: bolder;
     }
 }
@@ -163,7 +166,7 @@
     display: flex;
     gap: 1rem;
 
-    & > a {
+    &>a {
         color: black;
         font-weight: bolder;
     }
@@ -192,7 +195,7 @@
         font-size: 1.5rem;
     }
 
-    .blogBullet { 
+    .blogBullet {
         font-size: medium;
     }
 }
