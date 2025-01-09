@@ -2,6 +2,7 @@
 .tour {
     display: flex;
     flex-direction: row;
+    padding: 1em 0;
     gap: 1em;
 }
 
@@ -49,19 +50,21 @@
     gap: 2em;
 }
 
+.tourGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(270px, 1fr)) 1fr;
+    gap: 1rem;
+}
+
 .tourCard {
-    display: flex;
-    gap: 1em;
     width: 100%;
-    max-width: 400px;
-    flex-direction: column;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    max-width: 270px;
     border-radius: 10px;
-    align-items: flex-start;
+    box-shadow: 0 0 20px 0px #dbdbdb;
 
     &:hover {
-        box-shadow: rgba(149, 157, 165, 0.5) 0px 10px 24px 5px;
-        transition: all 0.3s ease-in-out;
+        box-shadow: 0 0 20px 0px #484646;
+        transition: box-shadow 0.3s ease-in-out;
     }
 }
 
@@ -102,6 +105,12 @@
     & > h4 {
     font-size: clamp(0.9rem, 1vmin + 0.2rem, 2rem);
     }
+
+    & > p {
+        margin: 0 0 1em 0;
+        font-size: medium;
+        color: var(--secondary-text);
+    }
 }
 
 @media (max-width: 1030px) {
@@ -109,11 +118,15 @@
     .tourDetails {
         flex-shrink: 1.2;
     }
+
+    .tourGrid {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+    }
 }
 
 @media (max-width: 770px) {
 
-    .tour, .tourCard  {
+    .tour {
         flex-direction: column;
     }
 
@@ -162,12 +175,18 @@
         flex-direction: column;
     }
 
-    .tourImage { 
-        width: 100%;
-        height: 300px;
+    .tourGrid {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        justify-items: center;
+        gap: 0.5rem;
     }
 
-    .tourCard {
-        align-items: center;
+    .tourCard, .tourImage {
+        max-width: max-content;
+    }
+
+    .tourImage { 
+        width: 100%;
+        height: 200px;
     }
 }

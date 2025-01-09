@@ -9,6 +9,7 @@ import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
 import styles from '@/styles/pages/tourPackage.module.css';
 import Loading from './loading';
+import { truncateDescription } from '@/utils/formatData';
 
 function TourPackages({ tourData, allImages }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
@@ -48,7 +49,9 @@ function TourPackages({ tourData, allImages }) {
                                 hasMore={visibleItems.length < filterData(tourData).length}
                             >
                                 {visibleItems.map((item) => (
+                                    <div className={styles.tourGrid}>
                                     <TourCard key={item.id} item={item} allImages={allImages} />
+                                    </div>
                                 ))}
                             </InfiniteScroll>
                         )}
@@ -123,7 +126,7 @@ function TourCard({ item, allImages }) {
             <div className={styles.tourDetails}>
                 <h4>{item.category}</h4>
                 <h1>{item.name}</h1>
-                {/* <p>{item.description}</p> */}
+                <p> {truncateDescription(item.description)}</p>
                 <Link href={`/group-tour/${item.slug}`} className='readMore'>
                     View Details
                 </Link>
