@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { truncateDescription } from '@/utils/formatData';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
-import styles from '@/styles/pages/blogsection.module.css';
-import Image from 'next/image';
 import InfiniteScroll from '@/utils/infinitScroll';
-import Link from 'next/link';
+import { IoTimeOutline } from "react-icons/io5";
+import styles from '@/styles/pages/blogsection.module.css';
 
 function BlogSection({ blogData, allImages }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
@@ -77,7 +78,10 @@ function BlogCard({ item, allImages }) {
                 <div className={styles.blogText}>
                     <div className={styles.blogCatDate}>
                         <p className={styles.blogCategories}>{item.categories}</p>
-                        <p className={styles.blogDate}>{item.date}</p>
+                        <div className={styles.blogCatDate}>
+                            <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
+                            <p className={styles.blogDate}>{item.date}</p>
+                        </div>
                     </div>
                     <h3 className={styles.blogTitle}>{item.title}</h3>
                     <p className={styles.blogDescription}>{truncateDescription(item.description, 100)}</p>

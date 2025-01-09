@@ -147,6 +147,28 @@
     font-size: large;
 }
 
+.blogWriten {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 3rem 0 0 0;
+
+    & > h4 {
+        font-weight: bolder;
+    }
+}
+
+.socialIcons {
+    display: flex;
+    gap: 1rem;
+
+    & > a {
+        color: black;
+        font-weight: bolder;
+    }
+}
+
 /* Medium screens (tablets) */
 @media (max-width: 1024px) {
     .blogsection {

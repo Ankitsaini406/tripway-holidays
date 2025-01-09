@@ -1,6 +1,10 @@
 
 import Image from "next/image";
+import { IoTimeOutline } from "react-icons/io5";
 import styles from "@/styles/pages/blogsection.module.css";
+import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import Link from "next/link";
 
 function BlogDetails({ blogData, blurImg }) {
 
@@ -26,7 +30,10 @@ function BlogDetails({ blogData, blurImg }) {
                         <div className={styles.blogText}>
                             <div className={styles.blogCatDate}>
                                 <p className={styles.blogSingleCategories}>{blogData.categories}</p>
-                                <p className={styles.blogSingleDate}>{blogData.date}</p>
+                                <div className={styles.blogCatDate}>
+                                    <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
+                                    <p className={styles.blogDate}>{blogData.date}</p>
+                                </div>
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
@@ -50,6 +57,33 @@ function BlogDetails({ blogData, blurImg }) {
                                 })
                             ) : null}
                             <p className={styles.blogSingleDescription}>{blogData.summary}</p>
+                            <div className={styles.blogWriten}>
+                                <div className={styles.socialIcons}>
+                                    <>
+                                        {blogData.instagram && blogData.instagram.trim() !== "" && (
+                                            <Link href={blogData.instagram}>
+                                                <FaInstagram />
+                                            </Link>
+                                        )}
+                                        {blogData.facebook && blogData.facebook.trim() !== "" && (
+                                            <Link href={blogData.facebook}>
+                                                <FaFacebookF />
+                                            </Link>
+                                        )}
+                                        {blogData.linkedin && blogData.linkedin.trim() !== "" && (
+                                            <Link href={blogData.linkedin}>
+                                                <FaLinkedin />
+                                            </Link>
+                                        )}
+                                        {blogData.x && blogData.x.trim() !== "" && (
+                                            <Link href={blogData.x}>
+                                                <FaXTwitter />
+                                            </Link>
+                                        )}
+                                    </>
+                                </div>
+                                {blogData.writenBy && blogData.writenBy.trim() !== "" && <h4>Writen By : {blogData.writenBy}</h4>}
+                            </div>
                         </div>
                     </div>
                 ) : (
