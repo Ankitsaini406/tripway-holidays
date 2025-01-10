@@ -69,8 +69,11 @@ export default async function Page() {
 
     const allImages = await Promise.all(
         blogData.map(async (blog) => {
-            const fullImageUrl = `${imageUrl}${blog.image}`;
 
+            const isProduction = process.env.NODE_ENV === 'production';
+            const fullImageUrl = `${imageUrl}${blog.image}${isProduction ? `?t=${new Date().getTime()}` : ''}`;
+
+            // const fullImageUrl = `${imageUrl}${blog.image}`;
             try {
                 const res = await fetch(fullImageUrl);
                 if (!res.ok) {

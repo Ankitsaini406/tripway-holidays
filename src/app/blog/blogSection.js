@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { truncateDescription } from '@/utils/formatData';
@@ -34,20 +34,18 @@ function BlogSection({ blogData, allImages }) {
                     <h2>Recent Blogs</h2>
                 </div>
                 <div className={styles.blogsection}>
-                    {
-                        visibleItems.length === 0 ? (
-                            <p>Loading...</p>
-                        ) : (
-                            <InfiniteScroll
-                                loadMore={() => loadMore(filterData(blogData))}
-                                hasMore={visibleItems.length < filterData(blogData).length}
-                            >
-                                {visibleItems.map((item) => (
-                                    <BlogCard key={item.id} item={item} allImages={allImages}></BlogCard>
-                                ))}
-                            </InfiniteScroll>
-                        )
-                    }
+                    {visibleItems.length === 0 ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <InfiniteScroll
+                            loadMore={() => loadMore(filterData(blogData))}
+                            hasMore={visibleItems.length < filterData(blogData).length}
+                        >
+                            {visibleItems.map((item) => (
+                                <BlogCard key={item.id} item={item} allImages={allImages}></BlogCard>
+                            ))}
+                        </InfiniteScroll>
+                    )}
                 </div>
             </div>
         </>
@@ -132,7 +130,7 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 }
 
 function extractFilters(data) {
-    return [...new Set(data.map((item) => item.category))].sort();
+    return [...new Set(data.map((item) => item.categories))].sort();
 }
 
 export default BlogSection;
