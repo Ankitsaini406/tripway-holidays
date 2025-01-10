@@ -9,7 +9,7 @@ import { usePagination } from '@/hook/usePagination';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { IoTimeOutline } from "react-icons/io5";
 import styles from '@/styles/pages/blogsection.module.css';
-import Loading from './Loading';
+import Loading from './Loading'; 
 
 function BlogSection({ blogData, allImages }) {
     const { selectedFilters, filterData, setFilteredItems } = useFilters();
