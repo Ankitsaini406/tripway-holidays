@@ -10,15 +10,20 @@ import { usePagination } from '@/hook/usePagination';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { IoTimeOutline } from "react-icons/io5";
 import styles from '@/styles/pages/blogsection.module.css';
+import Loading from './Loading';
 
 function BlogSection({ blogData, allImages }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const filtered = filterData(blogData);
-        setFilteredItems(filtered);
-        reset(filtered);
+        if (blogData?.length > 0) {
+            setIsLoading(false); // Stop loading once data is available
+            const filtered = filterData(blogData);
+            setFilteredItems(filtered);
+            reset(filtered);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blogData, selectedFilters]);
 
@@ -34,8 +39,8 @@ function BlogSection({ blogData, allImages }) {
                     <h2>Recent Blogs</h2>
                 </div>
                 <div className={styles.blogsection}>
-                    {visibleItems.length === 0 ? (
-                        <p>Loading...</p>
+                    {isLoading ? (
+                        <Loading />
                     ) : (
                         <InfiniteScroll
                             loadMore={() => loadMore(filterData(blogData))}
