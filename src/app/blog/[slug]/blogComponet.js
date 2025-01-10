@@ -5,6 +5,7 @@ import styles from "@/styles/pages/blogsection.module.css";
 import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import PermotingSection from "@/utils/PermotingSection";
 
 function BlogDetails({ blogData, blurImg }) {
 
@@ -29,7 +30,7 @@ function BlogDetails({ blogData, blurImg }) {
                         </div>
                         <div className={styles.blogText}>
                             <div className={styles.blogCatDate}>
-                                <p className={styles.blogSingleCategories}>{blogData.categories}</p>
+                                <p className={styles.blogSingleCategories}>{blogData.category}</p>
                                 <div className={styles.blogCatDate}>
                                     <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
                                     <p className={styles.blogDate}>{blogData.date}</p>
@@ -37,6 +38,7 @@ function BlogDetails({ blogData, blurImg }) {
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
+                            <PermotingSection category={blogData.category} />
                             {blogData.points ? (
                                 blogData.points.map((item, index) => {
                                     // Sanitize the bullets data

@@ -79,7 +79,7 @@ function BlogCard({ item, allImages }) {
                 </div>
                 <div className={styles.blogText}>
                     <div className={styles.blogCatDate}>
-                        <p className={styles.blogCategories}>{item.categories}</p>
+                        <p className={styles.blogCategories}>{item.category}</p>
                         <div className={styles.blogCatDate}>
                             <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
                             <p className={styles.blogDate}>{item.date}</p>
