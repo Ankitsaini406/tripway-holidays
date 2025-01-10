@@ -1,18 +1,13 @@
 import BlogSection from "./blogSection";
 import { getPlaiceholder } from "plaiceholder";
 
-const localApi = process.env.API_URL;
-const productionApi = process.env.HOST_URL;
-const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
 async function fetchBlogData() {
 
-const localApi = process.env.API_URL;
-const productionApi = process.env.HOST_URL;
-const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
-
+    const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
     try {
-        const response = await fetch(`${apiPoint}api/blog`);
+        const response = await fetch(`${apiPoint}api/blog?t=${new Date().getTime()}`);
         if (!response.ok) {
             console.error(`API responded with status: ${response.status}`);
             return null;
