@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { truncateDescription } from '@/utils/formatData';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
 import InfiniteScroll from '@/utils/infinitScroll';
@@ -13,7 +12,7 @@ import styles from '@/styles/pages/blogsection.module.css';
 import Loading from './Loading';
 
 function BlogSection({ blogData, allImages }) {
-    const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
+    const { selectedFilters, filterData, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -31,7 +30,7 @@ function BlogSection({ blogData, allImages }) {
         <>
             <div className='heroSection'>
                 <div className='overlay'></div>
-                <Image className='heroImage' src='/slider/slider2.webp' fill alt='Group Tour Image' priority />
+                <Image className='heroImage' src='/blogs/blogHero.webp' fill alt='Group Tour Image' priority />
                 <h1 className='heroText'>Bringing Stories to Life: Discover Cultures, Share Adventures, and Inspire Together!</h1>
             </div>
             <div className="layout">
@@ -92,50 +91,6 @@ function BlogCard({ item, allImages }) {
             </div>
         </Link>
     )
-}
-
-function Filters({ filters, selectedFilters, toggleFilter }) {
-    const [isMobile, setIsMobile] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 770);
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return (
-        <div className={styles.filtersContainer}>
-            {isMobile ? (
-                <button
-                    className={styles.dropdownToggle}
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                >
-                    Filters {isDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
-                </button>
-            ) : null}
-            {(isMobile ? isDropdownOpen : true) && (
-                <div className={styles.filtersBox}>
-                    {filters.map((category) => (
-                        <div className={styles.filterItem} key={category}>
-                            <input
-                                type="checkbox"
-                                id={`filter-${category}`}
-                                checked={selectedFilters.includes(category)}
-                                onChange={() => toggleFilter(category)}
-                            />
-                            <label htmlFor={`filter-${category}`}>{category}</label>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
-
-function extractFilters(data) {
-    return [...new Set(data.map((item) => item.categories))].sort();
 }
 
 export default BlogSection;

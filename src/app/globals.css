@@ -208,7 +208,7 @@ th {
 .readMore {
   border: 1px solid transparent;
   width: max-content;
-  padding: 0.4em;
+  padding: 0.4em 1em;
   color: var(--white-color);
   background-color: var(--indigo-blue);
   border-radius: 5px;

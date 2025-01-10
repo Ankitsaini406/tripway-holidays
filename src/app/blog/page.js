@@ -4,10 +4,12 @@ import { getPlaiceholder } from "plaiceholder";
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
 async function fetchBlogData() {
-
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
     try {
-        const response = await fetch(`${apiPoint}api/blog?t=${new Date().getTime()}`);
+        // Add timestamp as a query parameter to prevent caching
+        const timestamp = Math.floor(Date.now() / 60000); // Updates every 60 seconds
+        const response = await fetch(`${apiPoint}api/blog?t=${timestamp}`, { cache: "no-store" });
+
         if (!response.ok) {
             console.error(`API responded with status: ${response.status}`);
             return null;
@@ -16,7 +18,7 @@ async function fetchBlogData() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Failed to fetch tour data:", error);
+        console.error("Failed to fetch blog data:", error);
         return null;
     }
 }
@@ -66,11 +68,11 @@ export default async function Page() {
         blogData.map(async (blog) => {
 
             const isProduction = process.env.NODE_ENV === 'production';
-            const fullImageUrl = `${imageUrl}${blog.image}${isProduction ? `?t=${new Date().getTime()}` : ''}`;
+            const fullImageUrl = `${imageUrl}${blog.image}${isProduction ? `?t=${Math.floor(Date.now() / 60000)}` : ""}`;
 
             // const fullImageUrl = `${imageUrl}${blog.image}`;
             try {
-                const res = await fetch(fullImageUrl);
+                const res = await fetch(fullImageUrl, { cache: "no-store" });
                 if (!res.ok) {
                     console.error(`Error loading image: ${fullImageUrl}`);
                     return { url: fullImageUrl, placeholder: null }; // Fallback
