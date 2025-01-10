@@ -53,16 +53,17 @@
 .RecommendedSection {
     width: 100%;
     margin: 3em auto 1em auto;
-    padding: 1em;
+    /* padding: 1em; */
     overflow: hidden;
     border-radius: 10px;
 }
 
 .RecommendGrid {
-    margin: 1em 0 0 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(300px, 1fr)) 1fr;
     gap: 1rem;
+    display: grid;
+    overflow: auto;
+    margin: 1em 0 0 0;
+    grid-template-columns: repeat(3, minmax(300px, 1fr)) 1fr;
 }
 
 .RecommendedImgBox {
@@ -130,12 +131,6 @@
 
 .readMore:hover {
     background: rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 1030px) { 
-    .RecommendGrid { 
-        overflow: scroll;
-    }
 }
 
 @media (max-width: 430px) {

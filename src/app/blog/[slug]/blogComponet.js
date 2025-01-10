@@ -1,11 +1,13 @@
 
+import Link from "next/link";
 import Image from "next/image";
 import { IoTimeOutline } from "react-icons/io5";
 import styles from "@/styles/pages/blogsection.module.css";
 import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import Link from "next/link";
-import { PermotingSection, RecommendedSection } from "@/utils/Sections";
+import dynamic from "next/dynamic";
+const RecommendedSection = dynamic(() => import('@/utils/Sections').then((mod) => mod.RecommendedSection));
+const PermotingSection = dynamic(() => import('@/utils/Sections').then((mod) => mod.PermotingSection));
 
 function BlogDetails({ blogData, blurImg }) {
 
