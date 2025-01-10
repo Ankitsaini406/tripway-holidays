@@ -35,9 +35,8 @@ export function PermotingSection({ category }) {
         fetchData();
     }, [category]);
 
-    // If there is no category data or it's loading, return nothing
     if (isLoading || error || !categoryData) {
-        return null; // Don't render anything
+        return null;
     }
 
     return (
@@ -65,9 +64,7 @@ export function PermotingSection({ category }) {
     );
 }
 
-
-export function RecommendedSection() {
-
+export function RecommendedSection({ currentSlug }) {
     const [blogs, setBlogs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -86,7 +83,11 @@ export function RecommendedSection() {
                 }
 
                 const data = await response.json();
-                setBlogs(data.slice(0, 4));
+                // Filter out the current blog
+                const filteredBlogs = data.filter((blog) => blog.slug !== currentSlug);
+
+                // Get only 4 blogs
+                setBlogs(filteredBlogs.slice(0, 4));
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -95,10 +96,10 @@ export function RecommendedSection() {
         };
 
         fetchData();
-    }, []);
+    }, [currentSlug]);
 
     if (isLoading || error) {
-        return null; // Don't render anything
+        return null;
     }
 
     return (
@@ -107,26 +108,26 @@ export function RecommendedSection() {
             <div className={styles.RecommendGrid}>
                 {blogs.map((blog, index) => (
                     <div key={index} className={styles.RecommendedImgBox}>
-                    <Image
-                        className={styles.RecommendedImg}
-                        src={`${imageUrl}${blog.image}`}
-                        alt={blog.title}
-                        fill
-                    />
-                    <div className={styles.RecommendedOverlay}>
-                        <h4 className={styles.RecommendedTitle}>{blog.title}</h4>
-                        <Link
-                            href={`/blog/${blog.slug}`}
-                            className="readMore"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Read More
-                        </Link>
+                        <Image
+                            className={styles.RecommendedImg}
+                            src={`${imageUrl}${blog.image}`}
+                            alt={blog.title}
+                            fill
+                        />
+                        <div className={styles.RecommendedOverlay}>
+                            <h4 className={styles.RecommendedTitle}>{blog.title}</h4>
+                            <Link
+                                href={`/blog/${blog.slug}`}
+                                className="readMore"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Read More
+                            </Link>
+                        </div>
                     </div>
-                </div>
                 ))}
             </div>
         </div>
-    )
+    );
 }

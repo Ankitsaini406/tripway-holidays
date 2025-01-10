@@ -87,7 +87,7 @@ function BlogDetails({ blogData, blurImg }) {
                                 </div>
                                 {blogData.writenBy && blogData.writenBy.trim() !== "" && <h4>Writen By : {blogData.writenBy}</h4>}
                             </div>
-                            <RecommendedSection />
+                            <RecommendedSection currentSlug={blogData.slug} />
                         </div>
                     </div>
                 ) : (
