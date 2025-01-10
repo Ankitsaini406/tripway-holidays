@@ -1,10 +1,10 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { format, isBefore, parse } from "date-fns";
+import { isBefore, parse } from "date-fns";
 import { firestore } from "@/firebase/firebaseConfig";
 
 export async function GET(req, { params }) {
     try {
-        const { category } = params;
+        const { category } = await params;
 
         if (!category) {
             return new Response("Category is required.", { status: 400 });

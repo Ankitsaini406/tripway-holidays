@@ -5,7 +5,7 @@ import styles from "@/styles/pages/blogsection.module.css";
 import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
-import PermotingSection from "@/utils/PermotingSection";
+import { PermotingSection, RecommendedSection } from "@/utils/Sections";
 
 function BlogDetails({ blogData, blurImg }) {
 
@@ -58,6 +58,7 @@ function BlogDetails({ blogData, blurImg }) {
                                     );
                                 })
                             ) : null}
+                            <PermotingSection category={blogData.category} />
                             <p className={styles.blogSingleDescription}>{blogData.summary}</p>
                             <div className={styles.blogWriten}>
                                 <div className={styles.socialIcons}>
@@ -86,6 +87,7 @@ function BlogDetails({ blogData, blurImg }) {
                                 </div>
                                 {blogData.writenBy && blogData.writenBy.trim() !== "" && <h4>Writen By : {blogData.writenBy}</h4>}
                             </div>
+                            <RecommendedSection />
                         </div>
                     </div>
                 ) : (
