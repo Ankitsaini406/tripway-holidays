@@ -21,7 +21,6 @@
     max-height: 500px;
     position: relative;
     flex-shrink: 0.7;
-    border-radius: 10px 10px 0px 0px;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
 }
 
@@ -77,8 +76,6 @@
 }
 
 .RecommendedImg {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease-in-out;
     border-radius: 10px;

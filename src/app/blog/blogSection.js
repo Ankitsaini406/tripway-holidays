@@ -68,6 +68,7 @@ function BlogCard({ item, allImages }) {
             <div className={styles.mainblog}>
                 <div className={styles.blogImgBox}>
                     <Image
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className={styles.blogImg}
                         data-src={imageData.url}
                         src={imageData.url}

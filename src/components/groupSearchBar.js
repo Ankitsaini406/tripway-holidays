@@ -11,13 +11,14 @@ export default function GroupSearchBar() {
     const route = useRouter();
 
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
+    const timestamp = Math.floor(Date.now() / 60000);
 
     // Fetch categories from API
     useEffect(() => {
         const fetchCategories = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`${apiPoint}api/category`);
+                const response = await fetch(`${apiPoint}api/category?t=${timestamp}`, {cache: 'no-cache'});
                 if (!response.ok) throw new Error("Failed to fetch categories");
 
                 const data = await response.json();

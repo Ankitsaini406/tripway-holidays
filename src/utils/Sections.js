@@ -45,6 +45,7 @@ export function PermotingSection({ category }) {
                 <div className={styles.permotingImgBox}>
                     {categoryData?.imageUrl ? (
                         <Image
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             className={styles.permotingImg}
                             src={`${imageUrl}${categoryData.imageUrl}`}
                             alt={categoryData.name}
@@ -109,6 +110,7 @@ export function RecommendedSection({ currentSlug }) {
                 {blogs.map((blog, index) => (
                     <div key={index} className={styles.RecommendedImgBox}>
                         <Image
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             className={styles.RecommendedImg}
                             src={`${imageUrl}${blog.image}`}
                             alt={blog.title}
