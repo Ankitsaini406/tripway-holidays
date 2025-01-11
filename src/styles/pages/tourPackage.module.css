@@ -45,11 +45,6 @@
     cursor: pointer;
 }
 
-.tourBox {
-    display: flex;
-    gap: 2em;
-}
-
 .tourGrid {
     display: grid;
     grid-template-columns: repeat(4, minmax(270px, 1fr)) 1fr;
@@ -171,7 +166,7 @@
 
 @media (max-width: 430px) {
 
-    .tour, .tourBox {
+    .tour {
         flex-direction: column;
     }
 

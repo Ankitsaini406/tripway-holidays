@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from "next/navigation"; // Import useRouter and useSearchParams
+import { useSearchParams } from "next/navigation";
 import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -23,8 +23,6 @@ function TourPackages({ tourData, allImages }) {
     useEffect(() => {
         if (tourOption) {
             toggleFilter(tourOption);
-        } else {
-            console.log("No tourOption found in the URL.");
         }
         if (selectedModel) {
             toggleFilter(selectedModel);

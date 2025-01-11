@@ -8,8 +8,6 @@
     width: 100%;
     height: 200px;
     border-radius: 5px;
-    display: flex;
-    gap: 1em;
 }
 
 .filterLoading {
@@ -20,15 +18,6 @@
     background-size: 200% 100%;
     animation: shimmering 1.5s linear infinite;
 }
-
-/* .imageLoading {
-    width: 30%;
-    height: 150px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
-    background-size: 200% 100%;
-    animation: shimmering 1.5s linear infinite;
-} */
 
 .flexLoading {
     display: flex;

@@ -75,15 +75,15 @@ const Home = () => {
                         </div>
                         <div className={styles.imgBox}>
                             <Image
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 className={styles.tourImg}
                                 data-src={`/slider/slider6.webp`}
                                 src={`/slider/slider6.webp`}
                                 alt="multicolored-buntings"
                                 placeholder="blur"
                                 blurDataURL={`/slider/slider6.webp`}
-                                width={600}
-                                height={600}
                                 loading="lazy"
+                                fill
                             />
                         </div>
                     </div>

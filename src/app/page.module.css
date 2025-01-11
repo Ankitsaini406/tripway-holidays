@@ -113,11 +113,22 @@
   order: -1;
 }
 
-.tourImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.imgBox {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
   border-radius: var(--border-radius);
+}
+
+.tourImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+      transform: scale(1.1);
+  }
 }
 
 .mainBox {
@@ -190,11 +201,6 @@
   & p{
     color: var(--white-color);
   }
-}
-
-.imgBox {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.3));
-  border-radius: var(--border-radius);
 }
 
 @media (max-width: 1024px) {

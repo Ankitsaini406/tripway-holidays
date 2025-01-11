@@ -23,15 +23,14 @@ export const TourSection = ({ id, title, description, imageSrc, blurDataURL, err
                 </div>
                 <div className={styles.imgBox}>
                     <Image
-                        title={title}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className={styles.tourImg}
                         src={imageSrc} // Path to the public folder image
                         alt={title}
                         placeholder="blur"
                         blurDataURL={imageSrc} // Pass the blurDataURL for image placeholder
-                        width={600}
-                        height={600}
                         loading="lazy"
+                        fill
                     />
                 </div>
             </div>
