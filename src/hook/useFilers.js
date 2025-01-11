@@ -5,7 +5,11 @@ export function useFilters(tourOption) {
     const [filteredItems, setFilteredItems] = useState([]);
 
     useEffect(() => {
-        if (tourOption) setSelectedFilters([tourOption]);
+        if (tourOption) {
+            setSelectedFilters([tourOption]);
+        } else {
+            setSelectedFilters([]);
+        }
     }, [tourOption]);
 
     const filterData = (data) =>

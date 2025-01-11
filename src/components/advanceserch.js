@@ -5,7 +5,7 @@ import { PiCarProfileLight } from "react-icons/pi";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import "react-datepicker/dist/react-datepicker.css";
 import { CabSearchBar } from "./cabSearchBar";
-import { GroupSearchBar } from "./groupSearchBar";
+import GroupSearchBar from "./groupSearchBar";
 import styles from '../styles/components/advancesearchbar.module.css';
 
 function AdvancedSearchBar({ onTabChange }) {

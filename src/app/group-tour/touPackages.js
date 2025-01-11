@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from "next/navigation"; // Import useRouter and useSearchParams
 import Link from 'next/link';
 import InfiniteScroll from '@/utils/infinitScroll';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -15,21 +16,40 @@ function TourPackages({ tourData, allImages }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
 
+    const searchParams = useSearchParams();
+    const tourOption = searchParams.get('tourOption');
+    const selectedModel = searchParams.get('selectedModel');
+
+    useEffect(() => {
+        if (tourOption) {
+            toggleFilter(tourOption);
+        } else {
+            console.log("No tourOption found in the URL.");
+        }
+        if (selectedModel) {
+            toggleFilter(selectedModel);
+        }
+    }, []);
+    
+
     useEffect(() => {
         const filtered = filterData(tourData);
         setFilteredItems(filtered);
         reset(filtered);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tourData, selectedFilters]);
+    
 
     return (
         <>
-            <div className='heroSection'>
-                <div className='overlay'></div>
-                <Image className='heroImage' src='/tour-images/tourHero.webp' fill alt='Group Tour Image' />
-                <h1 className='heroText'>Connecting Hearts, Exploring Cultures, and Creating Unforgettable Adventures Together!</h1>
+            <div className="heroSection">
+                <div className="overlay"></div>
+                <Image className="heroImage" src="/tour-images/tourHero.webp" fill alt="Group Tour Image" />
+                <h1 className="heroText">
+                    Connecting Hearts, Exploring Cultures, and Creating Unforgettable Adventures Together!
+                </h1>
             </div>
-            <div className='layout'>
+            <div className="layout">
                 <div className={styles.tour}>
                     <div className={styles.filters}>
                         {
@@ -50,7 +70,7 @@ function TourPackages({ tourData, allImages }) {
                             >
                                 {visibleItems.map((item) => (
                                     <div key={item.id} className={styles.tourGrid}>
-                                    <TourCard item={item} allImages={allImages} />
+                                        <TourCard item={item} allImages={allImages} />
                                     </div>
                                 ))}
                             </InfiniteScroll>
@@ -103,7 +123,6 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 }
 
 function TourCard({ item, allImages }) {
-
     const imageData = allImages.find((image) => image.url.includes(item.imageUrl)) || {
         url: `/tour-image/${item.imageUrl}`,
         placeholder: null,
@@ -127,7 +146,7 @@ function TourCard({ item, allImages }) {
                 <h4>{item.category}</h4>
                 <h1>{item.name}</h1>
                 <p> {truncateDescription(item.description)}</p>
-                <Link href={`/group-tour/${item.slug}`} className='readMore'>
+                <Link href={`/group-tour/${item.slug}`} className="readMore">
                     View Details
                 </Link>
             </div>
