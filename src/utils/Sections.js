@@ -17,7 +17,7 @@ export function PermotingSection({ category }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${apiPoint}api/group-tours/${category}`);
+                const response = await fetch(`${apiPoint}api/group-tours/category/${category}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch category data. : ${response.status}`);
