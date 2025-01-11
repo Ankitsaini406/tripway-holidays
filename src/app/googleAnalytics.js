@@ -2,8 +2,8 @@ import React from 'react';
 import Script from 'next/script';
 
 const GoogleTagManagerAndAnalytics = () => {
-    const GA_TRACKING_ID = process.env.GA_TRACKING_ID || "YOUR_GA_TRACKING_ID";
-    const GTM_TRACKING_ID = process.env.GTM_TRACKING_ID || "YOUR_GTM_TRACKING_ID";
+    const GA_TRACKING_ID = process.env.GA_TRACKING_ID;
+    const GTM_TRACKING_ID = process.env.GTM_TRACKING_ID;
 
     // Check if the environment is production
     const isProduction = process.env.NODE_ENV === "production";

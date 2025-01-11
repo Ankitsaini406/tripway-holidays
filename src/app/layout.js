@@ -33,7 +33,7 @@ export const metadata = {
     card: "summary_large_image",
     site: "@tripwayholidays",
     creator: "@tripwayholidays",
-    title: "TripWay Holidays",
+    title: "TripWayHoliday: Book One-way | Group Tour | Multi City",
     description: "Experience Travel Like Never Before with TripWayHolidays",
     image: "/favicon-192.png",
     url: apiPoint,
@@ -65,7 +65,7 @@ export default function RootLayout({ children }) {
         <meta property="og:description" content={metadata.openGraph.description} />
         <meta property="og:image" content={metadata.openGraph.images[0]} />
         <meta property="og:url" content={apiPoint} />
-        <meta property="og:site_name" content="TripWay Holidays" />
+        <meta property="og:site_name" content="TripWayHoliday: Book One-way | Group Tour | Multi City" />
         <meta property="og:type" content={metadata.openGraph.type} />
 
         {/* Twitter Metadata */}
