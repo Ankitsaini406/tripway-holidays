@@ -99,7 +99,7 @@ export function RecommendedSection({ currentSlug }) {
         };
 
         fetchData();
-    }, [currentSlug]);
+    }, [apiPoint, currentSlug]);
 
     if (isLoading || error) {
         return null;

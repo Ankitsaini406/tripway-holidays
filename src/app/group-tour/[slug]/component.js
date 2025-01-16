@@ -71,7 +71,16 @@ export const TripDetails = ({ tour }) => {
                                         <div className={`${styles.boxContent} ${activeBoxes.includes(index + 1) ? styles.open : styles.close}`}>
                                             {activeBoxes.includes(index + 1) &&
                                                 <>
-                                                    <h5>{day.description}</h5>
+                                                    <h5
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: day.description && day.description.includes("Mom's Meal Magic")
+                                                                ? day.description.replace(
+                                                                    "Mom's Meal Magic",
+                                                                    "<strong>Mom's Meal Magic</strong>"
+                                                                )
+                                                                : day.description,
+                                                        }}
+                                                    />
                                                     {Array.isArray(day.activities) && day.activities.length > 0 ? (
                                                         <div className={styles.descBox}>
                                                             {day.activities.map((item, index) => (
