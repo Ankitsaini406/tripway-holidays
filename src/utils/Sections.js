@@ -33,7 +33,7 @@ export function PermotingSection({ category }) {
         };
 
         fetchData();
-    }, [category]);
+    }, [apiPoint, category]);
 
     if (isLoading || error || !categoryData) {
         return null;
@@ -41,26 +41,28 @@ export function PermotingSection({ category }) {
 
     return (
         <div className={styles.PermotingSize}>
-            <div className={styles.permotingFlex}>
-                <div className={styles.permotingImgBox}>
-                    {categoryData?.imageUrl ? (
-                        <Image
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            className={styles.permotingImg}
-                            src={`${imageUrl}${categoryData.imageUrl}`}
-                            alt={categoryData.name}
-                            fill
-                        />
-                    ) : (
-                        <div>No image available</div>
-                    )}
+            <Link href={`/group-tour/${categoryData?.slug}`}>
+                <div className={styles.permotingFlex}>
+                    <div className={styles.permotingImgBox}>
+                        {categoryData?.imageUrl ? (
+                            <Image
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className={styles.permotingImg}
+                                src={`${imageUrl}${categoryData.imageUrl}`}
+                                alt={categoryData.name}
+                                fill
+                            />
+                        ) : (
+                            <div>No image available</div>
+                        )}
+                    </div>
+                    <div className={styles.permotingSecond}>
+                        <h3>{categoryData?.name}</h3>
+                        <p>{truncateDescription(categoryData?.description)}</p>
+                        <Link href={`/group-tour/${categoryData?.slug}`} className="readMore">BOOK NOW</Link>
+                    </div>
                 </div>
-                <div className={styles.permotingSecond}>
-                    <h3>{categoryData?.name}</h3>
-                    <p>{truncateDescription(categoryData?.description)}</p>
-                    <Link href={`/group-tour/${categoryData?.slug}`} className="readMore">BOOK NOW</Link>
-                </div>
-            </div>
+            </Link>
         </div>
     );
 }
