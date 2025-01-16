@@ -10,10 +10,6 @@
     flex: 0.5 1;
 }
 
-.tourBox {
-    flex: 2;
-}
-
 .filtersContainer {
     position: sticky;
     top: 6rem;
@@ -49,6 +45,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(270px, 1fr)) 1fr;
     gap: 1rem;
+    flex: 2;
 }
 
 .tourCard {

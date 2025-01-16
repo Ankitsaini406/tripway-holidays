@@ -58,7 +58,7 @@ function TourPackages({ tourData, allImages }) {
                             />
                         }
                     </div>
-                    <div className={styles.tourBox}>
+                    <div className={styles.tourGrid}>
                         {visibleItems.length === 0 ? (
                             <Loading />
                         ) : (
@@ -67,7 +67,7 @@ function TourPackages({ tourData, allImages }) {
                                 hasMore={visibleItems.length < filterData(tourData).length}
                             >
                                 {visibleItems.map((item) => (
-                                    <div key={item.id} className={styles.tourGrid}>
+                                    <div key={item.id}>
                                         <TourCard item={item} allImages={allImages} />
                                     </div>
                                 ))}
