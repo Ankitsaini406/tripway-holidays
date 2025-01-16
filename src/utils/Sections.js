@@ -59,7 +59,7 @@ export function PermotingSection({ category }) {
                     <div className={styles.permotingSecond}>
                         <h3>{categoryData?.name}</h3>
                         <p>{truncateDescription(categoryData?.description)}</p>
-                        <Link href={`/group-tour/${categoryData?.slug}`} className="readMore">BOOK NOW</Link>
+                        <span className="readMore">BOOK NOW</span>
                     </div>
                 </div>
             </Link>
