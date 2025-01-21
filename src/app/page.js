@@ -10,9 +10,10 @@ import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
 
 export const metadata = {
-    title: "TripWayHolidays: Book One-way | Group Tour | Multi City",
-    description: "Experience the world with TripWayHoliday. Book One-way, Round Trip, Multi City and Group Tours. Find the best deal.",
+    title: "TripWay Holidays: Book One-way | Group Tour | Multi City",
+    description: "Embark on a journey like never before with TripWay Holidays, your ultimate travel partner. Whether you're planning a one-way trip, a round-trip adventure, a multi-city exploration, or a memorable group tour, we have you covered. Discover the best tour packages tailored to your preferences. Experience seamless booking, personalized itineraries, and unmatched customer service. From picturesque landscapes to bustling cities, TripWay Holidays ensures that every journey is unforgettable. Book now and turn your travel dreams into reality.",
 };
+
 
 const Home = () => {
 

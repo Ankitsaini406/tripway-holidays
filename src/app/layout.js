@@ -20,7 +20,7 @@ export const metadata = {
     "Multi City Tour",
   ],
   title: {
-    default: "TripWayHoliday: Book One-way | Group Tour | Multi City",
+    default: "TripWay Holidays: Book One-way | Group Tour | Multi City",
     template: "TripWay Holidays | %s",
   },
   openGraph: {
@@ -33,7 +33,7 @@ export const metadata = {
     card: "summary_large_image",
     site: "@tripwayholidays",
     creator: "@tripwayholidays",
-    title: "TripWayHoliday: Book One-way | Group Tour | Multi City",
+    title: "TripWay Holidays: Book One-way | Group Tour | Multi City",
     description: "Experience Travel Like Never Before with TripWayHolidays",
     image: "/favicon-192.png",
     url: apiPoint,
@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta
           name="apple-mobile-web-app-title"
-          content="TripWayHolidays: Book One-way | Group Tour | Multi City"
+          content="TripWay Holidays: Book One-way | Group Tour | Multi City"
         />
 
         {/* OpenGraph Metadata */}
@@ -65,7 +65,7 @@ export default function RootLayout({ children }) {
         <meta property="og:description" content={metadata.openGraph.description} />
         <meta property="og:image" content={metadata.openGraph.images[0]} />
         <meta property="og:url" content={apiPoint} />
-        <meta property="og:site_name" content="TripWayHoliday: Book One-way | Group Tour | Multi City" />
+        <meta property="og:site_name" content="TripWay Holidays: Book One-way | Group Tour | Multi City" />
         <meta property="og:type" content={metadata.openGraph.type} />
 
         {/* Twitter Metadata */}
