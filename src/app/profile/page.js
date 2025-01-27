@@ -5,7 +5,6 @@ import { EmailAuthProvider, reauthenticateWithCredential, updatePassword, update
 import { ref, update } from 'firebase/database';
 import { useClient } from '@/context/UserContext';
 import useUserBookings from '@/hook/useUserBooking';
-import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { auth, database } from '@/firebase/firebaseConfig';
 import { toast } from 'react-toastify';
@@ -168,32 +167,6 @@ function ProfilePage() {
         } else {
             toast.error('User not authenticated.');
         }
-    };
-
-    const fetchCouponCode = async (tourId) => {
-        try {
-            const dbRef = ref(database, `users/tours/${tourId}`);
-            const snapshot = await get(dbRef);
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                return data.couponCode || "N/A";
-            } else {
-                return "N/A";
-            }
-        } catch (error) {
-            console.error("Error fetching coupon code:", error);
-            return "Error";
-        }
-    };
-
-    const enrichBookingsWithCouponCodes = async (bookings) => {
-        const enrichedBookings = await Promise.all(
-            bookings.map(async (booking) => {
-                const couponCode = await fetchCouponCode(booking.tourId);
-                return { ...booking, couponCode };
-            })
-        );
-        return enrichedBookings;
     };
 
     return (

@@ -26,17 +26,17 @@ const TourTable = ({ bookings, loading }) => {
         }
     };
 
-    const enrichBookingsWithCouponCodes = async () => {
-        const enriched = await Promise.all(
-            bookings.map(async (booking) => {
-                const couponCode = await fetchCouponCode(booking.tourId);
-                return { ...booking, couponCode };
-            })
-        );
-        setEnrichedBookings(enriched);
-    };
-
     useEffect(() => {
+        const enrichBookingsWithCouponCodes = async () => {
+            const enriched = await Promise.all(
+                bookings.map(async (booking) => {
+                    const couponCode = await fetchCouponCode(booking.tourId);
+                    return { ...booking, couponCode };
+                })
+            );
+            setEnrichedBookings(enriched);
+        };
+
         enrichBookingsWithCouponCodes();
     }, [bookings]);
 
