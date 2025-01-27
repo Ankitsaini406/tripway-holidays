@@ -154,7 +154,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         } else {
             userData = {
                 agentId: user.uid,
-                agentPhoneNumber: user.phoneNumber,
+                agentPhoneNumber: formData.phoneNumber,
                 couponCode: couponCode,
             };
         }
