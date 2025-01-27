@@ -1,4 +1,3 @@
-// BookingTable.js
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -7,17 +6,21 @@ import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { database } from '@/firebase/firebaseConfig';
 
-const TourTable = ({uid, bookings, loading }) => {
+const TourTable = ({ uid, bookings, loading, isAgent }) => {
     const [enrichedBookings, setEnrichedBookings] = useState([]);
 
     useEffect(() => {
         const fetchCouponCode = async (tourId) => {
             try {
-                const dbRef = ref(database, `users/${uid}/tours/${tourId}`);
+                const path = isAgent
+                    ? `users/${uid}/agentTours/${tourId}`
+                    : `users/${uid}/tours/${tourId}`;
+
+                const dbRef = ref(database, path);
                 const snapshot = await get(dbRef);
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    return data.couponCode || "N/A";
+                    return data.couponCodes || "N/A";
                 } else {
                     return "N/A";
                 }
@@ -31,7 +34,6 @@ const TourTable = ({uid, bookings, loading }) => {
             const enriched = await Promise.all(
                 bookings.map(async (booking) => {
                     const couponCode = await fetchCouponCode(booking.id);
-                    console.log(`This is tourId : `, booking.id);
                     return { ...booking, couponCode };
                 })
             );
@@ -39,7 +41,7 @@ const TourTable = ({uid, bookings, loading }) => {
         };
 
         enrichBookingsWithCouponCodes();
-    }, [bookings, uid]);
+    }, [bookings, uid, isAgent]);
 
     if (loading) {
         return <p>Loading bookings...</p>;

@@ -178,10 +178,8 @@ function ProfilePage() {
             ) : (
                 <div className={styles.profile}>
                     <ProfileHeader userData={userData} user={user} verificationEmail={verificationEmail} logoutUser={logoutUser} />
-
                     <div className={styles.profileDetailsBox}>
                     <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} isAgent={userData?.isAgent} />
-
                         {activeTab === 'accountSetting' ? (
                             <AccountSettings userData={userData} accountDetails={accountDetails} passwordDetails={passwordDetails} handleInputChange={handleInputChange} handleSaveChanges={handleSaveChanges} handlePasswordChange={handlePasswordChange} handlePasswordUpdate={handlePasswordUpdate} handleCancel={handleCancel} passwordMatch={passwordMatch} />
                         ) : (
@@ -195,7 +193,7 @@ function ProfilePage() {
                                 {loadingBookings ? (
                                     <ProfileTbale />
                                 ) : (
-                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} />
+                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} isAgent={userData?.isAgent} />
                                 )}
                             </div>
                         )}
