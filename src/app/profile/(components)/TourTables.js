@@ -7,30 +7,31 @@ import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { database } from '@/firebase/firebaseConfig';
 
-const TourTable = ({ bookings, loading }) => {
+const TourTable = ({uid, bookings, loading }) => {
     const [enrichedBookings, setEnrichedBookings] = useState([]);
 
-    const fetchCouponCode = async (tourId) => {
-        try {
-            const dbRef = ref(database, `users/tours/${tourId}`);
-            const snapshot = await get(dbRef);
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                return data.couponCode || "N/A";
-            } else {
-                return "N/A";
-            }
-        } catch (error) {
-            console.error("Error fetching coupon code:", error);
-            return "Error";
-        }
-    };
-
     useEffect(() => {
+        const fetchCouponCode = async (tourId) => {
+            try {
+                const dbRef = ref(database, `users/${uid}/tours/${tourId}`);
+                const snapshot = await get(dbRef);
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return data.couponCode || "N/A";
+                } else {
+                    return "N/A";
+                }
+            } catch (error) {
+                console.error("Error fetching coupon code:", error);
+                return "Error";
+            }
+        };
+
         const enrichBookingsWithCouponCodes = async () => {
             const enriched = await Promise.all(
                 bookings.map(async (booking) => {
-                    const couponCode = await fetchCouponCode(booking.tourId);
+                    const couponCode = await fetchCouponCode(booking.id);
+                    console.log(`This is tourId : `, booking.id);
                     return { ...booking, couponCode };
                 })
             );
@@ -38,7 +39,7 @@ const TourTable = ({ bookings, loading }) => {
         };
 
         enrichBookingsWithCouponCodes();
-    }, [bookings]);
+    }, [bookings, uid]);
 
     if (loading) {
         return <p>Loading bookings...</p>;
