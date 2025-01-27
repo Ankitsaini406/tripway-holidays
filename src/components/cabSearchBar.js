@@ -193,7 +193,7 @@ export function CabSearchBar() {
             {formData.error && <p className='errorMsg'>{formData.error}</p>}
 
             <button
-                className={`${styles.searchButton} ${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
                 onClick={
                     formData.loading
                         ? null

@@ -134,14 +134,14 @@
     display: flex;
     align-items: center;
     border: 1px solid transparent;
-}
 
-.searchButton:hover {
-    box-shadow: 0px 5px 5px 0 var(--indigo-blue);
-    background-color: var(--white-color);
-    color: var(--indigo-blue);
-    border: 1px solid var(--indigo-blue);
-    transition: all 0.5s;
+    &:hover {
+        box-shadow: 0px 5px 5px 0 var(--indigo-blue);
+        background-color: var(--white-color);
+        color: var(--indigo-blue);
+        border: 1px solid var(--indigo-blue);
+        transition: all 0.5s;
+    }
 }
 
 .css1nmdiq5menu {

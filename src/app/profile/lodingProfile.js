@@ -12,8 +12,8 @@ export function ProfileLoding() {
 
 export function ProfileTbale() {
     return (
-        <div class={styles.bookingTableContainer}>
-            <div class={`${styles.loadingTable} ${styles.shimmer}`}></div>
+        <div className={styles.bookingTableContainer}>
+            <div className={`${styles.loadingTable} ${styles.shimmer}`}></div>
         </div>
     )
 }

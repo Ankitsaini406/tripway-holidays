@@ -224,18 +224,13 @@ th {
 
 .loadingButton {
   background-color: var(--grey-color);
-  color: var(--mystic-blue);
+  color: var(--indigo-blue);
   padding: 1em;
-  border: none;
+  border: 1px solid var(--indigo-blue);
   border-radius: var(--border-radius);
   cursor: pointer;
   text-transform: capitalize;
   width: 160px;
-
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    transition: all 0.3s ease-in-out;
-  }
 }
 
 .errorMsg {

@@ -8,9 +8,12 @@ import useUserBookings from '@/hook/useUserBooking';
 import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { auth, database } from '@/firebase/firebaseConfig';
-import { VscUnverified , VscVerifiedFilled } from "react-icons/vsc";
 import { toast } from 'react-toastify';
 import { ProfileLoding, ProfileTbale } from './lodingProfile';
+import ProfileTabs from './(components)/ProfileTabs';
+import AccountSettings from './(components)/AccountSettings';
+import ProfileHeader from './(components)/ProfileHeader';
+import TourTable from './(components)/TourTables';
 
 function ProfilePage() {
     const { user, verificationEmail, logoutUser } = useClient();
@@ -167,58 +170,31 @@ function ProfilePage() {
         }
     };
 
-
-    const handleLogOut = () => {
-        logoutUser();
+    const fetchCouponCode = async (tourId) => {
+        try {
+            const dbRef = ref(database, `users/tours/${tourId}`);
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                return data.couponCode || "N/A";
+            } else {
+                return "N/A";
+            }
+        } catch (error) {
+            console.error("Error fetching coupon code:", error);
+            return "Error";
+        }
     };
 
-    const renderTable = (bookings) => (
-        <div className={styles.bookingTableContainer}>
-            <table className={styles.bookingTable}>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Passengers</th>
-                        <th>Total Price</th>
-                        <th>Offer From</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bookings.length > 0 ? (
-                        bookings.map((booking, index) => {
-                            const totalPrice = booking.price * booking.passenger;
-                            const isFutureBooking = new Date(formatTimestamp(booking.startDate)) < new Date().setHours(0, 0, 0, 0);
-                            return (
-                                <tr
-                                    key={index}
-                                    className={`${isFutureBooking ? styles.disabledRow : ''}`}
-                                >
-                                    <td style={{ backgroundColor: isFutureBooking ? '#F0EFF5' : '' }}>{formatTimestamp(booking.startDate)}</td>
-                                    <td>{booking.name || booking.userName || 'N/A'}</td>
-                                    <td>{booking.from || booking.userFrom || 'N/A'}</td>
-                                    <td>{booking.destinations?.join(", ") || booking.destination || booking.to || booking.tourName || 'N/A'}</td>
-                                    <td>{booking.passenger || 'N/A'}</td>
-                                    <td>
-                                        {booking.price
-                                            ? `₹${new Intl.NumberFormat('en-IN').format(totalPrice)}`
-                                            : booking.destination ? 'Round Trip' : booking.to ? 'One Way' : booking.destinations?.join(", ") ? 'Multi City' : 'N/A'}
-                                    </td>
-                                    <td className={styles.offerText}>{booking.offerFrom || ''}</td>
-                                </tr>
-                            );
-                        })
-                    ) : (
-                        <tr>
-                            <td colSpan="7">No bookings found.</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-    );
+    const enrichBookingsWithCouponCodes = async (bookings) => {
+        const enrichedBookings = await Promise.all(
+            bookings.map(async (booking) => {
+                const couponCode = await fetchCouponCode(booking.tourId);
+                return { ...booking, couponCode };
+            })
+        );
+        return enrichedBookings;
+    };
 
     return (
         <div className="layout">
@@ -228,136 +204,13 @@ function ProfilePage() {
                 <p>{error}</p>
             ) : (
                 <div className={styles.profile}>
-                    <div className={styles.profileMain}>
-                        <div className={styles.profileBox}>
-                            <div className={styles.profileName}>
-                                <h2>Welcome, {userData?.name || 'User'}</h2>
-                                <div className={styles.emailDetails}><p>Email: {userData?.email || 'N/A'}</p>{userData?.email && (user?.emailVerified ? <span><VscVerifiedFilled /></span> :  <span onClick={verificationEmail}><VscUnverified /></span>)}</div>
-                                <p>Address: {userData?.address || 'N/A'}</p>
-                            </div>
-                            {userData?.isAgent && (
-                                <div className={styles.flexCode}>
-                                    Agent Code: <span className={styles.agentCode}>{userData?.agentCode}</span>
-                                </div>
-                            )}
-                        </div>
-                        <button className={styles.logOutButton} onClick={handleLogOut}>
-                            Logout
-                        </button>
-                    </div>
+                    <ProfileHeader userData={userData} user={user} verificationEmail={verificationEmail} logoutUser={logoutUser} />
 
                     <div className={styles.profileDetailsBox}>
-                        <div className={styles.buttonFlex}>
-                            {userData?.isAgent && (
-                                <button
-                                    className={`${styles.button} ${activeTab === 'agentRef' ? styles.active : ''}`}
-                                    onClick={() => setActiveTab('agentRef')}
-                                >
-                                    Referral&nbsp;History&nbsp;({agentBookings.length})
-                                </button>
-                            )}
-                            <button
-                                className={`${styles.button} ${activeTab === 'bookingHistory' ? styles.active : ''}`}
-                                onClick={() => setActiveTab('bookingHistory')}
-                            >
-                                Booking&nbsp;History&nbsp;({userBookings.length})
-                            </button>
-                            <button
-                                className={`${styles.button} ${activeTab === 'accountSetting' ? styles.active : ''}`}
-                                onClick={() => setActiveTab('accountSetting')}
-                            >
-                                Account&nbsp;Settings
-                            </button>
-                        </div>
+                    <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} isAgent={userData?.isAgent} />
 
                         {activeTab === 'accountSetting' ? (
-                            <div className={styles.buttonBox}>
-                                <form>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="displayName">Name:</label>
-                                        <input
-                                            type="text"
-                                            name="displayName"
-                                            placeholder={`${userData?.name || 'Name'}`}
-                                            value={accountDetails.displayName}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="phoneNumber">Phone Number:</label>
-                                        <input
-                                            type="number"
-                                            name="phoneNumber"
-                                            placeholder={`${userData?.phoneNumber || 'Phone Number'}`}
-                                            value={accountDetails.phoneNumber}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="address">Address:</label>
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            placeholder={`${userData?.address || 'Address'}`}
-                                            value={accountDetails.address}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <div className={styles.buttonBox}>
-                                        <button type="button" onClick={handleCancel} className={styles.cancelButton}>
-                                            Cancel
-                                        </button>
-                                        <button type="button" onClick={handleSaveChanges} className={styles.saveButton}>
-                                            Save Changes
-                                        </button>
-                                    </div>
-                                </form>
-
-                                <form>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="oldPassword">Old Password:</label>
-                                        <input
-                                            type="password"
-                                            name="oldPassword"
-                                            placeholder="Enter your old password"
-                                            value={passwordDetails.oldPassword}
-                                            onChange={handlePasswordChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="newPassword">New Password:</label>
-                                        <input
-                                            type="password"
-                                            name="newPassword"
-                                            placeholder="Enter new password"
-                                            value={passwordDetails.newPassword}
-                                            onChange={handlePasswordChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label htmlFor="confirmNewPassword">Confirm New Password:</label>
-                                        <input
-                                            type="password"
-                                            name="confirmNewPassword"
-                                            placeholder="Confirm new password"
-                                            value={passwordDetails.confirmNewPassword}
-                                            onChange={handlePasswordChange}
-                                            required
-                                        />
-                                    </div>
-
-                                    <button
-                                        type="button"
-                                        onClick={handlePasswordUpdate}
-                                        className={styles.saveButton}
-                                        disabled={!passwordMatch || !passwordDetails.oldPassword || !passwordDetails.newPassword}
-                                    >
-                                        Change Password
-                                    </button>
-                                </form>
-                            </div>
+                            <AccountSettings userData={userData} accountDetails={accountDetails} passwordDetails={passwordDetails} handleInputChange={handleInputChange} handleSaveChanges={handleSaveChanges} handlePasswordChange={handlePasswordChange} handlePasswordUpdate={handlePasswordUpdate} handleCancel={handleCancel} passwordMatch={passwordMatch} />
                         ) : (
                             <div>
                                 <input
@@ -369,9 +222,7 @@ function ProfilePage() {
                                 {loadingBookings ? (
                                     <ProfileTbale />
                                 ) : (
-                                    renderTable(
-                                        activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings
-                                    )
+                                    <TourTable bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} />
                                 )}
                             </div>
                         )}

@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ref, set } from "firebase/database";
+import { ref, set, update } from "firebase/database";
 import useSendEmail from "@/hook/useSendEmail";
 import { findAgentByAgentCode } from "@/utils/findAgent";
 import { cabInitialState } from "@/types/initialState";
@@ -57,17 +57,24 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const validateForm = () => {
         const { from, phoneNumber, carOption, passenger, email } = formData;
+        
+        // Check for empty required fields
         if (!from || !phoneNumber || !carOption || !passenger || !email) {
             setFormData((prev) => ({ ...prev, error: "Please fill all required fields." }));
             return false;
         }
+    
+        // Validate phone number (must be 10 digits)
         if (!/^\d{10}$/.test(phoneNumber)) {
             setFormData((prev) => ({ ...prev, error: "Phone number must be 10 digits." }));
             return false;
         }
+    
+        // If validation passes, clear any error messages
         setFormData((prev) => ({ ...prev, error: null }));
         return true;
     };
+    
 
     const handleSendOtp = async (e) => {
         e.preventDefault();
@@ -95,39 +102,38 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
-    
+
         if (enteredOtp !== correctOtp) {
             setFormData((prev) => ({ ...prev, error: "Invalid OTP. Please try again." }));
             return;
         }
-    
+
         setFormData((prev) => ({ ...prev, success: "OTP Verified Successfully!", loading: true }));
-    
+
         const name = user?.displayName || `${formData.firstName} ${formData.lastName}`;
         const { firstName, lastName, loading, msg, error, success, ...filteredData } = formData;
         let userData = {};
-    
-        try {
-            setFormData((prev) => ({ ...prev, loading: true }));
-            
-            // Handle user creation
-            if (!user) {
-                const password = generateRandomPassword();
+
+        const couponCode = await generateAndStoreCouponCode();
+
+        if (!user) {
+            const password = generateRandomPassword();
+            try {
+                setFormData((prev) => ({ ...prev, loading: true }));
                 const newUser = await signupUserWithEmailAndPassword(
                     formData.email,
                     password,
-                    { name, phoneNumber: formData.phoneNumber, password, isAgent: false },
+                    { name, phoneNumber: formData.phoneNumber, password, isAgent: false, couponCode },
                     "users"
                 );
-    
+
                 if (!newUser) throw new Error("Failed to create user");
-    
+
                 userData = {
                     agentId: null,
                     agentPhoneNumber: formData.phoneNumber,
                 };
-    
+
                 const emailContent = {
                     email: formData.email,
                     subject: "Welcome to TripWay Holidays! 🌍",
@@ -136,65 +142,48 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
                     password,
                     url: "account-created",
                 };
-    
+
                 await sendEmail(emailContent);
-            } else {
-                userData = {
-                    agentId: user.uid,
-                    agentPhoneNumber: user.phoneNumber,
-                };
+            } catch (err) {
+                setFormData((prev) => ({ ...prev, error: err.message, loading: false }));
+                return;
             }
-    
-            // Generate coupon code and update Firestore and Realtime Database
-            const userCouponCode = await generateAndStoreCouponCode();
-            const agentCouponCode = await generateAndStoreCouponCode();
-            const tourCodes = [userCouponCode, agentCouponCode];
-    
-            const validDestinations = formData.destinations.filter((dest) => dest.trim() !== "");
-            const dataToSend = { ...filteredData, ...userData, name, destinations: validDestinations, tourCodes };
-    
-            // Add coupon code to the user's Firebase Realtime Database
-            const userRef = ref(database, `users/${user?.uid || "unknown"}`);
-            await set(userRef, {
-                ...userData,
-                userCouponCode,
-                name,
-            });
-    
-            // Add coupon code to the agent's Firebase Realtime Database (if an agent exists)
-            if (userData.agentId) {
-                const agentRef = ref(database, `agents/${userData.agentId}`);
-                await set(agentRef, {
-                    agentCouponCode,
-                    name,
-                    agentPhoneNumber: userData.agentPhoneNumber,
-                });
+            finally {
+                setFormData((prev) => ({ ...prev, loading: false }));
             }
-    
-            // Add to Firestore collection (one-way, round-trip, or multi-city)
-            const collectionName =
-                formData.selectedRadio === "one-way" ? "one-way" : formData.selectedRadio === "round-trip" ? "round-trip" : "multi-city";
-    
+        } else {
+            userData = {
+                agentId: user.uid,
+                agentPhoneNumber: user.phoneNumber,
+                couponCode: couponCode,
+            };
+        }
+
+        const validDestinations = formData.destinations.filter((dest) => dest.trim() !== "");
+        const dataToSend = { ...filteredData, ...userData, name, destinations: validDestinations };
+        const collectionName =
+            formData.selectedRadio === "one-way" ? "one-way" : formData.selectedRadio === "round-trip" ? "round-trip" : "multi-city";
+
+        try {
+            setFormData((prev) => ({ ...prev, loading: true }));
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
             const dbRef = ref(database, `users/${user?.uid || "unknown"}/tours/${docRef.id}`);
-            await set(dbRef, { tourId: docRef.id });
-    
+            await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
+
             findAgentByAgentCode(formData.offerFrom, docRef.id);
-    
             setFormData({
                 ...cabInitialState, // Reset form to initial state
-                success: "Data successfully sent to Firebase with coupon code",
+                success: "Data successfully sent to Firebase",
             });
             setActiveOtp(false);
-    
         } catch (err) {
             setFormData((prev) => ({ ...prev, loading: false }));
-            setFormData((prev) => ({ ...prev, error: `Error: ${err.message}` }));
-        } finally {
+            setFormData((prev) => ({ ...prev, error: `Error sending data to Firebase. ${err}` }));
+        }
+        finally {
             setFormData((prev) => ({ ...prev, loading: false }));
         }
     };
-    
 
     return {
         formData,

@@ -1,10 +1,11 @@
 import { database } from "@/firebase/firebaseConfig";
-import { get, ref, set } from "firebase/database";
+import { get, ref, set, update } from "firebase/database";
+import { generateAndStoreCouponCode } from "./Utils";
 
 export async function findAgentByAgentCode(agentCode, docId) {
     try {
+        const couponCode = await generateAndStoreCouponCode();
 
-        // Reference to the agents node
         const agentsRef = ref(database, 'users');
         const snapshot = await get(agentsRef);
 
@@ -13,22 +14,20 @@ export async function findAgentByAgentCode(agentCode, docId) {
             return null;
         }
 
-        // Loop through agents to find one with the matching agentCode
         let foundAgent = null;
         snapshot.forEach(agentSnapshot => {
             const agent = agentSnapshot.val();
             if (agent.agentCode === agentCode) {
                 foundAgent = agent;
-                return true; // Found the agent, exit loop
+                return true;
             }
         });
 
         if (foundAgent) {
-            const dbRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
-            await set(dbRef, {
-                tourId: docId,
-            });
+            const agentToursRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
+            await set(agentToursRef, { tourId: docId, couponCodes: couponCode });
 
+            console.log("Agent found and coupon code added successfully");
             return foundAgent;
         } else {
             console.log("No agent found with the given agentCode");
