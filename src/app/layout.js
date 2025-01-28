@@ -3,9 +3,7 @@ import ClientRootLayout from "./childLayout";
 import FaceBookAnalytics from "./facebookAnalytics";
 import GoogleTagManagerAndAnalytics from "./googleAnalytics";
 
-const localApi = process.env.API_URL;
-const productionApi = process.env.HOST_URL;
-const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
 export const metadata = {
   metadataBase: new URL(apiPoint),

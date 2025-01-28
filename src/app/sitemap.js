@@ -1,9 +1,7 @@
 
 export default async function sitemap() {
 
-    const localApi = process.env.API_URL;
-    const productionApi = process.env.HOST_URL;
-    const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+    const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
     const tourResponse = await fetch(`${apiPoint}api/group-tours`);
     if (!tourResponse.ok) {
@@ -42,6 +40,34 @@ export default async function sitemap() {
         },
         {
             url: `${apiPoint}contact-us`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}privacy-policy`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}terms-and-condition`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}return-policy`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}profile`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/client-login`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/agent-login`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/signup`,
             lastModified: new Date().toISOString(),
         },
     ];

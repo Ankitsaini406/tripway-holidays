@@ -6,6 +6,7 @@ import { findAgentByAgentCode } from "@/utils/findAgent";
 import { cabInitialState } from "@/types/initialState";
 import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
 import { generateAndStoreCouponCode } from "@/utils/Utils";
+import { toast } from "react-toastify";
 
 const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
     const [formData, setFormData] = useState(cabInitialState);
@@ -175,6 +176,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
                 ...cabInitialState, // Reset form to initial state
                 success: "Data successfully sent to Firebase",
             });
+            toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
             setActiveOtp(false);
         } catch (err) {
             setFormData((prev) => ({ ...prev, loading: false }));

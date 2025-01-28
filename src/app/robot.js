@@ -1,9 +1,7 @@
 
 export default function robots() {
 
-    const localApi = process.env.API_URL;
-    const productionApi = process.env.HOST_URL;
-    const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
+    const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
     return {
         rules: {
