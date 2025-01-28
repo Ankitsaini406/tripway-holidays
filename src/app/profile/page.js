@@ -193,7 +193,7 @@ function ProfilePage() {
                                 {loadingBookings ? (
                                     <ProfileTbale />
                                 ) : (
-                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} isAgent={userData?.isAgent} />
+                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} isAgent={userData?.isAgent} tabType={activeTab === 'agentRef' ? 'referral' : 'booking'} />
                                 )}
                             </div>
                         )}
