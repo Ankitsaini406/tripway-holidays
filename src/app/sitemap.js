@@ -19,14 +19,14 @@ export default async function sitemap() {
     const tourDetails = tours?.map((tour) => {
         return {
             url: `${apiPoint}group-tour/${tour?.slug}`,
-            lastModified: formatDate2(tour?.createdAt),
+            lastModified: new Date().toISOString(),
         };
     });
 
     const blogDetails = blog?.map((blog) => {
         return {
             url: `${apiPoint}blog/${blog?.slug}`,
-            lastModified: formatDate2(blog?.createdAt),
+            lastModified: new Date().toISOString(),
         }
     })
 
