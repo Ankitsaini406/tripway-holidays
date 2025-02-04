@@ -1,3 +1,4 @@
+import { formatBlogTime } from "@/utils/formatData";
 
 export default async function sitemap() {
 
@@ -17,15 +18,15 @@ export default async function sitemap() {
 
     const tourDetails = tours?.map((tour) => {
         return {
-            url: `${apiPoint}group-tours/${tour?.slug}`,
-            lastModified: tour?.createdAt,
+            url: `${apiPoint}group-tour/${tour?.slug}`,
+            lastModified: formatBlogTime(tour?.createdAt),
         };
     });
 
     const blogDetails = blog?.map((blog) => {
         return {
             url: `${apiPoint}blog/${blog?.slug}`,
-            lastModified: blog?.createdAt,
+            lastModified: formatBlogTime(blog?.createdAt),
         }
     })
 
@@ -35,7 +36,7 @@ export default async function sitemap() {
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}about`,
+            url: `${apiPoint}about-us`,
             lastModified: new Date().toISOString(),
         },
         {
@@ -52,10 +53,6 @@ export default async function sitemap() {
         },
         {
             url: `${apiPoint}return-policy`,
-            lastModified: new Date().toISOString(),
-        },
-        {
-            url: `${apiPoint}profile`,
             lastModified: new Date().toISOString(),
         },
         {
