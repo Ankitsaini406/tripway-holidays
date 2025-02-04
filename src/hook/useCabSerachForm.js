@@ -168,7 +168,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         try {
             setFormData((prev) => ({ ...prev, loading: true }));
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-            const dbRef = ref(database, `users/${user?.uid || "unknown"}/tours/${docRef.id}`);
+            const dbRef = ref(database, `users/${user?.uid}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
 
             findAgentByAgentCode(formData.offerFrom, docRef.id);
