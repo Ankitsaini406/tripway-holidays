@@ -1,4 +1,4 @@
-import { formatBlogTime } from "@/utils/formatData";
+import { formatTimestamp } from "@/utils/formatData";
 
 export default async function sitemap() {
 
@@ -19,14 +19,14 @@ export default async function sitemap() {
     const tourDetails = tours?.map((tour) => {
         return {
             url: `${apiPoint}group-tour/${tour?.slug}`,
-            lastModified: formatBlogTime(tour?.createdAt),
+            lastModified: formatTimestamp(tour?.createdAt),
         };
     });
 
     const blogDetails = blog?.map((blog) => {
         return {
             url: `${apiPoint}blog/${blog?.slug}`,
-            lastModified: formatBlogTime(blog?.createdAt),
+            lastModified: formatTimestamp(blog?.createdAt),
         }
     })
 
