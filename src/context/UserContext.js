@@ -57,14 +57,16 @@ export const UserProvider = (props) => {
                 phoneNumber: additionalData.phoneNumber,
             });
 
+            const isLogin = additionalData.role === 'Driver' ? false : true;
             await putData(`${dataBaseName}/${user.uid}`, {
                 uid: user.uid,
                 email: user.email,
                 password: password,
+                isLogin,
                 ...additionalData
             });
 
-            router.push('/auth/client-login');
+            isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
             return user;
         } catch (error) {
             console.log("Error signing up:", error);
@@ -100,18 +102,6 @@ export const UserProvider = (props) => {
 
     const putData = (key, data) => set(ref(database, key), data);
 
-    const checkEmailExists = async (email, collection) => {
-        const dbRef = ref(database);
-        const emailQuery = query(
-            child(dbRef, collection),
-            orderByChild("email"),
-            equalTo(email)
-        );
-
-        const emailSnapshot = await get(emailQuery);
-        return emailSnapshot.exists(); // Return true if the email exists
-    };
-
     const verificationEmail = async () => {
         try {
             const currentUser = auth.currentUser;
@@ -127,30 +117,60 @@ export const UserProvider = (props) => {
         }
     };
 
+    const checkEmailExists = async (email, collection) => {
+        const dbRef = ref(database);
+        const emailQuery = query(
+            child(dbRef, collection),
+            orderByChild("email"),
+            equalTo(email)
+        );
+    
+        const emailSnapshot = await get(emailQuery);
+    
+        if (!emailSnapshot.exists()) {
+            return null; // No account found
+        }
+    
+        // Get the first matched user data
+        const userData = Object.values(emailSnapshot.val())[0];
+        return userData;
+    };
+    
     const loginUser = async (email, password) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const isEmail = await checkEmailExists(email, `users`);
-
-            if (!isEmail) {
+            const userData = await checkEmailExists(email, `users`);
+    
+            if (!userData) {
                 throw new Error("No account found with this email.");
             }
-
+    
+            // Check if the user is authenticated (isLogin: true)
+            if (!userData.isLogin) {
+                throw new Error("You are not an authenticated user.");
+            }
+    
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const loggedInUser = userCredential.user;
+    
             setUser({
                 uid: loggedInUser.uid,
                 email: loggedInUser.email,
             });
-
+    
             const idToken = await loggedInUser.getIdToken();
-            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
-
+            setCookie('token', idToken, { 
+                secure: process.env.NODE_ENV === 'production', 
+                sameSite: 'Strict', 
+                expires: expires 
+            });
+    
             return { user: loggedInUser };
         } catch (error) {
             console.error("Error logging in:", error);
             throw error;
         }
     };
+    
 
     // Sign out function
     const logoutUser = async () => {
