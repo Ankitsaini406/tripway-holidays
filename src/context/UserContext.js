@@ -61,7 +61,6 @@ export const UserProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
                 password: password,
-                role: 'User',
                 ...additionalData
             });
 
@@ -131,7 +130,6 @@ export const UserProvider = (props) => {
     const loginUser = async (email, password) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
             const isEmail = await checkEmailExists(email, `users`);
 
             if (!isEmail) {

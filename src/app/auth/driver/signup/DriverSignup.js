@@ -39,7 +39,8 @@ const DriverSignup = () => {
         }
 
         try {
-            await signupUserWithEmailAndPassword(email, password, { ...formData }, 'driver');
+            const allData = {...formData, role: 'Driver'}
+            await signupUserWithEmailAndPassword(email, password, allData, 'users');
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);

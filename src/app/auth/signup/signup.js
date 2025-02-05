@@ -36,7 +36,8 @@ function SignUpPage() {
         }
 
         try {
-            await signupUserWithEmailAndPassword(email, password, { name, phoneNumber, verifyPassword, address }, 'users');
+            const allData = {name, phoneNumber, verifyPassword, address, role: 'User'}
+            await signupUserWithEmailAndPassword(email, password, allData, 'users');
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);
