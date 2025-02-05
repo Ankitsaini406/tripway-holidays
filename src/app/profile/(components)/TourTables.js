@@ -6,7 +6,7 @@ import { formatTimestamp } from '@/utils/formatData';
 import styles from '@/styles/pages/profile.module.css';
 import { database } from '@/firebase/firebaseConfig';
 
-const TourTable = ({ uid, bookings, loading, isAgent, tabType }) => {
+const TourTable = ({ uid, bookings, loading, role, tabType }) => {
     const [enrichedBookings, setEnrichedBookings] = useState([]);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const TourTable = ({ uid, bookings, loading, isAgent, tabType }) => {
             try {
                 let relevantData = [];
 
-                if (tabType === 'referral' && isAgent) {
+                if (tabType === 'referral' && role === 'Agent' ) {
                     // Fetch agentTours for the Referral Tab
                     const agentToursPath = `users/${uid}/agentTours`;
                     const agentToursRef = ref(database, agentToursPath);
@@ -55,7 +55,7 @@ const TourTable = ({ uid, bookings, loading, isAgent, tabType }) => {
         };
 
         fetchCouponCodes();
-    }, [bookings, uid, isAgent, tabType]);
+    }, [bookings, uid, role, tabType]);
 
     if (loading) {
         return <p>Loading bookings...</p>;

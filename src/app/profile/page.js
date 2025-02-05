@@ -179,7 +179,7 @@ function ProfilePage() {
                 <div className={styles.profile}>
                     <ProfileHeader userData={userData} user={user} verificationEmail={verificationEmail} logoutUser={logoutUser} />
                     <div className={styles.profileDetailsBox}>
-                    <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} isAgent={userData?.isAgent} />
+                    <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} role={userData?.role} />
                         {activeTab === 'accountSetting' ? (
                             <AccountSettings userData={userData} accountDetails={accountDetails} passwordDetails={passwordDetails} handleInputChange={handleInputChange} handleSaveChanges={handleSaveChanges} handlePasswordChange={handlePasswordChange} handlePasswordUpdate={handlePasswordUpdate} handleCancel={handleCancel} passwordMatch={passwordMatch} />
                         ) : (
@@ -193,7 +193,7 @@ function ProfilePage() {
                                 {loadingBookings ? (
                                     <ProfileTbale />
                                 ) : (
-                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} isAgent={userData?.isAgent} tabType={activeTab === 'agentRef' ? 'referral' : 'booking'} />
+                                    <TourTable uid={userData?.uid} bookings={activeTab === 'agentRef' ? filteredAgentBookings : filteredUserBookings} loading={loadingBookings} role={userData?.role} tabType={activeTab === 'agentRef' ? 'referral' : 'booking'} />
                                 )}
                             </div>
                         )}

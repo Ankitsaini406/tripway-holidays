@@ -124,7 +124,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
                 const newUser = await signupUserWithEmailAndPassword(
                     formData.email,
                     password,
-                    { name, phoneNumber: formData.phoneNumber, password, isAgent: false, couponCode },
+                    { name, phoneNumber: formData.phoneNumber, password, role: 'User', couponCode },
                     "users"
                 );
 

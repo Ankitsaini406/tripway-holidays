@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "@/styles/pages/profile.module.css";
 
-const ProfileTabs = ({ activeTab, setActiveTab, agentBookings, userBookings, isAgent }) => (
+const ProfileTabs = ({ activeTab, setActiveTab, agentBookings, userBookings, role }) => (
     <div className={styles.buttonFlex}>
-        {isAgent && (
+        {role === 'Agent' && (
             <button
                 className={`${styles.button} ${activeTab === "agentRef" ? styles.active : ""}`}
                 onClick={() => setActiveTab("agentRef")}

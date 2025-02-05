@@ -19,7 +19,7 @@ const ProfileHeader = ({ userData, user, verificationEmail, logoutUser }) => (
                 </div>
                 <p>Address: {userData?.address || "N/A"}</p>
             </div>
-            {userData?.isAgent && (
+            {userData?.role === 'Agent' && (
                 <div className={styles.flexCode}>
                     Agent Code: <span className={styles.agentCode}>{userData?.agentCode}</span>
                 </div>

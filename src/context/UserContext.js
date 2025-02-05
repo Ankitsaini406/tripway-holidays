@@ -61,7 +61,7 @@ export const UserProvider = (props) => {
                 uid: user.uid,
                 email: user.email,
                 password: password,
-                isAgent: false,
+                role: 'User',
                 ...additionalData
             });
 
@@ -88,7 +88,7 @@ export const UserProvider = (props) => {
             await putData(`${dataBaseName}/${newUser.uid}`, {
                 uid: newUser.uid,
                 email: newUser.email,
-                isAgent: false,
+                role: 'User',
                 ...additionalData
             });
 
