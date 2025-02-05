@@ -7,13 +7,12 @@ import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 const Footer = dynamic(() => import("@/components/footer"));
 import "react-toastify/dist/ReactToastify.css";
-
 import "./globals.css";
 
 export default function ClientRootLayout({ children }) {
     const pathname = usePathname();
 
-    const noHeaderFooterRoutes = ['/auth/client-login', '/auth/signup', '/auth/agent-login'];
+    const noHeaderFooterRoutes = ['/auth/client-login', '/auth/signup', '/auth/agent-login', '/auth/driver/login', '/auth/driver/signup'];
     const hideHeaderFooter = noHeaderFooterRoutes.includes(pathname);
 
     const bot_url = process.env.BOT_URL;
