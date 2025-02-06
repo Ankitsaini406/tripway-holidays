@@ -87,6 +87,15 @@ function Footer() {
                             <li><Link rel="preload" className={styles.lnkTag} href='/return-policy'>Return Policy</Link></li>
                         </ul>
                     </div>
+
+                    <div className={styles.footerFlex}>
+                        <h3>UseFull links</h3>
+                        <ul className={styles.footerFlexList}>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/agent-login'>Patner Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/driver/login" >Driver Login</Link></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             {/* </div> */}

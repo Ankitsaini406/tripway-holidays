@@ -33,7 +33,7 @@ export default function DriverLoginPage() {
                 return;
             }
 
-            router.push("/");
+            router.push("/profile");
         } catch (error) {
             setError(error.message);
             console.error("Error during sign-in:", error);

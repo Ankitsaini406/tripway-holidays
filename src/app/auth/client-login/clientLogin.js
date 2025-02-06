@@ -35,7 +35,7 @@ function ClientLoaginPage() {
                 return;
             }
 
-            router.push("/");
+            router.push("/profile");
         } catch (error) {
             setError(error.message); // Display the error message
             console.error("Error during sign-in:", error);

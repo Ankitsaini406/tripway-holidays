@@ -32,7 +32,7 @@ function AgentLoginPage({ setAgentLogin }) {
                 return;
             }
 
-            router.push("/");
+            router.push("/profile");
         } catch (error) {
             setError("An unknown error occurred.");
             console.error("Error during sign-in:", error);
