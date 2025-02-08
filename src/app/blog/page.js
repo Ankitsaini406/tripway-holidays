@@ -8,7 +8,7 @@ async function fetchBlogData() {
     try {
         // Add timestamp as a query parameter to prevent caching
         const timestamp = Math.floor(Date.now() / 60000); // Updates every 60 seconds
-        const response = await fetch(`${apiPoint}api/blog?t=${timestamp}`, { cache: "no-store" });
+        const response = await fetch(`${apiPoint}api/blog?t=${timestamp}`);
 
         if (!response.ok) {
             console.error(`API responded with status: ${response.status}`);
