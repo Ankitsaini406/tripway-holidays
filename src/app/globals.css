@@ -66,15 +66,27 @@
   box-sizing: border-box;
 }
 
+/* Scrollbar width */
 ::-webkit-scrollbar {
-  width: 0px;
-  height: 6px;
-  border: 5px solid #949698bb;
+  width: 0px; /* Adjust width */
+  height: 6px; /* Adjust height for horizontal scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Change scrollbar track color */
   border-radius: 25px;
 }
 
+/* Scrollbar Thumb */
 ::-webkit-scrollbar-thumb {
+  background: #949698bb; /* Change scrollbar thumb color */
   border-radius: 25px;
+}
+
+/* Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6c6d6f; /* Darker shade when hovered */
 }
 
 html,
