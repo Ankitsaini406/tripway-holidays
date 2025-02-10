@@ -41,27 +41,9 @@ function BlogDetails({ blogData, blurImg }) {
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
                             <p className={styles.blogSingleDescription}>{blogData.description}</p>
                             <PermotingSection category={blogData.category} />
-                            {blogData.points ? (
-                                blogData.points.map((item, index) => {
-                                    // Sanitize the bullets data
-                                    const sanitizedBullets = Array.isArray(item.bullets) && item.bullets.filter(bullet => bullet.trim() !== "");
-                                    return (
-                                        <div key={index}>
-                                            <h3 className={styles.blogSingleTitle}>{item.point}</h3>
-                                            <p className={styles.blogSingleDescription}>{item.detail}</p>
-                                            {sanitizedBullets && sanitizedBullets.length > 0 ? (
-                                                <ul>
-                                                    {sanitizedBullets.map((bullet, bulletIndex) => (
-                                                        <li key={bulletIndex} className={styles.blogBullet}>{bullet}</li>
-                                                    ))}
-                                                </ul>
-                                            ) : null}
-                                        </div>
-                                    );
-                                })
-                            ) : null}
+                            {/* There i get data of all content */}
+                            <div dangerouslySetInnerHTML={{ __html: blogData.content }} />
                             <PermotingSection category={blogData.category} />
-                            <p className={styles.blogSingleDescription}>{blogData.summary}</p>
                             <div className={styles.blogWriten}>
                                 <div className={styles.socialIcons}>
                                     <>
