@@ -19,7 +19,7 @@ export const metadata = {
   ],
   title: {
     default: "TripWay Holidays: Book One-way | Group Tour | Multi City",
-    template: "TripWay Holidays | %s",
+    template: "TripWay Holidays - %s",
   },
   openGraph: {
     description: "Book your next tour with TripWay Holidays and explore amazing destinations!",
