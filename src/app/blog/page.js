@@ -6,9 +6,9 @@ const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : 
 async function fetchBlogData() {
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
     try {
-        // Add timestamp as a query parameter to prevent caching
-        const timestamp = Math.floor(Date.now() / 60000); // Updates every 60 seconds
-        const response = await fetch(`${apiPoint}api/blog?t=${timestamp}`);
+
+        const timestamp = Math.floor(Date.now() / 60000);
+        const response = await fetch(`${apiPoint}api/blog`);
 
         if (!response.ok) {
             console.error(`API responded with status: ${response.status}`);
@@ -68,11 +68,11 @@ export default async function Page() {
         blogData.map(async (blog) => {
 
             const isProduction = process.env.NODE_ENV === 'production';
-            const fullImageUrl = `${imageUrl}${blog.image}${isProduction ? `?t=${Math.floor(Date.now() / 60000)}` : ""}`;
+            const fullImageUrl = `${imageUrl}${blog.image}`;
 
             // const fullImageUrl = `${imageUrl}${blog.image}`;
             try {
-                const res = await fetch(fullImageUrl, { cache: "no-store" });
+                const res = await fetch(fullImageUrl);
                 if (!res.ok) {
                     console.error(`Error loading image: ${fullImageUrl}`);
                     return { url: fullImageUrl, placeholder: null }; // Fallback
