@@ -113,6 +113,12 @@ export default function DriverLoginPage() {
                                 <p className={styles.signupLink}>
                                     Don’t have an account? <Link href="/auth/driver/signup">Sign Up</Link>
                                 </p>
+                                <a
+                                    href="/auth/client-login"
+                                    className={styles.forgetPassword}
+                                >
+                                    Login
+                                </a>
                             </div>
                         </div>
                         <ForgetPassword

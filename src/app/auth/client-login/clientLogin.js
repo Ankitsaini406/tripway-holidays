@@ -119,13 +119,21 @@ function ClientLoaginPage() {
                                 <p className={styles.signupLink}>
                                     Don’t have an account? <a href="/auth/signup">Sign Up</a>
                                 </p>
+                                <div className={styles.loginUrl}>
                                 <a
                                     href="/auth/agent-login"
                                     className={styles.forgetPassword}
                                     onClick={() => setAgentLogin(true)}
-                                >
+                                    >
                                     Patner Login
                                 </a>
+                                <a
+                                    href="/auth/driver/login"
+                                    className={styles.forgetPassword}
+                                    >
+                                    Driver Login
+                                </a>
+                                    </div>
                             </div>
                         </div>
                         <ForgetPassword
