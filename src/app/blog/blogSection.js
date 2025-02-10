@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { truncateDescription } from '@/utils/formatData';
+import { formatBlogTime, truncateDescription } from '@/utils/formatData';
 import { useFilters } from '@/hook/useFilers';
 import { usePagination } from '@/hook/usePagination';
 import InfiniteScroll from '@/utils/infinitScroll';
@@ -83,7 +83,7 @@ function BlogCard({ item, allImages }) {
                         <p className={styles.blogCategories}>{item.category}</p>
                         <div className={styles.blogCatDate}>
                             <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
-                            <p className={styles.blogDate}>{item.date}</p>
+                            <p className={styles.blogDate}>{formatBlogTime(item.date)}</p>
                         </div>
                     </div>
                     <h3 className={styles.blogTitle}>{item.title}</h3>

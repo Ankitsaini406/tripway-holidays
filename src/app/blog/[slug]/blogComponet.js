@@ -4,6 +4,7 @@ import Image from "next/image";
 import { IoTimeOutline } from "react-icons/io5";
 import styles from "@/styles/pages/blogsection.module.css";
 import { FaFacebookF, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { formatBlogTime } from '@/utils/formatData';
 import { FaXTwitter } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 const RecommendedSection = dynamic(() => import('@/utils/Sections').then((mod) => mod.RecommendedSection));
@@ -35,7 +36,7 @@ function BlogDetails({ blogData, blurImg }) {
                                 <p className={styles.blogSingleCategories}>{blogData.category}</p>
                                 <div className={styles.blogCatDate}>
                                     <IoTimeOutline style={{ color: 'black', margin: '0 5px' }} />
-                                    <p className={styles.blogDate}>{blogData.date}</p>
+                                    <p className={styles.blogDate}>{formatBlogTime(blogData.date)}</p>
                                 </div>
                             </div>
                             <h3 className={styles.blogSingleTitle}>{blogData.title}</h3>
