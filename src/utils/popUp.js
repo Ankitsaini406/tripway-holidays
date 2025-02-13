@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import styles from '@/app/page.module.css';
+import Image from "next/image";
+import Link from "next/link";
 
-function PopUp({ popTime, closeTime, title, content }) {
+function PopUp({ popTime, closeTime, src, alt }) {
 
     const [showPopUp, setShowPopUp] = useState(false);
     const [showClose, setShowClose] = useState(false);
@@ -55,10 +57,17 @@ function PopUp({ popTime, closeTime, title, content }) {
                                 X
                             </button> : <p className={styles.closebutton}>Skip: {countdown}</p>
                         }
-                        <div className={styles.popupcontent}>
-                            <h2>{title}</h2>
-                            <p>{content}</p>
-                        </div>
+                        {/* <div className={styles.popupcontent}> */}
+                        <Link href="/auth/signup">
+                            <div className={styles.popupImage}>
+                                <Image
+                                    src={src}
+                                    alt={alt}
+                                    fill
+                                />
+                            </div>
+                        </Link>
+                        {/* </div> */}
                     </div>
                 )
             }

@@ -8,6 +8,7 @@ const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
+import PopUp from "@/utils/popUp";
 
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Group Tour | Multi City",
@@ -42,6 +43,7 @@ const Home = () => {
 
     return (
         <>
+        <PopUp popTime={5000} closeTime={10000} src="/popup/lucky-image.webp" alt="Lucky Draw Image" />
             {/* <Hero /> */}
             <Video />
 

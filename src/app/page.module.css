@@ -13,10 +13,15 @@
 
 .popupcontent {
   background-color: var(--white-color);
-  padding: 2em;
   border-radius: var(--border-radius);
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popupImage {
+  position: relative;
+  width: 600px;
+  height: 80vh;
 }
 
 .closebutton {
@@ -204,8 +209,14 @@
 }
 
 @media (max-width: 1024px) {
+
+  .popupImage {
+    width: 500px;
+    height: 80vh;
+  }
+
   .imgBox {
-    height: 100%;
+    height: 350px;
   }
 
   .homeTourFlex {
@@ -224,12 +235,17 @@
   }
 
   .tourImg {
-    /* width: 45%; */
+    width: 45%;
     height: 300px;
   }
 }
 
 @media (max-width: 430px) {
+
+  .popupImage{
+    width: 95vw;
+    height: 80vh;
+  }
 
   .homeTour {
     padding: 0em 0 0.7em 0;
@@ -244,6 +260,7 @@
 
   .imgBox {
     width: 100%;
+    height: 250px;
   }
 
   .tourImg {
