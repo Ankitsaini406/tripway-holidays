@@ -7,12 +7,14 @@ import { cabInitialState } from "@/types/initialState";
 import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
 import { generateAndStoreCouponCode } from "@/utils/Utils";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
     const [formData, setFormData] = useState(cabInitialState);
     const [activeOtp, setActiveOtp] = useState(false);
     const [correctOtp, setCorrectOtp] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
+    const route = useRouter();
     const { sendEmail } = useSendEmail();
 
     // Helper functions for OTP and password generation
@@ -79,6 +81,10 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const handleSendOtp = async (e) => {
         e.preventDefault();
+        if (!user) {
+            route.push("/auth/signup");
+            toast.info("Create your account first to unlock seamless ride booking! 🚖✨");
+        }
         if (!validateForm()) return;
 
         const otp = generateOtp();
@@ -118,40 +124,42 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         const couponCode = await generateAndStoreCouponCode();
 
         if (!user) {
-            const password = generateRandomPassword();
-            try {
-                setFormData((prev) => ({ ...prev, loading: true }));
-                const newUser = await signupUserWithEmailAndPassword(
-                    formData.email,
-                    password,
-                    { name, phoneNumber: formData.phoneNumber, password, role: 'User', couponCode },
-                    "users"
-                );
+            // const password = generateRandomPassword();
+            // try {
+            //     setFormData((prev) => ({ ...prev, loading: true }));
+            //     const newUser = await signupUserWithEmailAndPassword(
+            //         formData.email,
+            //         password,
+            //         { name, phoneNumber: formData.phoneNumber, password, role: 'User', couponCode },
+            //         "users"
+            //     );
 
-                if (!newUser) throw new Error("Failed to create user");
+            //     if (!newUser) throw new Error("Failed to create user");
 
-                userData = {
-                    agentId: null,
-                    agentPhoneNumber: formData.phoneNumber,
-                };
+            //     userData = {
+            //         agentId: null,
+            //         agentPhoneNumber: formData.phoneNumber,
+            //     };
 
-                const emailContent = {
-                    email: formData.email,
-                    subject: "Welcome to TripWay Holidays! 🌍",
-                    name,
-                    otp: null,
-                    password,
-                    url: "account-created",
-                };
+            //     const emailContent = {
+            //         email: formData.email,
+            //         subject: "Welcome to TripWay Holidays! 🌍",
+            //         name,
+            //         otp: null,
+            //         password,
+            //         url: "account-created",
+            //     };
 
-                await sendEmail(emailContent);
-            } catch (err) {
-                setFormData((prev) => ({ ...prev, error: err.message, loading: false }));
-                return;
-            }
-            finally {
-                setFormData((prev) => ({ ...prev, loading: false }));
-            }
+            //     await sendEmail(emailContent);
+            // } catch (err) {
+            //     setFormData((prev) => ({ ...prev, error: err.message, loading: false }));
+            //     return;
+            // }
+            // finally {
+            //     setFormData((prev) => ({ ...prev, loading: false }));
+            // }
+            route.push("/auth/signup");
+            toast.info("Create your account first to unlock seamless ride booking! 🚖✨");
         } else {
             userData = {
                 agentId: user.uid,
