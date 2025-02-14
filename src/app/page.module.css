@@ -36,6 +36,7 @@
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 99999;
 
   &:hover {
     background-color: var(--grey-color);
@@ -244,7 +245,7 @@
 
   .popupImage{
     width: 95vw;
-    height: 80vh;
+    height: 75vh;
   }
 
   .homeTour {
