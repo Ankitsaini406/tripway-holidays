@@ -43,7 +43,7 @@ const Home = () => {
 
     return (
         <>
-        <PopUp popTime={5000} closeTime={10000} src="/popup/lucky-image.webp" alt="Lucky Draw Image" />
+        <PopUp popTime={10000} closeTime={15000} src="/popup/lucky-image.webp" alt="Lucky Draw Image" />
             {/* <Hero /> */}
             <Video />
 
