@@ -11,6 +11,7 @@ import { PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
 import styles from "@/styles/pages/cabs.module.css";
+import Testimonials from "@/components/testimonials";
 
 export default function OneWayComponent() {
 
@@ -183,40 +184,41 @@ export default function OneWayComponent() {
                         {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
                     </button>
 
-        <div className={styles.mainBox}>
-            <h2>Why Choose One Way Cab?</h2>
-            <p>Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.</p>
-            <div className={styles.whyBook}>
-                <div className={styles.whyBox}>
-                    <div className={styles.icons}><PiTrainLight /></div>
-                    <h3>Easy Booking</h3>
-                    <p className={styles.whyText}>
-                        We offer quick and hassle-free booking with attractive offers and a user-friendly interface.
-                    </p>
-                </div>
-                <div className={styles.whyBox}>
-                    <div className={styles.icons}><IoPricetagOutline /></div>
-                    <h3>Lowest Price</h3>
-                    <p className={styles.whyText}>
-                        Enjoy affordable rates for hotels, buses, tours and holiday packages.
-                    </p>
-                </div>
-                <div className={styles.whyBox}>
-                    <div className={styles.icons}><BiSolidOffer /></div>
-                    <h3>Exciting Deals</h3>
-                    <p className={styles.whyText}>
-                        Avail deals on buses, hotels, car rentals and tour packages with exclusive offers.
-                    </p>
-                </div>
-                <div className={styles.whyBox}>
-                    <div className={styles.icons}><BiSupport /></div>
-                    <h3>24/7 Support</h3>
-                    <p className={styles.whyText}>
-                        Get round-the-clock assistance for any travel queries. We are here to help.
-                    </p>
-                </div>
-            </div>
-        </div>
+                    <div className={styles.mainBox}>
+                        <h2>Why Choose One Way Cab?</h2>
+                        <p>Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.</p>
+                        <div className={styles.whyBook}>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><PiTrainLight /></div>
+                                <h3>Easy Booking</h3>
+                                <p className={styles.whyText}>
+                                    We offer quick and hassle-free booking with attractive offers and a user-friendly interface.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><IoPricetagOutline /></div>
+                                <h3>Lowest Price</h3>
+                                <p className={styles.whyText}>
+                                    Enjoy affordable rates for hotels, buses, tours and holiday packages.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><BiSolidOffer /></div>
+                                <h3>Exciting Deals</h3>
+                                <p className={styles.whyText}>
+                                    Avail deals on buses, hotels, car rentals and tour packages with exclusive offers.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><BiSupport /></div>
+                                <h3>24/7 Support</h3>
+                                <p className={styles.whyText}>
+                                    Get round-the-clock assistance for any travel queries. We are here to help.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <Testimonials category='one-way' />
                 </div>
             </div>
         </>

@@ -93,7 +93,7 @@ const Home = () => {
                 </div>
                 <DelayedComponent delay={1000} >
                     <WhyBookUs />
-                    <Testimonials />
+                    <Testimonials category='home' />
                 </DelayedComponent>
             </div>
         </>

@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import styles from '@/styles/components/testimonials.module.css';
-import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit, where } from 'firebase/firestore';
 import { firestore } from '@/firebase/firebaseConfig';
 
-function Testimonials() {
+function Testimonials({ category }) {
     const [testimonials, setTestimonials] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
     const [activeIndex, setActiveIndex] = useState(2);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    console.log(`This is category : `, category);
 
     useEffect(() => {
         const fetchTestimonials = async () => {
@@ -22,6 +24,7 @@ function Testimonials() {
 
                 const testimonialsQuery = query(
                     testimonialsRef,
+                    where('category', '==', category),
                     orderBy('createdAt', 'desc'),
                     limit(5)
                 );
@@ -53,7 +56,7 @@ function Testimonials() {
 
         return () => window.removeEventListener('resize', handleResize);
 
-    }, []);
+    }, [category]);
 
     const handleDotClick = (index) => {
         setActiveIndex(index);
