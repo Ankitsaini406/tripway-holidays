@@ -12,8 +12,6 @@ function Testimonials({ category }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log(`This is category : `, category);
-
     useEffect(() => {
         const fetchTestimonials = async () => {
             setLoading(true);

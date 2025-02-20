@@ -123,3 +123,11 @@
         color: var(--white-color);
     }
 }
+
+.faqs {
+    padding: 1em 0 1em 0;
+}
+
+.faqTitle {
+    text-align: center;
+}

@@ -7,16 +7,31 @@ import { ContactDetails } from "@/utils/Utils";
 import { useClient } from "@/context/UserContext";
 import OtpVerification from "@/utils/otpVeriification";
 import useCabSearchForm from "@/hook/useCabSerachForm";
-import { PiTrainLight } from "react-icons/pi";
+import { PiNumberZero, PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
-import { BiSolidOffer, BiSupport } from "react-icons/bi";
+import { BiCabinet, BiCableCar, BiHome, BiSolidOffer, BiSupport } from "react-icons/bi";
 import styles from "@/styles/pages/cabs.module.css";
 import Testimonials from "@/components/testimonials";
+import { MdPayment, MdPriceCheck, MdSafetyCheck } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
+import FaqDropdown from "@/components/FaqDropdown";
 
 export default function OneWayComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, activeOtp, correctOtp, options, setFormData, handleChange, handleSendOtp, handleSubmit, setEnteredOtp } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+
+    const faqData = [
+        { question: '1. What is One Way Cab Service?', answer: 'One Way Cab Service allows you to book a taxi for a single trip without paying round-trip fares. It is a cost-effective way to travel intercity without unnecessary extra charges.' },
+        { question: '2. How do I book a One Way Cab with TripWay Holidays?', answer: 'You can book your cab easily through our website TripWayHolidays or call our helpline at 8890906400 for instant booking assistance.' },
+        { question: '3. What are the payment options available?', answer: 'We accept multiple payment options, including cash, credit/debit cards, Paytm, and UPI payments. You can pay at the time of booking or after completing your ride.' },
+        { question: '4. Is there any cancellation charge for One Way Cab bookings?', answer: 'No, cancellations within 48 hours are free of charge. If you cancel after this period, minimal charges may apply.' },
+        { question: '5. Do you provide airport transfers?', answer: 'Yes, we offer seamless airport pickup and drop services in multiple cities.' },
+        { question: '6. How can I track my ride?', answer: 'Our GPS-enabled cabs allow real-time tracking through our app or via SMS link sent after booking confirmation.' },
+        { question: '7. Are the drivers verified and trained?', answer: 'Yes, all our drivers are professionally trained, verified, and experienced to ensure a safe and comfortable journey.' },
+        { question: '8. Can I schedule a ride in advance?', answer: 'Yes, you can pre-book your ride in advance to ensure cab availability at your preferred time.' },
+        { question: '9. Do you offer special discounts or deals?', answer: 'Yes, we frequently offer promotional discounts. Keep checking our website TripWayHolidays for the latest offers.' },
+    ];
 
     return (
         <>
@@ -216,8 +231,68 @@ export default function OneWayComponent() {
                                     Get round-the-clock assistance for any travel queries. We are here to help.
                                 </p>
                             </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><BiCableCar /></div>
+                                <h3>Assured Cab Availability</h3>
+                                <p className={styles.whyText}>
+                                    Your booking is confirmed instantly, ensuring a stress-free journey.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><MdPriceCheck /></div>
+                                <h3>Transparent Pricing</h3>
+                                <p className={styles.whyText}>
+                                    Get detailed fare breakdowns, including toll tax and service fees, before booking.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><BiCabinet /></div>
+                                <h3>Dedicated Cab</h3>
+                                <p className={styles.whyText}>
+                                    Enjoy a private, comfortable cab all to yourself.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><BiHome /></div>
+                                <h3>Home Pickup & Drop</h3>
+                                <p className={styles.whyText}>
+                                    Convenient door-to-door pickup and drop, including airport transfers.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><MdSafetyCheck /></div>
+                                <h3>Safe & Comfortable Rides</h3>
+                                <p className={styles.whyText}>
+                                    Well-maintained and sanitized cabs with premium service quality.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><PiNumberZero /></div>
+                                <h3>Zero Cancellation Charges</h3>
+                                <p className={styles.whyText}>
+                                    Change of plans? Cancel without any additional fees if done within 48 hours.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><MdPayment /></div>
+                                <h3>Multiple Payment Options</h3>
+                                <p className={styles.whyText}>
+                                    Pay via cash, credit/debit cards, Paytm, or other UPI payment methods.
+                                </p>
+                            </div>
+                            <div className={styles.whyBox}>
+                                <div className={styles.icons}><FaUsers /></div>
+                                <h3>Best-Rated Drivers</h3>
+                                <p className={styles.whyText}>
+                                    Professionally trained and verified drivers ensuring a safe journey.
+                                </p>
+                            </div>
                         </div>
                     </div>
+
+                    {/* FAQ's */}
+                    <FaqDropdown faqData={faqData} />
+
                     <Testimonials category='one-way' />
                 </div>
             </div>
