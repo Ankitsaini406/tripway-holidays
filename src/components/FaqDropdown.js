@@ -20,7 +20,9 @@ const FaqDropdown = ({ faqData }) => {
                             {faq.question}
                             <span className={openIndex === index ? styles.arrowUp : styles.arrowDown}>▼</span>
                         </button>
-                        {openIndex === index && <p className={styles.faqAnswer}>{faq.answer}</p>}
+                        <div className={`${styles.faqAnswer} ${openIndex === index ? styles.show : styles.hide}`}>
+                            <p>{faq.answer}</p>
+                        </div>
                     </div>
                 ))}
             </div>

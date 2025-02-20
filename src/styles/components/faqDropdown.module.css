@@ -10,11 +10,12 @@
     border: none;
     outline: none;
     font-size: 18px;
-    padding: 1rem 0 1rem 0;
+    padding: 1rem 0;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background 0.3s ease-in-out;
 
     &:focus {
         outline: none;
@@ -22,12 +23,31 @@
 }
 
 .faqAnswer {
-    margin-top: 8px;
-    padding: 5px 10px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+
+    & > p {
+        margin: 0;
+    }
+}
+
+.show {
+    max-height: 500px; /* Adjust based on content length */
+    opacity: 1;
+    padding: 10px 10px;
     background: #f9f9f9;
     border-left: 3px solid #007bff;
 }
 
+.hide {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+}
+
+/* Arrow Animation */
 .arrowDown {
     transition: transform 0.3s ease-in-out;
 }
@@ -38,7 +58,6 @@
 }
 
 .faqPageContainer {
-    /* max-width: 600px; */
     margin: 0 auto;
     padding: 20px;
 }
