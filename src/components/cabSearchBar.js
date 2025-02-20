@@ -2,6 +2,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
 import OtpVerification from "@/utils/otpVeriification";
+import { ContactDetails } from "@/utils/Utils";
 import useCabSearchForm from "@/hook/useCabSerachForm";
 import styles from "@/styles/components/advancesearchbar.module.css";
 
@@ -207,18 +208,5 @@ export function CabSearchBar() {
                 {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
             </button>
         </>
-    );
-}
-
-export function ContactDetails({ type, name, value, handleChange, className, palceholder }) {
-    return (
-        <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={handleChange}
-            className={className}
-            placeholder={palceholder}
-        />
     );
 }

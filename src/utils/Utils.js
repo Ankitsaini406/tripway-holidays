@@ -48,3 +48,16 @@ export async function generateAndStoreCouponCode() {
         throw error;
     }
 }
+
+export function ContactDetails({ type, name, value, handleChange, className, palceholder }) {
+    return (
+        <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            className={className}
+            placeholder={palceholder}
+        />
+    );
+}
