@@ -65,15 +65,14 @@ function Footer() {
                     </div>
 
                     <div className={styles.footerFlex}>
-                        <h3>Useful Links</h3>
+                        <h3>Services</h3>
                         <ul className={styles.footerFlexList}>
-                            <li>
-                                <Link rel="preload" className={styles.lnkTag} href='/'>Home</Link>
-                            </li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link></li>
+                            {/* <li><Link rel="preload" className={styles.lnkTag} href='/'>Home</Link></li> */}
                             <li><Link rel="preload" className={styles.lnkTag} href='/blog'>Blog</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/group-tour'>Group Tours</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/one-way'>One Way</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/round-trip'>Round Trip</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/multi-city'>Multi City</Link></li>
                         </ul>
                     </div>
 
@@ -89,9 +88,10 @@ function Footer() {
                     </div>
 
                     <div className={styles.footerFlex}>
-                        <h3>UseFull links</h3>
+                        <h3>Links</h3>
                         <ul className={styles.footerFlexList}>
                             <li><Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/auth/agent-login'>Patner Login</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href="/auth/driver/login" >Driver Login</Link></li>
                         </ul>
