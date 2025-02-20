@@ -17,7 +17,7 @@ import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 
-export default function OneWayComponent() {
+export default function RoundTripComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, activeOtp, correctOtp, options, setFormData, handleChange, handleSendOtp, handleSubmit, setEnteredOtp } = useCabSearchForm(user, signupUserWithEmailAndPassword);
@@ -101,9 +101,9 @@ export default function OneWayComponent() {
         <>
             <div className="heroSection">
                 <div className="overlay"></div>
-                <Image className="heroImage" src="/slider/slider4.webp" fill alt="Group Tour Image" />
+                <Image className="heroImage" src="/slider/slider3.webp" fill alt="Group Tour Image" />
                 <h1 className="heroText">
-                    One Way
+                    Round Trip
                 </h1>
             </div>
             <div className="layout">
