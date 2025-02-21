@@ -86,14 +86,14 @@ export default function RoundTripComponent() {
     ]
 
     const faqData = [
-        { question: '1. What is One Way Cab Service?', answer: 'One Way Cab Service allows you to book a taxi for a single trip without paying round-trip fares. It is a cost-effective way to travel intercity without unnecessary extra charges.' },
-        { question: '2. How do I book a One Way Cab with TripWay Holidays?', answer: 'You can book your cab easily through our website TripWayHolidays or call our helpline at +91 8890906400 for instant booking assistance.' },
+        { question: '1. What is Round Trip Cab Service?', answer: 'Round Trip Cab Service allows you to book a taxi for a complete journey to and from your destination without worrying about return availability. It ensures a seamless travel experience with cost-effective pricing.' },
+        { question: '2. How do I book a Round Trip Cab with TripWayHolidays?', answer: 'You can book your cab easily through our website TripWayHolidays or call our helpline at +91 8002207427 for instant booking assistance.' },
         { question: '3. What are the payment options available?', answer: 'We accept multiple payment options, including cash, credit/debit cards, Paytm, and UPI payments. You can pay at the time of booking or after completing your ride.' },
-        { question: '4. Is there any cancellation charge for One Way Cab bookings?', answer: 'No, cancellations within 48 hours are free of charge. If you cancel after this period, minimal charges may apply.' },
-        { question: '5. Do you provide airport transfers?', answer: 'Yes, we offer seamless airport pickup and drop services in multiple cities.' },
+        { question: '4. Is there any cancellation charge for Round Trip Cab bookings?', answer: 'No, cancellations within 48 hours are free of charge. If you cancel after this period, minimal charges may apply.' },
+        { question: '5. Do you provide airport transfers?', answer: 'Yes, we offer airport pickup and drop services with round-trip cab bookings.' },
         { question: '6. How can I track my ride?', answer: 'Our GPS-enabled cabs allow real-time tracking through our app or via SMS link sent after booking confirmation.' },
         { question: '7. Are the drivers verified and trained?', answer: 'Yes, all our drivers are professionally trained, verified, and experienced to ensure a safe and comfortable journey.' },
-        { question: '8. Can I schedule a ride in advance?', answer: 'Yes, you can pre-book your ride in advance to ensure cab availability at your preferred time.' },
+        { question: '8. Can I schedule a ride in advance?', answer: 'Yes, you can pre-book your ride in advance to ensure cab availability at your preferred time.' },
         { question: '9. Do you offer special discounts or deals?', answer: 'Yes, we frequently offer promotional discounts. Keep checking our website TripWayHolidays for the latest offers.' },
     ];
 
@@ -143,12 +143,11 @@ export default function RoundTripComponent() {
                                     />
                                     <input
                                         type="text"
-                                        name="to"
-                                        placeholder="To"
-                                        value={formData.to}
+                                        name="destination"
+                                        placeholder="Destination"
+                                        value={formData.destination}
                                         onChange={handleChange}
                                         className={styles.searchInput}
-                                        required
                                     />
                                 </div>
 
@@ -263,14 +262,14 @@ export default function RoundTripComponent() {
                         {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
                     </button>
 
-                    <WhyChooseUs title='Why Choose One Way Cab?' 
-                    description='Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.'
-                    whyChooseUs={whyChooseUs}
+                    <WhyChooseUs title='Why Choose Round Trip Cab?'
+                        description='Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.'
+                        whyChooseUs={whyChooseUs}
                     />
 
                     <FaqDropdown faqData={faqData} />
 
-                    <Testimonials category='one-way' />
+                    <Testimonials category='round-trip' />
                 </div>
             </div>
         </>

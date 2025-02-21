@@ -263,14 +263,14 @@ export default function MultiCityComponent() {
                         {formData.loading ? 'Submiting...' : activeOtp ? "Submit" : "Book Now"}
                     </button>
 
-                    <WhyChooseUs title='Why Choose One Way Cab?' 
+                    <WhyChooseUs title='Why Choose Multi City Cab?' 
                     description='Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.'
                     whyChooseUs={whyChooseUs}
                     />
 
                     <FaqDropdown faqData={faqData} />
 
-                    <Testimonials category='one-way' />
+                    <Testimonials category='Multi City' />
                 </div>
             </div>
         </>
