@@ -32,6 +32,7 @@ const nextConfig = {
         FIREBASE_APP_ID: process.env.NEXT_FIREBASE_APP_ID,
         FIREBASE_MEASUREMENT_ID: process.env.NEXT_FIREBASE_MEASUREMENT_ID,
         GOOGLE_MAP_API: process.env.NEXT_APP_GOOGLE_MAP_API,
+        AI_SENSY: process.env.NEXT_APP_AI_SENSY,
     },
 
     async rewrites() {

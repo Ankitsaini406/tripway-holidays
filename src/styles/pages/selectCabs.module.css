@@ -1,6 +1,5 @@
 
 .carMainBox {
-    padding: 1rem;
     margin: 1rem 0;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
     border-radius: 25px;
@@ -9,7 +8,8 @@
 
 .carFlex {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .carBox {
@@ -19,5 +19,53 @@
 }
 
 .carDetailsBox {
-    
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: center;
+    background-color: var(--gray-flash);
+}
+
+.itemBox {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 0.5rem;
+    align-items: center;
+    text-align: center;
+
+    & > svg {
+        height: 30px;
+        width: 30px;
+    }
+
+    & > h3 {
+        color: var(--peacock-green);
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    & > h4 {
+        color: var(--indigo-blue);
+        font-weight: bold;
+        text-decoration: line-through;
+    }
+
+    & > h6 {
+        color: var(--error-color);
+        font-weight: bold;
+    }
+}
+
+.selectBtn {
+    padding: 0.5rem 1rem;
+    background-color: var(--safforn-orange);
+    color: var(--white-color);
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        transition: all 0.3s ease-in-out;
+    }
 }
