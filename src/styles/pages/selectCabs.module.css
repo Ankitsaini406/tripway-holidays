@@ -1,0 +1,23 @@
+
+.carMainBox {
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    border-radius: 25px;
+    border: 1px solid var(--indigo-blue);
+}
+
+.carFlex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carBox {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.carDetailsBox {
+    
+}
