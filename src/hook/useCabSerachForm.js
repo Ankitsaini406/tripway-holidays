@@ -26,6 +26,14 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         { value: "", label: "Select Car" }, { value: "Seden", label: "Sedan" }, { value: "Suv", label: "SUV" }, { value: "Hatchback", label: "Hatchback" },
     ];
 
+    const fromOptions = [
+        { value: "", label: "From" }, { value: "Sikar", label: "Sikar" }, { value: "Jaipur", label: "Jaipur" }, { value: "Alwar", label: "Alwar" },
+    ];
+
+    const toOptions = [
+        { value: "", label: "From" }, { value: "Sikar", label: "Sikar" }, { value: "Jaipur", label: "Jaipur" }, { value: "Alwar", label: "Alwar" },
+    ];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -200,6 +208,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         activeOtp,
         correctOtp,
         options,
+        fromOptions,
         setFormData,
         handleChange,
         handleMultiCityChange,

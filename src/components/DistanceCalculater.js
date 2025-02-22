@@ -1,0 +1,88 @@
+import { useState } from "react";
+
+const DistanceCalculator = () => {
+    const [origin, setOrigin] = useState("");
+    const [destination, setDestination] = useState("");
+    const [distance, setDistance] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    const getDistance = async () => {
+        if (!origin || !destination) {
+            setError("Please enter both locations.");
+            return;
+        }
+    
+        setLoading(true);
+        setError("");
+        setDistance(null);
+    
+        try {
+            const response = await fetch(`/api/google/distance?origin=${origin}&destination=${destination}`);
+            const data = await response.json();
+    
+            console.log("API Response:", data);
+    
+            if (data.error) {
+                setError(`Error: ${data.error}`);
+                return;
+            }
+    
+            if (data.status === "OK") {
+                const dist = data.rows[0].elements[0].distance.text;
+                setDistance(dist);
+            } else {
+                setError(`Google API Error: ${data.status}`);
+            }
+        } catch (err) {
+            console.error("Fetch Error:", err);
+            setError("Error fetching data.");
+        }
+    
+        setLoading(false);
+    };
+    
+
+    return (
+        <div style={{ textAlign: "center", padding: "20px" }}>
+            <h2>Google Maps Distance Calculator</h2>
+
+            <div style={{ marginBottom: "10px" }}>
+                <input
+                    type="text"
+                    placeholder="Enter origin"
+                    value={origin}
+                    onChange={(e) => setOrigin(e.target.value)}
+                    style={{ padding: "10px", marginRight: "10px" }}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                    style={{ padding: "10px" }}
+                />
+            </div>
+
+            <button
+                onClick={getDistance}
+                style={{
+                    padding: "10px 20px",
+                    backgroundColor: "#0070f3",
+                    color: "#fff",
+                    border: "none",
+                    cursor: "pointer",
+                }}
+                disabled={loading}
+            >
+                {loading ? "Calculating..." : "Get Distance"}
+            </button>
+
+            {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
+            {distance && <h3 style={{ marginTop: "20px" }}>Distance: {distance}</h3>}
+        </div>
+    );
+};
+
+export default DistanceCalculator;
