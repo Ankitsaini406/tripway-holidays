@@ -99,12 +99,28 @@ export default function RoundTripComponent() {
 
     return (
         <>
-            <div className="heroSection">
+<div className={styles.heroSection}>
                 <div className="overlay"></div>
-                <Image className="heroImage" src="/slider/slider3.webp" fill alt="Group Tour Image" />
-                <h1 className="heroText">
-                    Round Trip
-                </h1>
+                <Image
+                    className="heroImage"
+                    src="/cab/one-way.webp"
+                    fill
+                    alt="Cab Background"
+                />
+                
+                <Image
+                    className={styles.heroImage}
+                    src="/cab/car.webp"
+                    alt="Round trip car"
+                    width={450} height={200}
+                />
+                <Image
+                    className={styles.heroImage2}
+                    src="/cab/car.webp"
+                    alt="Round trip car"
+                    width={450} height={200}
+                />
+                <h1 className={styles.heroText}>Round Trip</h1>
             </div>
             <div className="layout">
                 <div>

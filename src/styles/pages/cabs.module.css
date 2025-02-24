@@ -12,7 +12,7 @@
     bottom: 0;
     left: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: 2;
     height: 150px;
     width: 400px;
     animation: carMove 5s linear;
@@ -27,9 +27,30 @@
     }
 }
 
+.heroImage2 {
+    position: absolute;
+    bottom: 60px;
+    right: 100%;
+    object-fit: cover;
+    z-index: 1;
+    height: 168px;
+    width: 400px;
+    transform: rotateY(180deg);
+    animation: carMove2 5s linear 5s;
+}
+
+@keyframes carMove2 {
+    0% {
+        right: 100%;
+    }
+    100% {
+        right: -100%;
+    }
+}
+
 .heroText {
     position: relative;
-    z-index: 3;
+    z-index: 10;
     color: white;
     font-weight: bold;
     text-align: center;

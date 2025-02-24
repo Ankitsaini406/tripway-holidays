@@ -153,13 +153,13 @@ export default function OneWayComponent() {
                     className="heroImage"
                     src="/cab/one-way.webp"
                     fill
-                    alt="Group Tour Image"
+                    alt="Cab Background"
                 />
                 
                 <Image
                     className={styles.heroImage}
                     src="/cab/car.webp"
-                    alt="Group Tour Image"
+                    alt="One Way Cab"
                     width={450} height={200}
                 />
                 <h1 className={styles.heroText}>One Way</h1>
