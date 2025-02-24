@@ -11,11 +11,28 @@ import { useRouter } from "next/navigation";
 
 const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
     const [formData, setFormData] = useState(cabInitialState);
+    const [tags, setTags] = useState([]);
+    const [inputValue, setInputValue] = useState('');
     const [activeOtp, setActiveOtp] = useState(false);
     const [correctOtp, setCorrectOtp] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
     const route = useRouter();
     const { sendEmail } = useSendEmail();
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && inputValue.trim() !== '') {
+          e.preventDefault();
+          if (!tags.includes(inputValue.trim())) {
+            setTags([...tags, inputValue.trim()]);
+            setInputValue('');
+          }
+        }
+      };
+    
+      // Handler for removing tags
+      const removeTag = (indexToRemove) => {
+        setTags(tags.filter((_, index) => index !== indexToRemove));
+      };
 
     // Helper functions for OTP and password generation
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
@@ -41,6 +58,10 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
             [name]: name === "phoneNumber" ? value.replace(/\D/g, "") : value,
         }));
     };
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+      };
 
     const handleMultiCityChange = (index, value) => {
         setFormData((prev) => {
@@ -209,6 +230,11 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         correctOtp,
         options,
         fromOptions,
+        inputValue,
+        tags,
+        handleKeyDown,
+        removeTag,
+        handleInputChange,
         setFormData,
         handleChange,
         handleMultiCityChange,

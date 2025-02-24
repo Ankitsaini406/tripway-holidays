@@ -31,7 +31,7 @@ function Header() {
         <div className={styles.navbar}>
             <div className={styles.header}>
                 <div className={styles.logo}>
-                    <Link href="/">TripWay&nbsp;Holidays</Link>
+                    <Link href="/">Tripway&nbsp;Holidays</Link>
                 </div>
                 <div
                     className={styles.hamburger}

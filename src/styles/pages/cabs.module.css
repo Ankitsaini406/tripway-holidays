@@ -101,9 +101,87 @@
     width: 50%;
 }
 
+.tagInputContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+    border: 1px solid #cecece;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--indigo-blue);
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.tag button {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.input {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    font-size: large;
+}
+
+.destination {
+    position: relative;
+}
+
+.removeButton {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    border-radius: 50%;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.addButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    font-size: large;
+    border-radius: 50%;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
 .distanceIcon {
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: larger;
+}
+
+.MdistanceIcon {
+    position: absolute;
+    top: 30px;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: larger;
@@ -246,6 +324,10 @@
         flex-direction: column;
     }
 
+    .tagInputContainer {
+        flex-wrap: wrap;
+    }
+
     .radioOption {
         width: 100%;
     }
@@ -260,6 +342,10 @@
     .heroImage, .heroImage2 {
         width: 230px;
         height: 100px;
+    }
+
+    .MdistanceIcon {
+        top: 65px;
     }
 
     .radioOption {
