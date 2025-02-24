@@ -237,7 +237,7 @@
 
 @media (max-width: 860px) {
 
-    .heroImage {
+    .heroImage, .heroImage2 {
         width: 350px;
         height: 150px;
     }
@@ -257,9 +257,9 @@
 
 @media (max-width: 430px) {
 
-    .heroImage {
-        width: 300px;
-        height: 120px;
+    .heroImage, .heroImage2 {
+        width: 230px;
+        height: 100px;
     }
 
     .radioOption {
