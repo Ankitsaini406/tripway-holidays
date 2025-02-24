@@ -8,7 +8,6 @@ import useCabSearchForm from "@/hook/useCabSerachForm";
 import { PiNumberZero, PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { GrDirections } from "react-icons/gr";
-import { RiCloseLine } from 'react-icons/ri';
 import { BiCabinet, BiCableCar, BiHome, BiSolidOffer, BiSupport } from "react-icons/bi";
 import styles from "@/styles/pages/cabs.module.css";
 import Testimonials from "@/components/testimonials";
@@ -17,6 +16,7 @@ import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Link from "next/link";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function MultiCityComponent() {
 
@@ -100,12 +100,28 @@ export default function MultiCityComponent() {
 
     return (
         <>
-            <div className="heroSection">
+                        <div className={styles.heroSection}>
                 <div className="overlay"></div>
-                <Image className="heroImage" src="/slider/slider2.webp" fill alt="Group Tour Image" />
-                <h1 className="heroText">
-                    Multi City
-                </h1>
+                <Image
+                    className="heroImage"
+                    src="/cab/one-way.webp"
+                    fill
+                    alt="Cab Background"
+                />
+
+                <Image
+                    className={styles.heroImage}
+                    src="/cab/car.webp"
+                    alt="Round trip car"
+                    width={450} height={200}
+                />
+                <Image
+                    className={styles.heroImage2}
+                    src="/cab/car.webp"
+                    alt="Round trip car"
+                    width={450} height={200}
+                />
+                <h1 className={styles.heroText}>Multi City</h1>
             </div>
             <div className="layout">
                 <div>
@@ -176,7 +192,7 @@ export default function MultiCityComponent() {
                     </div>
 
                     <WhyChooseUs title='Why Choose Multi City Cab?'
-                        description='Are you tired of paying for both sides of your journey when traveling one way? One Way Cab is India’s leading intercity cab service provider, allowing you to pay only for the distance you travel. Now, travel one-way without extra charges and enjoy a seamless experience with our reliable cab services.'
+                        description="​Experience the freedom to explore multiple destinations with our customizable multi-city cab services. Plan your journey across various cities, and we'll ensure a comfortable and seamless ride tailored to your itinerary."
                         whyChooseUs={whyChooseUs}
                     />
 

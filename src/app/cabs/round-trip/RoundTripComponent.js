@@ -16,6 +16,7 @@ import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Link from "next/link";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function RoundTripComponent() {
 
@@ -99,7 +100,7 @@ export default function RoundTripComponent() {
 
     return (
         <>
-<div className={styles.heroSection}>
+            <div className={styles.heroSection}>
                 <div className="overlay"></div>
                 <Image
                     className="heroImage"
@@ -107,7 +108,7 @@ export default function RoundTripComponent() {
                     fill
                     alt="Cab Background"
                 />
-                
+
                 <Image
                     className={styles.heroImage}
                     src="/cab/car.webp"
@@ -124,7 +125,7 @@ export default function RoundTripComponent() {
             </div>
             <div className="layout">
                 <div>
-                <div className={styles.mainflex}>
+                    <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
                                 <select
