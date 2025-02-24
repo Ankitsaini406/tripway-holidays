@@ -10,7 +10,7 @@ export async function GET(req) {
         }
 
         const googleApiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&key=${apiKey}`;
-        const googleApiUrl2 =`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=Jaipur&origins=Sikar&units=imperial&key=AIzaSyDLCK-3ydi6roHOuIWeiptOXotwW_AoVzQ`;
+        const googleApiUrl2 =`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=Jaipur&origins=Sikar&units=imperial&key=AIzaSyDWd8D9b2DU1JBDDUhcHckUHIu3icSTtSE`;
 
         console.log("Requesting Google API:", googleApiUrl); // Debugging log
 
