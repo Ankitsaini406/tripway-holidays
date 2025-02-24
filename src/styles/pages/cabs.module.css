@@ -162,14 +162,14 @@
 .mainBox {
     text-align: center;
     padding: 1em;
-    margin: 1rem 0 0 0;
+    margin: 4rem 0 0 0;
     border-radius: var(--border-radius);
 }
 
 .whyBook {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(29ch, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
     color: var(--secondary-text);
 }
 
@@ -274,5 +274,6 @@
     .searchButton {
         bottom: -9%;
         font-size: medium;
+        padding: 0.5rem 1rem;
     }
 }
