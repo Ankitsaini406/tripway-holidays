@@ -1,3 +1,54 @@
+.heroSection {
+    position: relative;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.heroImage {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    object-fit: cover;
+    z-index: 1;
+    height: 150px;
+    width: 400px;
+    animation: carMove 5s linear;
+}
+
+@keyframes carMove {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+.heroText {
+    position: relative;
+    z-index: 3;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0);
+    animation: textAnimation 3s linear forwards;
+}
+
+@keyframes textAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .inputFlex {
     display: flex;
     flex-direction: column;
@@ -5,7 +56,7 @@
     padding: 0 0 2rem 0;
 }
 
-.mainflex{
+.mainflex {
     position: relative;
     margin: 1rem 0 1rem 0;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
@@ -165,6 +216,11 @@
 
 @media (max-width: 860px) {
 
+    .heroImage {
+        width: 350px;
+        height: 150px;
+    }
+
     .flexRedio {
         flex-direction: column;
     }
@@ -179,6 +235,11 @@
 }
 
 @media (max-width: 430px) {
+
+    .heroImage {
+        width: 300px;
+        height: 120px;
+    }
 
     .radioOption {
         grid-template-columns: repeat(1, minmax(200px, 1fr));

@@ -147,15 +147,22 @@ export default function OneWayComponent() {
 
     return (
         <>
-            <div className="heroSection">
+            <div className={styles.heroSection}>
                 <div className="overlay"></div>
                 <Image
                     className="heroImage"
-                    src="/slider/slider4.webp"
+                    src="/cab/one-way.webp"
                     fill
                     alt="Group Tour Image"
                 />
-                <h1 className="heroText">One Way</h1>
+                
+                <Image
+                    className={styles.heroImage}
+                    src="/cab/car.webp"
+                    alt="Group Tour Image"
+                    width={450} height={200}
+                />
+                <h1 className={styles.heroText}>One Way</h1>
             </div>
             <div className="layout">
                 {/* <DistanceCalculator /> */}
