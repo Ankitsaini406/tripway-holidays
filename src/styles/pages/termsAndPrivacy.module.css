@@ -222,6 +222,10 @@
         flex-direction: column;
     }
 
+    .liTag {
+        line-height: 35px;
+    }
+
 }
 
 @media (max-width: 430px) {
