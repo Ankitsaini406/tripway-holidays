@@ -241,4 +241,8 @@
     .imageBox {
         width: 100%;
     }
+
+    .liTag {
+        line-height: 30px;
+    }
 }
