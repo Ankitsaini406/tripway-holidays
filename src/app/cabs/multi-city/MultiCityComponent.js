@@ -5,13 +5,13 @@ import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
 import useCabSearchForm from "@/hook/useCabSerachForm";
-import { PiNumberZero, PiTrainLight } from "react-icons/pi";
-import { IoPricetagOutline } from "react-icons/io5";
+import { PiNumberZero, } from "react-icons/pi";
+import { TiCancelOutline } from "react-icons/ti";
 import { GrDirections } from "react-icons/gr";
-import { BiCabinet, BiCableCar, BiHome, BiSolidOffer, BiSupport } from "react-icons/bi";
+import { BiHome, BiSolidOffer, BiSupport } from "react-icons/bi";
 import styles from "@/styles/pages/cabs.module.css";
 import Testimonials from "@/components/testimonials";
-import { MdPayment, MdPriceCheck, MdSafetyCheck } from "react-icons/md";
+import { MdPayment, MdSafetyCheck } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -25,64 +25,44 @@ export default function MultiCityComponent() {
 
     const whyChooseUs = [
         {
-            title: 'Easy Booking',
-            description: 'We offer quick and hassle-free booking with attractive offers and a user-friendly interface.',
-            icons: <PiTrainLight />,
+            title: 'Comfortable & Reliable Transport',
+            description: 'Travel in well-maintained, spacious vehicles with professional drivers ensuring a smooth ride.',
+            icons: <MdPayment />,
         },
         {
-            title: 'Lowest Price',
-            description: 'Enjoy affordable rates for hotels, buses, tours and holiday packages.',
-            icons: <IoPricetagOutline />,
+            title: 'Customized Itineraries',
+            description: 'Plan your trip the way you want, with tailored routes covering multiple cities of your choice.',
+            icons: <FaUsers />,
         },
         {
-            title: 'Exciting Deals',
-            description: 'Avail deals on buses, hotels, car rentals and tour packages with exclusive offers.',
+            title: 'Secure Online Payment',
+            description: 'Pay safely through our encrypted online portal using credit/debit cards,UPI, Online Banking.',
+            icons: <TiCancelOutline />,
+        },
+        {
+            title: '48-Hour Cancellation Policy',
+            description: 'Plans changed? Cancel up to 48 hours in advance for a hassle-free refund or rescheduling.',
             icons: <BiSolidOffer />,
         },
         {
             title: '24/7 Support',
-            description: 'Get round-the-clock assistance for any travel queries. We are here to help.',
+            description: 'Our team is always available to assist you throughout your journey.',
             icons: <BiSupport />,
         },
         {
-            title: 'Assured Cab Availability',
-            description: 'Your booking is confirmed instantly, ensuring a stress-free journey.',
-            icons: <BiCableCar />,
-        },
-        {
-            title: 'Transparent Pricing',
-            description: 'Get detailed fare breakdowns, including toll tax and service fees, before booking.',
-            icons: <MdPriceCheck />,
-        },
-        {
-            title: 'Dedicated Cab',
-            description: 'Enjoy a private, comfortable cab all to yourself.',
-            icons: <BiCabinet />,
-        },
-        {
-            title: 'Home Pickup & Drop',
-            description: 'Convenient door-to-door pickup and drop, including airport transfers.',
+            title: 'Door-to-Door Service',
+            description: 'Get picked up and dropped off at your preferred locations across different cities.',
             icons: <BiHome />,
         },
         {
-            title: 'Safe & Comfortable Rides',
-            description: 'Well-maintained and sanitized cabs with premium service quality.',
+            title: 'Flexible Scheduling',
+            description: ' Choose your departure and return times with flexible options to fit your travel needs.',
             icons: <MdSafetyCheck />,
         },
         {
-            title: 'Zero Cancellation Charges',
-            description: 'Change of plans? Cancel without any additional fees if done within 48 hours.',
+            title: 'Time & Cost Efficiency',
+            description: 'Save money with our budget-friendly round-trip packages that include multiple stops without extra hassle.',
             icons: <PiNumberZero />,
-        },
-        {
-            title: 'Multiple Payment Options',
-            description: 'Pay via cash, credit/debit cards, Paytm, or other UPI payment methods.',
-            icons: <MdPayment />,
-        },
-        {
-            title: 'Best-Rated Drivers',
-            description: 'Professionally trained and verified drivers ensuring a safe journey.',
-            icons: <FaUsers />,
         },
     ]
 
