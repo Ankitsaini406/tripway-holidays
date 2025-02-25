@@ -67,7 +67,7 @@ export default function MultiCityComponent() {
     ]
 
     const faqData = [
-        { question: '1. What is One Way Cab Service?', answer: 'One Way Cab Service allows you to book a taxi for a single trip without paying round-trip fares. It is a cost-effective way to travel intercity without unnecessary extra charges.' },
+        { question: '1. How do I book a multi-city trip?', answer: 'Simply select your desired cities, customize your schedule, and complete the booking process online or by contacting our customer support team.' },
         { question: '2. How do I book a One Way Cab with TripWay Holidays?', answer: 'You can book your cab easily through our website TripWayHolidays or call our helpline at +91 8890906400 for instant booking assistance.' },
         { question: '3. What are the payment options available?', answer: 'We accept multiple payment options, including cash, credit/debit cards, Paytm, and UPI payments. You can pay at the time of booking or after completing your ride.' },
         { question: '4. Is there any cancellation charge for One Way Cab bookings?', answer: 'No, cancellations within 48 hours are free of charge. If you cancel after this period, minimal charges may apply.' },
