@@ -37,9 +37,9 @@ const DistanceCalculator = () => {
         } catch (err) {
             console.error("Fetch Error:", err);
             setError("Error fetching data.");
+        } finally {
+            setLoading(false);
         }
-    
-        setLoading(false);
     };
     
 

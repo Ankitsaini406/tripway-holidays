@@ -101,7 +101,7 @@ export default function RoundTripComponent() {
     return (
         <>
             <div className={styles.heroSection}>
-                <div className="overlay"></div>
+                <div className={styles.overlay}></div>
                 <Image
                     className="heroImage"
                     src="/cab/one-way.webp"

@@ -148,7 +148,7 @@ export default function OneWayComponent() {
     return (
         <>
             <div className={styles.heroSection}>
-                <div className="overlay"></div>
+                <div className={styles.overlay}></div>
                 <Image
                     className="heroImage"
                     src="/cab/one-way.webp"
@@ -165,7 +165,7 @@ export default function OneWayComponent() {
                 <h1 className={styles.heroText}>One Way</h1>
             </div>
             <div className="layout">
-                {/* <DistanceCalculator /> */}
+                <DistanceCalculator />
                 <div>
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>

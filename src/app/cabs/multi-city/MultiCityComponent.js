@@ -100,8 +100,8 @@ export default function MultiCityComponent() {
 
     return (
         <>
-                        <div className={styles.heroSection}>
-                <div className="overlay"></div>
+            <div className={styles.heroSection}>
+                <div className={styles.overlay}></div>
                 <Image
                     className="heroImage"
                     src="/cab/one-way.webp"
@@ -111,13 +111,13 @@ export default function MultiCityComponent() {
 
                 <Image
                     className={styles.heroImage}
-                    src="/cab/car.webp"
+                    src="/cab/fource.webp"
                     alt="Round trip car"
                     width={450} height={200}
                 />
                 <Image
                     className={styles.heroImage2}
-                    src="/cab/car.webp"
+                    src="/cab/fource.webp"
                     alt="Round trip car"
                     width={450} height={200}
                 />
