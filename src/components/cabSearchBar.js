@@ -149,7 +149,7 @@ export function CabSearchBar() {
                             value={formData.firstName}
                             handleChange={handleChange}
                             className={styles.searchInput}
-                            palceholder='First Name'
+                            placeholder='First Name'
                         />
                         <ContactDetails
                             type='text'
@@ -157,7 +157,7 @@ export function CabSearchBar() {
                             value={formData.lastName}
                             handleChange={handleChange}
                             className={styles.searchInput}
-                            palceholder='Last Name'
+                            placeholder='Last Name'
                         />
                     </div>
 
@@ -168,7 +168,7 @@ export function CabSearchBar() {
                             value={formData.phoneNumber}
                             handleChange={handleChange}
                             className={styles.searchInput}
-                            palceholder='Phone Number'
+                            placeholder='Phone Number'
                         />
                         <ContactDetails
                             type='email'
@@ -176,7 +176,7 @@ export function CabSearchBar() {
                             value={formData.email}
                             handleChange={handleChange}
                             className={styles.searchInput}
-                            palceholder='Email'
+                            placeholder='Email'
                         />
                     </div>
 
