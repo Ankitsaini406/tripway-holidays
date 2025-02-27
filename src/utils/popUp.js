@@ -5,7 +5,7 @@ import styles from '@/app/page.module.css';
 import Image from "next/image";
 import Link from "next/link";
 
-function PopUp({ popTime, closeTime, src, alt }) {
+function PopUp({ popTime, closeTime, src, alt, name, phoneNumber }) {
 
     const [showPopUp, setShowPopUp] = useState(false);
     const [showClose, setShowClose] = useState(false);
@@ -57,8 +57,9 @@ function PopUp({ popTime, closeTime, src, alt }) {
                                 X
                             </button> : <p className={styles.closebutton}>Skip: {countdown}</p>
                         }
-                        {/* <div className={styles.popupcontent}> */}
-                        <Link href="/auth/signup">
+                        {
+                            src !== null ?                             
+                            <Link href="/auth/signup">
                             <div className={styles.popupImage}>
                                 <Image
                                     src={src}
@@ -66,8 +67,12 @@ function PopUp({ popTime, closeTime, src, alt }) {
                                     fill
                                 />
                             </div>
-                        </Link>
-                        {/* </div> */}
+                        </Link> : 
+                        <div className={styles.popupcontent}>
+                            {name}
+                            {phoneNumber}
+                        </div>
+                        }
                     </div>
                 )
             }

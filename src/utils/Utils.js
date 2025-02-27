@@ -49,7 +49,7 @@ export async function generateAndStoreCouponCode() {
     }
 }
 
-export function ContactDetails({ type, name, value, handleChange, className, palceholder }) {
+export function ContactDetails({ type, name, value, handleChange, className, placeholder }) {
     return (
         <input
             type={type}
@@ -57,7 +57,7 @@ export function ContactDetails({ type, name, value, handleChange, className, pal
             value={value}
             onChange={handleChange}
             className={className}
-            placeholder={palceholder}
+            placeholder={placeholder}
         />
     );
 }
