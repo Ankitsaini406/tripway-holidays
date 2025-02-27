@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 import { SlDirections } from "react-icons/sl";
 import useCabSearchForm from "@/hook/useCabSerachForm";
 import { PiTrainLight } from "react-icons/pi";
@@ -14,13 +15,23 @@ import Testimonials from "@/components/testimonials";
 import { MdModeOfTravel, MdPayment, MdTravelExplore, MdMoneyOff } from "react-icons/md";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Link from "next/link";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 
 export default function RoundTripComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+        const router = useRouter();
+    
+        const handleSearch = () => {
+            if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+                toast.error("Please fill in all fields before proceeding.");
+                return;
+            }
+    
+            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+        };
 
     const whyChooseUs = [
         {
@@ -130,9 +141,9 @@ export default function RoundTripComponent() {
                                 </div>
                                 <input
                                     type="text"
-                                    name="to"
+                                    name="destination"
                                     placeholder="Distination"
-                                    value={formData.to}
+                                    value={formData.destination}
                                     onChange={handleChange}
                                     className={styles.searchInput}
                                     required
@@ -160,9 +171,12 @@ export default function RoundTripComponent() {
                             </div>
                         </div>
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
-                        <Link href='/cabs/select-cabs' className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}>
+                        <button
+                            onClick={handleSearch}
+                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                        >
                             EXPLORE CABS
-                        </Link>
+                        </button>
                     </div>
 
                     <WhyChooseUs title='Why Choose Round Trip Cab?'

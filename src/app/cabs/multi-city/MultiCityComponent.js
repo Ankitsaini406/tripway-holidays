@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 import useCabSearchForm from "@/hook/useCabSerachForm";
 import { PiNumberZero, } from "react-icons/pi";
 import { TiCancelOutline } from "react-icons/ti";
@@ -15,13 +16,23 @@ import { MdPayment, MdSafetyCheck } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Link from "next/link";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
 
 export default function MultiCityComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
-    const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleMultiCityChange, addDestination, handleKeyDown, removeDestination } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleKeyDown } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+        const router = useRouter();
+    
+        const handleSearch = () => {
+            if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+                toast.error("Please fill in all fields before proceeding.");
+                return;
+            }
+    
+            router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+        };
 
     const whyChooseUs = [
         {
@@ -166,9 +177,12 @@ export default function MultiCityComponent() {
                             </div>
                         </div>
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
-                        <Link href='/cabs/select-cabs' className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}>
+                        <button
+                            onClick={handleSearch}
+                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                        >
                             EXPLORE CABS
-                        </Link>
+                        </button>
                     </div>
 
                     <WhyChooseUs title='Why Choose Multi City Cab?'

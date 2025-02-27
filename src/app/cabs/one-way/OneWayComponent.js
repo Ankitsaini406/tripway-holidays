@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 import useCabSearchForm from "@/hook/useCabSerachForm";
 import { PiNumberZero, PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
@@ -17,11 +18,21 @@ import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
 import DistanceCalculator from "@/components/DistanceCalculater";
-import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function OneWayComponent() {
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const router = useRouter();
+
+    const handleSearch = () => {
+        if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+            toast.error("Please fill in all fields before proceeding.");
+            return;
+        }
+
+        router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+    };
 
     const whyChooseUs = [
         {
@@ -226,19 +237,12 @@ export default function OneWayComponent() {
                             </div>
                         </div>
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
-                        <Link href={{
-                            pathname: "/cabs/select-cabs",
-                            query: {
-                                title: 'one-way',
-                                from: formData.from,
-                                to: formData.to,
-                                startDate: formData.startDate ? formData.startDate.toISOString() : "",
-                                time: formData.time,
-                            },
-                        }}
-                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}>
+                        <button
+                            onClick={handleSearch}
+                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                        >
                             EXPLORE CABS
-                        </Link>
+                        </button>
                     </div>
 
                     <WhyChooseUs

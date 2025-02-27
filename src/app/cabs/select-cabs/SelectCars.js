@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { PiCertificateLight } from "react-icons/pi";
@@ -11,6 +11,7 @@ import { ContactDetails } from "@/utils/Utils";
 import { toast } from "react-toastify";
 
 export default function SelectCars() {
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     const title = searchParams.get("title");
@@ -27,8 +28,11 @@ export default function SelectCars() {
     });
 
     useEffect(() => {
-        console.log(`From : `, from);
-    }, [from]);
+        if (!title || !from || !to) {
+            router.push(`/cabs/${title}`); 
+        }
+    }, [from, to, startDate, router]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
