@@ -155,7 +155,7 @@ export default function OneWayComponent() {
                     fill
                     alt="Cab Background"
                 />
-                
+
                 <Image
                     className={styles.heroImage}
                     src="/cab/car.webp"
@@ -226,7 +226,17 @@ export default function OneWayComponent() {
                             </div>
                         </div>
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
-                        <Link href='/cabs/select-cabs' className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}>
+                        <Link href={{
+                            pathname: "/cabs/select-cabs",
+                            query: {
+                                title: 'one-way',
+                                from: formData.from,
+                                to: formData.to,
+                                startDate: formData.startDate ? formData.startDate.toISOString() : "",
+                                time: formData.time,
+                            },
+                        }}
+                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}>
                             EXPLORE CABS
                         </Link>
                     </div>

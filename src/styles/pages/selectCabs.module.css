@@ -74,6 +74,16 @@
     }
 }
 
+.searchInput {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 100%;
+    border: 1px solid #ccc;
+    font-size: large;
+}
+
 @media (max-width: 860px) {
 
     .carFlex {

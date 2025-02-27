@@ -5,7 +5,7 @@ import styles from '@/app/page.module.css';
 import Image from "next/image";
 import Link from "next/link";
 
-function PopUp({ popTime, closeTime, src, alt, name, phoneNumber }) {
+function PopUp({ popTime, closeTime, src, alt, name, phoneNumber, onClick }) {
 
     const [showPopUp, setShowPopUp] = useState(false);
     const [showClose, setShowClose] = useState(false);
@@ -71,6 +71,7 @@ function PopUp({ popTime, closeTime, src, alt, name, phoneNumber }) {
                         <div className={styles.popupcontent}>
                             {name}
                             {phoneNumber}
+                            <button onClick={onClick} className="readMore">Submit</button>
                         </div>
                         }
                     </div>

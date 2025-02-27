@@ -1,20 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { PiCertificateLight } from "react-icons/pi";
 import { IoNewspaperOutline } from "react-icons/io5";
 import styles from "@/styles/pages/selectCabs.module.css";
 import PopUp from "@/utils/popUp";
 import { ContactDetails } from "@/utils/Utils";
+import { toast } from "react-toastify";
 
 export default function SelectCars() {
+    const searchParams = useSearchParams();
+
+    const title = searchParams.get("title");
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+    const startDate = searchParams.get("startDate");
+    const time = searchParams.get("time");
+
     const [showPopUp, setShowPopUp] = useState(false);
     const [selectedCar, setSelectedCar] = useState(null);
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
     });
+
+    useEffect(() => {
+        console.log(`From : `, from);
+    }, [from]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,7 +45,7 @@ export default function SelectCars() {
 
     const sendMessage = async () => {
         if (!formData.name || !formData.phoneNumber) {
-            alert("Please fill in all details before proceeding.");
+            toast.error("Please fill in all details before proceeding.");
             return;
         }
 
@@ -88,7 +102,8 @@ export default function SelectCars() {
                             placeholder="Enter Your Name"
                             type="text"
                             value={formData.name}
-                            onChange={handleChange}
+                            handleChange={handleChange}
+                            className={styles.searchInput}
                         />
                     }
                     phoneNumber={
@@ -97,14 +112,11 @@ export default function SelectCars() {
                             placeholder="Enter Your Phone Number"
                             type="number"
                             value={formData.phoneNumber}
-                            onChange={handleChange}
+                            handleChange={handleChange}
+                            className={styles.searchInput}
                         />
                     }
-                    submitButton={
-                        <button className={styles.submitBtn} onClick={sendMessage}>
-                            Submit
-                        </button>
-                    }
+                    onClick={sendMessage}
                 />
             )}
 
