@@ -25,12 +25,12 @@ export default function RoundTripComponent() {
         const router = useRouter();
     
         const handleSearch = () => {
-            if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+            if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
                 toast.error("Please fill in all fields before proceeding.");
                 return;
             }
     
-            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
         };
 
     const whyChooseUs = [

@@ -27,9 +27,11 @@ export default function SelectCars() {
         phoneNumber: "",
     });
 
+    const aisensy = process.env.AI_SENSY;
+
     useEffect(() => {
         if (!title || !from || !to) {
-            router.push(`/cabs/${title}`); 
+            router.push(`/cabs/${title}`);
         }
     }, [from, to, startDate, router]);
 
@@ -53,15 +55,21 @@ export default function SelectCars() {
             return;
         }
 
+        const campaign = title === "one-way" ? 'websiteonewaybooking' : 'round-trip' ? 'websiteroundtripbooking' : 'websitemulticitybooking';
+
         try {
             const res = await fetch("https://backend.aisensy.com/campaign/t1/api/v2", {
                 method: "POST",
                 body: JSON.stringify({
-                    apiKey: "YOUR_SECURE_API_KEY",  // Replace with env variable
-                    campaignName: "libraryfist_message",
+                    apiKey: aisensy,
+                    campaignName: campaign,
                     destination: `+91${formData.phoneNumber}`,
-                    userName: formData.name,
-                    templateParams: [selectedCar.name],
+                    1: formData.name,
+                    2: from,
+                    3: to,
+                    4: startDate,
+                    5: selectedCar.name,
+                    6: selectedCar.price,
                 }),
             });
 
@@ -84,13 +92,33 @@ export default function SelectCars() {
         }
     };
 
-    const cars = [
+    const oneWay = [
         { name: "Swift", image: "/cab/swift.webp", price: 1800 },
         { name: "Etios", image: "/cab/etios.webp", price: 1800 },
         { name: "Ertiga", image: "/cab/ertica.webp", price: 1800 },
         { name: "Innova", image: "/cab/innova.webp", price: 2500 },
         { name: "Innova Crysta", image: "/cab/innova.webp", price: 2800 },
     ];
+
+    const roundTrip = [
+        { name: "Swift", image: "/cab/swift.webp", price: '10 per Km' },
+        { name: "Etios", image: "/cab/etios.webp", price: '10 per Km' },
+        { name: "Ertiga", image: "/cab/ertica.webp", price: '13 per Km' },
+        { name: "Innova", image: "/cab/innova.webp", price: '14 per Km' },
+        { name: "Innova Crysta", image: "/cab/innova.webp", price: '15 per Km' },
+        { name: "Fource", image: "/cab/fource.webp", price: '22 per Km' },
+    ];
+
+    const multiCity = [
+        { name: "Swift", image: "/cab/swift.webp", price: 1800 },
+        { name: "Etios", image: "/cab/etios.webp", price: 1800 },
+        { name: "Ertiga", image: "/cab/ertica.webp", price: 1800 },
+        { name: "Innova", image: "/cab/innova.webp", price: 2500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", price: 2800 },
+        { name: "Fource", image: "/cab/fource.webp", price: 2800 },
+    ];
+
+    const cars = title === 'one-way' ? oneWay : 'round-trip' ? roundTrip : multiCity;
 
     return (
         <div className="layout">
@@ -142,19 +170,19 @@ export default function SelectCars() {
                         <div className={styles.carDetailsBox}>
                             <div className={styles.itemBox}>
                                 <PiCertificateLight />
-                                <h5>Top Rated Cabs & Chauffeurs</h5>
+                                <h5>Pri</h5>
                             </div>
                             <div className={styles.itemBox}>
                                 <IoNewspaperOutline />
-                                <h5>₹ 480 Toll included</h5>
+                                <h5>Toll Exclusions</h5>
                             </div>
-                            <div className={styles.itemBox} style={{ gap: "0" }}>
+                            {/* <div className={styles.itemBox} style={{ gap: "0" }}>
                                 <h4>₹ {car.price + 100}</h4>
                                 <h6>Save ₹ 100</h6>
-                            </div>
+                            </div> */}
                             <div className={styles.itemBox} style={{ gap: "0" }}>
                                 <h3>₹ {car.price}</h3>
-                                <h5>Up to 130 Km</h5>
+                                {/* <h5>Up to 130 Km</h5> */}
                             </div>
                         </div>
                         <button className={styles.selectBtn} onClick={() => handleSelect(car)}>
