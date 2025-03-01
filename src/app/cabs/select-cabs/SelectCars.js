@@ -64,7 +64,7 @@ export default function SelectCars() {
             const url = title === "one-way"
             ? "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true"
             : title === "round-trip"
-            ? "round-trip-whatsapp.png"
+            ? "https://tripwayholidays.in/cab/round-trip-whatsapp.png"
             : "https://www.aisensy.com/multi-city-booking";
 
             const fileName = title === "one-way"
