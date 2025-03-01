@@ -19,6 +19,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
 import DistanceCalculator from "@/components/DistanceCalculater";
 import { toast } from "react-toastify";
+import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function OneWayComponent() {
     const { user, signupUserWithEmailAndPassword } = useClient();
@@ -31,7 +32,10 @@ export default function OneWayComponent() {
             return;
         }
 
-        router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+            const date = formatTimestamp(formData.startDate);
+            const time = formatTime(formData.time);
+
+        router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
     };
 
     const whyChooseUs = [

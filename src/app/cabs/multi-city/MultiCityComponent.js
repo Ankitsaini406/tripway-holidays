@@ -18,6 +18,7 @@ import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
+import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function MultiCityComponent() {
 
@@ -30,8 +31,11 @@ export default function MultiCityComponent() {
                 toast.error("Please fill in all fields before proceeding.");
                 return;
             }
+
+            const date = formatTimestamp(formData.startDate);
+            const time = formatTime(formData.time);
     
-            router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+            router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
         };
 
     const whyChooseUs = [

@@ -17,6 +17,7 @@ import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
+import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function RoundTripComponent() {
 
@@ -29,8 +30,11 @@ export default function RoundTripComponent() {
                 toast.error("Please fill in all fields before proceeding.");
                 return;
             }
-    
-            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${formData.startDate.toISOString()}&time=${formData.time}`);
+
+            const date = formatTimestamp(formData.startDate);
+            const time = formatTime(formData.time);
+
+            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
         };
 
     const whyChooseUs = [
