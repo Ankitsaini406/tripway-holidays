@@ -33,7 +33,7 @@ export default function SelectCars() {
         if (!title || !from || !to) {
             router.push(`/cabs/${title}`);
         }
-    }, [from, to, startDate, router]);
+    }, [title, from, to, startDate, router]);
 
 
     const handleChange = (e) => {
@@ -54,41 +54,48 @@ export default function SelectCars() {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
-
-        const campaign = title === "one-way" ? 'websiteonewaybooking' : 'round-trip' ? 'websiteroundtripbooking' : 'websitemulticitybooking';
-
+    
+        const campaign = title === "one-way"
+            ? "websiteonewaybooking"
+            : title === "round-trip"
+            ? "websiteroundtripbooking"
+            : "websitemulticitybooking";
+    
+        const requestBody = {
+            apiKey: aisensy,
+            campaignName: campaign,
+            destination: "+91" + formData.phoneNumber,
+            userName: formData.name,
+            templateParams: [formData.name, from, to, `${startDate} ${time}`, selectedCar.name, "500"],
+            media: {
+                url: "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true",
+                filename: "PNG"
+            }
+        };
+    
         try {
-            const res = await fetch("https://backend.aisensy.com/campaign/t1/api/v2", {
+            const res = await fetch("/api/book-cab", {
                 method: "POST",
-                body: JSON.stringify({
-                    apiKey: aisensy,
-                    campaignName: campaign,
-                    destination: `+91${formData.phoneNumber}`,
-                    1: formData.name,
-                    2: from,
-                    3: to,
-                    4: startDate,
-                    5: selectedCar.name,
-                    6: selectedCar.price,
-                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
             });
-
-            if (!res.ok) {
-                throw new Error("Failed to send message.");
-            }
-
+    
             const data = await res.json();
-            console.log("WhatsApp Response:", data);
-
-            if (data.success) {
-                alert("Message sent successfully!");
-                setShowPopUp(false);
-                setFormData({ name: "", phoneNumber: "" }); // Reset form
-            } else {
-                alert("Failed to send message.");
+    
+            if (!res.ok) {
+                console.error("Failed to send message:", data);
+                throw new Error(data.error || "Failed to send message");
             }
+    
+            console.log("WhatsApp Response:", data);
+            toast.success("Message sent successfully!");
+            setShowPopUp(false);
+            setFormData({ name: "", phoneNumber: "" });
         } catch (error) {
             console.error("Error sending message:", error);
+            toast.error("Error sending message. Try again.");
         }
     };
 
@@ -170,7 +177,7 @@ export default function SelectCars() {
                         <div className={styles.carDetailsBox}>
                             <div className={styles.itemBox}>
                                 <PiCertificateLight />
-                                <h5>Pri</h5>
+                                <h5>Certified Driver & Cab</h5>
                             </div>
                             <div className={styles.itemBox}>
                                 <IoNewspaperOutline />
@@ -181,8 +188,8 @@ export default function SelectCars() {
                                 <h6>Save ₹ 100</h6>
                             </div> */}
                             <div className={styles.itemBox} style={{ gap: "0" }}>
-                                <h3>₹ {car.price}</h3>
-                                {/* <h5>Up to 130 Km</h5> */}
+                                <h3>₹ 500</h3>
+                                <h5>Booking Price</h5>
                             </div>
                         </div>
                         <button className={styles.selectBtn} onClick={() => handleSelect(car)}>
