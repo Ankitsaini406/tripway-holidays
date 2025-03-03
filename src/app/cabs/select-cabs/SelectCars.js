@@ -112,11 +112,11 @@ export default function SelectCars() {
     };
 
     const oneWay = [
-        { name: "Swift", image: "/cab/swift.webp", perKm: '10', minPrice: 500 },
-        { name: "Etios", image: "/cab/etios.webp", perKm: '10', minPrice: 500 },
-        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13', minPrice: 500 },
-        { name: "Innova", image: "/cab/innova.webp", perKm: '14', minPrice: 500 },
-        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '16', minPrice: 500 },
+        { name: "Swift", image: "/cab/swift.webp", perKm: '13', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '13', minPrice: 500 },
+        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '16', minPrice: 500 },
+        { name: "Innova", image: "/cab/innova.webp", perKm: '17', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '19', minPrice: 500 },
     ];
 
     const roundTrip = [

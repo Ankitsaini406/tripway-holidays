@@ -85,7 +85,7 @@ function Header() {
                                 href="#"
                                 className={styles.headerName}
                                 onClick={(e) => {
-                                    e.preventDefault(); // Prevent navigation
+                                    e.preventDefault();
                                     toggleMobileCabsDropdown();
                                 }}
                             >

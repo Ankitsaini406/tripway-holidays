@@ -119,7 +119,7 @@ export default function RoundTripComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                {/* <select
+                                <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -130,8 +130,8 @@ export default function RoundTripComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select> */}
-                                <input
+                                </select>
+                                {/* <input
                                     type="text"
                                     name="from"
                                     placeholder="From"
@@ -139,7 +139,7 @@ export default function RoundTripComponent() {
                                     onChange={handleChange}
                                     className={styles.searchInput}
                                     required
-                                />
+                                /> */}
                                 <div className={styles.distanceIcon}>
                                     <SlDirections />
                                 </div>

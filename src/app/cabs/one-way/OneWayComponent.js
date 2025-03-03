@@ -22,7 +22,7 @@ import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function OneWayComponent() {
     const { user, signupUserWithEmailAndPassword } = useClient();
-    const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const { formData, fromOptions, toOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
     const router = useRouter();
 
     const handleSearch = () => {
@@ -183,7 +183,7 @@ export default function OneWayComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                {/* <select
+                                <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -194,8 +194,8 @@ export default function OneWayComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select> */}
-                                <input
+                                </select>
+                                {/* <input
                                     type="text"
                                     name="from"
                                     placeholder="From"
@@ -203,11 +203,23 @@ export default function OneWayComponent() {
                                     onChange={handleChange}
                                     className={styles.searchInput}
                                     required
-                                />
+                                /> */}
                                 <div className={styles.distanceIcon}>
                                     <MdOutlineDirections />
                                 </div>
-                                <input
+                                <select
+                                    name="to"
+                                    value={formData.to}
+                                    onChange={handleChange}
+                                    className={styles.searchInput}
+                                >
+                                    {toOptions.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                {/* <input
                                     type="text"
                                     name="to"
                                     placeholder="To"
@@ -215,7 +227,7 @@ export default function OneWayComponent() {
                                     onChange={handleChange}
                                     className={styles.searchInput}
                                     required
-                                />
+                                /> */}
                             </div>
                             <div className={styles.radioOption}>
                                 <DatePicker

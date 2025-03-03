@@ -123,7 +123,7 @@ export default function MultiCityComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                {/* <select
+                                <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -134,8 +134,8 @@ export default function MultiCityComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select> */}
-                                <input
+                                </select>
+                                {/* <input
                                     type="text"
                                     name="from"
                                     placeholder="From"
@@ -143,7 +143,7 @@ export default function MultiCityComponent() {
                                     onChange={handleChange}
                                     className={styles.searchInput}
                                     required
-                                />
+                                /> */}
                                 <div className={styles.MdistanceIcon}>
                                     <GrDirections />
                                 </div>
