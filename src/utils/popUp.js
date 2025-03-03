@@ -69,9 +69,10 @@ function PopUp({ popTime, closeTime, src, alt, name, phoneNumber, onClick }) {
                             </div>
                         </Link> : 
                         <div className={styles.popupcontent}>
+                            <h2>Enter Your Details</h2>
                             {name}
                             {phoneNumber}
-                            <button onClick={onClick} className="readMore">Submit</button>
+                            <button style={{padding: '0.5rem 2rem', margin: '1rem 0 0 0'}} onClick={onClick} className="readMore">Submit</button>
                         </div>
                         }
                     </div>

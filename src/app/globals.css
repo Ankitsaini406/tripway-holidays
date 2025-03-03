@@ -224,6 +224,7 @@ th {
   color: var(--white-color);
   background-color: var(--indigo-blue);
   border-radius: 5px;
+  cursor: pointer;
 
   &:hover {
     border: 1px solid var(--indigo-blue);

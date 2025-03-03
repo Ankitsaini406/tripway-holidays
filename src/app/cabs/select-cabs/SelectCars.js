@@ -54,25 +54,25 @@ export default function SelectCars() {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
-    
+
         const campaign = title === "one-way"
             ? "websiteonewaybooking"
             : title === "round-trip"
-            ? "websiteroundtripbooking"
-            : "websitemulticitybooking";
+                ? "websiteroundtripbooking"
+                : "websitemulticitybooking";
 
-            const url = title === "one-way"
+        const url = title === "one-way"
             ? "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true"
             : title === "round-trip"
-            ? "https://tripwayholidays.in/cab/round-trip-whatsapp.png"
-            : "https://www.aisensy.com/multi-city-booking";
+                ? "https://tripwayholidays.in/cab/round-trip-whatsapp.png"
+                : "https://www.aisensy.com/multi-city-booking";
 
-            const fileName = title === "one-way"
+        const fileName = title === "one-way"
             ? "PNG"
             : title === "round-trip"
-            ? "PNG"
-            : "multi-city.png";
-    
+                ? "PNG"
+                : "multi-city.png";
+
         const requestBody = {
             apiKey: aisensy,
             campaignName: campaign,
@@ -84,7 +84,7 @@ export default function SelectCars() {
                 filename: fileName
             }
         };
-    
+
         try {
             const res = await fetch("/api/book-cab", {
                 method: "POST",
@@ -93,14 +93,14 @@ export default function SelectCars() {
                 },
                 body: JSON.stringify(requestBody),
             });
-    
+
             const data = await res.json();
-    
+
             if (!res.ok) {
                 console.error("Failed to send message:", data);
                 throw new Error(data.error || "Failed to send message");
             }
-    
+
             console.log("WhatsApp Response:", data);
             toast.success("Message sent successfully!");
             setShowPopUp(false);
@@ -148,24 +148,32 @@ export default function SelectCars() {
                     src={null}
                     alt=""
                     name={
-                        <ContactDetails
-                            name="name"
-                            placeholder="Enter Your Name"
-                            type="text"
-                            value={formData.name}
-                            handleChange={handleChange}
-                            className={styles.searchInput}
-                        />
+                        <div>
+                            <label htmlFor="nameInput">Name</label>
+                            <ContactDetails
+                                name="name"
+                                placeholder="Enter Your Name"
+                                type="text"
+                                value={formData.name}
+                                handleChange={handleChange}
+                                className={styles.searchInput}
+                                id="nameInput"
+                            />
+                        </div>
                     }
                     phoneNumber={
-                        <ContactDetails
-                            name="phoneNumber"
-                            placeholder="Enter Your Phone Number"
-                            type="number"
-                            value={formData.phoneNumber}
-                            handleChange={handleChange}
-                            className={styles.searchInput}
-                        />
+                        <div>
+                            <label htmlFor="phoneInput">Phone Number</label>
+                            <ContactDetails
+                                name="phoneNumber"
+                                placeholder="Enter Your Phone Number"
+                                type="number"
+                                value={formData.phoneNumber}
+                                handleChange={handleChange}
+                                className={styles.searchInput}
+                                id="phoneInput"
+                            />
+                        </div>
                     }
                     onClick={sendMessage}
                 />
