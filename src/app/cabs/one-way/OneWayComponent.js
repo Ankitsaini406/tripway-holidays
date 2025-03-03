@@ -17,7 +17,6 @@ import { FaUsers } from "react-icons/fa";
 import FaqDropdown from "@/components/FaqDropdown";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
-import DistanceCalculator from "@/components/DistanceCalculater";
 import { toast } from "react-toastify";
 import { formatTime, formatTimestamp } from "@/utils/formatData";
 
@@ -180,7 +179,6 @@ export default function OneWayComponent() {
                 <h1 className={styles.heroText}>One Way</h1>
             </div>
             <div className="layout">
-                <DistanceCalculator />
                 <div>
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>

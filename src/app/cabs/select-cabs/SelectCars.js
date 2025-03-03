@@ -125,7 +125,7 @@ export default function SelectCars() {
         { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13', minPrice: 500 },
         { name: "Innova", image: "/cab/innova.webp", perKm: '14', minPrice: 500 },
         { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15', minPrice: 500 },
-        { name: "Fource", image: "/cab/fource.webp", perKm: '22 min.', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22', minPrice: 500 },
     ];
 
     const multiCity = [
@@ -134,7 +134,7 @@ export default function SelectCars() {
         { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13 ', minPrice: 500 },
         { name: "Innova", image: "/cab/innova.webp", perKm: '14 ', minPrice: 500 },
         { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15', minPrice: 500 },
-        { name: "Fource", image: "/cab/fource.webp", perKm: '22 min.', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22', minPrice: 500 },
     ];
 
     const cars = title === 'one-way' ? oneWay : 'round-trip' ? roundTrip : multiCity;
@@ -205,7 +205,7 @@ export default function SelectCars() {
                             </div>
                             <div className={styles.itemBox} style={{ gap: "0" }}>
                                 <h4>₹ {car.perKm}</h4>
-                                <h6>per Km</h6>
+                                <h6>{car.name === 'Fource' ? 'min /' : 'per'} Km</h6>
                             </div>
                             <div className={styles.itemBox} style={{ gap: "0" }}>
                                 <h3>₹ 500</h3>
