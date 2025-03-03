@@ -24,19 +24,19 @@ export default function MultiCityComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleKeyDown } = useCabSearchForm(user, signupUserWithEmailAndPassword);
-        const router = useRouter();
-    
-        const handleSearch = () => {
-            if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
-                toast.error("Please fill in all fields before proceeding.");
-                return;
-            }
+    const router = useRouter();
 
-            const date = formatTimestamp(formData.startDate);
-            const time = formatTime(formData.time);
-    
-            router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
-        };
+    const handleSearch = () => {
+        if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+            toast.error("Please fill in all fields before proceeding.");
+            return;
+        }
+
+        const date = formatTimestamp(formData.startDate);
+        const time = formatTime(formData.time);
+
+        router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
+    };
 
     const whyChooseUs = [
         {
@@ -123,7 +123,7 @@ export default function MultiCityComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                <select
+                                {/* <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -134,7 +134,16 @@ export default function MultiCityComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select>
+                                </select> */}
+                                <input
+                                    type="text"
+                                    name="from"
+                                    placeholder="From"
+                                    value={formData.from}
+                                    onChange={handleChange}
+                                    className={styles.searchInput}
+                                    required
+                                />
                                 <div className={styles.MdistanceIcon}>
                                     <GrDirections />
                                 </div>

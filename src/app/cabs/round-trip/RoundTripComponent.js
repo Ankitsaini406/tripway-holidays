@@ -23,19 +23,19 @@ export default function RoundTripComponent() {
 
     const { user, signupUserWithEmailAndPassword } = useClient();
     const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
-        const router = useRouter();
-    
-        const handleSearch = () => {
-            if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
-                toast.error("Please fill in all fields before proceeding.");
-                return;
-            }
+    const router = useRouter();
 
-            const date = formatTimestamp(formData.startDate);
-            const time = formatTime(formData.time);
+    const handleSearch = () => {
+        if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
+            toast.error("Please fill in all fields before proceeding.");
+            return;
+        }
 
-            router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
-        };
+        const date = formatTimestamp(formData.startDate);
+        const time = formatTime(formData.time);
+
+        router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
+    };
 
     const whyChooseUs = [
         {
@@ -119,7 +119,7 @@ export default function RoundTripComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                <select
+                                {/* <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -130,16 +130,16 @@ export default function RoundTripComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select>
-                                {/* <input
-                                type="text"
-                                name="from"
-                                placeholder="From"
-                                value={formData.from}
-                                onChange={handleChange}
-                                className={styles.searchInput}
-                                required
-                                /> */}
+                                </select> */}
+                                <input
+                                    type="text"
+                                    name="from"
+                                    placeholder="From"
+                                    value={formData.from}
+                                    onChange={handleChange}
+                                    className={styles.searchInput}
+                                    required
+                                />
                                 <div className={styles.distanceIcon}>
                                     <SlDirections />
                                 </div>

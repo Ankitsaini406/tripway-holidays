@@ -19,20 +19,20 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
     const route = useRouter();
     const { sendEmail } = useSendEmail();
 
-      const handleKeyDown = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === 'Enter' && inputValue.trim() !== '') {
-          e.preventDefault();
-          if (!tags.includes(inputValue.trim())) {
-            setTags([...tags, inputValue.trim()]);
-            setInputValue('');
-          }
+            e.preventDefault();
+            if (!tags.includes(inputValue.trim())) {
+                setTags([...tags, inputValue.trim()]);
+                setInputValue('');
+            }
         }
-      };
-    
-      // Handler for removing tags
-      const removeTag = (indexToRemove) => {
+    };
+
+    // Handler for removing tags
+    const removeTag = (indexToRemove) => {
         setTags(tags.filter((_, index) => index !== indexToRemove));
-      };
+    };
 
     // Helper functions for OTP and password generation
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
@@ -61,7 +61,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-      };
+    };
 
     const handleMultiCityChange = (index, value) => {
         setFormData((prev) => {
@@ -89,24 +89,24 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const validateForm = () => {
         const { from, phoneNumber, carOption, passenger, email } = formData;
-        
+
         // Check for empty required fields
         if (!from || !phoneNumber || !carOption || !passenger || !email) {
             setFormData((prev) => ({ ...prev, error: "Please fill all required fields." }));
             return false;
         }
-    
+
         // Validate phone number (must be 10 digits)
         if (!/^\d{10}$/.test(phoneNumber)) {
             setFormData((prev) => ({ ...prev, error: "Phone number must be 10 digits." }));
             return false;
         }
-    
+
         // If validation passes, clear any error messages
         setFormData((prev) => ({ ...prev, error: null }));
         return true;
     };
-    
+
 
     const handleSendOtp = async (e) => {
         e.preventDefault();

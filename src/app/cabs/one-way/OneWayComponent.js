@@ -32,8 +32,8 @@ export default function OneWayComponent() {
             return;
         }
 
-            const date = formatTimestamp(formData.startDate);
-            const time = formatTime(formData.time);
+        const date = formatTimestamp(formData.startDate);
+        const time = formatTime(formData.time);
 
         router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
     };
@@ -185,7 +185,7 @@ export default function OneWayComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                <select
+                                {/* <select
                                     name="from"
                                     value={formData.from}
                                     onChange={handleChange}
@@ -196,16 +196,16 @@ export default function OneWayComponent() {
                                             {option.label}
                                         </option>
                                     ))}
-                                </select>
-                                {/* <input
-                                type="text"
-                                name="from"
-                                placeholder="From"
-                                value={formData.from}
-                                onChange={handleChange}
-                                className={styles.searchInput}
-                                required
-                                /> */}
+                                </select> */}
+                                <input
+                                    type="text"
+                                    name="from"
+                                    placeholder="From"
+                                    value={formData.from}
+                                    onChange={handleChange}
+                                    className={styles.searchInput}
+                                    required
+                                />
                                 <div className={styles.distanceIcon}>
                                     <MdOutlineDirections />
                                 </div>
