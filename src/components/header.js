@@ -8,12 +8,21 @@ import styles from '../styles/components/header.module.css';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCabsDropdownOpen, setIsCabsDropdownOpen] = useState(false);
+    const [isMobileCabsDropdownOpen, setIsMobileCabsDropdownOpen] = useState(false);
     const { user } = useClient();
     const router = useRouter();
 
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-    const closeMenu = () => setIsMenuOpen(false);
+    const closeMenu = () => { 
+        setIsMenuOpen(false);
+        setIsMobileCabsDropdownOpen(false);
+    }
+
+    const toggleMobileCabsDropdown = () => {
+        setIsMobileCabsDropdownOpen((prev) => !prev);
+    };
 
     const handleGroupTourClick = (e) => {
         e.preventDefault();
@@ -46,7 +55,18 @@ function Header() {
                 )}
                 <nav className={`${styles.desktop} ${styles.headeritems}`}>
                     <ul className={styles.headerList}>
-                        {/* <li><Link href="/" className={styles.headerName}>Home</Link></li> */}
+                        <li className={styles.dropdownContainer}
+                            onMouseEnter={() => setIsCabsDropdownOpen(true)}
+                            onMouseLeave={() => setIsCabsDropdownOpen(false)}>
+                            <Link href="#" className={styles.headerName}>Cabs</Link>
+                            {isCabsDropdownOpen && (
+                                <ul className={styles.dropdown}>
+                                    <li><Link href="/cabs/one-way" onClick={closeMenu}>One Way</Link></li>
+                                    <li><Link href="/cabs/round-trip" onClick={closeMenu}>Round Trip</Link></li>
+                                    <li><Link href="/cabs/multi-city" onClick={closeMenu}>Multi City</Link></li>
+                                </ul>
+                            )}
+                        </li>
                         <li><Link href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>Group&nbsp;Tours</Link></li>
                         <li><Link href="/blog" className={styles.headerName}>Blog</Link></li>
                         <li><Link href="/about-us" className={styles.headerName}>About</Link></li>
@@ -60,7 +80,25 @@ function Header() {
                 </nav>
                 <nav className={`${styles.mobile} ${styles.headeritems} ${isMenuOpen ? styles.open : ''}`}>
                     <ul className={styles.headerList}>
-                        {/* <li><Link href="/" className={styles.headerName} onClick={closeMenu}>Home</Link></li> */}
+                    <li className={styles.dropdownContainer}>
+                            <Link
+                                href="#"
+                                className={styles.headerName}
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent navigation
+                                    toggleMobileCabsDropdown();
+                                }}
+                            >
+                                Cabs {isMobileCabsDropdownOpen ? '▲' : '▼'}
+                            </Link>
+                            {isMobileCabsDropdownOpen && (
+                                <ul className={styles.dropdown}>
+                                    <li><Link href="/cabs/one-way" onClick={closeMenu}>One Way</Link></li>
+                                    <li><Link href="/cabs/round-trip" onClick={closeMenu}>Round Trip</Link></li>
+                                    <li><Link href="/cabs/multi-city" onClick={closeMenu}>Multi City</Link></li>
+                                </ul>
+                            )}
+                        </li>
                         <li><Link href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>Group&nbsp;Tours</Link></li>
                         <li><Link href="/blog" className={styles.headerName}>Blog</Link></li>
                         <li><Link href="/about-us" className={styles.headerName} onClick={closeMenu}>About</Link></li>
