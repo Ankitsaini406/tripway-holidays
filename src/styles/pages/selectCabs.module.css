@@ -16,6 +16,7 @@
 
 .carBox {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     align-items: center;
 }
@@ -49,8 +50,9 @@
 
     & > h4 {
         color: var(--indigo-blue);
+        font-size: x-large;
         font-weight: bold;
-        text-decoration: line-through;
+        /* text-decoration: line-through; */
     }
 
     & > h6 {
@@ -86,6 +88,10 @@
 
 @media (max-width: 860px) {
 
+    .carBox {
+        flex-direction: row;
+    }
+
     .carFlex {
         flex-direction: column;
         gap: 1rem;
@@ -100,5 +106,17 @@
 @media (max-width: 430px) {
     .carDetailsBox {
         flex-wrap: wrap;
+    }
+
+    .itemBox{
+
+        & > h3 {
+            font-size: large;
+        }
+    
+        & > h4 {
+            font-size: large;
+            /* text-decoration: line-through; */
+        }
     }
 }

@@ -112,29 +112,29 @@ export default function SelectCars() {
     };
 
     const oneWay = [
-        { name: "Swift", image: "/cab/swift.webp", price: 1800 },
-        { name: "Etios", image: "/cab/etios.webp", price: 1800 },
-        { name: "Ertiga", image: "/cab/ertica.webp", price: 1800 },
-        { name: "Innova", image: "/cab/innova.webp", price: 2500 },
-        { name: "Innova Crysta", image: "/cab/innova.webp", price: 2800 },
+        { name: "Swift", image: "/cab/swift.webp", perKm: '10', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '10', minPrice: 500 },
+        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13', minPrice: 500 },
+        { name: "Innova", image: "/cab/innova.webp", perKm: '14', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15', minPrice: 500 },
     ];
 
     const roundTrip = [
-        { name: "Swift", image: "/cab/swift.webp", price: '10 per Km' },
-        { name: "Etios", image: "/cab/etios.webp", price: '10 per Km' },
-        { name: "Ertiga", image: "/cab/ertica.webp", price: '13 per Km' },
-        { name: "Innova", image: "/cab/innova.webp", price: '14 per Km' },
-        { name: "Innova Crysta", image: "/cab/innova.webp", price: '15 per Km' },
-        { name: "Fource", image: "/cab/fource.webp", price: '22 per Km' },
+        { name: "Swift", image: "/cab/swift.webp", perKm: '10 ', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '10 ', minPrice: 500 },
+        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13 ', minPrice: 500 },
+        { name: "Innova", image: "/cab/innova.webp", perKm: '14 ', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15 ', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22 ', minPrice: 500 },
     ];
 
     const multiCity = [
-        { name: "Swift", image: "/cab/swift.webp", price: 1800 },
-        { name: "Etios", image: "/cab/etios.webp", price: 1800 },
-        { name: "Ertiga", image: "/cab/ertica.webp", price: 1800 },
-        { name: "Innova", image: "/cab/innova.webp", price: 2500 },
-        { name: "Innova Crysta", image: "/cab/innova.webp", price: 2800 },
-        { name: "Fource", image: "/cab/fource.webp", price: 2800 },
+        { name: "Swift", image: "/cab/swift.webp", perKm: '10 ', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '10 ', minPrice: 500 },
+        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13 ', minPrice: 500 },
+        { name: "Innova", image: "/cab/innova.webp", perKm: '14 ', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15 ', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22 ', minPrice: 500 },
     ];
 
     const cars = title === 'one-way' ? oneWay : 'round-trip' ? roundTrip : multiCity;
@@ -191,8 +191,8 @@ export default function SelectCars() {
                                     width={100}
                                     height={50}
                                 />
-                                {car.name}
                             </div>
+                            {car.name}
                         </div>
                         <div className={styles.carDetailsBox}>
                             <div className={styles.itemBox}>
@@ -203,10 +203,10 @@ export default function SelectCars() {
                                 <IoNewspaperOutline />
                                 <h5>Toll Exclusions</h5>
                             </div>
-                            {/* <div className={styles.itemBox} style={{ gap: "0" }}>
-                                <h4>₹ {car.price + 100}</h4>
-                                <h6>Save ₹ 100</h6>
-                            </div> */}
+                            <div className={styles.itemBox} style={{ gap: "0" }}>
+                                <h4>₹ {car.perKm}</h4>
+                                <h6>per Km</h6>
+                            </div>
                             <div className={styles.itemBox} style={{ gap: "0" }}>
                                 <h3>₹ 500</h3>
                                 <h5>Booking Price</h5>
