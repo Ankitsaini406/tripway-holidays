@@ -120,21 +120,21 @@ export default function SelectCars() {
     ];
 
     const roundTrip = [
-        { name: "Swift", image: "/cab/swift.webp", perKm: '10 ', minPrice: 500 },
-        { name: "Etios", image: "/cab/etios.webp", perKm: '10 ', minPrice: 500 },
-        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13 ', minPrice: 500 },
-        { name: "Innova", image: "/cab/innova.webp", perKm: '14 ', minPrice: 500 },
-        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15 ', minPrice: 500 },
-        { name: "Fource", image: "/cab/fource.webp", perKm: '22 ', minPrice: 500 },
+        { name: "Swift", image: "/cab/swift.webp", perKm: '10', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '10', minPrice: 500 },
+        { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13', minPrice: 500 },
+        { name: "Innova", image: "/cab/innova.webp", perKm: '14', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22 min.', minPrice: 500 },
     ];
 
     const multiCity = [
         { name: "Swift", image: "/cab/swift.webp", perKm: '10 ', minPrice: 500 },
-        { name: "Etios", image: "/cab/etios.webp", perKm: '10 ', minPrice: 500 },
+        { name: "Etios", image: "/cab/etios.webp", perKm: '10', minPrice: 500 },
         { name: "Ertiga", image: "/cab/ertica.webp", perKm: '13 ', minPrice: 500 },
         { name: "Innova", image: "/cab/innova.webp", perKm: '14 ', minPrice: 500 },
-        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15 ', minPrice: 500 },
-        { name: "Fource", image: "/cab/fource.webp", perKm: '22 ', minPrice: 500 },
+        { name: "Innova Crysta", image: "/cab/innova.webp", perKm: '15', minPrice: 500 },
+        { name: "Fource", image: "/cab/fource.webp", perKm: '22 min.', minPrice: 500 },
     ];
 
     const cars = title === 'one-way' ? oneWay : 'round-trip' ? roundTrip : multiCity;
