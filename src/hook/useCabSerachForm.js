@@ -45,6 +45,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
 
     const fromOptions = [
         { value: "", label: "From" }, 
+        { value: "Jaipur", label: "Jaipur" },
         { value: "Chidawa", label: "Chidawa" }, 
         { value: "Pilani", label: "Pilani" }, 
         { value: "Khetri", label: "Khetri" },
@@ -67,11 +68,11 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         { value: "Neem ka Thana", label: "Neem ka Thana" },
         { value: "Jhunjhunu", label: "Jhunjhunu" },
         { value: "Nawalgarh", label: "Nawalgarh" },
-        { value: "Jaipur", label: "Jaipur" },
     ];
 
     const toOptions = [
         { value: "", label: "To" }, 
+        { value: "Jaipur", label: "Jaipur" },
         { value: "Chidawa", label: "Chidawa" }, 
         { value: "Pilani", label: "Pilani" }, 
         { value: "Khetri", label: "Khetri" },
@@ -94,7 +95,6 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
         { value: "Neem ka Thana", label: "Neem ka Thana" },
         { value: "Jhunjhunu", label: "Jhunjhunu" },
         { value: "Nawalgarh", label: "Nawalgarh" },
-        { value: "Jaipur", label: "Jaipur" },
     ];
 
     const handleChange = (e) => {
