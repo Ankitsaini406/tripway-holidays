@@ -111,6 +111,18 @@
     width: 50%;
 }
 
+.boxInfo {
+    position: relative;
+}
+
+.boxNote {
+    position: absolute;
+    top: -25px;
+    color: var(--vermilion-red);
+    font-weight: bold;
+    width: max-content;
+}
+
 .tagInputContainer {
     display: flex;
     align-items: center;

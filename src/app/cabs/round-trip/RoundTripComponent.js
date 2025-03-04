@@ -119,18 +119,21 @@ export default function RoundTripComponent() {
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>
-                                <select
-                                    name="from"
-                                    value={formData.from}
-                                    onChange={handleChange}
-                                    className={styles.searchInput}
-                                >
-                                    {fromOptions.map((option) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
+                                <div className={styles.boxInfo}>
+                                    <h5 className={styles.boxNote}>Note: 25km near by these location</h5>
+                                    <select
+                                        name="from"
+                                        value={formData.from}
+                                        onChange={handleChange}
+                                        className={styles.searchInput}
+                                    >
+                                        {fromOptions.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                                 {/* <input
                                     type="text"
                                     name="from"
