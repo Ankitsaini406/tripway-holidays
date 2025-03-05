@@ -3,6 +3,7 @@
     padding: 0.5rem 1rem;
     list-style: none;
     margin: 0;
+    overflow: auto;
 }
 
 .breadcrumbItem {
@@ -13,6 +14,11 @@
 .breadcrumbItem a {
     text-decoration: none;
     color: var(--indigo-blue);
+    white-space: nowrap;
+}
+
+.breadcrumbItem span {
+    white-space: nowrap;
 }
 
 .breadcrumbItem a:hover {

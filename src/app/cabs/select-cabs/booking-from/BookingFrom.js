@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ContactDetails } from "@/utils/Utils";
 import styles from "@/styles/pages/selectCabs.module.css";
 import Breadcrumbs from "@/utils/Breadcrumbs";
+import { toast } from "react-toastify";
 
 export default function BookingFrom() {
 
@@ -17,18 +18,23 @@ export default function BookingFrom() {
     const startDate = searchParams.get("startDate");
     const time = searchParams.get("time");
     const selectedCar = searchParams.get("selectedCar");
+    const bookingPrice = searchParams.get("price");
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
+        email: "",
+        pickupPoint: "",
+        dropPoint: "",
+        offerCode: "",
     });
 
     const aisensy = process.env.AI_SENSY;
 
-        useEffect(() => {
-            if (!title || !from || !to) {
-                router.back();
-            }
-        }, [title, from, to, startDate, router]);
+    useEffect(() => {
+        if (!title || !from || !to) {
+            router.back();
+        }
+    }, [title, from, to, startDate, router]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +45,7 @@ export default function BookingFrom() {
     };
 
     const sendMessage = async () => {
-        if (!formData.name || !formData.phoneNumber) {
+        if (!formData.name || !formData.phoneNumber || !formData.email  || !formData.pickupPoint || !formData.dropPoint) {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
@@ -92,7 +98,6 @@ export default function BookingFrom() {
 
             console.log("WhatsApp Response:", data);
             toast.success("Message sent successfully!");
-            setShowPopUp(false);
             setFormData({ name: "", phoneNumber: "" });
         } catch (error) {
             console.error("Error sending message:", error);
@@ -103,27 +108,119 @@ export default function BookingFrom() {
     return (
         <div className="layout">
             <Breadcrumbs title={title} />
-            <label htmlFor="nameInput">Name</label>
-            <ContactDetails
-                name="name"
-                placeholder="Enter Your Name"
-                type="text"
-                value={formData.name}
-                handleChange={handleChange}
-                className={styles.searchInput}
-                id="nameInput"
-            />
+            <div className={styles.bookingBox}>
+                <div className={styles.bookingForm}>
+                    <h1 className={styles.bookingFromTitle}>Contact & Pickup Details</h1>
+                    <label htmlFor="nameInput">Name</label>
+                    <ContactDetails
+                        name="name"
+                        placeholder="Enter Your Name"
+                        type="text"
+                        value={formData.name}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="nameInput"
+                    />
 
-            <label htmlFor="phoneInput">Phone Number</label>
-            <ContactDetails
-                name="phoneNumber"
-                placeholder="Enter Your Phone Number"
-                type="number"
-                value={formData.phoneNumber}
-                handleChange={handleChange}
-                className={styles.searchInput}
-                id="phoneInput"
-            />
+                    <label htmlFor="phoneInput">Phone Number</label>
+                    <ContactDetails
+                        name="phoneNumber"
+                        placeholder="Enter Your Phone Number"
+                        type="number"
+                        value={formData.phoneNumber}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="phoneInput"
+                    />
+
+                    <label htmlFor="emailInput">Email</label>
+                    <ContactDetails
+                        name="email"
+                        placeholder="Enter Your Email"
+                        type="email"
+                        value={formData.email}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="emailInput"
+                    />
+
+                    <label htmlFor="PickupInput">Pickup</label>
+                    <ContactDetails
+                        name="pickupPoint"
+                        placeholder="Enter Your Pickup Point"
+                        type="text"
+                        value={formData.pickupPoint}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="pickupInput"
+                    />
+
+                    <label htmlFor="DropInput">Drop</label>
+                    <ContactDetails
+                        name="dropPoint"
+                        placeholder="Enter Your Drop Point"
+                        type="text"
+                        value={formData.dropPoint}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="DropInput"
+                    />
+
+                    <label htmlFor="OfferInput">Offer Code</label>
+                    <ContactDetails
+                        name="offerCode"
+                        placeholder="Enter Your Offer Code (Optional)"
+                        type="text"
+                        value={formData.offerCode}
+                        handleChange={handleChange}
+                        className={styles.searchInput}
+                        id="OfferInput"
+                    />
+
+                    <button onClick={sendMessage} className={styles.searchButton}>
+                        Submit
+                    </button>
+                </div>
+
+                {/* Booking Details */}
+                <div className={styles.bookingDetails}>
+                    <div className={styles.bookingDetailsForm}>
+                        <h1 className={styles.bookingDetailsTitle}>Your Booking Details</h1>
+                        <div className={styles.bookingBoxForm}>
+                            <div className={styles.bookingDetailsBox}>
+                                <p className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>Itinerary:</span> {from}&gt;{to}
+                                </p>
+                                <p className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>Pickup Date:</span> {startDate} at {time}
+                                </p>
+                                <p className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>Car Type:</span> {selectedCar}
+                                </p>
+                                <p className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ 500
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Other Details */}
+                    <div className={styles.bookingForm}>
+                        <h1 className={styles.bookingFromTitle}>Other Details</h1>
+                        <div className={styles.bookingDetailsBox}>
+                            <p className={styles.bookingDetailsText}>
+                                <span className={styles.bookingDetailsLabel}>Driver Name:</span> John Doe
+                            </p>
+                            <p className={styles.bookingDetailsText}>
+                                <span className={styles.bookingDetailsLabel}>Driver Phone:</span> 9876543210
+                            </p>
+                            <p className={styles.bookingDetailsText}>
+                                <span className={styles.bookingDetailsLabel}>Driver Car:</span> Swift Dzire
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

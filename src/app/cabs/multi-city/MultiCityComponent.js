@@ -27,7 +27,7 @@ export default function MultiCityComponent() {
     const router = useRouter();
 
     const handleSearch = () => {
-        if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+        if (!formData.from || !tags || !formData.startDate || !formData.time) {
             toast.error("Please fill in all fields before proceeding.");
             return;
         }
@@ -35,7 +35,7 @@ export default function MultiCityComponent() {
         const date = formatTimestamp(formData.startDate);
         const time = formatTime(formData.time);
 
-        router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
+        router.push(`/cabs/select-cabs?title=multi-city&from=${formData.from}&to=${encodeURIComponent(tags)}&startDate=${date}&time=${time}`);
     };
 
     const whyChooseUs = [
