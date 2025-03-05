@@ -7,7 +7,7 @@ import { PiCertificateLight } from "react-icons/pi";
 import { IoNewspaperOutline } from "react-icons/io5";
 import styles from "@/styles/pages/selectCabs.module.css";
 import { toast } from "react-toastify";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/utils/Breadcrumbs";
 
 export default function SelectCars() {
     const router = useRouter();
@@ -23,18 +23,18 @@ export default function SelectCars() {
 
     useEffect(() => {
         if (!title || !from || !to) {
-            router.push(`/cabs/${title}`);
+            router.back();
         }
     }, [title, from, to, startDate, router]);
 
     const handleSearch = (car) => {
         setSelectedCar(car);
-            if (!selectedCar) {
+            if (!car) {
                 toast.error("Please select the car.");
                 return;
             }
 
-            const url = `/cabs/select-cabs/booking-from?title=one-way&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${selectedCar.name}`;
+            const url = `/cabs/select-cabs/booking-from?title=one-way&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}`;
             router.push(url);
         };
 
@@ -69,7 +69,6 @@ export default function SelectCars() {
     return (
         <div className="layout">
             <Breadcrumbs title={title} />
-
             {cars.map((car, index) => (
                 <div key={index} className={styles.carMainBox}>
                     <div className={styles.carFlex}>

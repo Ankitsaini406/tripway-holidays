@@ -1,17 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ContactDetails } from "@/utils/Utils";
 import styles from "@/styles/pages/selectCabs.module.css";
+import Breadcrumbs from "@/utils/Breadcrumbs";
 
 export default function BookingFrom() {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const title = searchParams.get("title");
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+    const startDate = searchParams.get("startDate");
+    const time = searchParams.get("time");
+    const selectedCar = searchParams.get("selectedCar");
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
     });
 
-        const aisensy = process.env.AI_SENSY;
+    const aisensy = process.env.AI_SENSY;
+
+        useEffect(() => {
+            if (!title || !from || !to) {
+                router.back();
+            }
+        }, [title, from, to, startDate, router]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -50,7 +67,7 @@ export default function BookingFrom() {
             campaignName: campaign,
             destination: "+91" + formData.phoneNumber,
             userName: formData.name,
-            templateParams: [formData.name, from, to, `${startDate} ${time}`, selectedCar.name, "500"],
+            templateParams: [formData.name, from, to, `${startDate} ${time}`, selectedCar, "500"],
             media: {
                 url: url,
                 filename: fileName
@@ -84,7 +101,8 @@ export default function BookingFrom() {
     };
 
     return (
-        <div>
+        <div className="layout">
+            <Breadcrumbs title={title} />
             <label htmlFor="nameInput">Name</label>
             <ContactDetails
                 name="name"
