@@ -34,7 +34,7 @@ export default function SelectCars() {
                 return;
             }
 
-            const url = `/cabs/select-cabs/booking-from?title=one-way&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}`;
+            const url = `/cabs/select-cabs/booking-from?title=${title}&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}`;
             router.push(url);
         };
 

@@ -45,7 +45,7 @@ export default function BookingFrom() {
     };
 
     const sendMessage = async () => {
-        if (!formData.name || !formData.phoneNumber || !formData.email  || !formData.pickupPoint || !formData.dropPoint) {
+        if (!formData.name || !formData.phoneNumber || !formData.email || !formData.pickupPoint || !formData.dropPoint) {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
@@ -155,16 +155,33 @@ export default function BookingFrom() {
                         id="pickupInput"
                     />
 
-                    <label htmlFor="DropInput">Drop</label>
-                    <ContactDetails
-                        name="dropPoint"
-                        placeholder="Enter Your Drop Point"
-                        type="text"
-                        value={formData.dropPoint}
-                        handleChange={handleChange}
-                        className={styles.searchInput}
-                        id="DropInput"
-                    />
+                    {title === "round-trip" ?
+                        <>
+                            <label htmlFor="destinationInput">Destination</label>
+                            <ContactDetails
+                                name="destination"
+                                placeholder="Enter Your Destination"
+                                type="text"
+                                value={formData.dropPoint}
+                                handleChange={handleChange}
+                                className={styles.searchInput}
+                                id="destinationInput"
+                            />
+                        </>
+                        : title === "multi-city" ? null :
+                            <>
+                                <label htmlFor="DropInput">Drop</label>
+                                <ContactDetails
+                                    name="dropPoint"
+                                    placeholder="Enter Your Drop Point"
+                                    type="text"
+                                    value={formData.dropPoint}
+                                    handleChange={handleChange}
+                                    className={styles.searchInput}
+                                    id="DropInput"
+                                />
+                            </>
+                    }
 
                     <label htmlFor="OfferInput">Offer Code</label>
                     <ContactDetails
