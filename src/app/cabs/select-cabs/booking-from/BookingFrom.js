@@ -194,15 +194,15 @@ export default function BookingFrom() {
                         id="OfferInput"
                     />
 
-                    <button onClick={sendMessage} className={styles.searchButton}>
-                        Submit
+                    <button onClick={sendMessage} className={`${styles.bookingButton} ${styles.pulse}`}>
+                        Ganreate Booking
                     </button>
                 </div>
 
                 {/* Booking Details */}
                 <div className={styles.bookingDetails}>
                     <div className={styles.bookingDetailsForm}>
-                        <h1 className={styles.bookingDetailsTitle}>Your Booking Details</h1>
+                        <h3 className={styles.bookingDetailsTitle}>Your Booking Details</h3>
                         <div className={styles.bookingBoxForm}>
                             <div className={styles.bookingDetailsBox}>
                                 <p className={styles.bookingDetailsText}>

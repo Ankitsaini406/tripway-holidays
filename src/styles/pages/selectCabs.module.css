@@ -136,7 +136,8 @@
 
 .bookingDetailsTitle {
     background-color: var(--indigo-blue);
-    font-size: x-large;
+    padding: 0.5rem 0;
+    font-size: large;
     font-weight: bold;
     text-align: center;
     color: var(--white-color);
@@ -146,6 +147,39 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.bookingButton {
+    background-color: #E63946;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 50%;
+
+    &:hover {
+        background-color: #CC333F;
+        transform: scale(1.05); 
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+}
+
+.bookingButton:active {
+    transform: scale(0.95); /* Slight shrink on click */
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 30, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 98, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 98, 0, 0); }
+}
+
+.bookingButton.pulse {
+    animation: pulse 2s infinite;
 }
 
 .tabButtons {
@@ -163,7 +197,8 @@
     width: 100%;
 
     &:hover {
-        box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+        background-color: var(--danube-blue);
+        color: var(--white-color);
         transition: all 0.3s ease-in-out;
     }
 }
@@ -171,6 +206,11 @@
 .activeTab {
     background-color: var(--indigo-blue);
     color: var(--white-color);
+
+    &:hover {
+        background-color: var(--indigo-blue);
+        transition: all 0.3s ease-in-out;
+    }
 }
 
 .listGroup {
