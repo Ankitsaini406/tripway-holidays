@@ -18,7 +18,7 @@ export default function BookingFrom() {
     const startDate = searchParams.get("startDate");
     const time = searchParams.get("time");
     const selectedCar = searchParams.get("selectedCar");
-    const bookingPrice = searchParams.get("price");
+    const [activeTab, setActiveTab] = useState('inclusions');
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
@@ -206,7 +206,7 @@ export default function BookingFrom() {
                         <div className={styles.bookingBoxForm}>
                             <div className={styles.bookingDetailsBox}>
                                 <p className={styles.bookingDetailsText}>
-                                    <span className={styles.bookingDetailsLabel}>Itinerary:</span> {from}&gt;{to}
+                                    <span className={styles.bookingDetailsLabel}>Itinerary:</span><span>{from}&gt;{to}</span>
                                 </p>
                                 <p className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Pickup Date:</span> {startDate} at {time}
@@ -223,18 +223,71 @@ export default function BookingFrom() {
 
                     {/* Other Details */}
                     <div className={styles.bookingForm}>
-                        <h1 className={styles.bookingFromTitle}>Other Details</h1>
-                        <div className={styles.bookingDetailsBox}>
-                            <p className={styles.bookingDetailsText}>
-                                <span className={styles.bookingDetailsLabel}>Driver Name:</span> John Doe
-                            </p>
-                            <p className={styles.bookingDetailsText}>
-                                <span className={styles.bookingDetailsLabel}>Driver Phone:</span> 9876543210
-                            </p>
-                            <p className={styles.bookingDetailsText}>
-                                <span className={styles.bookingDetailsLabel}>Driver Car:</span> Swift Dzire
-                            </p>
-                        </div>
+                        <>
+                            <div className={styles.tabButtons}>
+                                <button
+                                    className={`${styles.tabButton} ${activeTab === 'inclusions' ? styles.activeTab : ''}`}
+                                    onClick={() => setActiveTab('inclusions')}
+                                >
+                                    Inclusions
+                                </button>
+                                <button
+                                    className={`${styles.tabButton} ${activeTab === 'exclusions' ? styles.activeTab : ''}`}
+                                    onClick={() => setActiveTab('exclusions')}
+                                >
+                                    Exclusions
+                                </button>
+                                <button
+                                    className={`${styles.tabButton} ${activeTab === 't&c' ? styles.activeTab : ''}`}
+                                    onClick={() => setActiveTab('t&c')}
+                                >
+                                    T&C
+                                </button>
+                            </div>
+
+                            <div className={styles.tabContent}>
+                                {activeTab === 'inclusions' && (
+                                    <div className={styles.inExboxes}>
+                                        <ul className={styles.listGroup}>
+                                            <li>Base Fare and Fuel Charges</li>
+                                            <li>Diver Allowance</li>
+                                            <li>GST (5%)</li>
+                                        </ul>
+                                    </div>
+                                )}
+                                {activeTab === 'exclusions' && (
+                                    <div className={styles.inExboxes}>
+                                        <ul className={styles.listGroup}>
+                                            <li>Toll / State tax</li>
+                                            <li>Parking</li>
+                                        </ul>
+                                    </div>
+                                )}
+                                {activeTab === 't&c' && (
+                                    <ul className={styles.listGroup}>
+                                        {title === "one-way"
+                                            ? (<>
+                                                <li>Your trip has a KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
+                                                <li>Your trip includes one pick up in Pick-up city and one drop to destination city. It does not include within city travel.</li>
+                                                <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
+                                            </>)
+                                            : title === "round-trip" ? (<>
+                                                <li>Your Trip has a KM limit and in case of certain special packages may even contain Hours limit. If your usage exceeds these limits, you will be charged for the excess KM used (and/or hour if applicable).</li>
+                                                <li>The Airport entry charge, if applicable, is not included in the fare and will be charged extra.</li>
+                                                <li>All road toll fees, parking charges, state taxes etc. are charged extra and need to be paid to the concerned authorities as per actuals.</li>
+                                                <li>For driving between 09:45 PM to 06:00 AM on any of the nights, an additional allowance will be applicable and is to be paid to the driver.</li>
+                                                <li>Please ensure you have covered all cities you plan to visit in your itinerary. This will help our driver prepare accordingly. Adding city to the itinerary during trip may not be possible.</li>
+                                                <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
+                                            </>) : (<>
+                                                <li>Your trip has a KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
+                                                <li>Your trip includes one pick up in Pick-up city and one drop to destination city. It does not include within city travel.</li>
+                                                <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
+                                            </>)
+                                        }
+                                    </ul>
+                                )}
+                            </div>
+                        </>
                     </div>
                 </div>
             </div>
