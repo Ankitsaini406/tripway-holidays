@@ -1,14 +1,15 @@
 "use client";
 
-import { ContactDetails } from "@/utils/Utils";
-import styles from "@/styles/pages/selectCabs.module.css";
 import Breadcrumbs from "@/utils/Breadcrumbs";
-import OtpVerification from "@/utils/otpVeriification";
+import { ContactDetails } from "@/utils/Utils";
+import { useClient } from "@/context/UserContext";
 import useBookingForm from "@/hook/useBookingForm";
+import OtpVerification from "@/utils/otpVeriification";
+import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
-
-    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm();
+    const { user, signupUserWithEmailAndPassword } = useClient();
+    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">

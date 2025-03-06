@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
+import { ref, get, child, set } from "firebase/database";
+import { database } from "@/firebase/firebaseConfig";
 
-export default function useBookingForm() {
+export default function useBookingForm(user) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -46,6 +48,37 @@ export default function useBookingForm() {
         }));
     };
 
+    const checkUserExistence = async (phoneNumber) => {
+        const dbRef = ref(database, "users");
+    
+        try {
+            const snapshot = await get(dbRef);
+    
+            if (snapshot.exists()) {
+                const users = snapshot.val();
+    
+                const matchedUser = Object.values(users).find(user => user.phoneNumber === phoneNumber);
+    
+                if (matchedUser) {
+                    toast.success("User data loaded!");
+                } else {
+                    const userRef = ref(database, `users/${phoneNumber}`);
+                    await set(userRef, {
+                        name: formData.name || "",
+                        phoneNumber: phoneNumber || "",
+                        email: formData.email || "",
+                    });
+                    toast.success("User data saved successfully!");
+                }
+            } else {
+                toast.info("No users found in database.");
+            }
+        } catch (error) {
+            console.error("Error checking user:", error);
+            toast.error("Error fetching user details.");
+        }
+    };
+
     const handleSendOtp = async (e) => {
         e.preventDefault();
 
@@ -53,6 +86,8 @@ export default function useBookingForm() {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
+
+        checkUserExistence(formData.phoneNumber);
 
         const otp = generateOtp();
         setCorrectOtp(otp);
@@ -158,7 +193,7 @@ export default function useBookingForm() {
             }
 
             console.log("WhatsApp Response:", data);
-            toast.success("Message sent successfully!");
+            toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
             setFormData({ name: "", phoneNumber: "" });
         } catch (error) {
             console.error("Error sending message:", error);
@@ -177,6 +212,7 @@ export default function useBookingForm() {
         correctOtp,
         enteredOtp,
         isOtpSent,
+        checkUserExistence,
         handleChange,
         handleSendOtp,
         setEnteredOtp,

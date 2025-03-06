@@ -1,11 +1,9 @@
 import { database } from "@/firebase/firebaseConfig";
-import { get, ref, set, update } from "firebase/database";
+import { get, ref, set } from "firebase/database";
 import { generateAndStoreCouponCode } from "./Utils";
 
-export async function findAgentByAgentCode(agentCode, docId) {
+export async function findAgentByAgentCode(agentCode, docId = null) {
     try {
-        const couponCode = await generateAndStoreCouponCode();
-
         const agentsRef = ref(database, 'users');
         const snapshot = await get(agentsRef);
 
@@ -23,16 +21,21 @@ export async function findAgentByAgentCode(agentCode, docId) {
             }
         });
 
-        if (foundAgent) {
-            const agentToursRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
-            await set(agentToursRef, { tourId: docId, couponCode: couponCode });
-
-            console.log("Agent found and coupon code added successfully");
-            return foundAgent;
-        } else {
+        if (!foundAgent) {
             console.log("No agent found with the given agentCode");
             return null;
         }
+
+        if (docId) {
+            const couponCode = await generateAndStoreCouponCode();
+            const agentToursRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
+            await set(agentToursRef, { tourId: docId, couponCode: couponCode });
+            console.log("Agent found and coupon code added successfully for docId:", docId);
+        } else {
+            console.log("Agent found, no docId provided");
+        }
+
+        return foundAgent;
 
     } catch (error) {
         console.error("Error fetching agent data:", error);
