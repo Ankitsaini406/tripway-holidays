@@ -132,18 +132,18 @@ export default function BookingFrom() {
                         <h3 className={styles.bookingDetailsTitle}>Your Booking Details</h3>
                         <div className={styles.bookingBoxForm}>
                             <div className={styles.bookingDetailsBox}>
-                                <p className={styles.bookingDetailsText}>
+                                <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Itinerary:</span><span>{from}&gt;{to}</span>
-                                </p>
-                                <p className={styles.bookingDetailsText}>
+                                </h4>
+                                <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Pickup Date:</span> {startDate} at {time}
-                                </p>
-                                <p className={styles.bookingDetailsText}>
+                                </h4>
+                                <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Car Type:</span> {selectedCar}
-                                </p>
-                                <p className={styles.bookingDetailsText}>
+                                </h4>
+                                <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ 500
-                                </p>
+                                </h4>
                             </div>
                         </div>
                     </div>
