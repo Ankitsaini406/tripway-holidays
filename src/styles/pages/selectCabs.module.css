@@ -169,7 +169,7 @@
 }
 
 .bookingButton:active {
-    transform: scale(0.95); /* Slight shrink on click */
+    transform: scale(0.95);
 }
 
 @keyframes pulse {
