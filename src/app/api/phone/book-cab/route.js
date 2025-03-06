@@ -26,7 +26,6 @@ export async function POST(req) {
         }
 
         const data = await response.json();
-        console.log("WhatsApp book cab data : ", data);
 
         if (!response.ok) {
             return NextResponse.json({ error: data, status: response.status }, { status: response.status });

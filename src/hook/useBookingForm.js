@@ -127,7 +127,7 @@ export default function useBookingForm() {
             ? "PNG"
             : title === "round-trip"
                 ? "PNG"
-                : "multi-city.png";
+                : "multi-city-whatsapp.webp";
 
         const requestBody = {
             apiKey: aisensy,
