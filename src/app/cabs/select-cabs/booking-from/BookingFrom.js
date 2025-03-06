@@ -21,7 +21,7 @@ export default function BookingFrom() {
                         name="name"
                         placeholder="Enter Your Name"
                         type="text"
-                        value={formData.name}
+                        value={formData.name || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="nameInput"
@@ -32,7 +32,7 @@ export default function BookingFrom() {
                         name="phoneNumber"
                         placeholder="Enter Your Phone Number"
                         type="number"
-                        value={formData.phoneNumber}
+                        value={formData.phoneNumber || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="phoneInput"
@@ -43,7 +43,7 @@ export default function BookingFrom() {
                         name="email"
                         placeholder="Enter Your Email"
                         type="email"
-                        value={formData.email}
+                        value={formData.email || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="emailInput"
@@ -54,7 +54,7 @@ export default function BookingFrom() {
                         name="pickupPoint"
                         placeholder="Enter Your Pickup Point"
                         type="text"
-                        value={formData.pickupPoint}
+                        value={formData.pickupPoint || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="pickupInput"
@@ -67,7 +67,7 @@ export default function BookingFrom() {
                                 name="dropPoint"
                                 placeholder="Enter Your Destination"
                                 type="text"
-                                value={formData.dropPoint}
+                                value={formData.dropPoint || ""}
                                 handleChange={handleChange}
                                 className={styles.searchInput}
                                 id="destinationInput"
@@ -80,7 +80,7 @@ export default function BookingFrom() {
                                 name="dropPoint"
                                 placeholder="Enter Your Drop Point"
                                 type="text"
-                                value={formData.dropPoint}
+                                value={formData.dropPoint || ""}
                                 handleChange={handleChange}
                                 className={styles.searchInput}
                                 id="DropInput"
@@ -93,7 +93,7 @@ export default function BookingFrom() {
                         name="offerCode"
                         placeholder="Enter Your Offer Code (Optional)"
                         type="text"
-                        value={formData.offerCode}
+                        value={formData.offerCode || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="OfferInput"

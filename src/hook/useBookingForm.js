@@ -26,6 +26,7 @@ export default function useBookingForm() {
 
     const [correctOtp, setCorrectOtp] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
+    const [activeTab, setActiveTab] = useState("inclusions");
     const [isOtpSent, setIsOtpSent] = useState(false);
 
     const aisensy = process.env.AI_SENSY;
@@ -39,10 +40,9 @@ export default function useBookingForm() {
     }, [title, from, to, startDate, router]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [e.target.name]: e.target.value || "",
         }));
     };
 
@@ -112,16 +112,16 @@ export default function useBookingForm() {
         }
 
         const campaign = title === "one-way"
-            ? "websiteonewaybooking"
+            ? "onewaybookingfor website"
             : title === "round-trip"
-                ? "websiteroundtripbooking"
-                : "websitemulticitybooking";
+                ? "roundtripforwebsite"
+                : "multicitybookingforwebsite";
 
         const url = title === "one-way"
             ? "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true"
             : title === "round-trip"
                 ? "https://tripwayholidays.in/cab/round-trip-whatsapp.png"
-                : "https://www.aisensy.com/multi-city-booking";
+                : "https://tripwayholidays.in/cab/multi-city-whatsapp.webp";
 
         const fileName = title === "one-way"
             ? "PNG"
@@ -134,7 +134,7 @@ export default function useBookingForm() {
             campaignName: campaign,
             destination: "+91" + formData.phoneNumber,
             userName: formData.name,
-            templateParams: [formData.name, from, to, `${startDate} ${time}`, selectedCar, "500"],
+            templateParams: [formData.name, formData.pickupPoint, title === "multi-city" ? to : formData.dropPoint, startDate, time, selectedCar, "500"],
             media: {
                 url: url,
                 filename: fileName
@@ -142,7 +142,7 @@ export default function useBookingForm() {
         };
 
         try {
-            const res = await fetch("/api/book-cab", {
+            const res = await fetch("/api/phone/book-cab", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -181,7 +181,7 @@ export default function useBookingForm() {
         handleSendOtp,
         setEnteredOtp,
         sendMessage,
-        activeTab: useState('inclusions')[0],
-        setActiveTab: useState('inclusions')[1],
+        activeTab,
+        setActiveTab,
     };
 }
