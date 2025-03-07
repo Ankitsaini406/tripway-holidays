@@ -8,6 +8,8 @@ import { jwtDecode } from 'jwt-decode';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import jwt from "jsonwebtoken";
+import { generateToken } from "@/utils/Utils";
 
 const UserContext = createContext(null);
 
@@ -18,16 +20,23 @@ export const UserProvider = (props) => {
     const router = useRouter();
 
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    const jwtKey = process.env.JWT_SECRET_KEY;
 
     // Load user from cookie on initial load (client-side)
     useEffect(() => {
         const savedToken = getCookie('token');
         if (savedToken) {
             try {
-                const decodedToken = jwtDecode(savedToken);
-                setUser(decodedToken);
+                if (savedToken.split('.').length === 3) { // JWT should have 3 parts
+                    const decodedToken = jwtDecode(savedToken);
+                    setUser(decodedToken);
+                } else {
+                    console.error("Invalid token format:", savedToken);
+                    deleteCookie('token'); // Remove the invalid token
+                }
             } catch (error) {
                 console.error("Failed to decode token:", error);
+                deleteCookie('token'); // Remove corrupted token
             }
         }
 
@@ -39,70 +48,60 @@ export const UserProvider = (props) => {
         return () => unsubscribe();
     }, []);
 
-    const signupUserWithEmailAndPassword = async (email, password, additionalData, dataBaseName) => {
+
+    const createNewUser = async (additionalData) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-
-            setUser({
-                uid: user.uid,
-                email: user.email,
-            });
-
-            const idToken = await user.getIdToken();
-            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
-
-            await updateProfile(user, {
-                displayName: additionalData.name,
-                phoneNumber: additionalData.phoneNumber,
-            });
-
+            if (!additionalData.phoneNumber || !additionalData.countryCode) {
+                throw new Error("Phone number or country code is missing.");
+            }
+    
+            const userId = additionalData.countryCode + additionalData.phoneNumber;
+            const existingUser = await checkUserExists(userId, `users`);
+    
+            if (existingUser) {
+                console.log("User already exists:", existingUser);
+                toast.info("User already exists. Please login.");
+                existingUser.isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
+                return existingUser;
+            }
+    
             const isLogin = additionalData.role === 'Driver' ? false : true;
-            await putData(`${dataBaseName}/${additionalData.countryCode + additionalData.phoneNumber}`, {
-                uid: additionalData.countryCode + additionalData.phoneNumber,
-                email: user.email,
-                password: password,
+            const email = additionalData.email;
+    
+            const userData = {
+                uid: userId,
+                email,
                 isLogin,
-                ...additionalData
+                ...additionalData, 
+            };
+
+            Object.keys(userData).forEach(key => {
+                if (userData[key] === undefined) {
+                    delete userData[key];
+                }
+            });
+
+            await putData(`users/${userId}`, userData);
+
+            const token = await generateToken(userData.uid);
+
+            setCookie('token', token, {
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'Strict',
+                expires: expires
             });
 
             isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
-            return user;
+
+            return userData;
         } catch (error) {
-            console.log("Error signing up:", error);
-            throw error;
-        }
-    };
-
-    const createNewUser = async (additionalData, dataBaseName) => {
-        try {
-
-            const isLogin = additionalData.role === 'Driver' ? false : true;
-            const user = await putData(`${dataBaseName}/${additionalData.countryCode + additionalData.phoneNumber}`, {
-                uid: additionalData.countryCode + additionalData.phoneNumber,
-                email: additionalData.email,
-                password: password,
-                isLogin,
-                ...additionalData
-            });
-
-            const idToken = await user.getIdToken();
-            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
-
-            setUser({
-                uid: user.uid,
-                email: user.email,
-            });
-
-            isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
-            return user;
-        } catch (error) {
-            console.log("Error signing up:", error);
+            console.error("Error signing up:", error);
             throw error;
         }
     };
 
     const putData = (key, data) => set(ref(database, key), data);
+
 
     const verificationEmail = async () => {
         try {
@@ -119,28 +118,21 @@ export const UserProvider = (props) => {
         }
     };
 
-    const checkEmailExists = async (email, collection) => {
-        const dbRef = ref(database);
-        const emailQuery = query(
-            child(dbRef, collection),
-            orderByChild("email"),
-            equalTo(email)
-        );
-
-        const emailSnapshot = await get(emailQuery);
-
-        if (!emailSnapshot.exists()) {
-            return null; // No account found
-        }
-
-        // Get the first matched user data
-        const userData = Object.values(emailSnapshot.val())[0];
-        return userData;
-    };
+    const checkUserExists = async (uid, collection) => {
+            const userRef = ref(database, `${collection}/${uid}`);
+        
+            const userSnapshot = await get(userRef);
+        
+            if (!userSnapshot.exists()) {
+                return null;
+            }
+        
+            return userSnapshot.val();
+        };
 
     const loginUser = async (email, password) => {
         try {
-            const userData = await checkEmailExists(email, `users`);
+            const userData = await checkUserExists(email, `users`);
 
             if (!userData) {
                 throw new Error("No account found with this email.");
@@ -187,7 +179,7 @@ export const UserProvider = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, signupUserWithEmailAndPassword, createNewUser, verificationEmail, loginUser, logoutUser }}>
+        <UserContext.Provider value={{ user, createNewUser, verificationEmail, loginUser, logoutUser }}>
             {props.children}
         </UserContext.Provider>
     );

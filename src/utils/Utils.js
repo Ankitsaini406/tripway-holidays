@@ -1,6 +1,8 @@
 import { firestore } from "@/firebase/firebaseConfig";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 
+const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
+
 function generateCouponCode() {
     const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const letters = Array.from({ length: 2 }, () =>
@@ -48,6 +50,27 @@ export async function generateAndStoreCouponCode() {
         throw error;
     }
 }
+
+export const generateToken = async (uid) => {
+    try {
+        const response = await fetch(`${apiPoint}api/generate-token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uid }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to generate token.");
+        }
+
+        const { token } = await response.json();
+        return token;
+    } catch (error) {
+        console.error("Error generating token:", error);
+        return null;
+    }
+};
+
 
 export function ContactDetails({ type, name, value, handleChange, className, placeholder }) {
     return (

@@ -13,31 +13,10 @@ function SignUpPage() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
-    const [countryCode, setCountryCode] = useState("+91");
-    const [countries, setCountries] = useState([]);
+    const [countryCode, setCountryCode] = useState("");
     const [error, setError] = useState("");
 
-    const { signupUserWithEmailAndPassword } = useClient();
-
-    useEffect(() => {
-        // Fetch country data
-        fetch("https://restcountries.com/v3.1/all")
-            .then((res) => res.json())
-            .then((data) => {
-                const countryList = data
-                    .map((country) => ({
-                        name: country.name.common,
-                        code: country.idd?.root
-                            ? country.idd.root + (country.idd.suffixes?.[0] || "")
-                            : "",
-                        flag: country.flag, // Unicode flag (🏴)
-                    }))
-                    .filter((country) => country.code); // Remove empty codes
-
-                setCountries(countryList);
-            })
-            .catch((error) => console.error("Error fetching country codes:", error));
-    }, []);
+    const { createNewUser } = useClient();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,27 +27,14 @@ function SignUpPage() {
             return;
         }
 
-        // if (password !== verifyPassword) {
-        //     setError("Passwords do not match.");
-        //     return;
-        // }
-
         try {
-            const allData = { name, countryCode, phoneNumber, address, role: 'User' }
-            await signupUserWithEmailAndPassword(email, phoneNumber, allData, 'users');
+            const allData = { name, email, countryCode, phoneNumber, address, role: 'User' }
+            await createNewUser(allData);
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);
         }
     };
-
-    // const togglePasswordVisibility = () => {
-    //     setShowPassword(!showPassword);
-    // };
-
-    // const toggleVerifyPasswordVisibility = () => {
-    //     setShowVerifyPassword(!showVerifyPassword);
-    // };
 
     return (
         <div className={styles.signupCustomer}>
@@ -101,17 +67,18 @@ function SignUpPage() {
                             <div className={styles.formGroup}>
                                 <label htmlFor="phoneNumber">Phone Number</label>
                                 <div className={styles.inputContainer}>
-                                    <select
+                                    <input
+                                        style={{ width: "20%" }}
+                                        type="text"
+                                        inputMode="numeric"
+                                        pattern="\+[0-9]*"
+                                        id="countryCode"
                                         value={countryCode}
                                         onChange={(e) => setCountryCode(e.target.value)}
+                                        placeholder="+91"
                                         className={styles.countrySelect}
-                                    >
-                                        {countries.map((country, index) => (
-                                            <option key={index} value={country.code}>
-                                                {country.name} ({country.code})
-                                            </option>
-                                        ))}
-                                    </select>
+                                        required
+                                    />
                                     <input
                                         type="text"
                                         inputMode="numeric"
@@ -149,56 +116,6 @@ function SignUpPage() {
                                     required
                                 />
                             </div>
-                            {/* <div className={styles.formGroup}>
-                                <label htmlFor="password">Password</label>
-                                <div className={styles.inputIcon}>
-                                    <input
-                                        className={styles.authInput}
-                                        type={showPassword ? "text" : "password"}
-                                        id="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Enter your password"
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className={styles.passwordToggleBtn}
-                                        onClick={togglePasswordVisibility}
-                                    >
-                                        {showPassword ? (
-                                            <MdOutlineVisibilityOff />
-                                        ) : (
-                                            <MdOutlineVisibility />
-                                        )}
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={styles.formGroup}>
-                                <label htmlFor="verifyPassword">Verify Password</label>
-                                <div className={styles.inputIcon}>
-                                    <input
-                                        className={styles.authInput}
-                                        type={showVerifyPassword ? "text" : "password"}
-                                        id="verifyPassword"
-                                        value={verifyPassword}
-                                        onChange={(e) => setVerifyPassword(e.target.value)}
-                                        placeholder="Enter your password again"
-                                        required
-                                    />
-                                    <button
-                                        type="button"
-                                        className={styles.passwordToggleBtn}
-                                        onClick={toggleVerifyPasswordVisibility}
-                                    >
-                                        {showVerifyPassword ? (
-                                            <MdOutlineVisibilityOff />
-                                        ) : (
-                                            <MdOutlineVisibility />
-                                        )}
-                                    </button>
-                                </div>
-                            </div> */}
                             {error && <p className={styles.errorMessage}>{error}</p>}
                             <button type="submit" className={styles.loginButton}>
                                 Sign Up

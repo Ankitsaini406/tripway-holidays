@@ -91,27 +91,6 @@
   gap: 0.5rem;
 }
 
-.countrySelect {
-  border: none;
-  outline: none;
-  padding: 10px;
-  cursor: pointer;
-  width: 40%;
-}
-
-.flagIcon {
-  width: 20px;
-  height: 15px;
-  margin-right: 5px;
-}
-
-.phoneInput {
-  border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 16px;
-}
-
 .errorMessage {
   color: red;
   font-size: 14px;
