@@ -42,13 +42,13 @@ export const UserProvider = (props) => {
     }, []);
 
 
-    const createNewUser = async (additionalData) => {
+    const createNewUser = async (data) => {
         try {
-            if (!additionalData.phoneNumber || !additionalData.countryCode) {
+            if (!data.phoneNumber || !data.countryCode) {
                 throw new Error("Phone number or country code is missing.");
             }
 
-            const userId = additionalData.countryCode + additionalData.phoneNumber;
+            const userId = data.countryCode + data.phoneNumber;
             const existingUser = await checkUserExists(userId, `users`);
 
             if (existingUser) {
@@ -58,14 +58,14 @@ export const UserProvider = (props) => {
                 return existingUser;
             }
 
-            const isLogin = additionalData.role === 'Driver' ? false : true;
-            const email = additionalData.email;
+            const isLogin = data.role === 'Driver' ? false : data.role === 'Agent' ? false : true;
+            const email = data.email;
 
             const userData = {
                 uid: userId,
                 email,
                 isLogin,
-                ...additionalData,
+                ...data,
             };
 
             Object.keys(userData).forEach(key => {

@@ -90,9 +90,9 @@ function Footer() {
                     <div className={styles.footerFlex}>
                         <h3>Links</h3>
                         <ul className={styles.footerFlexList}>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/client-login'>Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/client/login'>Login</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href='/auth/signup'>Sign Up</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/agent-login'>Patner Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/agent/login'>Patner Login</Link></li>
                             <li><Link rel="preload" className={styles.lnkTag} href="/auth/driver/login" >Driver Login</Link></li>
                         </ul>
                     </div>

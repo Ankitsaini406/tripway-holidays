@@ -26,7 +26,7 @@ function SignUpPage() {
         }
 
         try {
-            const allData = { name, email, countryCode, phoneNumber, address, role: 'User' }
+            const allData = { name, email, countryCode, phoneNumber, address, role: 'Agent' }
             await createNewUser(allData);
         } catch (err) {
             setError("Failed to sign up. Please try again.");
@@ -45,7 +45,7 @@ function SignUpPage() {
                         >
                             <FaHome />
                         </Link>
-                        <h1 className={styles.loginTitle}>Sign Up</h1>
+                        <h1 className={styles.loginTitle}>Agent Sign Up</h1>
                         <form onSubmit={handleSubmit}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="name">Name</label>

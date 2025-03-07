@@ -128,8 +128,12 @@ function AgentLoginPage({ setAgentLogin }) {
                             </button>
                         )}
 
+                        <p className={styles.signupLink}>
+                            Don’t have an account? <Link href="/auth/agent/signup">Sign Up</Link>
+                        </p>
+
                         <div className={styles.loginUrl}>
-                            <Link href="/auth/client-login" className={styles.forgetPassword}>
+                            <Link href="/auth/client/login" className={styles.forgetPassword}>
                                 User Login
                             </Link>
                             <Link href="/auth/driver/login" className={styles.forgetPassword}>

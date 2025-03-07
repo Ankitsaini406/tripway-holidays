@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import AgentLogin from "../agent-login/agentLogin";
+import AgentLogin from "../../agent/login/agentLogin";
 import { FaHome } from "react-icons/fa";
 import { useClient } from "@/context/UserContext";
 import styles from '@/styles/pages/authpage.module.css';
@@ -132,10 +132,10 @@ function ClientLoginPage() {
                                 )}
 
                                 <p className={styles.signupLink}>
-                                    Don’t have an account? <Link href="/auth/signup">Sign Up</Link>
+                                    Don’t have an account? <Link href="/auth/client/signup">Sign Up</Link>
                                 </p>
                                 <div className={styles.loginUrl}>
-                                    <Link href="/auth/agent-login" className={styles.forgetPassword}>
+                                    <Link href="/auth/agent/login" className={styles.forgetPassword}>
                                         Partner Login
                                     </Link>
                                     <Link href="/auth/driver/login" className={styles.forgetPassword}>

@@ -74,7 +74,7 @@ function Header() {
                         {user ? (
                             <li><Link href="/profile" className={styles.headerButton}>Profile</Link></li>
                         ) : (
-                            <li><Link href="/auth/client-login" className={styles.headerButton}>Login</Link></li>
+                            <li><Link href="/auth/client/login" className={styles.headerButton}>Login</Link></li>
                         )}
                     </ul>
                 </nav>
@@ -106,7 +106,7 @@ function Header() {
                         {user ? (
                             <li><Link href="/profile" className={styles.headerButton} onClick={closeMenu}>Profile</Link></li>
                         ) : (
-                            <li><Link href="/auth/client-login" className={styles.headerButton} onClick={closeMenu}>Login</Link></li>
+                            <li><Link href="/auth/client/login" className={styles.headerButton} onClick={closeMenu}>Login</Link></li>
                         )}
                     </ul>
                 </nav>
