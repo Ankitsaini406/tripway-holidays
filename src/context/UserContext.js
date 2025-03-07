@@ -1,9 +1,9 @@
 'use client';
 
-import { createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
+import { signOut, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
-import { set, ref, get, child, query, equalTo, orderByChild } from "firebase/database";
+import { set, ref, get } from "firebase/database";
 import { jwtDecode } from 'jwt-decode';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";

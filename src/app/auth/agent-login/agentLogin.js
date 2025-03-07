@@ -7,7 +7,7 @@ import { useClient } from "@/context/UserContext";
 import styles from '@/styles/pages/authpage.module.css';
 import Link from "next/link";
 import OtpVerification from "@/utils/otpVeriification";
-import { generateOtp } from "@/utils/Utils";
+import { generateOtp, sendOtp } from "@/utils/Utils";
 
 function AgentLoginPage({ setAgentLogin }) {
 
@@ -37,7 +37,7 @@ function AgentLoginPage({ setAgentLogin }) {
             const generatedOtp = generateOtp();
             setOtp(generatedOtp);
             setShowOtpField(true);
-            console.log("OTP Sent:", generatedOtp);
+            await sendOtp({ campaignName: "otplogin", phoneNumber, otp: generatedOtp });
         } catch (error) {
             setError("Failed to send OTP. Please try again.");
             console.error("Error sending OTP:", error);
