@@ -36,6 +36,18 @@ export default async function sitemap() {
             lastModified: new Date().toISOString(),
         },
         {
+            url: `${apiPoint}cabs/one-way`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}cabs/round-trip`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}cabs/multi-city`,
+            lastModified: new Date().toISOString(),
+        },
+        {
             url: `${apiPoint}about-us`,
             lastModified: new Date().toISOString(),
         },
