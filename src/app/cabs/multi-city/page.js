@@ -1,7 +1,7 @@
 import MultiCityComponent from "./MultiCityComponent";
 
 export const metadata = {
-    title: "Multi-City Cab Booking | Flexible City-to-City Taxi Service - TripWayHolidays",
+    title: "Multi-City Cabs",
     description: "Book a multi-city cab for your long-distance journey. Enjoy the best rates, reliable taxis, and hassle-free online booking for intercity travel with TripWayHolidays.",
     keywords: [
         "Multi-city cab booking",
@@ -18,7 +18,7 @@ export const metadata = {
         "Safe & hassle-free multi-city trips"
     ],
     openGraph: {
-        title: "Multi-City Cab Booking | Travel Seamlessly Across Cities",
+        title: "Multi-City Cab Booking | Flexible City-to-City Taxi Service - TripWayHolidays",
         description: "Plan your trip across multiple cities with ease! TripWayHolidays provides affordable and reliable multi-city cab services for your long-distance journey.",
         url: "https://tripwayholidays.in/cabs/multi-city",
         type: "website",

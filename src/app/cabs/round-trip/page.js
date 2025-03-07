@@ -1,7 +1,7 @@
 import RoundTripComponent from "./RoundTripComponent";
 
 export const metadata = {
-    title: "Round Trip Cabs | Best Round Trip Taxi Service - TripWayHolidays",
+    title: "Round Trip Cabs",
     description: "Book an affordable round trip cab with TripWayHolidays for a hassle-free journey. Enjoy safe, reliable, and best-priced taxi services for outstation round trips.",
     keywords: [
         "Round trip cab booking",
@@ -18,7 +18,7 @@ export const metadata = {
         "Round trip cabs for outstation travel"
     ],
     openGraph: {
-        title: "Round Trip Cab Booking | Best Outstation Taxi Services",
+        title: "Round Trip Cabs | Best Round Trip Taxi Service - TripWayHolidays",
         description: "Looking for a round trip taxi? TripWayHolidays offers reliable and affordable round trip cab services with professional drivers. Book your journey today!",
         url: "https://tripwayholidays.in/cabs/round-trip",
         type: "website",
