@@ -22,8 +22,8 @@ import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function MultiCityComponent() {
 
-    const { user, signupUserWithEmailAndPassword } = useClient();
-    const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleKeyDown } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const { user } = useClient();
+    const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleKeyDown } = useCabSearchForm(user);
     const router = useRouter();
 
     const handleSearch = () => {

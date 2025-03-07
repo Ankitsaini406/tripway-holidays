@@ -21,8 +21,8 @@ import { formatTime, formatTimestamp } from "@/utils/formatData";
 
 export default function RoundTripComponent() {
 
-    const { user, signupUserWithEmailAndPassword } = useClient();
-    const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user, signupUserWithEmailAndPassword);
+    const { user } = useClient();
+    const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user);
     const router = useRouter();
 
     const handleSearch = () => {
