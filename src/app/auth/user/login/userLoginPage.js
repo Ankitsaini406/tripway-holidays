@@ -88,7 +88,7 @@ function UserLoginPage() {
                                 <Link href="/" className={styles.backToWeb}>
                                     <FaHome />
                                 </Link>
-                                <h1 className={styles.loginTitle}>Login</h1>
+                                <h1 className={styles.loginTitle}>User Login</h1>
 
                                 <form onSubmit={handleSendOtp}>
                                     <div className={styles.formGroup}>
