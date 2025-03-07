@@ -109,20 +109,26 @@
 
 .authOtp {
   text-align: center;
-  width: 50%;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
 }
 
 .resendOtpButton {
   border: none;
-    background-color: transparent;
-    margin: 1em 0 0 0;
-    cursor: pointer;
+  background-color: transparent;
+  margin: 1em 0 1em 0;
+  cursor: pointer;
+  font-size: medium;
+  text-align: left;
 }
 
 .passwordInputWrapper {
   display: flex;
   align-items: center;
 }
+
 .passwordToggleBtn {
   background: var(--white-color);
   border: none;

@@ -65,7 +65,7 @@ export function OtpVerification({ numberOfDigits, setEnteredOtp, handleSendOtp }
                 ))}
             </div>
             {isTimerActive ? (
-                <p>Resend OTP in {otpTimer} seconds</p>
+                <p className={styles.resendOtpButton}>Resend OTP in {otpTimer} seconds</p>
             ) : (
                 <button onClick={handleResendOtp} className={styles.resendOtpButton}>
                     Resend OTP
