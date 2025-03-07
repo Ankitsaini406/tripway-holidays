@@ -73,7 +73,7 @@ const DriverSignup = () => {
                                         style={{ width: "20%" }}
                                         type="text"
                                         inputMode="numeric"
-                                        pattern="\\+[0-9]*"
+                                        pattern="\+[0-9]*"
                                         id="countryCode"
                                         value={formData.countryCode}
                                         onChange={handleChange}
