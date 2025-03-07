@@ -8,10 +8,8 @@ import OtpVerification from "@/utils/otpVeriification";
 import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
-    const { user, signupUserWithEmailAndPassword } = useClient();
-    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, checkUserExistence, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
-
-    const userData = checkUserExistence('9783169832');
+    const { user } = useClient();
+    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">

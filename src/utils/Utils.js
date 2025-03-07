@@ -3,6 +3,8 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
+export const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
+
 function generateCouponCode() {
     const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const letters = Array.from({ length: 2 }, () =>

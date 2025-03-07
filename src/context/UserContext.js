@@ -8,7 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import jwt from "jsonwebtoken";
 import { generateToken } from "@/utils/Utils";
 
 const UserContext = createContext(null);
@@ -20,7 +19,6 @@ export const UserProvider = (props) => {
     const router = useRouter();
 
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    const jwtKey = process.env.JWT_SECRET_KEY;
 
     // Load user from cookie on initial load (client-side)
     useEffect(() => {
@@ -130,9 +128,9 @@ export const UserProvider = (props) => {
             return userSnapshot.val();
         };
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (phoneNumber) => {
         try {
-            const userData = await checkUserExists(email, `users`);
+            const userData = await checkUserExists(phoneNumber, `users`);
 
             if (!userData) {
                 throw new Error("No account found with this email.");
@@ -143,22 +141,22 @@ export const UserProvider = (props) => {
                 throw new Error("You are not an authenticated user.");
             }
 
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const loggedInUser = userCredential.user;
+            const userRef = ref(database, `users/${phoneNumber}`);
+            const userSnapshot = await get(userRef);
 
             setUser({
-                uid: loggedInUser.uid,
-                email: loggedInUser.email,
+                uid: userSnapshot.uid,
+                email: userSnapshot.email,
             });
 
-            const idToken = await loggedInUser.getIdToken();
+            const idToken = await generateToken(userData.uid);
             setCookie('token', idToken, {
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'Strict',
                 expires: expires
             });
 
-            return { user: loggedInUser };
+            return { user: userSnapshot };
         } catch (error) {
             console.error("Error logging in:", error);
             throw error;
