@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
+// import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useClient } from "@/context/UserContext";
 import styles from "@/styles/pages/authpage.module.css";
 
@@ -13,44 +13,62 @@ function SignUpPage() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
-    const [password, setPassword] = useState("");
-    const [verifyPassword, setVerifyPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+    const [countryCode, setCountryCode] = useState("+91");
+    const [countries, setCountries] = useState([]);
     const [error, setError] = useState("");
 
     const { signupUserWithEmailAndPassword } = useClient();
+
+    useEffect(() => {
+        // Fetch country data
+        fetch("https://restcountries.com/v3.1/all")
+            .then((res) => res.json())
+            .then((data) => {
+                const countryList = data
+                    .map((country) => ({
+                        name: country.name.common,
+                        code: country.idd?.root
+                            ? country.idd.root + (country.idd.suffixes?.[0] || "")
+                            : "",
+                        flag: country.flag, // Unicode flag (🏴)
+                    }))
+                    .filter((country) => country.code); // Remove empty codes
+
+                setCountries(countryList);
+            })
+            .catch((error) => console.error("Error fetching country codes:", error));
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
 
-        if (!email || !password || !name || !phoneNumber) {
+        if (!email || !name || !phoneNumber) {
             setError("Please fill in all fields.");
             return;
         }
 
-        if (password !== verifyPassword) {
-            setError("Passwords do not match.");
-            return;
-        }
+        // if (password !== verifyPassword) {
+        //     setError("Passwords do not match.");
+        //     return;
+        // }
 
         try {
-            const allData = {name, phoneNumber, verifyPassword, address, role: 'User'}
-            await signupUserWithEmailAndPassword(email, password, allData, 'users');
+            const allData = { name, countryCode, phoneNumber, address, role: 'User' }
+            await signupUserWithEmailAndPassword(email, phoneNumber, allData, 'users');
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);
         }
     };
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+    // const togglePasswordVisibility = () => {
+    //     setShowPassword(!showPassword);
+    // };
 
-    const toggleVerifyPasswordVisibility = () => {
-        setShowVerifyPassword(!showVerifyPassword);
-    };
+    // const toggleVerifyPasswordVisibility = () => {
+    //     setShowVerifyPassword(!showVerifyPassword);
+    // };
 
     return (
         <div className={styles.signupCustomer}>
@@ -82,17 +100,30 @@ function SignUpPage() {
                             </div>
                             <div className={styles.formGroup}>
                                 <label htmlFor="phoneNumber">Phone Number</label>
-                                <input
-                                    className={styles.authInput}
-                                    type="text"
-                                    inputMode="numeric"
-                                    pattern="[0-9]+"
-                                    id="phoneNumber"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                    placeholder="Enter your Phone Number"
-                                    required
-                                />
+                                <div className={styles.inputContainer}>
+                                    <select
+                                        value={countryCode}
+                                        onChange={(e) => setCountryCode(e.target.value)}
+                                        className={styles.countrySelect}
+                                    >
+                                        {countries.map((country, index) => (
+                                            <option key={index} value={country.code}>
+                                                {country.name} ({country.code})
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input
+                                        type="text"
+                                        inputMode="numeric"
+                                        pattern="[0-9]+"
+                                        id="phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        placeholder="Enter your Phone Number"
+                                        className={styles.phoneInput}
+                                        required
+                                    />
+                                </div>
                             </div>
                             <div className={styles.formGroup}>
                                 <label htmlFor="email">Email</label>
@@ -118,7 +149,7 @@ function SignUpPage() {
                                     required
                                 />
                             </div>
-                            <div className={styles.formGroup}>
+                            {/* <div className={styles.formGroup}>
                                 <label htmlFor="password">Password</label>
                                 <div className={styles.inputIcon}>
                                     <input
@@ -167,7 +198,7 @@ function SignUpPage() {
                                         )}
                                     </button>
                                 </div>
-                            </div>
+                            </div> */}
                             {error && <p className={styles.errorMessage}>{error}</p>}
                             <button type="submit" className={styles.loginButton}>
                                 Sign Up

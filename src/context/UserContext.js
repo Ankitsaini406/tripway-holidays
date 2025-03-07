@@ -58,8 +58,8 @@ export const UserProvider = (props) => {
             });
 
             const isLogin = additionalData.role === 'Driver' ? false : true;
-            await putData(`${dataBaseName}/${user.uid}`, {
-                uid: user.uid,
+            await putData(`${dataBaseName}/${additionalData.countryCode + additionalData.phoneNumber}`, {
+                uid: additionalData.countryCode + additionalData.phoneNumber,
                 email: user.email,
                 password: password,
                 isLogin,
@@ -74,28 +74,30 @@ export const UserProvider = (props) => {
         }
     };
 
-    const createNewUser = async (email, password, additionalData, dataBaseName) => {
+    const createNewUser = async (additionalData, dataBaseName) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const newUser = userCredential.user;
 
-            const idToken = await newUser.getIdToken();
-            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
-
-            await updateProfile(newUser, {
-                displayName: additionalData.name,
-            });
-
-            await putData(`${dataBaseName}/${newUser.uid}`, {
-                uid: newUser.uid,
-                email: newUser.email,
-                role: 'User',
+            const isLogin = additionalData.role === 'Driver' ? false : true;
+            const user = await putData(`${dataBaseName}/${additionalData.countryCode + additionalData.phoneNumber}`, {
+                uid: additionalData.countryCode + additionalData.phoneNumber,
+                email: additionalData.email,
+                password: password,
+                isLogin,
                 ...additionalData
             });
 
-            return { uid: newUser.uid, email: newUser.email, ...additionalData };
+            const idToken = await user.getIdToken();
+            setCookie('token', idToken, { secure: process.env.NODE_ENV === 'production', sameSite: 'Strict', expires: expires });
+
+            setUser({
+                uid: user.uid,
+                email: user.email,
+            });
+
+            isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
+            return user;
         } catch (error) {
-            console.log("Error creating new user:", error);
+            console.log("Error signing up:", error);
             throw error;
         }
     };
@@ -124,53 +126,53 @@ export const UserProvider = (props) => {
             orderByChild("email"),
             equalTo(email)
         );
-    
+
         const emailSnapshot = await get(emailQuery);
-    
+
         if (!emailSnapshot.exists()) {
             return null; // No account found
         }
-    
+
         // Get the first matched user data
         const userData = Object.values(emailSnapshot.val())[0];
         return userData;
     };
-    
+
     const loginUser = async (email, password) => {
         try {
             const userData = await checkEmailExists(email, `users`);
-    
+
             if (!userData) {
                 throw new Error("No account found with this email.");
             }
-    
+
             // Check if the user is authenticated (isLogin: true)
             if (!userData.isLogin) {
                 throw new Error("You are not an authenticated user.");
             }
-    
+
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const loggedInUser = userCredential.user;
-    
+
             setUser({
                 uid: loggedInUser.uid,
                 email: loggedInUser.email,
             });
-    
+
             const idToken = await loggedInUser.getIdToken();
-            setCookie('token', idToken, { 
-                secure: process.env.NODE_ENV === 'production', 
-                sameSite: 'Strict', 
-                expires: expires 
+            setCookie('token', idToken, {
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'Strict',
+                expires: expires
             });
-    
+
             return { user: loggedInUser };
         } catch (error) {
             console.error("Error logging in:", error);
             throw error;
         }
     };
-    
+
 
     // Sign out function
     const logoutUser = async () => {

@@ -60,7 +60,8 @@ export default function useBookingForm(user) {
                 const matchedUser = Object.values(users).find(user => user.phoneNumber === phoneNumber);
     
                 if (matchedUser) {
-                    toast.success("User data loaded!");
+                    toast.success("User data found.");
+                    return;
                 } else {
                     const userRef = ref(database, `users/${phoneNumber}`);
                     await set(userRef, {
