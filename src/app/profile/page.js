@@ -15,7 +15,7 @@ import ProfileHeader from './(components)/ProfileHeader';
 import TourTable from './(components)/TourTables';
 
 function ProfilePage() {
-    const { user, verificationEmail, logoutUser } = useClient();
+    const { user, logoutUser } = useClient();
     const {
         userData,
         agentBookings = [],
@@ -177,7 +177,7 @@ function ProfilePage() {
                 <p>{error}</p>
             ) : (
                 <div className={styles.profile}>
-                    <ProfileHeader userData={userData} user={user} verificationEmail={verificationEmail} logoutUser={logoutUser} />
+                    <ProfileHeader userData={userData} logoutUser={logoutUser} />
                     <div className={styles.profileDetailsBox}>
                     <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} role={userData?.role} />
                         {activeTab === 'accountSetting' ? (

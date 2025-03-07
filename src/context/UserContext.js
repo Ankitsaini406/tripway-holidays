@@ -1,6 +1,6 @@
 'use client';
 
-import { signOut, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, database } from "../firebase/firebaseConfig";
 import { set, ref, get } from "firebase/database";
@@ -37,11 +37,6 @@ export const UserProvider = (props) => {
                 deleteCookie('token'); // Remove corrupted token
             }
         }
-
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            console.log("Auth state changed:", currentUser);
-        });
 
         return () => unsubscribe();
     }, []);
@@ -99,22 +94,6 @@ export const UserProvider = (props) => {
     };
 
     const putData = (key, data) => set(ref(database, key), data);
-
-
-    const verificationEmail = async () => {
-        try {
-            const currentUser = auth.currentUser;
-            if (currentUser && !currentUser.emailVerified) {
-                await sendEmailVerification(currentUser);
-                toast("Verification email resent. Please check your inbox.");
-            } else {
-                throw new Error("User is already verified or not logged in.");
-            }
-        } catch (error) {
-            console.error("Error resending verification email:", error);
-            toast.error("Could not resend verification email.");
-        }
-    };
 
     const checkUserExists = async (uid, collection) => {
         const userRef = ref(database, `${collection}/${uid}`);
@@ -176,7 +155,7 @@ export const UserProvider = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, createNewUser, verificationEmail, loginUser, logoutUser }}>
+        <UserContext.Provider value={{ user, createNewUser, loginUser, logoutUser }}>
             {props.children}
         </UserContext.Provider>
     );
