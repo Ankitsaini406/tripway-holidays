@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import AgentLogin from "../agent-login/agentLogin";
-import ForgetPassword from "@/utils/forgetPassword";
 import { FaHome } from "react-icons/fa";
 import { useClient } from "@/context/UserContext";
 import styles from '@/styles/pages/authpage.module.css';
@@ -100,7 +99,7 @@ function ClientLoginPage() {
                                             id="client-phoneNumber"
                                             value={phoneNumber}
                                             onChange={(e) => setPhoneNumber(e.target.value)}
-                                            placeholder="+91"
+                                            placeholder="Enter your phone number (e.g. +1 1234567890)"
                                             required
                                             disabled={showOtpField}
                                         />

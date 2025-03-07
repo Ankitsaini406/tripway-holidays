@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { FaHome } from "react-icons/fa";
-// import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useClient } from "@/context/UserContext";
 import styles from "@/styles/pages/authpage.module.css";
 
 function SignUpPage() {
-    const [isHovered, setIsHovered] = useState(false);
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
@@ -44,11 +42,8 @@ function SignUpPage() {
                         <Link
                             className={styles.backToWeb}
                             href="/"
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
                         >
-                            <FaHome />&nbsp;
-                            {isHovered && <span className={styles.tooltipText}>Home</span>}
+                            <FaHome />
                         </Link>
                         <h1 className={styles.loginTitle}>Sign Up</h1>
                         <form onSubmit={handleSubmit}>

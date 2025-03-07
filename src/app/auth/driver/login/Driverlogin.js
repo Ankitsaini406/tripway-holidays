@@ -2,131 +2,144 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import ForgetPassword from "@/utils/forgetPassword";
 import { FaHome } from "react-icons/fa";
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useClient } from "@/context/UserContext";
 import styles from '@/styles/pages/authpage.module.css';
 import Link from "next/link";
+import OtpVerification from "@/utils/otpVeriification";
+import { generateOtp } from "@/utils/Utils";
 
 export default function DriverLoginPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState("");
-    const [activeContainer, setActiveContainer] = useState(true);
-    const [isHovered, setIsHovered] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const [showOtpField, setShowOtpField] = useState(false);
+    const [enteredOtp, setEnteredOtp] = useState("");
+    const [otp, setOtp] = useState("");
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [aciveContainer, setActiveContainer] = useState(true);
+
     const { loginUser } = useClient();
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSendOtp = async (e) => {
         e.preventDefault();
-        if (!email || !password) {
-            setError("Please fill in all fields.");
+        setError("");
+
+        if (!phoneNumber || phoneNumber.length < 10) {
+            setError("Enter a valid phone number.");
             return;
         }
 
         try {
-            const personExists = await loginUser(email, password);
+            setLoading(true);
+            const generatedOtp = generateOtp();
+            setOtp(generatedOtp);
+            setShowOtpField(true);
+            console.log("OTP Sent:", generatedOtp);
+        } catch (error) {
+            setError("Failed to send OTP. Please try again.");
+            console.error("Error sending OTP:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // OTP Verification
+    const handleVerifyOtp = () => {
+        if (enteredOtp === otp) {
+            setIsOtpVerified(true);
+            setError("");
+            handleLogin();
+        } else {
+            setError("Invalid OTP. Please try again.");
+        }
+    };
+
+    // Login Function
+    const handleLogin = async () => {
+        try {
+            setLoading(true);
+            const personExists = await loginUser(phoneNumber);
             if (!personExists) {
-                setError("No user found with this email.");
+                setError("No user found with this number.");
                 return;
             }
-
             router.push("/profile");
         } catch (error) {
             setError(error.message);
             console.error("Error during sign-in:", error);
+        } finally {
+            setLoading(false);
         }
-    };
-
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
     };
 
     return (
         <>
             <div className={styles.loginPage}>
-                    <div className={styles.loginBlur}>
-                        <div className={`${styles.loginContainer} ${activeContainer ? styles.activeCon : styles.closeCon}`}>
-                            <div className={styles.loginCard}>
-                                <Link
-                                    className={styles.backToWeb}
-                                    href="/"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                >
-                                    <FaHome />
-                                    &nbsp;
-                                    {isHovered && <span className={styles.tooltipText}>Home</span>}
-                                </Link>
-                                <h1 className={styles.loginTitle}>Driver Login</h1>
-                                <form onSubmit={handleSubmit}>
-                                    <div className={styles.formGroup}>
-                                        <label htmlFor="email">Email</label>
-                                        <input
-                                            className={styles.authInput}
-                                            type="email"
-                                            id="client-email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="Enter your email"
-                                            required
-                                        />
-                                    </div>
-                                    <div className={styles.formGroup}>
-                                        <label htmlFor="password">Password</label>
-                                        <div className={styles.inputIcon}>
-                                            <input
-                                                className={styles.authInput}
-                                                type={showPassword ? "text" : "password"}
-                                                id="password"
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                placeholder="Enter your password"
-                                                required
-                                            />
-                                            <button
-                                                type="button"
-                                                className={styles.passwordToggleBtn}
-                                                onClick={togglePasswordVisibility}
-                                            >
-                                                {showPassword ? (
-                                                    <MdOutlineVisibilityOff />
-                                                ) : (
-                                                    <MdOutlineVisibility />
-                                                )}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p
-                                        className={styles.forgetPassword}
-                                        onClick={() => setActiveContainer(false)}
-                                    >
-                                        Forget Password
-                                    </p>
-                                    {error && <p className={styles.errorMessage}>{error}</p>}
-                                    <button type="submit" className={styles.loginButton}>
-                                        Sign In
+                <div className={styles.loginBlur}>
+                    <div className={`${styles.loginContainer} ${aciveContainer ? styles.activeCon : styles.closeCon}`}>
+                        <div className={styles.loginCard}>
+                            <Link href="/" className={styles.backToWeb}>
+                                <FaHome />
+                            </Link>
+                            <h1 className={styles.loginTitle}>Driver Login</h1>
+                            <form onSubmit={handleSendOtp}>
+                                <div className={styles.formGroup}>
+                                    <label htmlFor="phoneNumber">Phone Number</label>
+                                    <input
+                                        className={styles.authInput}
+                                        type="tel"
+                                        id="driver-phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        placeholder="Enter your phone number (e.g. +1 1234567890)"
+                                        required
+                                        disabled={showOtpField}
+                                    />
+                                </div>
+                                {error && <p className={styles.errorMessage}>{error}</p>}
+                                {!showOtpField && (
+                                    <button type="submit" className={styles.loginButton} disabled={loading}>
+                                        {loading ? "Sending OTP..." : "Send OTP"}
                                     </button>
-                                </form>
-                                <p className={styles.signupLink}>
-                                    Don’t have an account? <Link href="/auth/driver/signup">Sign Up</Link>
-                                </p>
-                                <a
-                                    href="/auth/client-login"
-                                    className={styles.forgetPassword}
-                                >
-                                    Login
-                                </a>
+                                )}
+                            </form>
+
+                            {showOtpField && !isOtpVerified && (
+                                <>
+                                    <OtpVerification
+                                        numberOfDigits={6}
+                                        setEnteredOtp={setEnteredOtp}
+                                        handleSendOtp={handleSendOtp}
+                                    />
+                                    <button onClick={handleVerifyOtp} className={styles.loginButton} disabled={loading}>
+                                        {loading ? "Verifying..." : "Verify OTP"}
+                                    </button>
+                                </>
+                            )}
+
+                            {isOtpVerified && (
+                                <button onClick={handleLogin} className={styles.loginButton} disabled={loading}>
+                                    {loading ? "Logging in..." : "Login"}
+                                </button>
+                            )}
+
+                            <p className={styles.signupLink}>
+                                Don’t have an account? <Link href="/auth/driver/signup">Sign Up</Link>
+                            </p>
+                            <div className={styles.loginUrl}>
+                                <Link href="/auth/client-login" className={styles.forgetPassword}>
+                                    User Login
+                                </Link>
+                                <Link href="/auth/agent-login" className={styles.forgetPassword}>
+                                    Patner Login
+                                </Link>
                             </div>
                         </div>
-                        <ForgetPassword
-                            activeContainer={activeContainer}
-                            setActiveContainer={setActiveContainer}
-                        />
                     </div>
                 </div>
+            </div>
         </>
     );
 }

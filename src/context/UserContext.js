@@ -52,25 +52,25 @@ export const UserProvider = (props) => {
             if (!additionalData.phoneNumber || !additionalData.countryCode) {
                 throw new Error("Phone number or country code is missing.");
             }
-    
+
             const userId = additionalData.countryCode + additionalData.phoneNumber;
             const existingUser = await checkUserExists(userId, `users`);
-    
+
             if (existingUser) {
                 console.log("User already exists:", existingUser);
                 toast.info("User already exists. Please login.");
                 existingUser.isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
                 return existingUser;
             }
-    
+
             const isLogin = additionalData.role === 'Driver' ? false : true;
             const email = additionalData.email;
-    
+
             const userData = {
                 uid: userId,
                 email,
                 isLogin,
-                ...additionalData, 
+                ...additionalData,
             };
 
             Object.keys(userData).forEach(key => {
@@ -117,26 +117,25 @@ export const UserProvider = (props) => {
     };
 
     const checkUserExists = async (uid, collection) => {
-            const userRef = ref(database, `${collection}/${uid}`);
-        
-            const userSnapshot = await get(userRef);
-        
-            if (!userSnapshot.exists()) {
-                return null;
-            }
-        
-            return userSnapshot.val();
-        };
+        const userRef = ref(database, `${collection}/${uid}`);
+
+        const userSnapshot = await get(userRef);
+
+        if (!userSnapshot.exists()) {
+            return null;
+        }
+
+        return userSnapshot.val();
+    };
 
     const loginUser = async (phoneNumber) => {
         try {
             const userData = await checkUserExists(phoneNumber, `users`);
 
             if (!userData) {
-                throw new Error("No account found with this email.");
+                throw new Error("No account found with this phone number.");
             }
 
-            // Check if the user is authenticated (isLogin: true)
             if (!userData.isLogin) {
                 throw new Error("You are not an authenticated user.");
             }
