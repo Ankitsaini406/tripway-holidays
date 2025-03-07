@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/styles/pages/profile.module.css";
 
-const AccountSettings = ({ userData, accountDetails, passwordDetails, handleInputChange, handleSaveChanges, handlePasswordChange, handlePasswordUpdate, handleCancel, passwordMatch }) => (
+const AccountSettings = ({ userData, accountDetails, handleInputChange, handleSaveChanges, handleCancel }) => (
     <div className={styles.buttonBox}>
         <form>
             <div className={styles.inputGroup}>
@@ -42,51 +42,6 @@ const AccountSettings = ({ userData, accountDetails, passwordDetails, handleInpu
                     Save Changes
                 </button>
             </div>
-        </form>
-
-        <form>
-            <div className={styles.inputGroup}>
-                <label htmlFor="oldPassword">Old Password:</label>
-                <input
-                    type="password"
-                    name="oldPassword"
-                    placeholder="Enter your old password"
-                    value={passwordDetails.oldPassword}
-                    onChange={handlePasswordChange}
-                    required
-                />
-            </div>
-            <div className={styles.inputGroup}>
-                <label htmlFor="newPassword">New Password:</label>
-                <input
-                    type="password"
-                    name="newPassword"
-                    placeholder="Enter new password"
-                    value={passwordDetails.newPassword}
-                    onChange={handlePasswordChange}
-                    required
-                />
-            </div>
-            <div className={styles.inputGroup}>
-                <label htmlFor="confirmNewPassword">Confirm New Password:</label>
-                <input
-                    type="password"
-                    name="confirmNewPassword"
-                    placeholder="Confirm new password"
-                    value={passwordDetails.confirmNewPassword}
-                    onChange={handlePasswordChange}
-                    required
-                />
-            </div>
-
-            <button
-                type="button"
-                onClick={handlePasswordUpdate}
-                className={styles.saveButton}
-                disabled={!passwordMatch || !passwordDetails.oldPassword || !passwordDetails.newPassword}
-            >
-                Change Password
-            </button>
         </form>
     </div>
 );

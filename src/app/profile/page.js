@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { EmailAuthProvider, reauthenticateWithCredential, updatePassword, updatePhoneNumber, updateProfile } from 'firebase/auth';
+import { updatePhoneNumber, updateProfile } from 'firebase/auth';
 import { ref, update } from 'firebase/database';
 import { useClient } from '@/context/UserContext';
 import useUserBookings from '@/hook/useUserBooking';
@@ -40,13 +40,6 @@ function ProfilePage() {
         address: userData?.address || '',
     });
 
-    const [passwordDetails, setPasswordDetails] = useState({
-        oldPassword: '',
-        newPassword: '',
-        confirmNewPassword: '',
-    });
-    const [passwordMatch, setPasswordMatch] = useState(false);
-
     useEffect(() => {
         setFilteredAgentBookings(agentBookings);
         setFilteredUserBookings(userBookings);
@@ -81,7 +74,6 @@ function ProfilePage() {
 
     const handleSaveChanges = async () => {
         const updatedValues = {};
-        // Check if each field has changed, and update accordingly
         if (accountDetails.displayName !== originalAccountDetails.displayName) {
             updatedValues.displayName = accountDetails.displayName;
         }
@@ -94,7 +86,6 @@ function ProfilePage() {
 
         if (Object.keys(updatedValues).length > 0) {
             try {
-                // Update the Firebase Realtime Database directly
                 const userRef = ref(database, `users/${userData?.uid}`);
                 await update(userRef, updatedValues);
 
@@ -104,68 +95,18 @@ function ProfilePage() {
                     await updatePhoneNumber(user, { phoneNumber: updatedValues.phoneNumber });
                 }
 
-                // Update the original account details to reflect the changes
                 setOriginalAccountDetails({
                     displayName: accountDetails.displayName,
                     phoneNumber: accountDetails.phoneNumber,
                     address: accountDetails.address,
                 });
 
-                console.log('User updated successfully');
+                toast.success('User updated successfully');
             } catch (error) {
-                console.error('Error updating account details:', error);
-                alert('Failed to update account details');
+                toast.success('Error updating account details:', error);
             }
         } else {
-            console.log('No changes detected');
-        }
-    };
-
-    const handlePasswordChange = (e) => {
-        const { name, value } = e.target;
-        setPasswordDetails((prev) => ({ ...prev, [name]: value }));
-
-        if (name === 'confirmNewPassword' || name === 'newPassword') {
-            setPasswordMatch(passwordDetails.newPassword === value);
-        }
-    };
-
-    const handlePasswordUpdate = async () => {
-        const { oldPassword, newPassword, confirmNewPassword } = passwordDetails;
-
-        if (!passwordMatch || newPassword !== confirmNewPassword) {
-            toast.error('New passwords do not match!');
-            return;
-        }
-
-        const user = auth.currentUser;
-
-        if (user) {
-            try {
-                // Reauthenticate user before updating the password
-                const credential = EmailAuthProvider.credential(user.email, oldPassword);
-                await reauthenticateWithCredential(user, credential);
-
-                // Update password
-                await updatePassword(user, newPassword);
-
-                const userRef = ref(database, `users/${userData?.uid}`);
-                await update(userRef, {
-                    password: newPassword,
-                    verifyPassword: confirmNewPassword,
-                });
-                toast.success('Password updated successfully!');
-                setPasswordDetails({
-                    oldPassword: '',
-                    password: '',
-                    verifyPassword: '',
-                });
-            } catch (error) {
-                console.error('Error updating password:', error);
-                toast.error('Failed to update password. Please check your old password.');
-            }
-        } else {
-            toast.error('User not authenticated.');
+            toast.info('No changes detected');
         }
     };
 
@@ -179,9 +120,9 @@ function ProfilePage() {
                 <div className={styles.profile}>
                     <ProfileHeader userData={userData} logoutUser={logoutUser} />
                     <div className={styles.profileDetailsBox}>
-                    <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} role={userData?.role} />
+                        <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} agentBookings={agentBookings} userBookings={userBookings} role={userData?.role} />
                         {activeTab === 'accountSetting' ? (
-                            <AccountSettings userData={userData} accountDetails={accountDetails} passwordDetails={passwordDetails} handleInputChange={handleInputChange} handleSaveChanges={handleSaveChanges} handlePasswordChange={handlePasswordChange} handlePasswordUpdate={handlePasswordUpdate} handleCancel={handleCancel} passwordMatch={passwordMatch} />
+                            <AccountSettings userData={userData} accountDetails={accountDetails} handleInputChange={handleInputChange} handleSaveChanges={handleSaveChanges} handleCancel={handleCancel} />
                         ) : (
                             <div>
                                 <input
