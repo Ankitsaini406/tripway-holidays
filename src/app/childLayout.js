@@ -12,7 +12,7 @@ import "./globals.css";
 export default function ClientRootLayout({ children }) {
     const pathname = usePathname();
 
-    const noHeaderFooterRoutes = ['/auth/client/login', '/auth/client/signup', '/auth/agent/login', '/auth/agent/signup', '/auth/driver/login', '/auth/driver/signup'];
+    const noHeaderFooterRoutes = ['/auth/user/login', '/auth/user/signup', '/auth/agent/login', '/auth/agent/signup', '/auth/driver/login', '/auth/driver/signup'];
     const hideHeaderFooter = noHeaderFooterRoutes.includes(pathname);
 
     const bot_url = process.env.BOT_URL;

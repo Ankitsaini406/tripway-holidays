@@ -15,7 +15,7 @@ export const metadata = {
     openGraph: {
         title: "Agent Login",
         description: "Access your Tripway Holidays agent account. Log in to manage client bookings, view travel packages, and leverage tools to enhance your services.",
-        url: "https://tripwayholidays.in/auth/agent-login",
+        url: "https://tripwayholidays.in/auth/agent/login",
         type: "website",
         images: [
             {

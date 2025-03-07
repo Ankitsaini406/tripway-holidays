@@ -10,7 +10,7 @@ import Link from "next/link";
 import OtpVerification from "@/utils/otpVeriification";
 import { generateOtp, sendOtp } from "@/utils/Utils";
 
-function ClientLoginPage() {
+function UserLoginPage() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState("");
     const [showOtpField, setShowOtpField] = useState(false);
@@ -151,4 +151,4 @@ function ClientLoginPage() {
     );
 }
 
-export default ClientLoginPage;
+export default UserLoginPage;

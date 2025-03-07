@@ -1,7 +1,7 @@
 import SignUpPage from "./signup";
 
 export const metadata = {
-    title: "Sign Up",
+    title: "User Sign Up",
     description: "Create your account with Tripway Holidays. Sign up today to explore personalized holiday packages, exclusive deals, and seamless bookings.",
     keywords: [
         "Sign Up Tripway Holidays",
@@ -13,9 +13,9 @@ export const metadata = {
         "Exclusive Holiday Deals Sign-Up",
     ],
     openGraph: {
-        title: "Sign Up",
-        description: "Join Tripway Holidays to unlock amazing travel experiences, curated holiday packages, and exclusive offers. Sign up and get started on your journey today!",
-        url: "https://tripwayholidays.in/auth/signup",
+        title: "User Sign Up",
+        description: "Join Tripway Holidays to unlock amazing travel experiences, curated holiday packages, and exclusive offers. User Sign up and get started on your journey today!",
+        url: "https://tripwayholidays.in/auth/user/signup",
         type: "website",
         images: [
             {
