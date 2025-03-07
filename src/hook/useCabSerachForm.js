@@ -233,7 +233,7 @@ const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
             // finally {
             //     setFormData((prev) => ({ ...prev, loading: false }));
             // }
-            route.push("/auth/signup");
+            route.push("/auth/user/signup");
             toast.info("Create your account first to unlock seamless ride booking! 🚖✨");
         } else {
             userData = {

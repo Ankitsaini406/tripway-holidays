@@ -132,7 +132,7 @@ function UserLoginPage() {
                                 )}
 
                                 <p className={styles.signupLink}>
-                                    Don’t have an account? <Link href="/auth/client/signup">Sign Up</Link>
+                                    Don’t have an account? <Link href="/auth/user/signup">Sign Up</Link>
                                 </p>
                                 <div className={styles.loginUrl}>
                                     <Link href="/auth/agent/login" className={styles.forgetPassword}>

@@ -129,10 +129,10 @@ export default function DriverLoginPage() {
                                 Don’t have an account? <Link href="/auth/driver/signup">Sign Up</Link>
                             </p>
                             <div className={styles.loginUrl}>
-                                <Link href="/auth/client-login" className={styles.forgetPassword}>
+                                <Link href="/auth/user/login" className={styles.forgetPassword}>
                                     User Login
                                 </Link>
-                                <Link href="/auth/agent-login" className={styles.forgetPassword}>
+                                <Link href="/auth/agent/login" className={styles.forgetPassword}>
                                     Patner Login
                                 </Link>
                             </div>

@@ -6,7 +6,7 @@ export default function robots() {
     return {
         rules: {
             userAgent: '*',
-            allow: ["/", "/group-tour"],
+            allow: ["/", "/group-tour", "/blog"],
             disallow: [],
         },
         sitemap: `${apiPoint}sitemap.xml`,

@@ -57,7 +57,7 @@ function PopUp({ popTime, closeTime, src, alt }) {
                                 X
                             </button> : <p className={styles.closebutton}>Skip: {countdown}</p>
                         }
-                        <Link href="/auth/signup">
+                        <Link href="/auth/user/signup">
                             <div className={styles.popupImage}>
                                 <Image
                                     src={src}

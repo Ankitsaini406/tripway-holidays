@@ -68,15 +68,27 @@ export default async function sitemap() {
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}auth/client-login`,
+            url: `${apiPoint}auth/user/login`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}auth/agent-login`,
+            url: `${apiPoint}auth/user/signup`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${apiPoint}auth/signup`,
+            url: `${apiPoint}auth/agent/login`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/agent/signup`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/driver/login`,
+            lastModified: new Date().toISOString(),
+        },
+        {
+            url: `${apiPoint}auth/driver/signup`,
             lastModified: new Date().toISOString(),
         },
     ];

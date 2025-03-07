@@ -133,7 +133,7 @@ function AgentLoginPage({ setAgentLogin }) {
                         </p>
 
                         <div className={styles.loginUrl}>
-                            <Link href="/auth/client/login" className={styles.forgetPassword}>
+                            <Link href="/auth/user/login" className={styles.forgetPassword}>
                                 User Login
                             </Link>
                             <Link href="/auth/driver/login" className={styles.forgetPassword}>

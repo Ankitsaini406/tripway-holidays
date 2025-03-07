@@ -53,12 +53,22 @@ export const UserProvider = (props) => {
 
             if (existingUser) {
                 console.log("User already exists:", existingUser);
-                toast.info("User already exists. Please login.");
-                existingUser.isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
+                toast.info(`🚀 User already exists as a ${existingUser.role}. Please log in!`);
+                switch (existingUser.role) {
+                    case 'User':
+                        router.push('/auth/user/login');
+                        break;
+                    case 'Agent':
+                        router.push('/auth/agent/login');
+                        break;
+                    default:
+                        router.push('/auth/driver/login');
+                }
+
                 return existingUser;
             }
 
-            const isLogin = data.role === 'Driver' ? false : data.role === 'Agent' ? false : true;
+            const isLogin = data.role !== 'Driver' && data.role !== 'Agent';
             const email = data.email;
 
             const userData = {
@@ -84,7 +94,16 @@ export const UserProvider = (props) => {
                 expires: expires
             });
 
-            isLogin ? router.push('/auth/client-login') : router.push('/auth/driver/login');
+            switch (userData.role) {
+                case 'User':
+                    router.push('/auth/user/login');
+                    break;
+                case 'Agent':
+                    router.push('/auth/agent/login');
+                    break;
+                default:
+                    router.push('/auth/driver/login');
+            }
 
             return userData;
         } catch (error) {
@@ -148,7 +167,7 @@ export const UserProvider = (props) => {
             await signOut(auth);
             setUser(null);
             deleteCookie('token', { path: '/', domain: window.location.hostname });
-            router.push('/auth/client-login');
+            router.push('/auth/user/login');
         } catch (error) {
             console.error("Error signing out:", error);
         }
