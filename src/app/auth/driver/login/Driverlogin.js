@@ -65,7 +65,7 @@ export default function DriverLoginPage() {
                 setError("No user found with this number.");
                 return;
             }
-            router.push("/profile");
+            router.push("/");
         } catch (error) {
             setError(error.message);
             console.error("Error during sign-in:", error);
