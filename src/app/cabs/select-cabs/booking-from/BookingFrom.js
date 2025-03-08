@@ -33,7 +33,7 @@ export default function BookingFrom() {
                         <ContactDetails
                             style={{ width: "20%" }}
                             id="countryCode"
-                            type="number"
+                            type="tel"
                             name="countryCode"
                             value={formData.countryCode}
                             handleChange={handleChange}
@@ -44,7 +44,7 @@ export default function BookingFrom() {
                         <ContactDetails
                             name="phoneNumber"
                             placeholder="Enter Your Phone Number"
-                            type="number"
+                            type="tel"
                             value={formData.phoneNumber || ""}
                             handleChange={handleChange}
                             className={styles.searchInput}
