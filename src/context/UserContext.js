@@ -20,21 +20,20 @@ export const UserProvider = (props) => {
 
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    // Load user from cookie on initial load (client-side)
     useEffect(() => {
         const savedToken = getCookie('token');
         if (savedToken) {
             try {
-                if (savedToken.split('.').length === 3) { // JWT should have 3 parts
+                if (savedToken.split('.').length === 3) {
                     const decodedToken = jwtDecode(savedToken);
                     setUser(decodedToken);
                 } else {
                     console.error("Invalid token format:", savedToken);
-                    deleteCookie('token'); // Remove the invalid token
+                    deleteCookie('token');
                 }
             } catch (error) {
                 console.error("Failed to decode token:", error);
-                deleteCookie('token'); // Remove corrupted token
+                deleteCookie('token');
             }
         }
 
@@ -47,13 +46,14 @@ export const UserProvider = (props) => {
             if (!data.phoneNumber || !data.countryCode) {
                 throw new Error("Phone number or country code is missing.");
             }
-
+    
             const userId = data.countryCode + data.phoneNumber;
             const existingUser = await checkUserExists(userId, `users`);
-
+    
             if (existingUser) {
                 console.log("User already exists:", existingUser);
                 toast.info(`🚀 User already exists as a ${existingUser.role}. Please log in!`);
+    
                 switch (existingUser.role) {
                     case 'User':
                         router.push('/auth/user/login');
@@ -64,12 +64,23 @@ export const UserProvider = (props) => {
                     default:
                         router.push('/auth/driver/login');
                 }
-
+    
                 return existingUser;
             }
-
+    
             const isLogin = data.role !== 'Driver' && data.role !== 'Agent';
             const email = data.email;
+
+            const generateAgentCode = () => {
+                const chars = `${data.name}${data.phoneNumber}`;
+                let code = "";
+                for (let i = 0; i < 6; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return `TRIP${code.toUpperCase()}`;
+            };
+
+            const agentCode = data.role === 'Agent' ? generateAgentCode() : null;
 
             const userData = {
                 uid: userId,
@@ -78,22 +89,28 @@ export const UserProvider = (props) => {
                 ...data,
             };
 
+            if (data.role === 'Agent') {
+                userData.agentCode = agentCode;
+            } else {
+                delete userData.agentCode;
+            }
+
             Object.keys(userData).forEach(key => {
                 if (userData[key] === undefined) {
                     delete userData[key];
                 }
             });
-
+    
             await putData(`users/${userId}`, userData);
-
+    
             const token = await generateToken(userData.uid);
-
+    
             setCookie('token', token, {
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'Strict',
                 expires: expires
             });
-
+    
             switch (userData.role) {
                 case 'User':
                     router.push('/auth/user/login');
@@ -104,7 +121,7 @@ export const UserProvider = (props) => {
                 default:
                     router.push('/auth/driver/login');
             }
-
+    
             return userData;
         } catch (error) {
             console.error("Error signing up:", error);
@@ -160,8 +177,6 @@ export const UserProvider = (props) => {
         }
     };
 
-
-    // Sign out function
     const logoutUser = async () => {
         try {
             await signOut(auth);
