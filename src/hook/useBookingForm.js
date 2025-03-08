@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-import { ref, get, set } from "firebase/database";
-import { database } from "@/firebase/firebaseConfig";
+import { checkUserExistence, generateAndStoreCouponCode } from "@/utils/Utils";
+import { addDoc, collection } from "firebase/firestore";
+import { ref, set } from "firebase/database";
+import { database, firestore } from "@/firebase/firebaseConfig";
+import { findAgentByAgentCode } from "@/utils/findAgent";
 
 export default function useBookingForm(user) {
     const router = useRouter();
@@ -23,7 +26,7 @@ export default function useBookingForm(user) {
         email: "",
         pickupPoint: "",
         dropPoint: "",
-        offerCode: "",
+        offerFrom: "",
     });
 
     const [correctOtp, setCorrectOtp] = useState("");
@@ -48,38 +51,6 @@ export default function useBookingForm(user) {
         }));
     };
 
-    const checkUserExistence = async (phoneNumber) => {
-        const dbRef = ref(database, "users");
-    
-        try {
-            const snapshot = await get(dbRef);
-    
-            if (snapshot.exists()) {
-                const users = snapshot.val();
-    
-                const matchedUser = Object.values(users).find(user => user.phoneNumber === phoneNumber);
-    
-                if (matchedUser) {
-                    toast.success("User data found.");
-                    return;
-                } else {
-                    const userRef = ref(database, `users/${phoneNumber}`);
-                    await set(userRef, {
-                        name: formData.name || "",
-                        phoneNumber: phoneNumber || "",
-                        email: formData.email || "",
-                    });
-                    toast.success("User data saved successfully!");
-                }
-            } else {
-                toast.info("No users found in database.");
-            }
-        } catch (error) {
-            console.error("Error checking user:", error);
-            toast.error("Error fetching user details.");
-        }
-    };
-
     const handleSendOtp = async (e) => {
         e.preventDefault();
 
@@ -88,11 +59,13 @@ export default function useBookingForm(user) {
             return;
         }
 
-        checkUserExistence(formData.phoneNumber);
+        checkUserExistence(`+91${formData.phoneNumber}`, formData);
 
         const otp = generateOtp();
         setCorrectOtp(otp);
         setIsOtpSent(true);
+
+        console.log(`This is otp : `, otp);
 
         const requestBody = {
             apiKey: aisensy,
@@ -142,9 +115,32 @@ export default function useBookingForm(user) {
 
     const sendMessage = async () => {
 
-        if(enteredOtp !== correctOtp) {
+        if (enteredOtp !== correctOtp) {
             toast.error("Incorrect OTP. Please try again.");
             return;
+        }
+
+        const couponCode = await generateAndStoreCouponCode('User');
+
+        const validDestinations = (Array.isArray(to) ? to : to.split(",")).filter(dest => dest.trim() !== "");
+        const destinationsField = title === "one-way"
+            ? { to }
+            : title === "round-trip"
+                ? { destination: to }
+                : { destinations: validDestinations };
+        const dataToSend = { ...formData, couponCode, carOption: selectedCar, selectedRadio: title, from, startDate, time, ...destinationsField };
+        const collectionName =
+            title === "one-way" ? "one-way" : title === "round-trip" ? "round-trip" : "multi-city";
+
+        try {
+            const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
+            const dbRef = ref(database, `users/${user?.uid}/tours/${docRef.id}`);
+            await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
+
+            findAgentByAgentCode(formData.offerFrom, docRef.id);
+            toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
+        } catch (err) {
+            toast.error(`Error sending data to Firebase. ${err}`);
         }
 
         const campaign = title === "one-way"
@@ -195,7 +191,6 @@ export default function useBookingForm(user) {
 
             console.log("WhatsApp Response:", data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
-            setFormData({ name: "", phoneNumber: "" });
         } catch (error) {
             console.error("Error sending message:", error);
             toast.error("Error sending message. Try again.");
@@ -213,7 +208,6 @@ export default function useBookingForm(user) {
         correctOtp,
         enteredOtp,
         isOtpSent,
-        checkUserExistence,
         handleChange,
         handleSendOtp,
         setEnteredOtp,

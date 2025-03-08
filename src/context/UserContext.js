@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { generateToken } from "@/utils/Utils";
+import { generateAgentCode, generateToken } from "@/utils/Utils";
 
 const UserContext = createContext(null);
 
@@ -70,15 +70,6 @@ export const UserProvider = (props) => {
     
             const isLogin = data.role !== 'Driver' && data.role !== 'Agent';
             const email = data.email;
-
-            const generateAgentCode = () => {
-                const chars = `${data.name}${data.phoneNumber}`;
-                let code = "";
-                for (let i = 0; i < 6; i++) {
-                    code += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                return `TRIP${code.toUpperCase()}`;
-            };
 
             const agentCode = data.role === 'Agent' ? generateAgentCode() : null;
 

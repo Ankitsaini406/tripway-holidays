@@ -27,7 +27,7 @@ export async function findAgentByAgentCode(agentCode, docId = null) {
         }
 
         if (docId) {
-            const couponCode = await generateAndStoreCouponCode();
+            const couponCode = await generateAndStoreCouponCode('Agent');
             const agentToursRef = ref(database, `users/${foundAgent.uid}/agentTours/${docId}`);
             await set(agentToursRef, { tourId: docId, couponCode: couponCode });
             console.log("Agent found and coupon code added successfully for docId:", docId);

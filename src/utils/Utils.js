@@ -1,46 +1,59 @@
-import { firestore } from "@/firebase/firebaseConfig";
+import { firestore, database } from "@/firebase/firebaseConfig";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { ref, get, set } from "firebase/database";
 import { toast } from "react-toastify";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 const apiKey = process.env.AI_SENSY;
 export const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
 
-function generateCouponCode() {
+function generateCouponCode(role) {
     const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const letters = Array.from({ length: 2 }, () =>
-        alphabets.charAt(Math.floor(Math.random() * alphabets.length))
-    ).join("");
+    let firstLetter;
 
-    const numbers = [];
-    while (numbers.length < 4) {
-        const randomNumber = Math.floor(Math.random() * 10);
-        if (!numbers.includes(randomNumber)) {
-            numbers.push(randomNumber);
-        }
+    if (role === "User") {
+        firstLetter = "U";
+    } else if (role === "Agent") {
+        firstLetter = "A";
+    } else {
+        return Array.from({ length: 6 }, () =>
+            (alphabets + "0123456789").charAt(Math.floor(Math.random() * (alphabets.length + 10)))
+        ).join("");
     }
-    const numeric = numbers.join("");
-    return letters + numeric;
+
+    const randomLetter = alphabets.charAt(Math.floor(Math.random() * alphabets.length));
+
+    const numbers = new Set();
+    while (numbers.size < 4) {
+        numbers.add(Math.floor(Math.random() * 10));
+    }
+
+    const numeric = [...numbers].join("");
+    return firstLetter + randomLetter + numeric;
 }
 
-// Function to check if a coupon code is unique
 async function isCodeUnique(couponCode) {
-    const docRef = doc(firestore, "coupon-code", "gvcGadAU19WWCSBSvCiU");
-    const docSnap = await getDoc(docRef);
+    try {
+        const docRef = doc(firestore, "coupon-code", "gvcGadAU19WWCSBSvCiU");
+        const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists() && docSnap.data().codes) {
-        return !docSnap.data().codes.includes(couponCode); // Return true if the code is not in the array
+        if (docSnap.exists() && docSnap.data().codes) {
+            return !docSnap.data().codes.includes(couponCode); 
+        }
+        return true;
+    } catch (error) {
+        console.error("Error checking coupon uniqueness:", error);
+        throw error;
     }
-    return true; // If the document or field doesn't exist, the code is unique
 }
 
-export async function generateAndStoreCouponCode() {
+export async function generateAndStoreCouponCode(role) {
     let couponCode;
 
     try {
         do {
-            couponCode = generateCouponCode();
-        } while (!(await isCodeUnique(couponCode))); // Regenerate until unique
+            couponCode = generateCouponCode(role);
+        } while (!(await isCodeUnique(couponCode)));
 
         const docRef = doc(firestore, "coupon-code", "gvcGadAU19WWCSBSvCiU");
         await updateDoc(docRef, {
@@ -53,6 +66,39 @@ export async function generateAndStoreCouponCode() {
         throw error;
     }
 }
+
+export const checkUserExistence = async (phoneNumber, userData) => {
+    const userRef = ref(database, `users/${phoneNumber}`);
+
+    try {
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+            toast.success("User data found.");
+
+        } else {
+            await set(userRef, {
+                name: userData.name,
+                phoneNumber: phoneNumber,
+                email: userData.email,
+            });
+            toast.success("User data saved successfully!");
+        }
+    } catch (error) {
+        console.error("Error checking user:", error);
+        toast.error("Error fetching user details.");
+    }
+};
+
+
+export const generateAgentCode = () => {
+    const chars = `${data.name}${data.phoneNumber}`;
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return `TRIP${code.toUpperCase()}`;
+};
 
 export const generateToken = async (uid) => {
     try {

@@ -91,10 +91,10 @@ export default function BookingFrom() {
 
                     <label htmlFor="OfferInput">Offer Code</label>
                     <ContactDetails
-                        name="offerCode"
+                        name="offerFrom"
                         placeholder="Enter Your Offer Code (Optional)"
                         type="text"
-                        value={formData.offerCode || ""}
+                        value={formData.offerFrom || ""}
                         handleChange={handleChange}
                         className={styles.searchInput}
                         id="OfferInput"
