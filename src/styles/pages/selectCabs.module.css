@@ -75,8 +75,23 @@
     }
 }
 
+.inputContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.conteryInput {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 20%;
+    border: 1px solid #ccc;
+    font-size: large;
+}
+
 .searchInput {
-    flex: 1;
+    /* flex: 1; */
     padding: 1rem;
     border: 1px solid #ccc;
     background-color: transparent;

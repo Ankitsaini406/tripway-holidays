@@ -23,6 +23,7 @@ export default function useBookingForm(user) {
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
+        countryCode: "",
         email: "",
         pickupPoint: "",
         dropPoint: "",
@@ -59,7 +60,7 @@ export default function useBookingForm(user) {
             return;
         }
 
-        checkUserExistence(`+91${formData.phoneNumber}`, formData);
+        checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
 
         const otp = generateOtp();
         setCorrectOtp(otp);
@@ -70,7 +71,7 @@ export default function useBookingForm(user) {
         const requestBody = {
             apiKey: aisensy,
             campaignName: "CustomerOTP",
-            destination: "+91" + formData.phoneNumber,
+            destination: formData.countryCode + formData.phoneNumber,
             userName: formData.name,
             templateParams: [otp],
             buttons: [
@@ -134,7 +135,7 @@ export default function useBookingForm(user) {
 
         try {
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-            const dbRef = ref(database, `users/+91${formData.phoneNumber}/tours/${docRef.id}`);
+            const dbRef = ref(database, `users/${formData.countryCode}${formData.phoneNumber}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
 
             findAgentByAgentCode(formData.offerFrom, docRef.id);
@@ -164,7 +165,7 @@ export default function useBookingForm(user) {
         const requestBody = {
             apiKey: aisensy,
             campaignName: campaign,
-            destination: "+91" + formData.phoneNumber,
+            destination: formData.countryCode + formData.phoneNumber,
             userName: formData.name,
             templateParams: [formData.name, formData.pickupPoint, title === "multi-city" ? to : formData.dropPoint, startDate, time, selectedCar, "500"],
             media: {

@@ -29,16 +29,28 @@ export default function BookingFrom() {
                     />
 
                     <label htmlFor="phoneInput">Phone Number</label>
-                    <ContactDetails
-                        name="phoneNumber"
-                        placeholder="Enter Your Phone Number"
-                        type="number"
-                        value={formData.phoneNumber || ""}
-                        handleChange={handleChange}
-                        className={styles.searchInput}
-                        id="phoneInput"
-                    />
-
+                    <div className={styles.inputContainer}>
+                        <ContactDetails
+                            style={{ width: "20%" }}
+                            id="countryCode"
+                            type="number"
+                            name="countryCode"
+                            value={formData.countryCode}
+                            handleChange={handleChange}
+                            placeholder="+91"
+                            className={styles.conteryInput}
+                            required
+                        />
+                        <ContactDetails
+                            name="phoneNumber"
+                            placeholder="Enter Your Phone Number"
+                            type="number"
+                            value={formData.phoneNumber || ""}
+                            handleChange={handleChange}
+                            className={styles.searchInput}
+                            id="phoneInput"
+                        />
+                    </div>
                     <label htmlFor="emailInput">Email</label>
                     <ContactDetails
                         name="email"
@@ -107,7 +119,7 @@ export default function BookingFrom() {
                         >
                             Send OTP
                         </button>
-                    ) : 
+                    ) :
                         <>
                             <label htmlFor="otpInput">Enter OTP</label>
                             <OtpVerification
@@ -116,13 +128,13 @@ export default function BookingFrom() {
                                 setEnteredOtp={setEnteredOtp}
                                 handleSendOtp={handleSendOtp}
                             />
-                                <button
-                                    onClick={sendMessage}
-                                    className={`${styles.bookingButton} ${styles.pulse}`}
-                                >
-                                    Confirm Booking
-                                </button>
-                            
+                            <button
+                                onClick={sendMessage}
+                                className={`${styles.bookingButton} ${styles.pulse}`}
+                            >
+                                Confirm Booking
+                            </button>
+
                         </>
                     }
                 </div>
