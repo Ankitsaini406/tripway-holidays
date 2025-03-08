@@ -211,6 +211,7 @@
     border: none;
     cursor: pointer;
     width: 100%;
+    color: var(--black-color);
 
     &:hover {
         background-color: var(--danube-blue);
