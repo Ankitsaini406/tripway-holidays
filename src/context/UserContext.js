@@ -71,7 +71,7 @@ export const UserProvider = (props) => {
             const isLogin = data.role !== 'Driver' && data.role !== 'Agent';
             const email = data.email;
 
-            const agentCode = data.role === 'Agent' ? generateAgentCode() : null;
+            const agentCode = data.role === 'Agent' ? generateAgentCode(data) : null;
 
             const userData = {
                 uid: userId,

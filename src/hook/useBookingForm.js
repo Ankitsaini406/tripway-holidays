@@ -134,7 +134,7 @@ export default function useBookingForm(user) {
 
         try {
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
-            const dbRef = ref(database, `users/${user?.uid}/tours/${docRef.id}`);
+            const dbRef = ref(database, `users/+91${formData.phoneNumber}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
 
             findAgentByAgentCode(formData.offerFrom, docRef.id);

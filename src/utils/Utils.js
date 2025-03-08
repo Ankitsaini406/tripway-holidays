@@ -91,7 +91,7 @@ export const checkUserExistence = async (phoneNumber, userData) => {
 };
 
 
-export const generateAgentCode = () => {
+export const generateAgentCode = (data) => {
     const chars = `${data.name}${data.phoneNumber}`;
     let code = "";
     for (let i = 0; i < 6; i++) {
