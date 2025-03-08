@@ -33,7 +33,7 @@ const Video = () => {
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <AdvancedSearchBar onTabChange={setActiveTab} />
+            {/* <AdvancedSearchBar onTabChange={setActiveTab} /> */}
         </div>
     );
 };
