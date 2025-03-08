@@ -68,8 +68,8 @@
 
 /* Scrollbar width */
 ::-webkit-scrollbar {
-  width: 0px;
-  height: 6px;
+  width: 0px; /* Adjust width */
+  height: 6px; /* Adjust height for horizontal scrollbar */
 }
 
 /* Scrollbar Track */
@@ -101,7 +101,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  overflow-x: hidden;
   /* font-size: calc(var(--font-size) * 1.125rem); */
   line-height: 1.6;
 }
