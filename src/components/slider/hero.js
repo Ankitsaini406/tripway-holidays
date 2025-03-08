@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import AdvancedSearchBar from "../advanceserch";
+// import AdvancedSearchBar from "../advanceserch";
 import HeroSlider from "./heroSlider";
 import styles from "@/styles/components/hero.module.css";
 
@@ -47,7 +47,7 @@ const Hero = () => {
             }}
         >
             <HeroSlider images={images} height={calculateHeight()} />
-            <AdvancedSearchBar onTabChange={setActiveTab} />
+            {/* <AdvancedSearchBar onTabChange={setActiveTab} /> */}
         </div>
     );
 };

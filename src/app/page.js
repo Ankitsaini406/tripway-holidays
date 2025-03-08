@@ -8,6 +8,7 @@ const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
+import AnimatedHero from "@/components/slider/AnimatedHero";
 // import PopUp from "@/utils/popUp";
 
 export const metadata = {
@@ -45,6 +46,7 @@ const Home = () => {
         <>
         {/* <PopUp popTime={10000} closeTime={15000} src="/popup/lucky-image.webp" alt="Lucky Draw Image" /> */}
             {/* <Hero /> */}
+            {/* <AnimatedHero /> */}
             <Video />
 
             <div className={styles.hadingBox}>

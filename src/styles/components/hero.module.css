@@ -48,6 +48,15 @@
     opacity: 0;
 }
 
+.animatedHero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    background-color: var(--black-color);
+}
+
 @media (max-width: 1440px) {
     .heroTitle {
         top: 5em;
