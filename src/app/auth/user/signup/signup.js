@@ -64,9 +64,7 @@ function SignUpPage() {
                                 <div className={styles.inputContainer}>
                                     <input
                                         style={{ width: "20%" }}
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="\+[0-9]*"
+                                        type="tel"
                                         id="countryCode"
                                         value={countryCode}
                                         onChange={(e) => setCountryCode(e.target.value)}
@@ -75,9 +73,7 @@ function SignUpPage() {
                                         required
                                     />
                                     <input
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="[0-9]+"
+                                        type="tel"
                                         id="phoneNumber"
                                         value={phoneNumber}
                                         onChange={(e) => setPhoneNumber(e.target.value)}

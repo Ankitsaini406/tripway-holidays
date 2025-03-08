@@ -71,9 +71,7 @@ const DriverSignup = () => {
                                 <div className={styles.inputContainer}>
                                     <input
                                         style={{ width: "20%" }}
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="\+[0-9]*"
+                                        type="tel"
                                         id="countryCode"
                                         value={formData.countryCode}
                                         onChange={handleChange}
@@ -82,9 +80,7 @@ const DriverSignup = () => {
                                         required
                                     />
                                     <input
-                                        type="text"
-                                        inputMode="numeric"
-                                        pattern="[0-9]+"
+                                        type="tel"
                                         id="phoneNumber"
                                         value={formData.phoneNumber}
                                         onChange={handleChange}
