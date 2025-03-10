@@ -34,6 +34,7 @@ export default function useBookingForm(user) {
     const [enteredOtp, setEnteredOtp] = useState("");
     const [activeTab, setActiveTab] = useState("inclusions");
     const [isOtpSent, setIsOtpSent] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const aisensy = process.env.AI_SENSY;
 
@@ -90,6 +91,7 @@ export default function useBookingForm(user) {
         };
 
         try {
+            setLoading(true);
             const res = await fetch("/api/phone/send-otp", {
                 method: "POST",
                 headers: {
@@ -109,8 +111,11 @@ export default function useBookingForm(user) {
             toast.success("OTP sent successfully!");
         } catch (error) {
             console.error("Error sending message:", error);
+            setLoading(false);
             toast.error("Error sending OTP. Try again.");
             setIsOtpSent(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -134,6 +139,7 @@ export default function useBookingForm(user) {
             title === "one-way" ? "one-way" : title === "round-trip" ? "round-trip" : "multi-city";
 
         try {
+            setLoading(true);
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
             const dbRef = ref(database, `users/${formData.countryCode}${formData.phoneNumber}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
@@ -141,7 +147,10 @@ export default function useBookingForm(user) {
             findAgentByAgentCode(formData.offerFrom, docRef.id);
             toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
         } catch (err) {
+            setLoading(false);
             toast.error(`Error sending data to Firebase. ${err}`);
+        } finally {
+            setLoading(false);
         }
 
         const campaign = title === "one-way"
@@ -175,6 +184,7 @@ export default function useBookingForm(user) {
         };
 
         try {
+            setLoading(true);
             const res = await fetch("/api/phone/book-cab", {
                 method: "POST",
                 headers: {
@@ -193,8 +203,11 @@ export default function useBookingForm(user) {
             console.log("WhatsApp Response:", data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
         } catch (error) {
+            setLoading(false);
             console.error("Error sending message:", error);
             toast.error("Error sending message. Try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -209,6 +222,7 @@ export default function useBookingForm(user) {
         correctOtp,
         enteredOtp,
         isOtpSent,
+        loading,
         handleChange,
         handleSendOtp,
         setEnteredOtp,

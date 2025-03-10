@@ -166,37 +166,85 @@
 }
 
 .bookingButton {
-    background-color: #E63946;
+    background-color: var(--peacock-green);
     color: white;
-    padding: 12px 24px;
+    padding: 1em 2em;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
     cursor: pointer;
-    width: 50%;
+    margin: 2em 0 1em 0;
 
     &:hover {
-        background-color: #CC333F;
-        transform: scale(1.05); 
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        background-color: var(--forest-green);
+        transform: scale(0.95);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+        transition: all 0.5s ease;
     }
 }
 
-.bookingButton:active {
-    transform: scale(0.95);
+.bookingLoading {
+    background-color: var(--peacock-green);
+    color: white;
+    padding: 1em 0em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 2em 0 1em 0;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 30, 0, 0.7); }
+@keyframes vibrate {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-8deg) scale(1.2); }
+    50% { transform: rotate(8deg) scale(1.2); }
+    75% { transform: rotate(-5deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.vibratingPhone::before {
+    content: "📳";
+    display: inline-block;
+    margin-right: 5px;
+    animation: vibrate 0.6s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes carMove {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.carLoading {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carLoading::before {
+    content: "🚗💨";
+    display: inline-block;
+    animation: carMove 5s linear infinite;
+    width: 60%;
+}
+
+
+/* @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 var(--safforn-orange); }
     70% { box-shadow: 0 0 0 10px rgba(255, 98, 0, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 98, 0, 0); }
 }
 
 .bookingButton.pulse {
     animation: pulse 2s infinite;
-}
+} */
 
 .tabButtons {
     display: flex;

@@ -9,7 +9,7 @@ import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
+    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">
@@ -115,9 +115,10 @@ export default function BookingFrom() {
                     {!isOtpSent ? (
                         <button
                             onClick={handleSendOtp}
-                            className={`${styles.bookingButton} ${styles.pulse}`}
+                            disabled={loading}
+                            className={loading ? styles.bookingLoading : styles.bookingButton}
                         >
-                            Send OTP
+                            {loading ? <span className={styles.vibratingPhone}> Sending ...</span> : "Send OTP"}
                         </button>
                     ) :
                         <>
@@ -130,9 +131,10 @@ export default function BookingFrom() {
                             />
                             <button
                                 onClick={sendMessage}
-                                className={`${styles.bookingButton} ${styles.pulse}`}
+                                disabled={loading}
+                                className={loading ? styles.bookingLoading : styles.bookingButton}
                             >
-                                Confirm Booking
+                                {loading ? <span className={styles.carLoading}></span> : 'Confirm Booking'}
                             </button>
 
                         </>
