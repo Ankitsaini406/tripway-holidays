@@ -67,7 +67,7 @@ function Header() {
                                 </ul>
                             )}
                         </li>
-                        <li><Link href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>Group&nbsp;Tours</Link></li>
+                        <li><Link href="/group-tour" className={styles.headerName}>Group&nbsp;Tours</Link></li>
                         <li><Link href="/blog" className={styles.headerName}>Blog</Link></li>
                         <li><Link href="/about-us" className={styles.headerName}>About</Link></li>
                         <li><Link href="/contact-us" className={styles.headerName}>Contact</Link></li>
@@ -99,7 +99,7 @@ function Header() {
                                 </ul>
                             )}
                         </li>
-                        <li><Link href="#groupTour" onClick={handleGroupTourClick} className={styles.headerName}>Group&nbsp;Tours</Link></li>
+                        <li><Link href="/group-tour" onClick={closeMenu} className={styles.headerName}>Group&nbsp;Tours</Link></li>
                         <li><Link href="/blog" className={styles.headerName}>Blog</Link></li>
                         <li><Link href="/about-us" className={styles.headerName} onClick={closeMenu}>About</Link></li>
                         <li><Link href="/contact-us" className={styles.headerName} onClick={closeMenu}>Contact</Link></li>
