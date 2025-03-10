@@ -120,93 +120,93 @@ export default function useBookingForm(user) {
     };
 
     const sendMessage = async () => {
-
         if (enteredOtp !== correctOtp) {
             toast.error("Incorrect OTP. Please try again.");
             return;
         }
 
-        const couponCode = await generateAndStoreCouponCode('User');
-
-        const validDestinations = (Array.isArray(to) ? to : to.split(",")).filter(dest => dest.trim() !== "");
-        const destinationsField = title === "one-way"
-            ? { to }
-            : title === "round-trip"
-                ? { destination: to }
-                : { destinations: validDestinations };
-        const dataToSend = { ...formData, couponCode, carOption: selectedCar, selectedRadio: title, from, startDate, time, ...destinationsField };
-        const collectionName =
-            title === "one-way" ? "one-way" : title === "round-trip" ? "round-trip" : "multi-city";
-
+        setLoading(true);
         try {
-            setLoading(true);
+            const couponCode = await generateAndStoreCouponCode("User");
+    
+            const validDestinations = Array.isArray(to) ? to : to.split(",").filter(dest => dest.trim() !== "");
+            const destinationsField =
+                title === "one-way" ? { to } :
+                title === "round-trip" ? { destination: to } :
+                { destinations: validDestinations };
+
+            const dataToSend = { ...formData, couponCode, carOption: selectedCar, selectedRadio: title, from, startDate, time, ...destinationsField };
+
+            const collectionName = {
+                "one-way": "one-way",
+                "round-trip": "round-trip",
+                "multi-city": "multi-city"
+            }[title];
+
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
             const dbRef = ref(database, `users/${formData.countryCode}${formData.phoneNumber}/tours/${docRef.id}`);
-            await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
-
+            await set(dbRef, { tourId: docRef.id, couponCode });
+    
+            // Notify agent about the booking
             findAgentByAgentCode(formData.offerFrom, docRef.id);
-            router.push('/profile');
             toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
-        } catch (err) {
-            setLoading(false);
-            toast.error(`Error sending data to Firebase. ${err}`);
-        } finally {
-            setLoading(false);
-        }
 
-        const campaign = title === "one-way"
-            ? "onewaybookingfor website"
-            : title === "round-trip"
-                ? "roundtripforwebsite"
-                : "multicitybookingforwebsite";
-
-        const url = title === "one-way"
-            ? "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true"
-            : title === "round-trip"
-                ? "https://tripwayholidays.in/cab/round-trip-whatsapp.png"
-                : "https://tripwayholidays.in/cab/multi-city-whatsapp.webp";
-
-        const fileName = title === "one-way"
-            ? "PNG"
-            : title === "round-trip"
-                ? "PNG"
-                : "multi-city-whatsapp.webp";
-
-        const requestBody = {
-            apiKey: aisensy,
-            campaignName: campaign,
-            destination: formData.countryCode + formData.phoneNumber,
-            userName: formData.name,
-            templateParams: [formData.name, formData.pickupPoint, title === "multi-city" ? to : formData.dropPoint, startDate, time, selectedCar, "500"],
-            media: {
-                url: url,
-                filename: fileName
-            }
-        };
-
-        try {
-            setLoading(true);
+            const campaignMap = {
+                "one-way": "onewaybookingforwebsite",
+                "round-trip": "roundtripforwebsite",
+                "multi-city": "multicitybookingforwebsite"
+            };
+    
+            const mediaMap = {
+                "one-way": {
+                    url: "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true",
+                    filename: "PNG"
+                },
+                "round-trip": {
+                    url: "https://tripwayholidays.in/cab/round-trip-whatsapp.png",
+                    filename: "PNG"
+                },
+                "multi-city": {
+                    url: "https://tripwayholidays.in/cab/multi-city-whatsapp.webp",
+                    filename: "multi-city-whatsapp.webp"
+                }
+            };
+    
+            const requestBody = {
+                apiKey: aisensy,
+                campaignName: campaignMap[title],
+                destination: `${formData.countryCode}${formData.phoneNumber}`,
+                userName: formData.name,
+                templateParams: [
+                    formData.name,
+                    formData.pickupPoint,
+                    title === "multi-city" ? to : formData.dropPoint,
+                    startDate,
+                    time,
+                    selectedCar,
+                    "500"
+                ],
+                media: mediaMap[title]
+            };
+    
+            // Send WhatsApp message
             const res = await fetch("/api/phone/book-cab", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
             });
-
+    
             const data = await res.json();
-
-            if (!res.ok) {
-                console.error("Failed to send message:", data);
-                throw new Error(data.error || "Failed to send message");
-            }
-
+            if (!res.ok) throw new Error(data.error || "Failed to send message");
+    
             console.log("WhatsApp Response:", data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
+    
+            // Redirect to profile
+            router.push("/profile");
         } catch (error) {
-            setLoading(false);
-            console.error("Error sending message:", error);
-            toast.error("Error sending message. Try again.");
+            console.error("Error:", error);
+            toast.error(error.message || "An error occurred. Please try again.");
         } finally {
             setLoading(false);
         }
