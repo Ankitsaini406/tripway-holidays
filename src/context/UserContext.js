@@ -9,6 +9,7 @@ import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { generateAgentCode, generateToken } from "@/utils/Utils";
+import { sendWhatsAppMessage } from "@/utils/apiUtils";
 
 const UserContext = createContext(null);
 
@@ -19,6 +20,7 @@ export const UserProvider = (props) => {
     const router = useRouter();
 
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    const aisensy = process.env.AI_SENSY;
 
     useEffect(() => {
         const savedToken = getCookie('token');
@@ -47,78 +49,79 @@ export const UserProvider = (props) => {
                 throw new Error("Phone number or country code is missing.");
             }
     
-            const userId = data.countryCode + data.phoneNumber;
-            const existingUser = await checkUserExists(userId, `users`);
+            const userId = `${data.countryCode}${data.phoneNumber}`;
+            const existingUser = await checkUserExists(userId, "users");
     
             if (existingUser) {
                 console.log("User already exists:", existingUser);
                 toast.info(`🚀 User already exists as a ${existingUser.role}. Please log in!`);
     
-                switch (existingUser.role) {
-                    case 'User':
-                        router.push('/auth/user/login');
-                        break;
-                    case 'Agent':
-                        router.push('/auth/agent/login');
-                        break;
-                    default:
-                        router.push('/auth/driver/login');
-                }
+                // Redirect based on user role
+                const rolePaths = {
+                    User: "/auth/user/login",
+                    Agent: "/auth/agent/login",
+                    Driver: "/auth/driver/login",
+                };
+                router.push(rolePaths[existingUser.role] || "/auth/user/login");
     
                 return existingUser;
             }
     
-            const isLogin = data.role !== 'Driver' && data.role !== 'Agent';
+            const isLogin = !["Driver", "Agent"].includes(data.role);
             const email = data.email;
-
-            const agentCode = data.role === 'Agent' ? generateAgentCode(data) : null;
-
-            const userData = {
+    
+            // Generate agent code only if the role is "Agent"
+            const agentCode = data.role === "Agent" ? generateAgentCode(data) : null;
+    
+            let userData = {
                 uid: userId,
                 email,
                 isLogin,
                 ...data,
+                ...(data.role === "Agent" && { agentCode }),
             };
-
-            if (data.role === 'Agent') {
-                userData.agentCode = agentCode;
-            } else {
-                delete userData.agentCode;
-            }
-
-            Object.keys(userData).forEach(key => {
-                if (userData[key] === undefined) {
-                    delete userData[key];
-                }
-            });
     
+            // Clean undefined fields
+            userData = Object.fromEntries(
+                Object.entries(userData).filter(([_, value]) => value !== undefined)
+            );
+    
+            // Store user data
             await putData(`users/${userId}`, userData);
     
+            // Generate token and set cookie
             const token = await generateToken(userData.uid);
-    
-            setCookie('token', token, {
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'Strict',
-                expires: expires
+            setCookie("token", token, {
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "Strict",
+                expires,
             });
     
-            switch (userData.role) {
-                case 'User':
-                    router.push('/auth/user/login');
-                    break;
-                case 'Agent':
-                    router.push('/auth/agent/login');
-                    break;
-                default:
-                    router.push('/auth/driver/login');
+            // WhatsApp message campaign
+            const campaignMap = { Agent: "Agent", Driver: "Driver" };
+            const templateParams = userData.role === "Agent" ? [userData.name, agentCode] : [userData.name];
+    
+            const requestBody = {
+                apiKey: aisensy,
+                campaignName: campaignMap[userData.role],
+                destination: `${userData.countryCode}${userData.phoneNumber}`,
+                userName: userData.name,
+                templateParams,
+            };
+    
+            const response = await sendWhatsAppMessage(requestBody);
+            if (!response.success) {
+                throw new Error(response.error);
             }
+    
+            router.push(rolePaths[userData.role] || "/auth/user/login");
     
             return userData;
         } catch (error) {
             console.error("Error signing up:", error);
             throw error;
         }
-    };
+    };    
 
     const putData = (key, data) => set(ref(database, key), data);
 
