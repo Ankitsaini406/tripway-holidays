@@ -8,6 +8,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { ref, set } from "firebase/database";
 import { database, firestore } from "@/firebase/firebaseConfig";
 import { findAgentByAgentCode } from "@/utils/findAgent";
+import { sendWhatsAppMessage } from "@/utils/apiUtils";
 
 export default function useBookingForm(user) {
     const router = useRouter();
@@ -67,8 +68,6 @@ export default function useBookingForm(user) {
         setCorrectOtp(otp);
         setIsOtpSent(true);
 
-        console.log(`This is otp : `, otp);
-
         const requestBody = {
             apiKey: aisensy,
             campaignName: "CustomerOTP",
@@ -92,19 +91,9 @@ export default function useBookingForm(user) {
 
         try {
             setLoading(true);
-            const res = await fetch("/api/phone/send-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestBody),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                console.error("Failed to send message:", data);
-                throw new Error(data.error || "Failed to send message");
+            const response = await sendWhatsAppMessage(requestBody);
+            if (!response.success) {
+                throw new Error(response.error);
             }
 
             console.log("WhatsApp Response:", data);
@@ -190,19 +179,13 @@ export default function useBookingForm(user) {
             };
     
             // Send WhatsApp message
-            const res = await fetch("/api/phone/book-cab", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestBody),
-            });
-    
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to send message");
+            const response = await sendWhatsAppMessage(requestBody);
+            if (!response.success) {
+                throw new Error(response.error);
+            }
     
             console.log("WhatsApp Response:", data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
-    
-            // Redirect to profile
             router.push("/profile");
         } catch (error) {
             console.error("Error:", error);

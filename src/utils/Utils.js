@@ -2,6 +2,7 @@ import { firestore, database } from "@/firebase/firebaseConfig";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, get, set } from "firebase/database";
 import { toast } from "react-toastify";
+import { sendWhatsAppMessage } from "./apiUtils";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 const apiKey = process.env.AI_SENSY;
@@ -38,7 +39,7 @@ async function isCodeUnique(couponCode) {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists() && docSnap.data().codes) {
-            return !docSnap.data().codes.includes(couponCode); 
+            return !docSnap.data().codes.includes(couponCode);
         }
         return true;
     } catch (error) {
@@ -141,17 +142,9 @@ export const sendOtp = async ({ campaignName, phoneNumber, otp }) => {
     };
 
     try {
-        const res = await fetch("/api/phone/send-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(requestBody),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-            console.error("Failed to send message:", data);
-            throw new Error(data.error || "Failed to send message");
+        const response = await sendWhatsAppMessage(requestBody);
+        if (!response.success) {
+            throw new Error(response.error);
         }
 
         console.log("WhatsApp Response:", data);
