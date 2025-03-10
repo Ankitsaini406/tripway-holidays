@@ -145,6 +145,7 @@ export default function useBookingForm(user) {
             await set(dbRef, { tourId: docRef.id, couponCode: couponCode });
 
             findAgentByAgentCode(formData.offerFrom, docRef.id);
+            router.push('/profile');
             toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
         } catch (err) {
             setLoading(false);
