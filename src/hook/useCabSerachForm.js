@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ref, set, update } from "firebase/database";
+import { ref, set } from "firebase/database";
 import useSendEmail from "@/hook/useSendEmail";
 import { findAgentByAgentCode } from "@/utils/findAgent";
 import { cabInitialState } from "@/types/initialState";
@@ -9,7 +9,7 @@ import { generateAndStoreCouponCode } from "@/utils/Utils";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-const useCabSearchForm = (user, signupUserWithEmailAndPassword) => {
+const useCabSearchForm = (user) => {
     const [formData, setFormData] = useState(cabInitialState);
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState('');

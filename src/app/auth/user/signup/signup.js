@@ -13,6 +13,7 @@ function SignUpPage() {
     const [address, setAddress] = useState("");
     const [countryCode, setCountryCode] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const { createNewUser } = useClient();
 
@@ -26,11 +27,15 @@ function SignUpPage() {
         }
 
         try {
+            setLoading(true);
             const allData = { name, email, countryCode, phoneNumber, address, role: 'User' }
             await createNewUser(allData);
         } catch (err) {
             setError("Failed to sign up. Please try again.");
             console.error(err);
+            setLoading(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -108,8 +113,8 @@ function SignUpPage() {
                                 />
                             </div>
                             {error && <p className={styles.errorMessage}>{error}</p>}
-                            <button type="submit" className={styles.loginButton}>
-                                Sign Up
+                            <button type="submit" className={loading ? 'loadingButton' : styles.loginButton}>
+                                {loading ? <span className='loadingDots'>Loading </span> : "Sign Up"}
                             </button>
                         </form>
                     </div>

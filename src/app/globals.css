@@ -238,12 +238,24 @@ th {
 .loadingButton {
   background-color: var(--grey-color);
   color: var(--indigo-blue);
-  padding: 1em;
+  padding: 0.5em 1em;
   border: 1px solid var(--indigo-blue);
   border-radius: var(--border-radius);
   cursor: pointer;
-  text-transform: capitalize;
-  width: 160px;
+  width: 100%;
+}
+
+.loadingDots::after {
+  content: " ";
+  display: inline-block;
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: " "; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
 }
 
 .errorMsg {

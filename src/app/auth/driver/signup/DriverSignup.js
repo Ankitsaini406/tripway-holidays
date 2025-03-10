@@ -12,6 +12,7 @@ const DriverSignup = () => {
         carNumber: "", driverLicence: "", driverRc: "",
     });
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const { createNewUser } = useClient();
 
@@ -30,11 +31,15 @@ const DriverSignup = () => {
         }
 
         try {
+            setLoading(true);
             const allData = { ...formData, role: 'Driver' };
             await createNewUser(allData);
         } catch (err) {
             setError("Failed to sign up. Please try again.");
+            setLoading(false);
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -94,7 +99,9 @@ const DriverSignup = () => {
                             <p className={styles.signupLink}>
                                 Back to <Link href="/auth/driver/login">Log In</Link>
                             </p>
-                            <button type="submit" className={styles.loginButton}>Sign Up</button>
+                            <button type="submit" className={loading ? 'loadingButton' : styles.loginButton}>
+                                {loading ? <span className='loadingDots'>Loading </span> : "Sign Up"}
+                            </button>
                         </form>
                     </div>
                 </div>

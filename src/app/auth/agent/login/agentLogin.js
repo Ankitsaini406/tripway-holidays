@@ -103,8 +103,8 @@ function AgentLoginPage({ setAgentLogin }) {
                             </div>
                             {error && <p className={styles.errorMessage}>{error}</p>}
                             {!showOtpField && (
-                                <button type="submit" className={styles.loginButton} disabled={loading}>
-                                    {loading ? "Sending OTP..." : "Send OTP"}
+                                <button type="submit" className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
+                                    {loading ? <span className='loadingDots'>Sending OTP </span> : "Send OTP"}
                                 </button>
                             )}
                         </form>
@@ -116,15 +116,15 @@ function AgentLoginPage({ setAgentLogin }) {
                                     setEnteredOtp={setEnteredOtp}
                                     handleSendOtp={handleSendOtp}
                                 />
-                                <button onClick={handleVerifyOtp} className={styles.loginButton} disabled={loading}>
-                                    {loading ? "Verifying..." : "Verify OTP"}
+                                <button onClick={handleVerifyOtp} className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
+                                    {loading ? <span className='loadingDots'>Verifying </span> : "Verify OTP"}
                                 </button>
                             </>
                         )}
 
                         {isOtpVerified && (
-                            <button onClick={handleLogin} className={styles.loginButton} disabled={loading}>
-                                {loading ? "Logging in..." : "Login"}
+                            <button onClick={handleLogin} className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
+                                {loading ? <span className='loadingDots'>Logging in </span> : "Login"}
                             </button>
                         )}
 
