@@ -80,8 +80,12 @@ export const checkUserExistence = async (phoneNumber, userData) => {
         } else {
             await set(userRef, {
                 name: userData.name,
-                phoneNumber: phoneNumber,
+                phoneNumber: userData.phoneNumber,
                 email: userData.email,
+                isLogin: true,
+                uid: phoneNumber,
+                countryCode: userData.countryCode,
+                role: 'User',
             });
             toast.success("User data saved successfully!");
         }
