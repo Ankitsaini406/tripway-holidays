@@ -113,7 +113,7 @@ function SignUpPage() {
                                 />
                             </div>
                             {error && <p className={styles.errorMessage}>{error}</p>}
-                            <button type="submit" className={loading ? 'loadingButton' : styles.loginButton}>
+                            <button type="submit" className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
                                 {loading ? <span className='loadingDots'>Loading </span> : "Sign Up"}
                             </button>
                         </form>
