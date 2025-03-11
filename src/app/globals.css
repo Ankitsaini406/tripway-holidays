@@ -220,7 +220,7 @@ th {
 .readMore {
   border: 1px solid transparent;
   width: max-content;
-  padding: 0.4em 1em;
+  padding: 0.8em 2em;
   color: var(--white-color);
   background-color: var(--indigo-blue);
   border-radius: 5px;
@@ -325,6 +325,12 @@ th {
 
   .heroSection {
     height: 20rem;
+  }
+
+  .readMore {
+    padding: 0.5em 1.5em;
+    margin: 1em auto;
+    display: block;
   }
 
   h1 {

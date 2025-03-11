@@ -22,24 +22,28 @@ const Home = () => {
             title: "One Way",
             description: "Tripway Holidays offers convenient one-way travel services with a wide range of vehicles. Perfect for business trips or leisure travel booking is quick and easy. Our extensive network ensures smooth reservations across cities. Skilled drivers and well-maintained vehicles guarantee comfort and safety and an affordable travel experience.",
             imageSrc: "/slider/slider4.webp",
+            link: "/cabs/one-way",
         },
         {
             id: "roundTrip",
             title: "Round Trip",
             description: "Tripway Holidays provides seamless round-trip services with a variety of vehicles at affordable prices. You can easily customize your schedule with flexible reservations across cities. Our extensive network, experienced drivers and well-maintained vehicles ensure a smooth, comfortable and reliable travel experience whether its for vacations, business trips or family outings.",
             imageSrc: "/slider/slider3.webp",
+            link: "/cabs/round-trip",
         },
         {
             id: "multiCity",
             title: "Multi City Trip",
             description: "For those planning multi-city trips Tripway Holidays offers reliable and flexible services. You can hire a single vehicle for multiple destinations avoiding multiple bookings. Our fleet includes luxury SUVs and economy vehicles. With experienced drivers and well-maintained cars we guarantee safety, on-time arrivals and a hassle-free travel experience tailored to your itinerary and group size.",
             imageSrc: "/slider/slider2.webp",
+            link: "/cabs/multi-city",
         },
         {
             id: "groupTour",
             title: "Group Tour",
             description: "Tripway Holidays offers group tours blending spirituality, culture, and exploration for unforgettable experiences. Embark on spiritual journeys fostering tranquility and connections, or dive into heritage tours exploring customs, art, and history. Enjoy Freedom Tours for flexibility and companionship, or celebrate vibrant festivals with Special Event Tours. Every trip combines joy, connection, and discovery, tailored to your interests and mood.",
             imageSrc: "/slider/slider6.webp",
+            link: "/group-tour",
         },
     ];
 
@@ -63,6 +67,7 @@ const Home = () => {
                         title={tour.title}
                         description={tour.description}
                         imageSrc={tour.imageSrc}
+                        link={tour.link}
                     />
                 ))}
 

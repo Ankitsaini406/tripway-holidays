@@ -4,8 +4,9 @@ import { PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
 import styles from "@/app/page.module.css";
+import Link from "next/link";
 
-export const TourSection = ({ id, title, description, imageSrc, blurDataURL, error }) => {
+export const TourSection = ({ id, title, description, imageSrc, blurDataURL, error, link }) => {
     if (error) {
         return (
             <div className={styles.errorBox}>
@@ -20,6 +21,7 @@ export const TourSection = ({ id, title, description, imageSrc, blurDataURL, err
                 <div className={styles.scrollRevel}>
                     <h2><span>{title}</span></h2>
                     <p><span>{description}</span></p>
+                    <Link className='readMore' href={link}>{id === "groupTour" ? "Explore Tours": "Book Now"}</Link>
                 </div>
                 <div className={styles.imgBox}>
                     <Image
