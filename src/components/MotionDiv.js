@@ -28,7 +28,7 @@ const ScrollableCards = () => {
                 <div className={styles.mainScroll} ref={containerRef}>
                     <h1 className={styles.cardStick}>
                     <div className={styles.ctaSection}>
-                        <h1 className={styles.ctaText}>&quot;Your Trusted travel Partner&quot;</h1>
+                        <h1 className={styles.ctaText}>&quot;Your Trusted Travel Partner&quot;</h1>
                         <button className={styles.ctaButton}>Book Now</button>
                     </div>
                     </h1>
