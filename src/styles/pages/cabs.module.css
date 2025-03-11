@@ -25,7 +25,7 @@
     z-index: 2;
     height: 150px;
     width: 400px;
-    animation: carMove 5s linear;
+    animation: carMove 5s linear infinite;
 }
 
 @keyframes carMove {
@@ -46,7 +46,7 @@
     height: 168px;
     width: 400px;
     transform: rotateY(180deg);
-    animation: carMove2 5s linear 5s;
+    animation: carMove2 5s linear 5s infinite;
 }
 
 @keyframes carMove2 {
