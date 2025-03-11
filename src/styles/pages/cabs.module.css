@@ -335,11 +335,27 @@
     text-align: center;
 }
 
+@media (max-width: 1030px) {
+
+    .heroImage, .heroImage2{
+        height: 130px;
+        width: 300px;
+    }
+}
+
 @media (max-width: 860px) {
 
+    .heroSection {
+        height: 30rem;
+    }
+
     .heroImage, .heroImage2 {
-        width: 350px;
-        height: 150px;
+        width: 240px;
+        height: 100px;
+    }
+
+    .heroImage2 {
+        bottom: 30px;
     }
 
     .flexRedio {
@@ -361,9 +377,13 @@
 
 @media (max-width: 430px) {
 
+    .heroSection {
+        height: 20rem;
+    }
+
     .heroImage, .heroImage2 {
-        width: 230px;
-        height: 100px;
+        width: 150px;
+        height: 60px;
     }
 
     .MdistanceIcon {

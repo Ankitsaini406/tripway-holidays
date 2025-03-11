@@ -112,7 +112,7 @@ export default function RoundTripComponent() {
                     alt="Round trip car"
                     width={450} height={200}
                 />
-                <h1 className={styles.heroText}>Round Trip</h1>
+                <h1 className={styles.heroText}>&quot;Round Trip – The Complete Smart Travel Experience: Savings and Enjoyment, Round and Round.&quot;</h1>
             </div>
             <div className="layout">
                 <div>

@@ -116,7 +116,7 @@ export default function MultiCityComponent() {
                     alt="Round trip car"
                     width={450} height={200}
                 />
-                <h1 className={styles.heroText}>Multi City</h1>
+                <h1 className={styles.heroText}>&quot;Multi-City – Smart Planning, Seamless Travel, Maximum Value, Multiple Cities.&quot;</h1>
             </div>
             <div className="layout">
                 <div>

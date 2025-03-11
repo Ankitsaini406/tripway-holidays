@@ -176,7 +176,7 @@ export default function OneWayComponent() {
                     alt="One Way Cab"
                     width={450} height={200}
                 />
-                <h1 className={styles.heroText}>One Way</h1>
+                <h1 className={styles.heroText}>&quot;One Way – Travel Smart, Pay Less, Enjoy More!&quot;</h1>
             </div>
             <div className="layout">
                 <div>
