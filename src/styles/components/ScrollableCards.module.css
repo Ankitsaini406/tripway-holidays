@@ -8,10 +8,10 @@
 .mainColor {
     background: linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.8));
     animation: changeBgColor 5s infinite alternate;
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Smooth Background Animation */
@@ -19,9 +19,11 @@
     0% {
         background: rgba(168, 172, 184, 0.3);
     }
+
     50% {
         background: rgba(150, 136, 164, 0.3);
     }
+
     100% {
         background: rgba(220, 212, 212, 0.3);
     }
@@ -49,6 +51,9 @@
     top: 5%;
     width: 100%;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* CTA Text */
@@ -77,22 +82,21 @@
     box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
 }
 
-/* Add animated glowing effect */
+/* Glow effect inside the button */
 .ctaButton::before {
     content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.2) 0%,
-        rgba(255, 255, 255, 0) 20%,
-        rgba(255, 255, 255, 0.2) 40%
-    );
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 300%;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0) 70%);
+    transform: translate(-50%, -50%) rotate(0deg);
     animation: shineEffect 3s infinite linear;
-    opacity: 0.5;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 /* Hover Effect */
@@ -102,16 +106,16 @@
     box-shadow: 0 8px 25px rgba(255, 140, 0, 0.6);
 }
 
-/* Grid Glow Animation */
+/* Animation for the shine effect */
 @keyframes shineEffect {
     0% {
-        transform: rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
     }
+
     100% {
-        transform: rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
-
 
 /* Fade-In Animation */
 @keyframes fadeIn {
@@ -119,6 +123,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -199,6 +204,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -214,7 +220,7 @@
 
 @media (max-width: 860px) {
 
-    .mainScroll { 
+    .mainScroll {
         flex-direction: column;
         gap: 3em;
     }
@@ -242,7 +248,7 @@
 
 @media (max-width: 430px) {
 
-    .mainScroll{
+    .mainScroll {
         gap: 5em;
     }
 
@@ -256,8 +262,6 @@
     }
 
     .ctaButton::before {
-        top: -25%;
-        left: -10%;
         width: 120%;
         height: 120%;
     }

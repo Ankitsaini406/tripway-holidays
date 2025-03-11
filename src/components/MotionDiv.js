@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import styles from "@/styles/components/ScrollableCards.module.css";
+import Link from "next/link";
 
 const cardData = [
     { id: 1, title: "Explore New Destinations", subtitle: "Discover hidden gems around the world.", color: "var(--indigo-blue)" },
@@ -29,7 +30,7 @@ const ScrollableCards = () => {
                     <h1 className={styles.cardStick}>
                     <div className={styles.ctaSection}>
                         <h1 className={styles.ctaText}>&quot;Your Trusted Travel Partner&quot;</h1>
-                        <button className={styles.ctaButton}>Book Now</button>
+                        <Link className={styles.ctaButton} href="/auth/user/signup">Book Now</Link>
                     </div>
                     </h1>
                     <div className={styles.scrollContainer}>
