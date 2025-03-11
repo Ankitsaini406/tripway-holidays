@@ -41,7 +41,7 @@
     width: 60%;
     position: sticky;
     top: 5em;
-    height: 20vh;
+    height: 30vh;
 }
 
 /* CTA Section */
@@ -213,6 +213,10 @@
 
 @media (max-width: 1030px) {
 
+    .ctaButton {
+        padding: 0.7em 2em;
+    }
+
     .scrollContainer {
         height: 40vh;
     }
@@ -241,6 +245,7 @@
 
     .cardStick {
         position: inherit;
+        height: 20vh;
         width: 100%;
         top: 0;
     }
@@ -250,6 +255,10 @@
 
     .mainScroll {
         gap: 5em;
+    }
+
+    .cardStick {
+        height: 22vh;
     }
 
     .ctaText {
