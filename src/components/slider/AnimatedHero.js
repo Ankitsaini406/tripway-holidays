@@ -5,7 +5,7 @@ export default function AnimatedHero() {
         <div className={styles.animatedHero}>
             <div className={styles.heroContent}>
                 <h1>&quot;Your - Trusted Travel Partner&quot;</h1>
-                <p>Scroll down to see the effect...</p>
+                <p>Connecting Destinations, Creating Memories!</p>
             </div>
         </div>
     );

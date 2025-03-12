@@ -115,6 +115,10 @@
 
 @media (max-width: 430px) {
 
+    .animatedHero {
+        height: 45vh;
+    }
+
     .hero { 
         height: 86dvh;
     }
