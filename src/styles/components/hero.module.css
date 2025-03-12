@@ -71,7 +71,7 @@
     & > h1 {
         color: var(--indigo-blue);
         font-weight: bold;
-        font-family:cursive;
+        font-family: cursive;
     }
 }
 
