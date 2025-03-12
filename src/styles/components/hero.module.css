@@ -72,6 +72,37 @@
     }
 }
 
+.allButton {
+    position: absolute;
+    bottom: -8%;
+    padding: 2rem;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    display: flex;
+    width: 100%;
+    max-width: 1300px;
+    overflow: auto;
+    gap: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.linksButton {
+    padding: 1rem 1.5rem;
+    background-color: var(--indigo-blue);
+    color: var(--white-color);
+    border-radius: 15px;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 770px;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(1.2);
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
 .scrollContent {
     height: 200vh;
     background: white;
@@ -118,6 +149,11 @@
     .animatedHero {
         height: 65vh;
     }
+
+    .allButton, .linksButton {
+        padding: 1rem;
+    }
+
 
     .hero { 
         height: 86dvh;
