@@ -33,7 +33,6 @@ const PrivacyPolicy = () => {
     return (
         <div
             className={styles.mainWidth}
-            style={{ padding: "20px", lineHeight: "1.6", fontSize: "16px" }}
         >
             <h1 className={styles.h1Tag}>Privacy Policy</h1>
             <p>Last updated: December 10, 2024</p>
