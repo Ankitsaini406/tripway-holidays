@@ -50,7 +50,6 @@
 
 .animatedHero {
     position: relative;
-    background-attachment: fixed;
     width: 100vw;
     height: 80vh;
     background: url("/main-banenr.webp");
@@ -66,10 +65,6 @@
 }
 
 .heroContent {
-    /* background: rgba(0, 0, 0, 0.5); */
-    padding: 2rem;
-    border-radius: 10px;
-
     & > h1 {
         color: var(--indigo-blue);
         font-weight: bold;
@@ -77,9 +72,8 @@
     }
 }
 
-/* Add scrolling content */
 .scrollContent {
-    height: 200vh; /* Ensures you can scroll */
+    height: 200vh;
     background: white;
     padding: 2rem;
 }
@@ -132,8 +126,4 @@
     .video {
         object-fit: cover;
     }
-
-    /* .img {
-        height: 50% !important;
-    } */
 }
