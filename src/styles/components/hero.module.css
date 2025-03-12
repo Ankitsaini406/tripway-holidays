@@ -50,12 +50,15 @@
 
 .animatedHero {
     position: relative;
-    width: 100%;
-    height: 80vh;
-    background-image: url("/main-banenr.webp");
-    background-size: cover;
-    background-position: center;
     background-attachment: fixed;
+    width: 100vw;
+    height: 80vh;
+    background: url("/main-banenr.webp");
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -prefix-background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
