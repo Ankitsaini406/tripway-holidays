@@ -115,6 +115,10 @@
 
 @media (max-width: 430px) {
 
+    .heroContent > h1 {
+        font-size: x-large;
+    }
+
     .animatedHero {
         height: 65vh;
     }
