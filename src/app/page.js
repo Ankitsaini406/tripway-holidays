@@ -6,6 +6,7 @@ const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
 import ScrollableCards from "@/components/MotionDiv";
+import AnimatedHero from "@/components/slider/AnimatedHero";
 
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Round Trip | Multi City | Group Tour",
@@ -49,7 +50,8 @@ const Home = () => {
 
     return (
         <>
-            <ScrollableCards />
+            {/* <ScrollableCards /> */}
+            <AnimatedHero />
 
             <div className={styles.hadingBox}>
                 <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
