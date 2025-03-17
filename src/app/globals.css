@@ -212,7 +212,7 @@ th {
 
 
 .layout {
-  padding: 1em;
+  padding: 3em 1em 1em 1em;
   margin: auto;
   max-width: 1400px;
 }
@@ -320,7 +320,7 @@ th {
 @media (max-width: 430px) {
 
   .layout {
-    padding: 1em;
+    padding: 3em 1em 1em 1em;
   }
 
   .heroSection {
