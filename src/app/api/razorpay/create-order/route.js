@@ -10,7 +10,6 @@ export async function POST(req) {
     try {
         const { amount, name, email, contact } = await req.json();
 
-        // Validate request data
         if (!amount || !name || !email || !contact) {
             return NextResponse.json(
                 { error: "Missing required fields" },
@@ -18,7 +17,6 @@ export async function POST(req) {
             );
         }
 
-        // Create Razorpay order
         const order = await razorpay.orders.create({
             amount: amount,
             currency: "INR",

@@ -5,8 +5,6 @@ export async function POST(req) {
     try {
         const { orderId, razorpayPaymentId, razorpaySignature } = await req.json();
 
-        console.log(`This is body : `, orderId, razorpayPaymentId, razorpaySignature );
-
         const keySecret = process.env.RAZORPAY_LIVE_KEY;
 
         if (!orderId || !razorpayPaymentId || !razorpaySignature) {
@@ -19,8 +17,7 @@ export async function POST(req) {
             .digest("hex");
 
         if (expectedSignature !== razorpaySignature) {
-            console.log(`This is keys : `, keySecret, expectedSignature, razorpaySignature);
-            return NextResponse.json({ data: [expectedSignature, razorpaySignature], message: "Payment verification failed", isOk: false }, { status: 400 });
+            return NextResponse.json({ message: "Payment verification failed", isOk: false }, { status: 400 });
         }
 
         return NextResponse.json({ message: "Payment verified successfully", isOk: true }, { status: 200 });

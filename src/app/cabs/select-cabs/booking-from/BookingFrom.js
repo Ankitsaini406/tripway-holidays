@@ -9,7 +9,7 @@ import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
+    const { title, from, to, startDate, time, selectedCar, amount, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">
@@ -157,7 +157,7 @@ export default function BookingFrom() {
                                     <span className={styles.bookingDetailsLabel}>Car Type:</span> {selectedCar}
                                 </h4>
                                 <h4 className={styles.bookingDetailsText}>
-                                    <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ 500
+                                    <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ {amount}
                                 </h4>
                             </div>
                         </div>
