@@ -65,6 +65,7 @@ export default function useBookingForm(user) {
         checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
 
         const otp = generateOtp();
+        // console.log(otp);
         setCorrectOtp(otp);
         setIsOtpSent(true);
 
@@ -107,14 +108,99 @@ export default function useBookingForm(user) {
             setLoading(false);
         }
     };
-
+    
     const sendMessage = async () => {
         if (enteredOtp !== correctOtp) {
             toast.error("Incorrect OTP. Please try again.");
             return;
         }
-
+    
         setLoading(true);
+    
+        try {
+            const res = await loadRazorpay();
+            if (!res) {
+                toast.error("Razorpay SDK failed to load.");
+                return;
+            }
+
+            const api = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
+
+            const response = await fetch(`${api}api/razorpay/create-order`, {
+                method: "POST",
+                body: JSON.stringify({
+                    amount: 500 * 100,
+                    name: formData.name,
+                    email: formData.email,
+                    contact: `${formData.countryCode}${formData.phoneNumber}`
+                }),
+            });
+            const data = await response.json();
+
+            const paymentData = {
+                key: process.env.RAZORPAY_LIVE_ID,
+                order_id: data.order.id,
+
+                handler: async function (response) {
+                    console.log("Payment Success:", response);
+                    const res = await fetch(`${api}api/razorpay/verify-order`,  {
+                        method: "POST",
+                        body: JSON.stringify({
+                            orderId: response.razorpay_order_id,
+                            razorpayPaymentId: response.razorpay_payment_id,
+                            razorpaySignature: response.razorpay_signature,
+                        }),
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                    if (data.isOk) {
+                        toast.success("Payment Verified!");
+                        handleBooking(razorpayPaymentId);
+                    } else {
+                        toast.error("Payment Verification Failed!");
+                    }
+                },
+                prefill: {
+                    name: formData.name,
+                    email: formData.email,
+                    contact: `${formData.countryCode}${formData.phoneNumber}`
+                },
+                theme: { color: "#3399cc" }
+            }
+
+            const rezoerPay = new window.Razorpay(paymentData);
+            rezoerPay.open();
+    
+            rezoerPay.on("payment.failed", function (response) {
+                console.error("Payment Failed:", response);
+                toast.error("Payment failed. Please try again.");
+            });
+
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error(error.message || "An error occurred. Please try again.");
+        } finally {
+            setLoading(false); // ✅ Ensures loading is stopped
+        }
+    };
+    
+    // Function to dynamically load Razorpay SDK
+    const loadRazorpay = () => {
+        return new Promise((resolve) => {
+            if (window.Razorpay) {
+                resolve(true);
+                return;
+            }
+    
+            const script = document.createElement("script");
+            script.src = "https://checkout.razorpay.com/v1/checkout.js";
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.body.appendChild(script);
+        });
+    };
+
+    const handleBooking = async (paymentId) => {
         try {
             const couponCode = await generateAndStoreCouponCode("User");
     
@@ -123,23 +209,35 @@ export default function useBookingForm(user) {
                 title === "one-way" ? { to } :
                 title === "round-trip" ? { destination: to } :
                 { destinations: validDestinations };
-
-            const dataToSend = { ...formData, couponCode, carOption: selectedCar, selectedRadio: title, from, startDate, time, ...destinationsField };
-
+    
+            const dataToSend = {
+                ...formData,
+                isComplete: false,
+                isRefunde: false,
+                minPayment: true,
+                paymentId,
+                couponCode,
+                carOption: selectedCar,
+                selectedRadio: title,
+                from,
+                startDate,
+                time,
+                ...destinationsField
+            };
+    
             const collectionName = {
                 "one-way": "one-way",
                 "round-trip": "round-trip",
                 "multi-city": "multi-city"
             }[title];
-
+    
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
             const dbRef = ref(database, `users/${formData.countryCode}${formData.phoneNumber}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode });
     
-            // Notify agent about the booking
             findAgentByAgentCode(formData.offerFrom, docRef.id);
             toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
-
+    
             const campaignMap = {
                 "one-way": "onewaybookingforwebsite",
                 "round-trip": "roundtripforwebsite",
@@ -184,7 +282,7 @@ export default function useBookingForm(user) {
                 throw new Error(response.error);
             }
     
-            console.log("WhatsApp Response:", data);
+            console.log("WhatsApp Response:", response.data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
             router.push("/profile");
         } catch (error) {
@@ -194,6 +292,7 @@ export default function useBookingForm(user) {
             setLoading(false);
         }
     };
+    
 
     return {
         title,
