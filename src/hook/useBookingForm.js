@@ -111,10 +111,10 @@ export default function useBookingForm(user) {
     };
 
     const sendMessage = async () => {
-        if (enteredOtp !== correctOtp) {
-            toast.error("Incorrect OTP. Please try again.");
-            return;
-        }
+        // if (enteredOtp !== correctOtp) {
+        //     toast.error("Incorrect OTP. Please try again.");
+        //     return;
+        // }
     
         setLoading(true);
     
@@ -164,53 +164,53 @@ export default function useBookingForm(user) {
             await set(dbRef, { tourId: docRef.id, couponCode });
     
             findAgentByAgentCode(formData.offerFrom, docRef.id);
-            toast.success("All set! Your ride details will be shared on email and WhatsApp shortly. 🌍🚗");
+            toast.success("All set! Your ride is Booked. 🌍🚗");
     
-            const campaignMap = {
-                "one-way": "onewaybookingforwebsite",
-                "round-trip": "roundtripforwebsite",
-                "multi-city": "multicitybookingforwebsite"
-            };
+            // const campaignMap = {
+            //     "one-way": "onewaybookingforwebsite",
+            //     "round-trip": "roundtripforwebsite",
+            //     "multi-city": "multicitybookingforwebsite"
+            // };
     
-            const mediaMap = {
-                "one-way": {
-                    url: "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true",
-                    filename: "PNG"
-                },
-                "round-trip": {
-                    url: "https://tripwayholidays.in/cab/round-trip-whatsapp.png",
-                    filename: "PNG"
-                },
-                "multi-city": {
-                    url: "https://tripwayholidays.in/cab/multi-city-whatsapp.webp",
-                    filename: "multi-city-whatsapp.webp"
-                }
-            };
+            // const mediaMap = {
+            //     "one-way": {
+            //         url: "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true",
+            //         filename: "PNG"
+            //     },
+            //     "round-trip": {
+            //         url: "https://tripwayholidays.in/cab/round-trip-whatsapp.png",
+            //         filename: "PNG"
+            //     },
+            //     "multi-city": {
+            //         url: "https://tripwayholidays.in/cab/multi-city-whatsapp.webp",
+            //         filename: "multi-city-whatsapp.webp"
+            //     }
+            // };
     
-            const requestBody = {
-                apiKey: aisensy,
-                campaignName: campaignMap[title],
-                destination: `${formData.countryCode}${formData.phoneNumber}`,
-                userName: formData.name,
-                templateParams: [
-                    formData.name,
-                    formData.pickupPoint,
-                    title === "multi-city" ? to : formData.dropPoint,
-                    startDate,
-                    time,
-                    selectedCar,
-                    "500"
-                ],
-                media: mediaMap[title]
-            };
+            // const requestBody = {
+            //     apiKey: aisensy,
+            //     campaignName: campaignMap[title],
+            //     destination: `${formData.countryCode}${formData.phoneNumber}`,
+            //     userName: formData.name,
+            //     templateParams: [
+            //         formData.name,
+            //         formData.pickupPoint,
+            //         title === "multi-city" ? to : formData.dropPoint,
+            //         startDate,
+            //         time,
+            //         selectedCar,
+            //         "500"
+            //     ],
+            //     media: mediaMap[title]
+            // };
     
-            // Send WhatsApp message
-            const response = await sendWhatsAppMessage(requestBody);
-            if (!response.success) {
-                throw new Error(response.error);
-            }
+            // // Send WhatsApp message
+            // const response = await sendWhatsAppMessage(requestBody);
+            // if (!response.success) {
+            //     throw new Error(response.error);
+            // }
     
-            console.log("WhatsApp Response:", response.data);
+            // console.log("WhatsApp Response:", response.data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
             router.push("/profile");
         } catch (error) {

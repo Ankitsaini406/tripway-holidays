@@ -112,23 +112,24 @@ export default function BookingFrom() {
                         id="OfferInput"
                     />
 
-                    {!isOtpSent ? (
-                        <button
-                            onClick={handleSendOtp}
-                            disabled={loading}
-                            className={loading ? styles.bookingLoading : styles.bookingButton}
-                        >
-                            {loading ? <span className={styles.vibratingPhone}> Sending ...</span> : "Send OTP"}
-                        </button>
-                    ) :
+                    {
+                    // !isOtpSent ? (
+                    //     <button
+                    //         onClick={handleSendOtp}
+                    //         disabled={loading}
+                    //         className={loading ? styles.bookingLoading : styles.bookingButton}
+                    //     >
+                    //         {loading ? <span className={styles.vibratingPhone}> Sending ...</span> : "Send OTP"}
+                    //     </button>
+                    // ) :
                         <>
-                            <label htmlFor="otpInput">Enter OTP</label>
+                            {/* <label htmlFor="otpInput">Enter OTP</label>
                             <OtpVerification
                                 numberOfDigits={6}
                                 correctOtp={correctOtp}
                                 setEnteredOtp={setEnteredOtp}
                                 handleSendOtp={handleSendOtp}
-                            />
+                            /> */}
                             <button
                                 onClick={sendMessage}
                                 disabled={loading}
