@@ -158,7 +158,6 @@ export const UserProvider = (props) => {
             }
     
             const user = userSnapshot.val();
-            console.log(`This is user data: `, user);
 
             setUser({
                 uid: user.uid,
