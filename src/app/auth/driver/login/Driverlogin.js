@@ -84,7 +84,9 @@ export default function DriverLoginPage() {
                                 <FaHome />
                             </Link>
                             <h1 className={styles.loginTitle}>Driver Login</h1>
-                            <form onSubmit={handleLogin}>
+                            <form 
+                            // onSubmit={handleSendOtp}
+                            >
                                 <div className={styles.formGroup}>
                                     <label htmlFor="phoneNumber">Phone Number</label>
                                     <input

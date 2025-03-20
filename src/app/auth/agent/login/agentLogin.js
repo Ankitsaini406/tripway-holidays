@@ -87,7 +87,9 @@ function AgentLoginPage({ setAgentLogin }) {
                             <FaHome />
                         </Link>
                         <h1 className={styles.loginTitle}>Partner Login</h1>
-                        <form onSubmit={handleLogin}>
+                        <form 
+                        // onSubmit={handleSendOtp}
+                        >
                             <div className={styles.formGroup}>
                                 <label htmlFor="phoneNumber">Phone Number</label>
                                 <input
