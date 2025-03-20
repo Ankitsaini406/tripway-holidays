@@ -19,8 +19,6 @@ export const UserProvider = (props) => {
     const [user, setUser] = useState(null);
     const router = useRouter();
 
-    console.log(`This is user data : `, user);
-
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
     const aisensy = process.env.AI_SENSY;
 
