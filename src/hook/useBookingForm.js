@@ -63,7 +63,7 @@ export default function useBookingForm(user) {
             return;
         }
 
-        checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
+        // checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
 
         const otp = generateOtp();
         // console.log(otp);
@@ -115,7 +115,9 @@ export default function useBookingForm(user) {
         //     toast.error("Incorrect OTP. Please try again.");
         //     return;
         // }
-    
+
+        checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
+
         setLoading(true);
     
         try {
