@@ -23,39 +23,39 @@ function AgentLoginPage({ setAgentLogin }) {
     const { loginUser } = useClient();
     const router = useRouter();
 
-    const handleSendOtp = async (e) => {
-        e.preventDefault();
-        setError("");
+    // const handleSendOtp = async (e) => {
+    //     e.preventDefault();
+    //     setError("");
 
-        if (!phoneNumber || phoneNumber.length < 10) {
-            setError("Enter a valid phone number.");
-            return;
-        }
+    //     if (!phoneNumber || phoneNumber.length < 10) {
+    //         setError("Enter a valid phone number.");
+    //         return;
+    //     }
 
-        try {
-            setLoading(true);
-            const generatedOtp = generateOtp();
-            setOtp(generatedOtp);
-            setShowOtpField(true);
-            await sendOtp({ campaignName: "otplogin", phoneNumber, otp: generatedOtp });
-        } catch (error) {
-            setError("Failed to send OTP. Please try again.");
-            console.error("Error sending OTP:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    //     try {
+    //         setLoading(true);
+    //         const generatedOtp = generateOtp();
+    //         setOtp(generatedOtp);
+    //         setShowOtpField(true);
+    //         await sendOtp({ campaignName: "otplogin", phoneNumber, otp: generatedOtp });
+    //     } catch (error) {
+    //         setError("Failed to send OTP. Please try again.");
+    //         console.error("Error sending OTP:", error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     // OTP Verification
-    const handleVerifyOtp = () => {
-        if (enteredOtp === otp) {
-            setIsOtpVerified(true);
-            setError("");
-            handleLogin();
-        } else {
-            setError("Invalid OTP. Please try again.");
-        }
-    };
+    // const handleVerifyOtp = () => {
+    //     if (enteredOtp === otp) {
+    //         setIsOtpVerified(true);
+    //         setError("");
+    //         handleLogin();
+    //     } else {
+    //         setError("Invalid OTP. Please try again.");
+    //     }
+    // };
 
     // Login Function
     const handleLogin = async () => {
@@ -87,7 +87,7 @@ function AgentLoginPage({ setAgentLogin }) {
                             <FaHome />
                         </Link>
                         <h1 className={styles.loginTitle}>Partner Login</h1>
-                        <form onSubmit={handleSendOtp}>
+                        <form onSubmit={handleLogin}>
                             <div className={styles.formGroup}>
                                 <label htmlFor="phoneNumber">Phone Number</label>
                                 <input
@@ -102,14 +102,14 @@ function AgentLoginPage({ setAgentLogin }) {
                                 />
                             </div>
                             {error && <p className={styles.errorMessage}>{error}</p>}
-                            {!showOtpField && (
+                            {/* {!showOtpField && (
                                 <button type="submit" className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
                                     {loading ? <span className='loadingDots'>Sending OTP </span> : "Send OTP"}
                                 </button>
-                            )}
+                            )} */}
                         </form>
 
-                        {showOtpField && !isOtpVerified && (
+                        {/* {showOtpField && !isOtpVerified && (
                             <>
                                 <OtpVerification
                                     numberOfDigits={6}
@@ -120,13 +120,13 @@ function AgentLoginPage({ setAgentLogin }) {
                                     {loading ? <span className='loadingDots'>Verifying </span> : "Verify OTP"}
                                 </button>
                             </>
-                        )}
+                        )} */}
 
-                        {isOtpVerified && (
+                        {/* {isOtpVerified && ( */}
                             <button onClick={handleLogin} className={loading ? 'loadingButton' : styles.loginButton} disabled={loading}>
                                 {loading ? <span className='loadingDots'>Logging in </span> : "Login"}
                             </button>
-                        )}
+                        {/* )} */}
 
                         <p className={styles.signupLink}>
                             Don’t have an account? <Link href="/auth/agent/signup">Sign Up</Link>
