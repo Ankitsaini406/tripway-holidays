@@ -58,7 +58,7 @@ export default function useBookingForm(user) {
     const handleSendOtp = async (e) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.phoneNumber || !formData.email || !formData.pickupPoint) {
+        if (!formData.name || !formData.countryCode || !formData.phoneNumber || !formData.email || !formData.pickupPoint) {
             toast.error("Please fill in all details before proceeding.");
             return;
         }
@@ -115,6 +115,11 @@ export default function useBookingForm(user) {
         //     toast.error("Incorrect OTP. Please try again.");
         //     return;
         // }
+
+        if (!formData.name || !formData.countryCode || !formData.phoneNumber || !formData.email || !formData.pickupPoint) {
+            toast.error("Please fill in all details before proceeding.");
+            return;
+        }
 
         checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
 
