@@ -11,7 +11,7 @@ export const metadata = {
         "Round Trips",
         "Personalized Itineraries",
         "Affordable Travel Services",
-        "Sandeep Kumar Soni"
+        "Ankit Saini"
     ],
     openGraph: {
         title: "About Us",
@@ -35,7 +35,7 @@ function AboutPage() {
         <div className={styles.mainWidth}>
             <h1 className={styles.h1Tag}>About Us</h1>
             <p>
-                Welcome to Tripway Holidays, your trusted travel partner dedicated to turning your travel dreams into reality. Whether you&apos;re planning a relaxing getaway, an adventurous group tour, or a well-planned multi-city journey, we&apos;ve got you covered. Founded by <strong>Sandeep Kumar Soni</strong>, TripWayHoliday is committed to providing exceptional travel experiences tailored to your preferences.
+                Welcome to Tripway Holidays, your trusted travel partner dedicated to turning your travel dreams into reality. Whether you&apos;re planning a relaxing getaway, an adventurous group tour, or a well-planned multi-city journey, we&apos;ve got you covered. Co-Founded by <strong>Ankit Saini</strong>, TripWayHoliday is committed to providing exceptional travel experiences tailored to your preferences.
             </p>
             <p>
                 At our core, we believe travel is more than just reaching a destination—it&apos;s about creating unforgettable memories, forging new connections, and discovering the beauty of the world around us.
