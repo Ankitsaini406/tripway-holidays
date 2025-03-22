@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
@@ -19,12 +21,12 @@ export async function GET(req) {
         console.log("Google API Response:", data); 
 
         if (data.status !== "OK") {
-            return Response.json({ error: `Google API Error: ${data.status}` }, { status: 401 });
+            return NextResponse.json({ error: `Google API Error: ${data.status}` }, { status: 401 });
         }
 
-        return Response.json(data);
+        return NextResponse.json(data, {status: 200});
     } catch (error) {
         console.error("Error fetching distance:", error);
-        return Response.json({ error: "Internal server error" }, { status: 500 });
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }

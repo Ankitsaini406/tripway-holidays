@@ -18,22 +18,32 @@ const DistanceCalculator = () => {
         setDistance(null);
 
         try {
-            const response = await fetch(`/api/google/distance?origin=${origin}&destination=${destination}`);
+            // const response = await fetch(`/api/google/distance?origin=${origin}&destination=${destination}`);
+            const response = await fetch(`/api/google/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    route: [
+                        { country: 'INA', name: origin },
+                        { country: 'INA', name: destination }
+                    ]
+                }),
+            });
             const data = await response.json();
-
-            console.log("API Response:", data);
 
             if (data.error) {
                 setError(`Error: ${data.error}`);
                 return;
             }
 
-            if (data.status === "OK") {
-                const dist = data.rows[0].elements[0].distance.text;
+            // if (data.status === 200) {
+                const dist = data.route.car.distance;
                 setDistance(dist);
-            } else {
-                setError(`Google API Error: ${data.status}`);
-            }
+            // } else {
+            //     setError(`Google API Error: ${data.status}`);
+            // }
         } catch (err) {
             console.error("Fetch Error:", err);
             setError("Error fetching data.");
