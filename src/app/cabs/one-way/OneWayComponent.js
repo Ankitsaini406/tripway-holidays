@@ -19,6 +19,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { formatTime, formatTimestamp } from "@/utils/formatData";
+import DistanceCalculator from "@/components/DistanceCalculater";
 
 export default function OneWayComponent() {
     const { user } = useClient();
@@ -180,6 +181,7 @@ export default function OneWayComponent() {
             </div>
             <div className="layout">
                 <div>
+                    <DistanceCalculator />
                     <div className={styles.mainflex}>
                         <div className={styles.flexRedio}>
                             <div className={styles.radioOption}>

@@ -9,8 +9,7 @@ export async function GET(req) {
             return Response.json({ error: "Missing required parameters" }, { status: 400 });
         }
 
-        const googleApiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&key=${apiKey}`;
-        const googleApiUrl2 =`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=Jaipur&origins=Sikar&units=imperial&key=AIzaSyDWd8D9b2DU1JBDDUhcHckUHIu3icSTtSE`;
+        const googleApiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${encodeURIComponent(destination)}&origins=${encodeURIComponent(origin)}&units=imperial&key=${apiKey}`;
 
         console.log("Requesting Google API:", googleApiUrl);
 
