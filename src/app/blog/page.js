@@ -1,5 +1,7 @@
+import Script from "next/script";
 import BlogSection from "./blogSection";
 import { getPlaiceholder } from "plaiceholder";
+import { generateBlogsStructuredData } from "@/utils/structuredDate";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
@@ -89,5 +91,15 @@ export default async function Page() {
         })
     );
 
-    return <BlogSection blogData={blogData} allImages={allImages} />;
+    return (
+        <>
+            <Script
+                id="structured-data"
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(generateBlogsStructuredData(blogData)) }}
+            />
+            <BlogSection blogData={blogData} allImages={allImages} />
+        </>
+    );
 }

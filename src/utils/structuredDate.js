@@ -70,35 +70,35 @@ export const generateBlogsStructuredData = (blogs) => ({
 export const structuredData = {
     oneWay: {
         ...baseData,
-        "offers": [{
+        "hasOfferCatalog": {
             "@type": "Service",
             "name": "One Way Cabs",
             "description": "Book affordable one-way cabs with TripWay Holidays. Enjoy safe, comfortable, and timely rides with professional drivers.",
             "serviceType": "One Way Taxi",
             "url": "https://tripwayholidays.in/cabs/one-way",
             "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        }]
+        },
     },
     roundTrip: {
         ...baseData,
-        "offers": [{
+        "hasOfferCatalog": {
             "@type": "Service",
             "name": "Round Trip Cabs",
             "description": "Get the best round-trip cab service with affordable fares. Safe and reliable rides for all your travel needs.",
             "serviceType": "Round Trip Taxi",
             "url": "https://tripwayholidays.in/cabs/round-trip",
             "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        }]
+        },
     },
     multiCity: {
         ...baseData,
-        "offers": [{
+        "hasOfferCatalog": {
             "@type": "Service",
             "name": "Multi-City Cabs",
             "description": "Explore multiple destinations with our multi-city cab services. Easy booking and a seamless travel experience.",
             "serviceType": "Multi City Taxi",
             "url": "https://tripwayholidays.in/cabs/multi-city",
             "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        }]
+        },
     }
 };
