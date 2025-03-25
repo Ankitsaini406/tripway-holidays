@@ -34,9 +34,17 @@ export const generateToursStructuredData = (tours) => ({
         "name": tour.name,
         "description": tour.description,
         "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
-        "priceCurrency": "INR",
-        "price": tour.price,
-        "availability": "https://schema.org/InStock"
+        // "priceCurrency": "INR",
+        // "price": tour.price,
+        // "availability": "https://schema.org/InStock"
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Opp. Mangal Transport, Near Chandpool Gate",
+            "addressLocality": "Sikar",
+            "addressRegion": "Rajasthan",
+            "postalCode": "332001",
+            "addressCountry": "IN"
+        },
     }))
 });
 
