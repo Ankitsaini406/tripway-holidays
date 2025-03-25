@@ -74,7 +74,7 @@ export const generateBlogsStructuredData = (blogs) => ({
         "headline": blog.title,
         "description": blog.description,
         "url": `https://tripwayholidays.in/blog/${blog.slug}`,
-        "datePublished": new Date(blog.createdAt * 1000).toISOString(),
+        // "datePublished": new Date(blog.createdAt * 1000).toISOString(),
         "author": {
             "@type": "Person",
             "name": blog.writtenBy
