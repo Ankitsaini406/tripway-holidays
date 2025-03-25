@@ -90,13 +90,21 @@ export const structuredData = {
         "name": "Explore Tours with TripWay Holidays",
         "description": "Need a hassle-free ride to your destination? TripWay Holidays offers reliable and affordable one-way cab services for a smooth travel experience. Whether you're heading to the airport, another city, or any location, our professional drivers ensure a safe and timely journey.",
         "hasOfferCatalog": {
-            "@type": "Service",
-            "name": "One Way Cabs",
-            "description": "Book affordable one-way cabs with TripWay Holidays. Enjoy safe, comfortable, and timely rides with professional drivers.",
-            "serviceType": "One Way Taxi",
-            "url": "https://tripwayholidays.in/cabs/one-way",
-            "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        },
+            "@type": "OfferCatalog",
+            "name": "One Way Cab Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "One Way Cabs",
+                    "description": "Book affordable one-way cabs with TripWay Holidays. Enjoy safe, comfortable, and timely rides with professional drivers.",
+                    "url": "https://tripwayholidays.in/cabs/one-way",
+                    "provider": {
+                        "@type": "TravelAgency",
+                        "name": "TripWay Holidays"
+                    }
+                }
+            ]
+        }
     },
     roundTrip: {
         ...baseData,
@@ -105,13 +113,22 @@ export const structuredData = {
         "name": "Explore Tours with TripWay Holidays",
         "description": "Planning a return journey? Our round-trip cab service provides a convenient travel solution at competitive prices. Enjoy comfortable rides with experienced drivers, flexible booking options, and top-notch service for both leisure and business trips.",
         "hasOfferCatalog": {
-            "@type": "Service",
-            "name": "Round Trip Cabs",
-            "description": "Get the best round-trip cab service with affordable fares. Safe and reliable rides for all your travel needs.",
-            "serviceType": "Round Trip Taxi",
-            "url": "https://tripwayholidays.in/cabs/round-trip",
-            "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        },
+            "@type": "OfferCatalog",
+            "name": "Round Trip Cab Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Round Trip Cabs",
+                    "description": "Get the best round-trip cab service with affordable fares. Safe and reliable rides for all your travel needs.",
+                    "serviceType": "Round Trip Taxi",
+                    "url": "https://tripwayholidays.in/cabs/round-trip",
+                    "provider": {
+                        "@type": "TravelAgency",
+                        "name": "TripWay Holidays"
+                    }
+                }
+            ]
+        }
     },
     multiCity: {
         ...baseData,
@@ -120,12 +137,21 @@ export const structuredData = {
         "name": "Explore Tours with TripWay Holidays",
         "description": "Explore multiple destinations with ease using our multi-city cab services. Ideal for road trips, business tours, or exploring different cities in one go. Enjoy seamless travel with TripWay Holidays, ensuring comfort, safety, and affordability.",
         "hasOfferCatalog": {
-            "@type": "Service",
-            "name": "Multi-City Cabs",
-            "description": "Explore multiple destinations with our multi-city cab services. Easy booking and a seamless travel experience.",
-            "serviceType": "Multi City Taxi",
-            "url": "https://tripwayholidays.in/cabs/multi-city",
-            "provider": { "@type": "TravelAgency", "name": "TripWay Holidays" }
-        },
+            "@type": "OfferCatalog",
+            "name": "Multi City Cab Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Multi-City Cabs",
+                    "description": "Explore multiple destinations with our multi-city cab services. Easy booking and a seamless travel experience.",
+                    "serviceType": "Multi City Taxi",
+                    "url": "https://tripwayholidays.in/cabs/multi-city",
+                    "provider": {
+                        "@type": "TravelAgency",
+                        "name": "TripWay Holidays"
+                    }
+                },
+            ]
+        }
     }
 };
