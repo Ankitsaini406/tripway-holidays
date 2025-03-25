@@ -77,7 +77,7 @@ export const generateBlogsStructuredData = (blogs) => ({
         "datePublished": blog.date,
         "author": {
             "@type": "Person",
-            "name": blog.writtenBy,
+            "name": blog.writtenBy ? blog.writtenBy : "Prshant Bagriya",
         }
     }))
 });
@@ -98,7 +98,7 @@ export const structuredData = {
                     "name": "One Way Cabs",
                     "description": "Book affordable one-way cabs with TripWay Holidays. Enjoy safe, comfortable, and timely rides with professional drivers.",
                     "url": "https://tripwayholidays.in/cabs/one-way",
-                    "provider": {
+                    "offeredBy": {
                         "@type": "TravelAgency",
                         "name": "TripWay Holidays"
                     }
@@ -122,7 +122,7 @@ export const structuredData = {
                     "description": "Get the best round-trip cab service with affordable fares. Safe and reliable rides for all your travel needs.",
                     "serviceType": "Round Trip Taxi",
                     "url": "https://tripwayholidays.in/cabs/round-trip",
-                    "provider": {
+                    "offeredBy": {
                         "@type": "TravelAgency",
                         "name": "TripWay Holidays"
                     }
@@ -146,7 +146,7 @@ export const structuredData = {
                     "description": "Explore multiple destinations with our multi-city cab services. Easy booking and a seamless travel experience.",
                     "serviceType": "Multi City Taxi",
                     "url": "https://tripwayholidays.in/cabs/multi-city",
-                    "provider": {
+                    "offeredBy": {
                         "@type": "TravelAgency",
                         "name": "TripWay Holidays"
                     }
