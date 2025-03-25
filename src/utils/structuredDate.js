@@ -69,15 +69,15 @@ export const generateBlogsStructuredData = (blogs) => ({
             "https://x.com/tripwayholidays"
         ]
     },
-    "blogPosts": blogs.map(post => ({
+    "blogPosts": blogs.map(blog => ({
         "@type": "BlogPosting",
-        "headline": post.title,
-        "description": post.description,
-        "url": `https://tripwayholidays.in/blog/${post.slug}`,
-        "datePublished": new Date(post.timestamp * 1000).toISOString(),
+        "headline": blog.title,
+        "description": blog.description,
+        "url": `https://tripwayholidays.in/blog/${blog.slug}`,
+        "datePublished": new Date(blog.createdAt * 1000).toISOString(),
         "author": {
             "@type": "Person",
-            "name": post.author
+            "name": blog.writtenBy
         }
     }))
 });
