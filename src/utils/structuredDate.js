@@ -29,23 +29,23 @@ export const generateToursStructuredData = (tours) => ({
     "url": "https://tripwayholidays.in/group-tour",
     "name": "Explore Tours with TripWay Holidays",
     "description": "Discover the best holiday packages and tours with TripWay Holidays. Explore top destinations, affordable travel plans, and personalized itineraries.",
-    "offers": tours.map(tour => ({
-        "@type": "TravelAgency",
-        "name": tour.name,
-        "description": tour.description,
-        "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
-        // "priceCurrency": "INR",
-        // "price": tour.price,
-        // "availability": "https://schema.org/InStock"
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Opp. Mangal Transport, Near Chandpool Gate",
-            "addressLocality": "Sikar",
-            "addressRegion": "Rajasthan",
-            "postalCode": "332001",
-            "addressCountry": "IN"
-        },
-    }))
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Available Tour Packages",
+        "itemListElement": tours.map(tour => ({
+            "@type": "Offer",
+            "name": tour.name,
+            "description": tour.description,
+            "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
+            "priceCurrency": "INR",
+            "price": tour.price,
+            "availability": "https://schema.org/InStock",
+            "provider": {
+                "@type": "TravelAgency",
+                "name": "TripWay Holidays"
+            }
+        }))
+    }
 });
 
 export const generateBlogsStructuredData = (blogs) => ({
