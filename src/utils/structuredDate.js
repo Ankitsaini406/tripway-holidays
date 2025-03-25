@@ -78,6 +78,7 @@ export const generateBlogsStructuredData = (blogs) => ({
         "author": {
             "@type": "Person",
             "name": blog.writtenBy ? blog.writtenBy : "Prshant Bagriya",
+            "url" : blog.linkedin, 
         }
     }))
 });
