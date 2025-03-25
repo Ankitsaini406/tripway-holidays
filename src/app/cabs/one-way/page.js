@@ -1,4 +1,6 @@
+import { structuredData } from "@/utils/structuredDate";
 import OneWayComponent from "./OneWayComponent";
+import Script from "next/script";
 
 export const metadata = {
     title: "One Way Cabs",
@@ -21,5 +23,15 @@ export const metadata = {
 };
 
 export default function Page() {
-    return <OneWayComponent />
+    return (
+        <>
+            <Script
+                id="structured-data"
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData.oneWay) }}
+            />
+            <OneWayComponent />
+        </>
+    )
 }

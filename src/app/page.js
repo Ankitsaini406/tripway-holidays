@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 const TypeWriterLoop = dynamic(() => import("@/utils/typeWriter"));
 const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
@@ -11,6 +12,32 @@ import AnimatedHero from "@/components/slider/AnimatedHero";
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Round Trip | Multi City | Group Tour",
     description: "Embark on a journey like never before with TripWay Holidays, your ultimate travel partner. Whether you're planning a one-way trip, a round-trip adventure, a multi-city exploration, or a memorable group tour, we have you covered. Discover the best tour packages tailored to your preferences. Experience seamless booking, personalized itineraries, and unmatched customer service. From picturesque landscapes to bustling cities, TripWay Holidays ensures that every journey is unforgettable. Book now and turn your travel dreams into reality.",
+};
+
+// ✅ Structured Data Definition
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Tripway Holidays",
+    "url": "https://tripwayholidays.in/",
+    "logo": "https://tripwayholidays.in/favicon.ico",
+    "description": "Tripway Holidays offers the best holiday packages, tours, and travel experiences.",
+    "telephone": "+91-8890906400",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Opp. Mangal Trasport, Near Chandpool Gate",
+        "addressLocality": "Sikar",
+        "addressRegion": "Rajsthan",
+        "postalCode": "332001",
+        "addressCountry": "IN"
+    },
+    "sameAs": [
+        "https://www.facebook.com/tripwayholidays",
+        "https://www.instagram.com/tripwayholiday",
+        "https://www.twitter.com/tripwayholidays",
+        "https://www.youtube.com/@tripwayholidays",
+        "https://x.com/tripwayholidays",
+    ]
 };
 
 const Home = () => {
@@ -50,7 +77,13 @@ const Home = () => {
 
     return (
         <>
-            {/* <ScrollableCards /> */}
+            {/* ✅ Inject JSON-LD Structured Data */}
+            <Script
+                id="structured-data"
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
             <AnimatedHero />
 
             <div className={styles.hadingBox}>

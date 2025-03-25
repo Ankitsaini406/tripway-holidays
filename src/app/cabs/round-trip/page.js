@@ -1,4 +1,6 @@
+import Script from "next/script";
 import RoundTripComponent from "./RoundTripComponent";
+import { structuredData } from "@/utils/structuredDate";
 
 export const metadata = {
     title: "Round Trip Cabs",
@@ -26,5 +28,15 @@ export const metadata = {
 };
 
 export default function Page() {
-    return <RoundTripComponent />
+    return (
+        <>
+            <Script
+                id="structured-data"
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData.roundTrip) }}
+            />
+            <RoundTripComponent />
+        </>
+    )
 }
