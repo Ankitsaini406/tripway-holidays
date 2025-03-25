@@ -30,7 +30,7 @@ export const generateToursStructuredData = (tours) => ({
     "name": "Explore Tours with TripWay Holidays",
     "description": "Discover the best holiday packages and tours with TripWay Holidays. Explore top destinations, affordable travel plans, and personalized itineraries.",
     "offers": tours.map(tour => ({
-        "@type": "Offer",
+        "@type": "Tour",
         "name": tour.name,
         "description": tour.description,
         "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
@@ -46,7 +46,7 @@ export const generateBlogsStructuredData = (blogs) => ({
     "url": "https://tripwayholidays.in/blog",
     "name": "TripWay Holidays Travel Blog",
     "description": "Read travel tips, guides, and destination recommendations on the TripWay Holidays travel blog.",
-    "blogPosts": blogs.map(blog => ({
+    "article": blogs.map(blog => ({
         "@type": "BlogPosting",
         "headline": blog.title,
         "description": blog.description,
