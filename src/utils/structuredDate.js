@@ -29,19 +29,23 @@ export const generateToursStructuredData = (tours) => ({
     "url": "https://tripwayholidays.in/group-tour",
     "name": "Explore Tours with TripWay Holidays",
     "description": "Discover the best holiday packages and tours with TripWay Holidays. Explore top destinations, affordable travel plans, and personalized itineraries.",
-    "offers": tours.map(tour => ({
-        "@type": "Offer",
-        "name": tour.name,
-        "description": tour.description,
-        "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
-        "priceCurrency": "INR",
-        "price": tour.price,
-        "availability": "https://schema.org/InStock",
-        "seller": {
-            "@type": "Organization",
-            "name": "TripWay Holidays"
-        }
-    }))
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Tour Packages",
+        "itemListElement": tours.map(tour => ({
+            "@type": "Offer",
+            "name": tour.name,
+            "description": tour.description,
+            "url": `https://tripwayholidays.in/group-tour/${tour.slug}`,
+            "priceCurrency": "INR",
+            "price": tour.price,
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "TripWay Holidays"
+            }
+        }))
+    }
 });
 
 export const generateBlogsStructuredData = (blogs) => ({
