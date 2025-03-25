@@ -49,20 +49,35 @@ export const generateToursStructuredData = (tours) => ({
 });
 
 export const generateBlogsStructuredData = (blogs) => ({
-    ...baseData,
+    "@context": "https://schema.org",
     "@type": "Blog",
-    "url": "https://tripwayholidays.in/blog",
     "name": "TripWay Holidays Travel Blog",
+    "url": "https://tripwayholidays.in/blog",
     "description": "Read travel tips, guides, and destination recommendations on the TripWay Holidays travel blog.",
-    "offers": blogs.map(blog => ({
+    "publisher": {
+        "@type": "Organization",
+        "name": "TripWay Holidays",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://tripwayholidays.in/favicon.ico"
+        },
+        "sameAs": [
+            "https://www.facebook.com/tripwayholidays",
+            "https://www.instagram.com/tripwayholiday",
+            "https://www.twitter.com/tripwayholidays",
+            "https://www.youtube.com/@tripwayholidays",
+            "https://x.com/tripwayholidays"
+        ]
+    },
+    "blogPosts": blogs.map(post => ({
         "@type": "BlogPosting",
-        "headline": blog.title,
-        "description": blog.description,
-        "url": `https://tripwayholidays.in/blog/${blog.slug}`,
-        "datePublished": blog.createdAt,
+        "headline": post.title,
+        "description": post.description,
+        "url": `https://tripwayholidays.in/blog/${post.slug}`,
+        "datePublished": new Date(post.timestamp * 1000).toISOString(),
         "author": {
             "@type": "Person",
-            "name": blog.writenBy ? blog.writenBy : "TripWay Holidays"
+            "name": post.author
         }
     }))
 });
@@ -70,6 +85,10 @@ export const generateBlogsStructuredData = (blogs) => ({
 export const structuredData = {
     oneWay: {
         ...baseData,
+        "@type": "TravelAgency",
+        "url": "https://tripwayholidays.in/cabs/one-way",
+        "name": "Explore Tours with TripWay Holidays",
+        "description": "Need a hassle-free ride to your destination? TripWay Holidays offers reliable and affordable one-way cab services for a smooth travel experience. Whether you're heading to the airport, another city, or any location, our professional drivers ensure a safe and timely journey.",
         "hasOfferCatalog": {
             "@type": "Service",
             "name": "One Way Cabs",
@@ -81,6 +100,10 @@ export const structuredData = {
     },
     roundTrip: {
         ...baseData,
+        "@type": "TravelAgency",
+        "url": "https://tripwayholidays.in/cabs/round-trip",
+        "name": "Explore Tours with TripWay Holidays",
+        "description": "Planning a return journey? Our round-trip cab service provides a convenient travel solution at competitive prices. Enjoy comfortable rides with experienced drivers, flexible booking options, and top-notch service for both leisure and business trips.",
         "hasOfferCatalog": {
             "@type": "Service",
             "name": "Round Trip Cabs",
@@ -92,6 +115,10 @@ export const structuredData = {
     },
     multiCity: {
         ...baseData,
+        "@type": "TravelAgency",
+        "url": "https://tripwayholidays.in/cabs/multi-city",
+        "name": "Explore Tours with TripWay Holidays",
+        "description": "Explore multiple destinations with ease using our multi-city cab services. Ideal for road trips, business tours, or exploring different cities in one go. Enjoy seamless travel with TripWay Holidays, ensuring comfort, safety, and affordability.",
         "hasOfferCatalog": {
             "@type": "Service",
             "name": "Multi-City Cabs",
