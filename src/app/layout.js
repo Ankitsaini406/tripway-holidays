@@ -76,6 +76,7 @@ export default function RootLayout({ children }) {
         <meta name="twitter:url" content={metadata.twitter.url} />
 
         {/* Analytics */}
+        <meta name="google-site-verification" content="yjWbY0fErsHYP4tVk_K97EF-4Ng_kQ2q4QR3Bc0z5oY" />
         <FaceBookAnalytics />
         <GoogleTagManagerAndAnalytics />
       </head>
