@@ -2,8 +2,11 @@ import { useState } from "react";
 import { getCookie } from "cookies-next";
 import { database } from "@/firebase/firebaseConfig";
 import { jwtDecode } from "jwt-decode";
-import { ref, query, orderByChild, equalTo, get } from "firebase/database";
+import { ref, get } from "firebase/database";
 import { useRouter } from "next/navigation";
+import { initiateRazorpayPayment } from "@/utils/apiUtils";
+import { checkUserExistence } from "@/utils/Utils";
+import { toast } from "react-toastify";
 
 const useTourUserData = () => {
     const [loading, setLoading] = useState(false);
@@ -15,58 +18,78 @@ const useTourUserData = () => {
     const productionApi = process.env.HOST_URL;
     const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
+    const validateUserData = (data) => {
+        if (!data.name || !data.countryCode || !data.phoneNumber || !data.email || !data.from) {
+            toast.error("Please fill in all details before proceeding.");
+            return false;
+        }
+        return true;
+    };
+
     const addTourData = async (data) => {
         setLoading(true);
         setError(null);
         setSuccess(null);
 
-        const token = getCookie("token"); // Retrieve the token from cookies
-        if (!token) {
-            console.error("Token not found. Redirecting to login.");
-            router.push("/auth/client-login"); // Redirect to login if no token is found
-            setLoading(false);
-            return;
-        }
-
         try {
-            const parsedToken = jwtDecode(token); // Parse the JSON token
-            const email = parsedToken.email; // Extract email from the token
+            // 1. **Validate User Input**
+            if (!validateUserData(data)) {
+                setLoading(false);
+                return;
+            }
 
-            // Fetch user data from Firebase
-            const usersRef = ref(database, "users");
-            const userQuery = query(usersRef, orderByChild("email"), equalTo(email));
-            const snapshot = await get(userQuery);
+            // 2. **Check if User Exists**
+            const userExists = await checkUserExistence(`${data.countryCode}${data.phoneNumber}`, data);
+            if (!userExists) {
+                toast.success("New user created and will be logged in.");
+            }
+
+            // 3. **Fetch User Data from Firebase**
+            const userRef = ref(database, `users/${data.countryCode}${data.phoneNumber}`);
+            const snapshot = await get(userRef);
 
             if (!snapshot.exists()) {
-                throw new Error("No user found with the provided email.");
+                throw new Error("No user found with the provided details.");
             }
 
             const user = snapshot.val();
-            const userKey = Object.keys(user)[0]; // If multiple users, pick the first key
-            const userData = user[userKey];
+            const userData = user.uid ? user : Object.values(user)[0]; // Handle object structure
 
-            // Proceed to add tour data
-            const addUserTour = {
-                ...data,
-                userId: userData.uid,
-            };
+            // 4. **Initiate Payment**
+            initiateRazorpayPayment({
+                amount: data.amount,
+                data,
+                onSuccess: async () => {
+                    try {
+                        // 5. **Add Tour Data After Successful Payment**
+                        const addUserTour = {
+                            ...data,
+                            userId: userData.uid,
+                        };
 
-            const response = await fetch(`${apiPoint}/api/group-tours/add-tour`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+                        const response = await fetch(`${apiPoint}/api/group-tours/add-tour`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(addUserTour),
+                        });
+
+                        if (response.ok) {
+                            setSuccess("Your tour booking was successful!");
+                            toast.success("Tour booked successfully!");
+                        } else {
+                            throw new Error("Failed to add details.");
+                        }
+                    } catch (error) {
+                        setError(error.message);
+                        toast.error(error.message);
+                    }
                 },
-                body: JSON.stringify(addUserTour),
             });
-
-            if (response.ok) {
-                setSuccess("Your tour booking was successful!");
-            } else {
-                throw new Error("Failed to add details.");
-            }
         } catch (err) {
             setError(err.message);
-            console.error("Error adding tour data:", err);
+            toast.error(err.message);
         } finally {
             setLoading(false);
         }

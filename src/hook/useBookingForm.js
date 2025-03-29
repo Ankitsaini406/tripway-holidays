@@ -135,7 +135,7 @@ export default function useBookingForm(user) {
         }
     };
 
-    const handleBooking = async (paymentId) => {
+    const handleBooking = async (paymentId, amount) => {
         try {
             const couponCode = await generateAndStoreCouponCode("User");
     
@@ -151,6 +151,7 @@ export default function useBookingForm(user) {
                 isRefunde: false,
                 minPayment: true,
                 paymentId,
+                amount,
                 couponCode,
                 carOption: selectedCar,
                 selectedRadio: title,
@@ -219,7 +220,7 @@ export default function useBookingForm(user) {
     
             // console.log("WhatsApp Response:", response.data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
-            router.push("/profile");
+            router.push(`/booking-success?name=${encodeURIComponent(formData.name)}&triptpye=${encodeURIComponent(collectionName)}&amount=${amount}&paymentId=${paymentId}`);
         } catch (error) {
             console.error("Error:", error);
             toast.error(error.message || "An error occurred. Please try again.");
