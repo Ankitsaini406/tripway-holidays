@@ -64,6 +64,7 @@ const useTourUserData = () => {
                         // 5. **Add Tour Data After Successful Payment**
                         const addUserTour = {
                             ...data,
+                            paymentId,
                             userId: userData.uid,
                         };
 
@@ -78,6 +79,7 @@ const useTourUserData = () => {
                         if (response.ok) {
                             setSuccess("Your tour booking was successful!");
                             toast.success("Tour booked successfully!");
+                            router.push(`/booking-success?name=${encodeURIComponent(data.name)}&triptpye=group-tours&amount=${data.amount}&paymentId=${paymentId}`);
                         } else {
                             throw new Error("Failed to add details.");
                         }
