@@ -2,11 +2,11 @@ import styles from "@/styles/components/hero.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AnimatedHero() {
+export default function AnimatedHero({ imageUrl }) {
     return (
         <div className={styles.animatedHero}>
             {/* Background Image */}
-            <Image className={styles.heroImg} src="/main-banenr.webp" alt="Banner Image" fill priority />
+            <Image className={styles.heroImg} src={imageUrl} alt="Banner Image" fill priority />
 
             {/* Text Content */}
             <div className={styles.heroContent}>
