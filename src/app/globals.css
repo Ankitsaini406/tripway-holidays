@@ -172,6 +172,10 @@ input:user-invalid {
   min-height: 100vh;
 }
 
+.minHeight {
+  min-height: 100vh;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
