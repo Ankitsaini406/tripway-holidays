@@ -31,6 +31,10 @@ export default async function sitemap() {
 
     const staticPages = [
         {
+            url: `${apiPoint}`,
+            lastModified: new Date().toISOString(),
+        },
+        {
             url: `${apiPoint}group-tour`,
             lastModified: new Date().toISOString(),
         },
