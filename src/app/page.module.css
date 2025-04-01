@@ -50,7 +50,7 @@
 }
 
 .hadingBox {
-  margin: 6rem 0 0 0;
+  margin: 1rem 0 0 0;
   text-align: center;
   border-radius: var(--border-radius);
 }
@@ -91,10 +91,10 @@
 }
 
 .scrollRevel span {
-  --webkit-animation-range-start: cover 10vh;
-  animation-range-start: cover 10vh;
-  --webkit-animation-range-end: cover 40vh;
-  animation-range-end: cover 40vh;
+  --webkit-animation-range-start: cover 5vh;
+  animation-range-start: cover 5vh;
+  --webkit-animation-range-end: cover 20vh;
+  animation-range-end: cover 20vh;
 }
 
 @keyframes scroll-reveal {
