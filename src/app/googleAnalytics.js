@@ -11,7 +11,7 @@ const GoogleTagManagerAndAnalytics = () => {
     return isProduction ? (
         <>
             {/* GTM Script */}
-            <Script defer={true} id="google-tag-manager" strategy="afterInteractive">
+            <Script async defer={true} id="google-tag-manager" strategy="afterInteractive">
                 {`
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,12 +33,13 @@ const GoogleTagManagerAndAnalytics = () => {
 
             {/* GA Script */}
             <Script
+                async
                 defer={true}
                 strategy="lazyOnload"
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
             />
 
-            <Script defer={true} id="google-analytics" strategy="lazyOnload">
+            <Script async defer={true} id="google-analytics" strategy="lazyOnload">
                 {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
