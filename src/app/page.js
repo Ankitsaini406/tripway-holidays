@@ -6,9 +6,7 @@ const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
 import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
-import ScrollableCards from "@/components/MotionDiv";
 import AnimatedHero from "@/components/slider/AnimatedHero";
-import AnimatedHeroWrapper from "@/components/slider/AnimatedHeroWrapper";
 
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Round Trip | Multi City | Group Tour",
@@ -41,7 +39,15 @@ const structuredData = {
     ]
 };
 
-const Home = () => {
+const fetchImageUrl = async () => {
+    const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
+    const response = await fetch(`${apiPoint}api/image-url`, { cache: "no-store" }); // No caching
+    const data = await response.json();
+    return data.imageUrl;
+};
+
+export default async function Home() {
+    const imageUrl = await fetchImageUrl();
 
     const messages = ["One Way", "Round Trip", "Multi City", "Group Tour"];
 
@@ -85,8 +91,7 @@ const Home = () => {
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
             />
-            {/* <AnimatedHeroWrapper /> */}
-            <AnimatedHero />
+            <AnimatedHero imageUrl={imageUrl} />
 
             <div className={styles.hadingBox}>
                 <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
@@ -116,5 +121,3 @@ const Home = () => {
         </>
     );
 };
-
-export default Home;
