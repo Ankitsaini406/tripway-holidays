@@ -8,6 +8,7 @@ import { TourSection, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
 import ScrollableCards from "@/components/MotionDiv";
 import AnimatedHero from "@/components/slider/AnimatedHero";
+import AnimatedHeroWrapper from "@/components/slider/AnimatedHeroWrapper";
 
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Round Trip | Multi City | Group Tour",
@@ -84,6 +85,7 @@ const Home = () => {
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
             />
+            {/* <AnimatedHeroWrapper /> */}
             <AnimatedHero />
 
             <div className={styles.hadingBox}>

@@ -52,38 +52,62 @@
     position: relative;
     width: 100vw;
     height: 80vh;
-    background: url("/main-banenr.webp");
+    /* background: url("/main-banenr.webp");
     background-attachment: fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -prefix-background-size: cover;
-    background-position: center;
+    background-position: center; */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
+}
+
+.heroImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
 }
 
 .heroContent {
+    position: relative;
+    z-index: 2;
+    /* color: white; */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+
     & > h1 {
+        font-size: 3rem;
         color: var(--indigo-blue);
         font-weight: bold;
         font-family: cursive;
+    }
+
+    & > p {
+        font-size: 1.5rem;
+        margin-top: 10px;
     }
 }
 
 .allButton {
     position: absolute;
-    bottom: -5%;
-    padding: 2rem;
+    bottom: 2%;
+    padding: 1rem;
     background-color: var(--white-color);
     border-radius: 15px;
     display: flex;
     width: 100%;
     max-width: 1300px;
+    justify-content: center;
     overflow: auto;
     gap: 1rem;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    z-index: 2;
 }
 
 .linksButton {
@@ -95,11 +119,11 @@
     width: 100%;
     max-width: 770px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
         filter: brightness(1.2);
         box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-        transition: all 0.3s ease-in-out;
     }
 }
 

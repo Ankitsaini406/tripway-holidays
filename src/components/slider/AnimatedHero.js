@@ -1,14 +1,20 @@
 import styles from "@/styles/components/hero.module.css";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AnimatedHero() {
     return (
         <div className={styles.animatedHero}>
+            {/* Background Image */}
+            <Image className={styles.heroImg} src="/main-banenr.webp" alt="Banner Image" fill priority />
+
+            {/* Text Content */}
             <div className={styles.heroContent}>
                 <h1>&quot;Your - Trusted Travel Partner&quot;</h1>
                 <p>Connecting Destinations, Creating Memories!</p>
             </div>
 
+            {/* Buttons */}
             <div className={styles.allButton}>
                 <Link className={styles.linksButton} href="/cabs/one-way">One Way</Link>
                 <Link className={styles.linksButton} href="/cabs/round-trip">Round Trip</Link>
