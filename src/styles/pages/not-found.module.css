@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80dvh;
+    min-height: 100vh;
     background: linear-gradient(135deg, var(--gray-flash), var(--white-color));
     color: var(--black-color);
     text-align: center;
