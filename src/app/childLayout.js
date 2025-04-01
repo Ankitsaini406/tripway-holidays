@@ -1,5 +1,6 @@
 'use client';
 
+import "./globals.css";
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Header from "../components/header";
@@ -7,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 const Footer = dynamic(() => import("@/components/footer"));
 import "react-toastify/dist/ReactToastify.css";
-import "./globals.css";
+import DelayedComponent from "@/utils/DelayedComponent";
 
 export default function ClientRootLayout({ children }) {
     const pathname = usePathname();
@@ -39,7 +40,11 @@ export default function ClientRootLayout({ children }) {
             {!hideHeaderFooter && <Header />}
             <main className="minHeight">{children}</main>
             <ToastContainer position="top-right" autoClose={10000} hideProgressBar={false} draggable={true} closeOnClick />
-            {!hideHeaderFooter && <Footer />}
+            {!hideHeaderFooter &&
+                <DelayedComponent delay={1000} >
+                    <Footer />
+                </DelayedComponent>
+            }
         </>
     );
 }
