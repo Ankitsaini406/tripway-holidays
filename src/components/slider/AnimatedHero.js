@@ -19,7 +19,7 @@ export default function AnimatedHero({ imageUrl }) {
                 <Link className={styles.linksButton} href="/cabs/one-way">One Way</Link>
                 <Link className={styles.linksButton} href="/cabs/round-trip">Round Trip</Link>
                 <Link className={styles.linksButton} href="/cabs/multi-city">Multi City</Link>
-                <Link className={styles.linksButton} href="/group-tour">Group Tours</Link>
+                {/* <Link className={styles.linksButton} href="/group-tour">Group Tours</Link> */}
             </div>
         </div>
     );
