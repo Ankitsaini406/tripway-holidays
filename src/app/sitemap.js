@@ -1,4 +1,3 @@
-import { formatDate2 } from "@/utils/formatData";
 
 export default async function sitemap() {
 

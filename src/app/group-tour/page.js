@@ -46,7 +46,7 @@ export async function generateMetadata() {
                 type: "website",
                 images: [
                     {
-                        url: `https://tripwayholidays.in/tour-image/${primaryTour.imageUrl}`,
+                        url: `https://tripwayholidays.in/tour-images/${primaryTour.imageUrl}`,
                         width: 400,
                         height: 400,
                         alt: `Tripway Holidays ${primaryTour.name} Tour`,

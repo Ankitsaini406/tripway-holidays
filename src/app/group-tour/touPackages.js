@@ -122,7 +122,7 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
 
 function TourCard({ item, allImages }) {
     const imageData = allImages.find((image) => image.url.includes(item.imageUrl)) || {
-        url: `/tour-image/${item.imageUrl}`,
+        url: `/tour-images/${item.imageUrl}`,
         placeholder: null,
     };
 
