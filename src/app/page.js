@@ -41,7 +41,9 @@ const structuredData = {
 
 const fetchImageUrl = async () => {
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
-    const response = await fetch(`${apiPoint}api/image-url`, { cache: "no-store" }); // No caching
+    const response = await fetch(`${apiPoint}api/image-url`,
+        // { cache: "no-store" }
+    ); // No caching
     const data = await response.json();
     return data.imageUrl;
 };

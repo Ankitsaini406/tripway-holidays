@@ -112,7 +112,7 @@
 }
 
 .linksButton {
-    padding: 1rem 1.5rem;
+    padding: 0.8em 0em;
     background-color: var(--indigo-blue);
     color: var(--white-color);
     border-radius: 15px;
@@ -175,8 +175,12 @@
         height: 65vh;
     }
 
-    .allButton, .linksButton {
-        padding: 1rem;
+    .allButton {
+        padding-left: 7em;
+    }
+
+    .linksButton {
+        padding: 0.5em 1em;
     }
 
 
