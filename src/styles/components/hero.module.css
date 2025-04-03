@@ -112,7 +112,7 @@
 }
 
 .linksButton {
-    padding: 0.8em 0em;
+    padding: 0.8em 0em; 
     background-color: var(--indigo-blue);
     color: var(--white-color);
     border-radius: 15px;
