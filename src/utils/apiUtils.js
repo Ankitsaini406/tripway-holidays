@@ -35,7 +35,7 @@ const loadRazorpay = () => {
 };
 
 // Function to initiate Razorpay payment
-export const initiateRazorpayPayment = async ({ amount, formData, onSuccess }) => {
+export const initiateRazorpayPayment = async ({ amount, totalAmount, formData, onSuccess }) => {
     try {
         const res = await loadRazorpay();
         if (!res) {
@@ -89,7 +89,7 @@ export const initiateRazorpayPayment = async ({ amount, formData, onSuccess }) =
                 const result = await res.json();
                 if (result.isOk) {
                     toast.success("Payment Verified!");
-                    onSuccess(response.razorpay_payment_id);
+                    onSuccess(response.razorpay_payment_id, amount, totalAmount);
                 } else {
                     toast.error("Payment Verification Failed!");
                 }

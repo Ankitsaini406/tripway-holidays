@@ -165,6 +165,27 @@
     justify-content: space-between;
 }
 
+.bookingDetailsTotal {
+    display: flex;
+    flex-direction: row;
+    padding: 0 0 1rem 0;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--peacock-green);
+}
+
+.highlight {
+    color: var(--indigo-blue);
+    font-weight: bold;
+}
+
+.paymentOptions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-weight: bold;
+}
+
 .bookingButton {
     background-color: var(--peacock-green);
     color: white;

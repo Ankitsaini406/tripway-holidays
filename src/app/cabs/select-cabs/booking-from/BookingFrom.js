@@ -9,7 +9,7 @@ import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, amount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
+    const { title, from, to, startDate, time, selectedCar, amount, totalAmount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">
@@ -112,6 +112,30 @@ export default function BookingFrom() {
                         id="OfferInput"
                     />
 
+                    <div className={styles.paymentOptions}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="paymentType"
+                                value="initial"
+                                checked={formData.paymentType === "initial"}
+                                onChange={handleChange}
+                            />
+                            Initial ₹ 500
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="paymentType"
+                                value="full"
+                                checked={formData.paymentType === "full"}
+                                onChange={handleChange}
+                            />
+                            Full ₹ {totalAmount}
+                        </label>
+                    </div>
+
                     {
                         // !isOtpSent ? (
                         //     <button
@@ -161,9 +185,9 @@ export default function BookingFrom() {
                                     <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ {amount}
                                 </h4>
                                 <h4 className={styles.bookingDetailsText}>
-                                    <span className={styles.bookingDetailsLabel}>GST (5%):</span> ₹ {Math.round(amount * 0.05)}
+                                    <span className={styles.bookingDetailsLabel}>GST (5%):</span> + ₹ {Math.round(amount * 0.05)}
                                 </h4>
-                                <h4 className={styles.bookingDetailsText}>
+                                <h4 className={styles.bookingDetailsTotal}>
                                     <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹ {Math.round(amount * 1.05)}
                                 </h4>
                             </div>
@@ -207,7 +231,7 @@ export default function BookingFrom() {
                             {activeTab === 'exclusions' && (
                                 <div className={styles.inExboxes}>
                                     <ul className={styles.listGroup}>
-                                        <li>Parking</li>
+                                        {title === "round-trip" || title === "multi-city" ? <li>Parking</li> : null}
                                     </ul>
                                 </div>
                             )}
@@ -215,7 +239,7 @@ export default function BookingFrom() {
                                 <ul className={styles.listGroup}>
                                     {title === "one-way" ? (
                                         <>
-                                            <li>Your trip has {distance} KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
+                                            <li>Your trip has <span className={styles.highlight}>{distance}</span> KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
                                             <li>Your trip includes one pick up in Pick-up city and one drop to destination city. It does not include within city travel.</li>
                                             <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
                                         </>

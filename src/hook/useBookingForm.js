@@ -31,13 +31,16 @@ export default function useBookingForm(user) {
         pickupPoint: "",
         dropPoint: "",
         offerFrom: "",
-    });
+        paymentType: "initial",
+    })
 
     const [correctOtp, setCorrectOtp] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
     const [activeTab, setActiveTab] = useState("inclusions");
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const totalAmount = Math.round(amount * 1.05);
 
     const aisensy = process.env.AI_SENSY;
 
@@ -125,9 +128,11 @@ export default function useBookingForm(user) {
         checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
 
         setLoading(true);
+
+        const selectedAmount = formData.paymentType === "initial" ? 500 : totalAmount;
     
         try {
-            initiateRazorpayPayment({ amount: amount, formData, onSuccess: handleBooking});
+            initiateRazorpayPayment({ amount: selectedAmount, totalAmount, formData, onSuccess: handleBooking});
         } catch (error) {
             console.error("Error:", error);
             toast.error(error.message || "An error occurred. Please try again.");
@@ -136,7 +141,7 @@ export default function useBookingForm(user) {
         }
     };
 
-    const handleBooking = async (paymentId, amount) => {
+    const handleBooking = async (paymentId, paidAmount, totalAmount) => {
         try {
             const couponCode = await generateAndStoreCouponCode("User");
     
@@ -150,9 +155,10 @@ export default function useBookingForm(user) {
                 ...formData,
                 isComplete: false,
                 isRefunde: false,
-                minPayment: true,
+                minPayment: formData.paymentType === "initial",
                 paymentId,
-                amount,
+                amount: paidAmount,
+                totalAmount,
                 distance,
                 couponCode,
                 carOption: selectedCar,
@@ -240,6 +246,7 @@ export default function useBookingForm(user) {
         time,
         selectedCar,
         amount,
+        totalAmount,
         distance,
         formData,
         correctOtp,
