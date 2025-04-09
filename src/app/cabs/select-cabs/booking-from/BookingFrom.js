@@ -9,7 +9,7 @@ import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom() {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, amount, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
+    const { title, from, to, startDate, time, selectedCar, amount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
 
     return (
         <div className="layout">
@@ -113,15 +113,15 @@ export default function BookingFrom() {
                     />
 
                     {
-                    // !isOtpSent ? (
-                    //     <button
-                    //         onClick={handleSendOtp}
-                    //         disabled={loading}
-                    //         className={loading ? styles.bookingLoading : styles.bookingButton}
-                    //     >
-                    //         {loading ? <span className={styles.vibratingPhone}> Sending ...</span> : "Send OTP"}
-                    //     </button>
-                    // ) :
+                        // !isOtpSent ? (
+                        //     <button
+                        //         onClick={handleSendOtp}
+                        //         disabled={loading}
+                        //         className={loading ? styles.bookingLoading : styles.bookingButton}
+                        //     >
+                        //         {loading ? <span className={styles.vibratingPhone}> Sending ...</span> : "Send OTP"}
+                        //     </button>
+                        // ) :
                         <>
                             {/* <label htmlFor="otpInput">Enter OTP</label>
                             <OtpVerification
@@ -160,6 +160,12 @@ export default function BookingFrom() {
                                 <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ {amount}
                                 </h4>
+                                <h4 className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>GST (5%):</span> ₹ {Math.round(amount * 0.05)}
+                                </h4>
+                                <h4 className={styles.bookingDetailsText}>
+                                    <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹ {Math.round(amount * 1.05)}
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -191,6 +197,7 @@ export default function BookingFrom() {
                             {activeTab === 'inclusions' && (
                                 <div className={styles.inExboxes}>
                                     <ul className={styles.listGroup}>
+                                        <li>Toll / State tax</li>
                                         <li>Base Fare and Fuel Charges</li>
                                         <li>Driver Allowance</li>
                                         <li>GST (5%)</li>
@@ -200,7 +207,6 @@ export default function BookingFrom() {
                             {activeTab === 'exclusions' && (
                                 <div className={styles.inExboxes}>
                                     <ul className={styles.listGroup}>
-                                        <li>Toll / State tax</li>
                                         <li>Parking</li>
                                     </ul>
                                 </div>
@@ -209,7 +215,7 @@ export default function BookingFrom() {
                                 <ul className={styles.listGroup}>
                                     {title === "one-way" ? (
                                         <>
-                                            <li>Your trip has a KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
+                                            <li>Your trip has {distance} KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
                                             <li>Your trip includes one pick up in Pick-up city and one drop to destination city. It does not include within city travel.</li>
                                             <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
                                         </>

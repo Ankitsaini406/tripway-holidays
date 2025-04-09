@@ -18,8 +18,6 @@ export async function GET(req) {
         const response = await fetch(googleApiUrl);
         const data = await response.json();
 
-        console.log("Google API Response:", data); 
-
         if (data.status !== "OK") {
             return NextResponse.json({ error: `Google API Error: ${data.status}` }, { status: 401 });
         }

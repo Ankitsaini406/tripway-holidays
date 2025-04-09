@@ -21,6 +21,7 @@ export default function useBookingForm(user) {
     const time = searchParams.get("time");
     const selectedCar = searchParams.get("selectedCar");
     const amount = searchParams.get("amount");
+    const distance = searchParams.get("distance");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -152,6 +153,7 @@ export default function useBookingForm(user) {
                 minPayment: true,
                 paymentId,
                 amount,
+                distance,
                 couponCode,
                 carOption: selectedCar,
                 selectedRadio: title,
@@ -238,6 +240,7 @@ export default function useBookingForm(user) {
         time,
         selectedCar,
         amount,
+        distance,
         formData,
         correctOtp,
         enteredOtp,
