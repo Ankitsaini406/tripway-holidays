@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
@@ -25,10 +25,14 @@ export default function MultiCityComponent() {
     const { user } = useClient();
     const { formData, fromOptions, inputValue, tags, setFormData, handleChange, handleInputChange, removeTag, handleKeyDown } = useCabSearchForm(user);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        setLoading(true);
         if (!formData.from || !tags || !formData.startDate || !formData.time) {
             toast.error("Please fill in all fields before proceeding.");
+            setLoading(false);
             return;
         }
 
@@ -213,9 +217,10 @@ export default function MultiCityComponent() {
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
                         <button
                             onClick={handleSearch}
-                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                            disabled={loading}
+                            className={styles.searchButton}
                         >
-                            EXPLORE CABS
+                            {loading ? <span className='loadingDots'>Waiting Cabs </span> : "EXPLORE CABS"}
                         </button>
                     </div>
 

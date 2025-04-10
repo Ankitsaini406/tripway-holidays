@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
@@ -24,9 +24,14 @@ export default function OneWayComponent() {
     const { user } = useClient();
     const { formData, fromOptions, toOptions, setFormData, handleChange } = useCabSearchForm(user);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
         if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
+            setLoading(false);
             toast.error("Please fill in all fields before proceeding.");
             return;
         }
@@ -269,9 +274,10 @@ export default function OneWayComponent() {
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
                         <button
                             onClick={handleSearch}
-                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                            disabled={loading}
+                            className={styles.searchButton}
                         >
-                            EXPLORE CABS
+                            {loading ? <span className='loadingDots'>Waiting Cabs </span> : "EXPLORE CABS"}
                         </button>
                     </div>
 

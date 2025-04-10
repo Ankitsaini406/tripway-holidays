@@ -48,9 +48,10 @@ export default function SelectCars({ bookingData }) {
     }
 
     const handleSearch = async (car, bookingPrice, totalDistance) => {
-        setSelectedCar(car);
+        setSelectedCar(car.name);
         if (!car) {
             toast.error("Please select the car.");
+            setSelectedCar(null);
             return;
         }
 
@@ -113,8 +114,8 @@ export default function SelectCars({ bookingData }) {
                     title === "round-trip"
                         ? Number(distance) * 2 + 30
                         : title === "multi-city"
-                        ? Number(distance) + 40
-                        : Number(distance) + 20;
+                            ? Number(distance) + 40
+                            : Number(distance) + 20;
 
                 const bookingPrice = Math.round(car.perKm * totalDistance);
 
@@ -151,8 +152,11 @@ export default function SelectCars({ bookingData }) {
                                     <h5>Booking Price</h5>
                                 </div>
                             </div>
-                            <button className={styles.selectBtn} onClick={() => handleSearch(car, bookingPrice, totalDistance)}>
-                                Select
+                            <button
+                                className={styles.selectBtn}
+                                disabled={selectedCar === car.name}
+                                onClick={() => handleSearch(car, bookingPrice, totalDistance)}>
+                                {selectedCar === car.name ? "Selected" : "Select"}
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { useClient } from "@/context/UserContext";
@@ -24,31 +24,35 @@ export default function RoundTripComponent() {
     const { user } = useClient();
     const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-        const handleSearch = async () => {
-            if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
-                toast.error("Please fill in all fields before proceeding.");
-                return;
-            }
-    
-            const date = formatTimestamp(formData.startDate);
-            const time = formatTime(formData.time);
-    
-            const response = await fetch("/api/secure", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title: 'round-trip', from: formData.from, to: formData.destination, startDate: date, time: time
-                })
-            });
-    
-            const data = await response.json();
-            if (data.token) {
-                router.push(`/cabs/select-cabs`);
-            }
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
+            toast.error("Please fill in all fields before proceeding.");
+            setLoading(false);
+            return;
+        }
 
-            // router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
-        };
+        const date = formatTimestamp(formData.startDate);
+        const time = formatTime(formData.time);
+
+        const response = await fetch("/api/secure", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: 'round-trip', from: formData.from, to: formData.destination, startDate: date, time: time
+            })
+        });
+
+        const data = await response.json();
+        if (data.token) {
+            router.push(`/cabs/select-cabs`);
+        }
+
+        // router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
+    };
 
     const whyChooseUs = [
         {
@@ -193,9 +197,10 @@ export default function RoundTripComponent() {
                         {formData.error && <p className='errorMsg'>{formData.error}</p>}
                         <button
                             onClick={handleSearch}
-                            className={`${formData.loading ? 'loadingButton' : styles.searchButton}`}
+                            disabled={loading}
+                            className={styles.searchButton}
                         >
-                            EXPLORE CABS
+                            {loading ? <span className='loadingDots'>Waiting Cabs </span> : "EXPLORE CABS"}
                         </button>
                     </div>
 
