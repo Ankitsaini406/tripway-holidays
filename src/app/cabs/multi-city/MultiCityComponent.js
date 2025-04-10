@@ -32,6 +32,11 @@ export default function MultiCityComponent() {
             return;
         }
 
+        if (tags.length < 2) {
+            toast.error("Please select at least two destinations.");
+            return;
+        }
+
         const date = formatTimestamp(formData.startDate);
         const time = formatTime(formData.time);
 

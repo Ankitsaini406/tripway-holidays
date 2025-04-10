@@ -73,26 +73,6 @@ export async function getTotalDistance(places) {
             let totalDistanceInKilometers = totalDistanceInMeters / 1000;
             totalDistance += totalDistanceInKilometers;
         }
-
-        // Now calculate the distance from the last destination back to the first one
-        const lastToFirstFrom = encodeURIComponent(places[places.length - 1]);
-        const lastToFirstTo = convertToPipeSeparated(places[0]);
-
-        const lastToFirstRes = await fetch(`${apiPoint}/api/google/distances?origin=${lastToFirstFrom}&destination=${lastToFirstTo}`, {
-            cache: "no-store",
-        });
-
-        if (!lastToFirstRes.ok) throw new Error(`Failed to fetch distance from ${places[places.length - 1]} to ${places[0]}`);
-
-        const lastToFirstData = await lastToFirstRes.json();
-
-        let lastToFirstDistanceInMeters = 0;
-        lastToFirstData.rows[0].elements.forEach((element) => {
-            lastToFirstDistanceInMeters += element.distance.value;
-        });
-
-        let lastToFirstDistanceInKilometers = lastToFirstDistanceInMeters / 1000;
-        totalDistance += lastToFirstDistanceInKilometers;
         return `${totalDistance.toFixed(2)}`;
 
     } catch (error) {

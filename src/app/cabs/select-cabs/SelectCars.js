@@ -21,8 +21,6 @@ export default function SelectCars({ bookingData, distance }) {
 
     const [selectedCar, setSelectedCar] = useState(null);
 
-    console.log(`This is distance : `, distance);
-
     useEffect(() => {
         if (!title || !from || !to) {
             router.back();
