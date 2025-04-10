@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { PiCertificateLight } from "react-icons/pi";
@@ -9,17 +9,19 @@ import styles from "@/styles/pages/selectCabs.module.css";
 import { toast } from "react-toastify";
 import Breadcrumbs from "@/utils/Breadcrumbs";
 
-export default function SelectCars({ initialDistance }) {
+export default function SelectCars({ bookingData, distance }) {
     const router = useRouter();
-    const searchParams = useSearchParams();
 
-    const title = searchParams.get("title");
-    const from = searchParams.get("from");
-    const to = searchParams.get("to");
-    const startDate = searchParams.get("startDate");
-    const time = searchParams.get("time");
+    const title = bookingData.title;
+    const from = bookingData.from;
+    const to = bookingData.to;
+    const startDate = bookingData.startDate;
+    const time = bookingData.time;
+    const initialDistance = distance;
 
     const [selectedCar, setSelectedCar] = useState(null);
+
+    console.log(`This is distance : `, distance);
 
     useEffect(() => {
         if (!title || !from || !to) {
@@ -27,7 +29,7 @@ export default function SelectCars({ initialDistance }) {
         }
     }, [title, from, to, startDate, router]);
 
-    const handleSearch = (car, bookingPrice, totalDistance) => {
+    const handleSearch = async (car, bookingPrice, totalDistance) => {
         setSelectedCar(car);
         if (!car) {
             toast.error("Please select the car.");
@@ -35,8 +37,22 @@ export default function SelectCars({ initialDistance }) {
         }
 
         const formattedTotalDistance = totalDistance.toFixed(2);
-        const url = `/cabs/select-cabs/booking-from?title=${title}&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}&amount=${encodeURIComponent(bookingPrice)}&distance=${encodeURIComponent(formattedTotalDistance)}`;
-        router.push(url);
+
+        const response = await fetch("/api/secure", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: title, from: from, to: to, startDate: startDate, time: time, selectedCar: car.name, amount: bookingPrice, distance: formattedTotalDistance,
+            })
+        });
+
+        const data = await response.json();
+        if (data.token) {
+            router.push(`/cabs/select-cabs/booking-from`);
+        }
+
+        // const url = `/cabs/select-cabs/booking-from?title=${title}&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}&amount=${encodeURIComponent(bookingPrice)}&distance=${encodeURIComponent(formattedTotalDistance)}`;
+        // router.push(url);
     };
 
     const oneWay = [
@@ -71,7 +87,7 @@ export default function SelectCars({ initialDistance }) {
         <div className="layout">
             <Breadcrumbs title={title} />
             {cars.map((car, index) => {
-                const totalDistance = title === "round-trip" ? (Number(initialDistance) * 2) + 30 : Number(initialDistance) + 20;
+                const totalDistance = title === "round-trip" ? (Number(initialDistance) * 2) + 30 : title === "multi-city" ? (Number(initialDistance)) + 40 : Number(initialDistance) + 20;
                 const bookingPrice = Math.round(car.perKm * totalDistance);
 
                 return (

@@ -25,7 +25,7 @@ export default function OneWayComponent() {
     const { formData, fromOptions, toOptions, setFormData, handleChange } = useCabSearchForm(user);
     const router = useRouter();
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (!formData.from || !formData.to || !formData.startDate || !formData.time) {
             toast.error("Please fill in all fields before proceeding.");
             return;
@@ -34,7 +34,20 @@ export default function OneWayComponent() {
         const date = formatTimestamp(formData.startDate);
         const time = formatTime(formData.time);
 
-        router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
+        const response = await fetch("/api/secure", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: 'one-way', from: formData.from, to: formData.to, startDate: date, time: time
+            })
+        });
+
+        const data = await response.json();
+        if (data.token) {
+            router.push(`/cabs/select-cabs`);
+        }
+
+        // router.push(`/cabs/select-cabs?title=one-way&from=${formData.from}&to=${formData.to}&startDate=${date}&time=${time}`);
     };
 
     const whyChooseUs = [

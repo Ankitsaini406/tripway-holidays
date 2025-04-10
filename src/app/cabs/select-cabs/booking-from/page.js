@@ -1,10 +1,13 @@
 import BookingFrom from "./BookingFrom";
-import { Suspense } from "react";
+import { cookies } from "next/headers";
+import { decodeToken } from "@/utils/Utils";
 
 export default async function Page() {
-    return (
-        <Suspense fallback={<p>Loading...</p>}>
-            <BookingFrom />
-        </Suspense>
-    );
+
+        const cookieStore = await cookies();
+        const bookingID = cookieStore.get("bookingToken")?.value || "";
+    
+        const data = decodeToken(bookingID);
+
+    return <BookingFrom bookingData={data.body} />
 }

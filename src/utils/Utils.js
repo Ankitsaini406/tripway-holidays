@@ -3,9 +3,13 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, get, set } from "firebase/database";
 import { toast } from "react-toastify";
 import { sendWhatsAppMessage } from "./apiUtils";
+import jwt from "jsonwebtoken";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 const apiKey = process.env.AI_SENSY;
+
+const SECRET_KEY = process.env.JWT_BOOKING_SECRET_KEY;
+
 export const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
 
 function generateCouponCode(role) {
@@ -171,3 +175,34 @@ export function ContactDetails({ type, name, value, handleChange, className, pla
         />
     );
 }
+
+export const createToken = (payload) => {
+    if (!SECRET_KEY) {
+        console.error("❌ ERROR: JWT_SECRET is missing in .env file");
+    }
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' });
+};
+
+export const verifyToken = (token) => {
+    try {
+        return jwt.verify(token, SECRET_KEY);
+    } catch (error) {
+        console.error("Token verification failed:", error);
+        throw new Error("Invalid or expired token");
+    }
+};
+
+export const decodeToken = (token) => {
+    try {
+        const decoded =  jwt.decode(token);
+
+        if (typeof decoded === "string") {
+            return null;
+        }
+
+        return decoded;
+    } catch (error) {
+        console.error("Token decoding failed:", error);
+        return null;
+    }
+};

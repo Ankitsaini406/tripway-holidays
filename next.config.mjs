@@ -37,6 +37,7 @@ const nextConfig = {
         FIREBASE_MEASUREMENT_ID: process.env.NEXT_FIREBASE_MEASUREMENT_ID,
         GOOGLE_MAP_API: process.env.NEXT_APP_GOOGLE_MAP_API,
         JWT_SECRET_KEY: process.env.NEXT_APP_JWT_SECRET_KEY,
+        JWT_BOOKING_SECRET_KEY: process.env.NEXT_APP_JWT_BOOKING_SECRET_KEY,
         AI_SENSY: process.env.NEXT_APP_AI_SENSY,
     },
 

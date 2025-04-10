@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { checkUserExistence, generateAndStoreCouponCode } from "@/utils/Utils";
 import { addDoc, collection } from "firebase/firestore";
@@ -10,18 +10,17 @@ import { database, firestore } from "@/firebase/firebaseConfig";
 import { findAgentByAgentCode } from "@/utils/findAgent";
 import { initiateRazorpayPayment, sendWhatsAppMessage } from "@/utils/apiUtils";
 
-export default function useBookingForm(user) {
+export default function useBookingForm(user, bookingData) {
     const router = useRouter();
-    const searchParams = useSearchParams();
 
-    const title = searchParams.get("title");
-    const from = searchParams.get("from");
-    const to = searchParams.get("to");
-    const startDate = searchParams.get("startDate");
-    const time = searchParams.get("time");
-    const selectedCar = searchParams.get("selectedCar");
-    const amount = searchParams.get("amount");
-    const distance = searchParams.get("distance");
+    const title = bookingData.title;
+    const from = bookingData.from;
+    const to = bookingData.to;
+    const startDate = bookingData.startDate;
+    const time = bookingData.time;
+    const selectedCar = bookingData.selectedCar;
+    const amount = bookingData.amount;
+    const distance = bookingData.distance;
 
     const [formData, setFormData] = useState({
         name: "",

@@ -1,21 +1,32 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(req) {
-    const url = new URL(req.url);
-    const from = url.searchParams.get("from");
-    const to = url.searchParams.get("to");
+export function middleware(request) {
+    const { pathname } = request.nextUrl; // ✅ Correctly accessing pathname
 
-    // Attach query params to headers
-    const requestHeaders = new Headers(req.headers);
-    requestHeaders.set("x-from", from);
-    requestHeaders.set("x-to", to);
+    if (pathname === "/") {
+        console.log("Skipping middleware for login page.");
+        return NextResponse.next();
+    }
 
-    return NextResponse.next({
-        request: { headers: requestHeaders },
-    });
+    // ✅ Correctly access cookies using `request.cookies`
+    const cookie = request.cookies.get("bookingToken")?.value;
+
+    // If there's no authToken, redirect to login
+    if (!cookie) {
+        console.log("No auth token found. Redirecting to login.");
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    // ✅ Correctly check multiple route conditions
+    if (pathname.startsWith("/select-cabs") || pathname.startsWith("/booking-success")) {
+        console.log("Unauthorized access detected. Redirecting.");
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    return NextResponse.next();
 }
 
-// Apply middleware to specific routes (e.g., `/cabs/select-cabs`)
+// ✅ Apply middleware only to specific paths
 export const config = {
-    matcher: "/cabs/select-cabs",
+    matcher: ["/select-cabs/:path*", "/booking-success/:path*"],
 };

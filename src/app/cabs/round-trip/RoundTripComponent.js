@@ -25,17 +25,30 @@ export default function RoundTripComponent() {
     const { formData, fromOptions, setFormData, handleChange } = useCabSearchForm(user);
     const router = useRouter();
 
-    const handleSearch = () => {
-        if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
-            toast.error("Please fill in all fields before proceeding.");
-            return;
-        }
+        const handleSearch = async () => {
+            if (!formData.from || !formData.destination || !formData.startDate || !formData.time) {
+                toast.error("Please fill in all fields before proceeding.");
+                return;
+            }
+    
+            const date = formatTimestamp(formData.startDate);
+            const time = formatTime(formData.time);
+    
+            const response = await fetch("/api/secure", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title: 'round-trip', from: formData.from, to: formData.destination, startDate: date, time: time
+                })
+            });
+    
+            const data = await response.json();
+            if (data.token) {
+                router.push(`/cabs/select-cabs`);
+            }
 
-        const date = formatTimestamp(formData.startDate);
-        const time = formatTime(formData.time);
-
-        router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
-    };
+            // router.push(`/cabs/select-cabs?title=round-trip&from=${formData.from}&to=${formData.destination}&startDate=${date}&time=${time}`);
+        };
 
     const whyChooseUs = [
         {

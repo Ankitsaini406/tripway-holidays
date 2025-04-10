@@ -1,15 +1,23 @@
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import SelectCars from "./SelectCars";
-import { getDistance } from "@/app/action/getDistance";
+import { decodeToken } from "@/utils/Utils";
+import { getDistance, getTotalDistance } from "@/app/action/getDistance";
 
 export default async function Page() {
-    // Await headers()
-    const headersList = await headers();
-    const from = headersList.get("x-from") || "";
-    const to = headersList.get("x-to") || "";
+    const cookieStore = await cookies();
+    const bookingID = cookieStore.get("bookingToken")?.value || "";
 
-    // Fetch distance on the server
-    const distance = from && to ? await getDistance(from, to) : null;
+    const data = decodeToken(bookingID);
 
-    return <SelectCars initialDistance={distance} />;
+    let place = [];
+
+    if (data.body.title === 'multi-city') {
+        place = [data.body.from, data.body.to];
+    }
+
+    const distance = data.body.title === 'multi-city' 
+        ? await getTotalDistance(place) 
+        : await getDistance(data.body.from, data.body.to);
+
+    return <SelectCars bookingData={data.body} distance={distance} />;
 }

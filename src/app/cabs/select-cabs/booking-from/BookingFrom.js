@@ -7,9 +7,9 @@ import useBookingForm from "@/hook/useBookingForm";
 import OtpVerification from "@/utils/otpVeriification";
 import styles from "@/styles/pages/selectCabs.module.css";
 
-export default function BookingFrom() {
+export default function BookingFrom({ bookingData }) {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, amount, totalAmount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user);
+    const { title, from, to, startDate, time, selectedCar, amount, totalAmount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user, bookingData);
 
     return (
         <div className="layout">
@@ -245,7 +245,7 @@ export default function BookingFrom() {
                                         </>
                                     ) : title === "round-trip" ? (
                                         <>
-                                            <li>Your Trip has a KM limit and in case of certain special packages may even contain Hours limit. If your usage exceeds these limits, you will be charged for the excess KM used (and/or hour if applicable).</li>
+                                            <li>Your Trip has <span className={styles.highlight}>{distance}</span> KM limit and in case of certain special packages may even contain Hours limit. If your usage exceeds these limits, you will be charged for the excess KM used (and/or hour if applicable).</li>
                                             <li>The Airport entry charge, if applicable, is not included in the fare and will be charged extra.</li>
                                             <li>All road toll fees, parking charges, state taxes etc. are charged extra and need to be paid to the concerned authorities as per actuals.</li>
                                             <li>For driving between 09:45 PM to 06:00 AM on any of the nights, an additional allowance will be applicable and is to be paid to the driver.</li>
@@ -254,7 +254,7 @@ export default function BookingFrom() {
                                         </>
                                     ) : (
                                         <>
-                                            <li>Your trip has a KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
+                                            <li>Your trip has <span className={styles.highlight}>{distance}</span> KM limit. If your usage exceeds this limit, you will be charged for the excess Km used.</li>
                                             <li>Your trip includes one pick up in Pick-up city and one drop to destination city. It does not include within city travel.</li>
                                             <li>If your Trip has Hill climbs, cab AC may be switched off during such climbs.</li>
                                         </>
