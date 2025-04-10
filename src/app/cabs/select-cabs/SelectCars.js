@@ -8,10 +8,9 @@ import { IoNewspaperOutline } from "react-icons/io5";
 import styles from "@/styles/pages/selectCabs.module.css";
 import { toast } from "react-toastify";
 import Breadcrumbs from "@/utils/Breadcrumbs";
-import { getDistance, getTotalDistance } from "@/app/action/getDistance";
 import Loading from "@/app/loading";
 
-export default function SelectCars({ bookingData }) {
+export default function SelectCars({ bookingData, distance }) {
     const router = useRouter();
 
     const title = bookingData.title;
@@ -19,33 +18,15 @@ export default function SelectCars({ bookingData }) {
     const to = bookingData.to;
     const startDate = bookingData.startDate;
     const time = bookingData.time;
+    const initialDistance = distance;
 
-    const [distance, setDistance] = useState(null);
     const [selectedCar, setSelectedCar] = useState(null);
 
-    // Fetch distance on the client side
     useEffect(() => {
         if (!title || !from || !to) {
             router.back();
-            return;
         }
-
-        const fetchDistance = async () => {
-            let computedDistance;
-            if (title === "multi-city") {
-                computedDistance = await getTotalDistance([from, ...to]); // Spread `to` as it's an array
-            } else {
-                computedDistance = await getDistance(from, to);
-            }
-            setDistance(computedDistance);
-        };
-
-        fetchDistance();
     }, [title, from, to, router]);
-
-    if (distance === null) {
-        return <Loading />
-    }
 
     const handleSearch = async (car, bookingPrice, totalDistance) => {
         setSelectedCar(car.name);
@@ -61,22 +42,22 @@ export default function SelectCars({ bookingData }) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: title,
-                from: from,
-                to: to,
-                startDate: startDate,
-                time: time,
-                selectedCar: car.name,
-                amount: bookingPrice,
-                distance: formattedTotalDistance,
-            }),
+                title: title, from: from, to: to, startDate: startDate, time: time, selectedCar: car.name, amount: bookingPrice, distance: formattedTotalDistance,
+            })
         });
 
         const data = await response.json();
         if (data.token) {
             router.push(`/cabs/select-cabs/booking-from`);
         }
+
+        // const url = `/cabs/select-cabs/booking-from?title=${title}&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}&amount=${encodeURIComponent(bookingPrice)}&distance=${encodeURIComponent(formattedTotalDistance)}`;
+        // router.push(url);
     };
+
+    if (initialDistance === null) {
+        return <Loading />
+    }
 
     const oneWay = [
         { name: "Swift", image: "/cab/swift.webp", perKm: 13, minPrice: 500 },
@@ -110,13 +91,7 @@ export default function SelectCars({ bookingData }) {
         <div className="layout">
             <Breadcrumbs title={title} />
             {cars.map((car, index) => {
-                const totalDistance =
-                    title === "round-trip"
-                        ? Number(distance) * 2 + 30
-                        : title === "multi-city"
-                            ? Number(distance) + 40
-                            : Number(distance) + 20;
-
+                const totalDistance = title === "round-trip" ? (Number(initialDistance) * 2) + 30 : title === "multi-city" ? (Number(initialDistance)) + 40 : Number(initialDistance) + 20;
                 const bookingPrice = Math.round(car.perKm * totalDistance);
 
                 return (

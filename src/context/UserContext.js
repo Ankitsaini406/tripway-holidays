@@ -22,8 +22,6 @@ export const UserProvider = (props) => {
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
     const aisensy = process.env.AI_SENSY;
 
-    console.log(`This is user : `, user);
-
     useEffect(() => {
         const savedToken = getCookie('token');
         if (savedToken) {

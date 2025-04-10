@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import SelectCars from "./SelectCars";
 import { decodeToken } from "@/utils/Utils";
-// import { getDistance, getTotalDistance } from "@/app/action/getDistance";
+import { getDistance, getTotalDistance } from "@/app/action/getDistance";
 
 export default async function Page() {
     const cookieStore = await cookies();
@@ -9,15 +9,15 @@ export default async function Page() {
 
     const data = decodeToken(bookingID);
 
-    // let place = [];
+    let place = [];
 
-    // if (data.body.title === 'multi-city') {
-    //     place = [data.body.from, data.body.to];
-    // }
+    if (data.body.title === 'multi-city') {
+        place = [data.body.from, data.body.to];
+    }
 
-    // const distance = data.body.title === 'multi-city' 
-    //     ? await getTotalDistance(place) 
-    //     : await getDistance(data.body.from, data.body.to);
+    const distance = data.body.title === 'multi-city' 
+        ? await getTotalDistance(place) 
+        : await getDistance(data.body.from, data.body.to);
 
-    return <SelectCars bookingData={data.body} />;
+    return <SelectCars bookingData={data.body} distance={distance} />;
 }
