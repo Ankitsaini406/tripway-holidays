@@ -1,12 +1,35 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/components/footer.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
+import Loading from '@/app/loading';
 
 function Footer() {
 
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handleNavigation = (e, href) => {
+        e.preventDefault();
+        setLoading(true);
+            router.push(href);
+    };
+
+        useEffect(() => {
+            setLoading(false)
+        }, [pathname]);
+
     return (
         <div className={styles.mainFooter}>
+            {loading && (
+                <div className={styles.loadingOverlay}>
+                    <Loading />
+                </div>
+            )}
             {/* <div className={styles.imageContainer}> */}
             {/* <Image
                     src='/footer.webp'
@@ -67,38 +90,36 @@ function Footer() {
                     <div className={styles.footerFlex}>
                         <h3>Services</h3>
                         <ul className={styles.footerFlexList}>
-                            {/* <li><Link rel="preload" className={styles.lnkTag} href='/'>Home</Link></li> */}
-                            <li><Link rel="preload" className={styles.lnkTag} href='/blog'>Blog</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/group-tour'>Group Tours</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/one-way'>One Way</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/round-trip'>Round Trip</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/cabs/multi-city'>Multi City</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/blog" onClick={(e) => handleNavigation(e, "/blog")}>Blog</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/group-tour" onClick={(e) => handleNavigation(e, "/group-tour")}>Group Tours</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/cabs/one-way" onClick={(e) => handleNavigation(e, "/cabs/one-way")}>One Way</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/cabs/round-trip" onClick={(e) => handleNavigation(e, "/cabs/round-trip")}>Round Trip</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/cabs/multi-city" onClick={(e) => handleNavigation(e, "/cabs/multi-city")}>Multi City</Link></li>
                         </ul>
                     </div>
 
                     <div className={styles.footerFlex}>
                         <h3>Support</h3>
                         <ul className={styles.footerFlexList}>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/privacy-policy'>Pricay policy</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/terms-and-condition'>Trems & Condition</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href="/about-us" >About Us</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/contact-us'>Contact Us</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/return-policy'>Return Policy</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/privacy-policy" onClick={(e) => handleNavigation(e, "/privacy-policy")}>Privacy Policy</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/terms-and-condition" onClick={(e) => handleNavigation(e, "/terms-and-condition")}>Terms & Conditions</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/about-us" onClick={(e) => handleNavigation(e, "/about-us")}>About Us</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/contact-us" onClick={(e) => handleNavigation(e, "/contact-us")}>Contact Us</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/return-policy" onClick={(e) => handleNavigation(e, "/return-policy")}>Return Policy</Link></li>
                         </ul>
                     </div>
 
                     <div className={styles.footerFlex}>
                         <h3>Links</h3>
                         <ul className={styles.footerFlexList}>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/user/login'>Login</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/user/signup'>Sign Up</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href='/auth/agent/login'>Patner Login</Link></li>
-                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/driver/login" >Driver Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/user/login" onClick={(e) => handleNavigation(e, "/auth/user/login")}>Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/user/signup" onClick={(e) => handleNavigation(e, "/auth/user/signup")}>Sign Up</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/agent/login" onClick={(e) => handleNavigation(e, "/auth/agent/login")}>Partner Login</Link></li>
+                            <li><Link rel="preload" className={styles.lnkTag} href="/auth/driver/login" onClick={(e) => handleNavigation(e, "/auth/driver/login")}>Driver Login</Link></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            {/* </div> */}
         </div>
     );
 }

@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
-import Header from "../components/header";
+import Header from "../components/layout/header";
 import { usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
-const Footer = dynamic(() => import("@/components/footer"));
+const Footer = dynamic(() => import("@/components/layout/footer"));
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
