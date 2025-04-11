@@ -137,6 +137,11 @@
     font-size: smaller;
 }
 
+.grayscale {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
 .blogSingleDate {
     font-size: medium;
 }

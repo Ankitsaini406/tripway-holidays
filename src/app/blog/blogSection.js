@@ -15,10 +15,11 @@ function BlogSection({ blogData, allImages }) {
     const { selectedFilters, filterData, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedBlog, setSelectedBlog] = useState(null); // Track selected blog
 
     useEffect(() => {
         if (blogData?.length > 0) {
-            setIsLoading(false); // Stop loading once data is available
+            setIsLoading(false);
             const filtered = filterData(blogData);
             setFilteredItems(filtered);
             reset(filtered);
@@ -46,7 +47,13 @@ function BlogSection({ blogData, allImages }) {
                             hasMore={visibleItems.length < filterData(blogData).length}
                         >
                             {visibleItems.map((item) => (
-                                <BlogCard key={item.id} item={item} allImages={allImages}></BlogCard>
+                                <BlogCard 
+                                    key={item.id} 
+                                    item={item} 
+                                    allImages={allImages} 
+                                    selectedBlog={selectedBlog}
+                                    setSelectedBlog={setSelectedBlog}
+                                />
                             ))}
                         </InfiniteScroll>
                     )}
@@ -56,21 +63,25 @@ function BlogSection({ blogData, allImages }) {
     );
 }
 
-function BlogCard({ item, allImages }) {
-
+function BlogCard({ item, allImages, selectedBlog, setSelectedBlog }) {
     const imageData = allImages.find((image) => image.url.includes(item.image)) || {
         url: `/slider/${item.image}`,
         placeholder: null,
     };
 
+    const isSelected = selectedBlog === item.id;
+    const isOtherSelected = selectedBlog && selectedBlog !== item.id;
+
     return (
-        <Link href={`/blog/${item.slug}`} >
-            <div className={styles.mainblog}>
+        <Link href={`/blog/${item.slug}`} onClick={() => setSelectedBlog(item.id)}>
+            <div 
+                className={`${styles.mainblog} ${isOtherSelected ? styles.grayscale : ''}`} 
+                style={{ opacity: isSelected ? 0.5 : 1 }}
+            >
                 <div className={styles.blogImgBox}>
                     <Image
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className={styles.blogImg}
-                        data-src={imageData.url}
+                        className={`${styles.blogImg} ${isOtherSelected ? styles.grayscale : ''}`}
                         src={imageData.url}
                         alt={item.title}
                         placeholder="blur"
@@ -91,7 +102,7 @@ function BlogCard({ item, allImages }) {
                 </div>
             </div>
         </Link>
-    )
+    );
 }
 
 export default BlogSection;

@@ -29,7 +29,7 @@ export const metadata = {
     },
 };
 
-const PrivacyPolicy = () => {
+export default async function PrivacyPolicy() {
     return (
         <div
             className={styles.mainWidth}
@@ -536,5 +536,3 @@ const PrivacyPolicy = () => {
         </div>
     );
 };
-
-export default PrivacyPolicy;

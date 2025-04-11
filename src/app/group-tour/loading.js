@@ -3,6 +3,8 @@ import './loading.css';
 export default function Loading() {
 
     return (
+        <>
+        <div className='loadingBanner'></div>
         <div className="lodingbox">
             <div className="lodingdiv">
                 <div className='flexLoading'>
@@ -35,5 +37,6 @@ export default function Loading() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

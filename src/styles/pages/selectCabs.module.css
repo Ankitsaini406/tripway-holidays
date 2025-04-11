@@ -131,6 +131,9 @@
 }
 
 .bookingDetails {
+    position: sticky;
+    top: 4em;
+    height: max-content;
     display: flex;
     flex-direction: column;
     width: 100%;

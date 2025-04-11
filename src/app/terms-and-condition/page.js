@@ -31,7 +31,7 @@ export const metadata = {
     },
 };
 
-function TermsAndCondition() {
+export default async function TermsAndCondition() {
     return (
         <div className={styles.mainWidth}>
             <div>
@@ -454,5 +454,3 @@ function TermsAndCondition() {
         </div>
     );
 }
-
-export default TermsAndCondition;

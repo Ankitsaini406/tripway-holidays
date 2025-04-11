@@ -1,7 +1,16 @@
+.loadingBanner {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(90deg, var(--white-color) 0%, var(--gray-flash) 50%, var(--white-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmering 1.5s linear infinite;
+}
+
 .lodingbox{
     display: flex;
     flex-direction: row;
     gap: 1em;
+    margin-top: 5rem;
 }
 
 .lodingdiv{

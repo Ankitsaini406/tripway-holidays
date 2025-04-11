@@ -29,7 +29,7 @@ export const metadata = {
     },
 };
 
-function AboutPage() {
+export default async function AboutPage() {
 
     return (
         <div className={styles.mainWidth}>
@@ -83,5 +83,3 @@ function AboutPage() {
         </div>
     );
 }
-
-export default AboutPage;

@@ -28,7 +28,7 @@ export const metadata = {
     },
 };
 
-function ReturnPolicy() {
+export default async function ReturnPolicy() {
     return (
         <div className={styles.mainWidth}>
             <h1 className={styles.h1Tag}>Return and Cancellation Policy</h1>
@@ -72,5 +72,3 @@ function ReturnPolicy() {
         </div>
     )
 }
-
-export default ReturnPolicy;

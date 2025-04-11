@@ -187,8 +187,17 @@ export default function BookingFrom({ bookingData }) {
                                 <h4 className={styles.bookingDetailsText}>
                                     <span className={styles.bookingDetailsLabel}>GST (5%):</span> + ₹ {Math.round(amount * 0.05)}
                                 </h4>
+                                {(() => {
+                                    const hour = parseInt(time.split(':')[0], 10);
+                                    const isNightChargeApplicable = hour >= 22 || hour < 6;
+                                    return isNightChargeApplicable ? (
+                                        <h4 className={styles.bookingDetailsText}>
+                                            <span className={styles.bookingDetailsLabel}>Night Charges:</span> + ₹ 200
+                                        </h4>
+                                    ) : null;
+                                })()}
                                 <h4 className={styles.bookingDetailsTotal}>
-                                    <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹ {Math.round(amount * 1.05)}
+                                    <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹ {Math.round(amount * 1.05) + ((parseInt(time.split(':')[0], 10) >= 22 || parseInt(time.split(':')[0], 10) < 6) ? 200 : 0)}
                                 </h4>
                             </div>
                         </div>
@@ -232,6 +241,7 @@ export default function BookingFrom({ bookingData }) {
                                 <div className={styles.inExboxes}>
                                     <ul className={styles.listGroup}>
                                         {title === "round-trip" || title === "multi-city" ? <li>Parking</li> : null}
+                                        <li>Night Charges (10:00 PM to 6:00 AM)</li>
                                     </ul>
                                 </div>
                             )}

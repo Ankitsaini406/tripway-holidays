@@ -29,6 +29,6 @@ export const metadata = {
 
 import ContactUs from "./contactUs";
 
-export default function Page() {
+export default async function Page() {
     return <ContactUs />;
 }
