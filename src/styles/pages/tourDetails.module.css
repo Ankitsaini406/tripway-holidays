@@ -1,5 +1,6 @@
 .tourBox {
     display: flex;
+    padding: 2em 0 0 0;
     gap: 2em;
 }
 
@@ -12,7 +13,7 @@
 
 .bookingFrom {
     position: sticky;
-    top: 5em;
+    top: 2em;
     width: 100%;
     text-align: center;
     padding: 1em;

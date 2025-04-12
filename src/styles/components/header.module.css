@@ -3,12 +3,15 @@
     position: fixed;
     z-index: 999;
     height: 55px;
+    transition: transform 0.3s ease-in-out;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
+.navbar.hide {
+    transform: translateY(-100%);
+}
+
 .header {
-    position: fixed;
-    top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;

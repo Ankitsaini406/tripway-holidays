@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
-import AdvancedSearchBar from "../advanceserch";
 import styles from "@/styles/components/hero.module.css";
 
 const Video = () => {
