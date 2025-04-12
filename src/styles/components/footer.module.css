@@ -6,19 +6,6 @@
     background-color: var(--black-color);
 }
 
-/* Container to place the image with text */
-/* .imageContainer {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-} */
-
-/* .imageContainer img {
-    height: 100%; 
-    object-fit: cover;
-} */
-
 .logo {
     height: 50% !important;
     width: 50%;

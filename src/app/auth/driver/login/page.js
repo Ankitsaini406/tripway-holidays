@@ -2,7 +2,7 @@ import DriverLoginPage from "./Driverlogin";
 
 export const metadata = {
     title: "Driver Login",
-    description: "Log in to your Tripway Holidays agent account. Manage bookings, access client details, and explore exclusive resources designed for agents.",
+    description: "Join Tripway Holidays as a driver and start earning with flexible rides. Register now to become a trusted travel partner and grow with India’s leading AI-powered travel platform.",
     keywords: [
         "Driver Login Tripway Holidays",
         "Driver Portal Login",
@@ -14,7 +14,7 @@ export const metadata = {
     ],
     openGraph: {
         title: "Driver Login",
-        description: "Access your Tripway Holidays agent account. Log in to manage client bookings, view travel packages, and leverage tools to enhance your services.",
+        description: "Join Tripway Holidays as a driver and start earning with flexible rides. Register now to become a trusted travel partner and grow with India’s leading AI-powered travel platform.",
         url: "https://tripwayholidays.in/auth/driver/login",
         type: "website",
         images: [

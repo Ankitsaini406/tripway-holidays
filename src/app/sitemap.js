@@ -94,10 +94,6 @@ export default async function sitemap() {
             url: `${apiPoint}auth/driver/signup`,
             lastModified: new Date().toISOString(),
         },
-        {
-            url: `${apiPoint}profile`,
-            lastModified: new Date().toISOString(),
-        },
     ];
 
     return [

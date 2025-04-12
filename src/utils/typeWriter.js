@@ -45,7 +45,7 @@ const TypeWriterLoop = ({ messages, duration = 5 }) => {
 
             return () => tl.kill(); // Cleanup on component unmount
         }
-    }, [currentIndex]);
+    }, [currentIndex, duration]);
 
     useEffect(() => {
         // Update the current index at regular intervals
