@@ -19,7 +19,7 @@ const useTourUserData = () => {
     const apiPoint = process.env.NODE_ENV === "development" ? localApi : productionApi;
 
     const validateUserData = (data) => {
-        if (!data.name || !data.countryCode || !data.phoneNumber || !data.email || !data.from) {
+        if (!data.userName || !data.userCounterCode || !data.userPhoneNumber || !data.userEmail || !data.userFrom) {
             toast.error("Please fill in all details before proceeding.");
             return false;
         }
@@ -39,13 +39,13 @@ const useTourUserData = () => {
             }
 
             // 2. **Check if User Exists**
-            const userExists = await checkUserExistence(`${data.countryCode}${data.phoneNumber}`, data);
+            const userExists = await checkUserExistence(`${data.userCounterCode}${data.userPhoneNumber}`, data);
             if (!userExists) {
                 toast.success("New user created and will be logged in.");
             }
 
             // 3. **Fetch User Data from Firebase**
-            const userRef = ref(database, `users/${data.countryCode}${data.phoneNumber}`);
+            const userRef = ref(database, `users/${data.userCounterCode}${data.userPhoneNumber}`);
             const snapshot = await get(userRef);
 
             if (!snapshot.exists()) {

@@ -161,7 +161,7 @@ export const TripDetails = ({ tour }) => {
 
 export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
 
-    const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
+    const [formData, setFormData] = useState({ userFrom: '', passenger: 1, userCounterCode: '', userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const { addTourData, loading, error, success } = useTourUserData();
     const [errors, setErrors] = useState({});
@@ -183,12 +183,20 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
         let validationErrors = {};
         if (!formData.userName) validationErrors.userName = "Name is required";
         if (!formData.userPhoneNumber) validationErrors.userPhoneNumber = "Phone Number is required";
+        if (!formData.userCounterCode) validationErrors.userCounterCode = "Countery Code is required";
         if (!formData.userEmail) validationErrors.userEmail = "Email is required";
         if (!isCheckboxChecked) validationErrors.checkbox = "You must agree to the terms and conditions";
         if (!formData.passenger || formData.passenger <= 0) validationErrors.passenger = "Number of passengers is required and must be greater than 0";
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
+            // Show each error in a toast
+            Object.values(validationErrors).forEach(msg => {
+                toast.error(msg, {
+                    draggable: true,
+                    closeOnClick: true,
+                });
+            });
             return;
         }
 
@@ -248,16 +256,28 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
                 }
                 <div className={style.formGroup}>
                     <label htmlFor="phonenumber">Phone Number</label>
-                    <input
-                        className={style.authInput}
-                        type="text" inputMode="numeric"
-                        pattern="[0-9]+"
-                        id="phoneNumber"
-                        value={formData.userPhoneNumber || ''}
-                        onChange={(e) => setFormData({ ...formData, userPhoneNumber: e.target.value })}
-                        placeholder={'Enter your Phone Number'}
-                        required
-                    />
+                    <div className={style.phoneFlex}>
+                        <input
+                        style={{ width: '100px' }}
+                            className={style.authInput}
+                            type="text"
+                            id="counterCode"
+                            value={formData.userCounterCode || ''}
+                            onChange={(e) => setFormData({ ...formData, userCounterCode: e.target.value })}
+                            placeholder={'Countery Code'}
+                            required
+                        />
+                        <input
+                            className={style.authInput}
+                            type="text" inputMode="numeric"
+                            pattern="[0-9]+"
+                            id="phoneNumber"
+                            value={formData.userPhoneNumber || ''}
+                            onChange={(e) => setFormData({ ...formData, userPhoneNumber: e.target.value })}
+                            placeholder={'Enter your Phone Number'}
+                            required
+                        />
+                    </div>
                 </div>
                 <div className={style.formGroup}>
                     <label htmlFor="email">Email</label>
@@ -307,7 +327,7 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
                                 onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
                             />
                         </div>
-                        <h4>By proceeding, you agree with our <a className='terms' href="/terms_and_condition" target="_blank">Terms and Condition</a> & <a className='privacy' href="/privacy_policy" target="_blank">Privacy Policy</a></h4>
+                        <h4>By proceeding, you agree with our <a className='terms' href="/terms-and-condition" target="_blank">Terms and Condition</a> & <a className='privacy' href="/privacy-policy" target="_blank">Privacy Policy</a></h4>
                     </label>
                 </div>
                 {errors.checkbox && <p className="errorMsg">{errors.checkbox}</p>}

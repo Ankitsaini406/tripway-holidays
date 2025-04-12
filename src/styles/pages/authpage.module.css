@@ -69,6 +69,11 @@
   text-align: left;
 }
 
+.phoneFlex {
+  display: flex;
+  gap: 1em;
+}
+
 .formGroup label {
   display: block;
   margin-bottom: 5px;
