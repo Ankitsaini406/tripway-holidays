@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "@/styles/pages/termsAndPrivacy.module.css";
+import Link from "next/link";
 
 // app/terms-and-conditions/page.js
 
@@ -259,8 +260,7 @@ export default async function TermsAndCondition() {
                 <h3 className={styles.h3Tag}>SECTION 10 - PERSONAL INFORMATION</h3>
                 <p>
                     Your submission of personal information through the store is governed
-                    by our Privacy Policy. To view our Privacy Policy, please see
-                    <a className={styles.aTag} href="/privacy-policy"> Click Here</a>
+                    by our Privacy Policy. To view our <Link className={styles.aTag} href="/privacy-policy">Privacy Policy</Link>.
                 </p>
 
                 <h3 className={styles.h3Tag}>
@@ -445,9 +445,9 @@ export default async function TermsAndCondition() {
                 <p>Our contact information is posted below: </p>
                 <p> Tripway Holidays</p>
                 <p>
-                    <a className={styles.aTag} href="mailto:tripwayholiday@gmail.com">
+                    <Link className={styles.aTag} href="mailto:tripwayholiday@gmail.com">
                         tripwayholiday@gmail.com
-                    </a>
+                    </Link>
                 </p>
                 <p>+91 8890906400</p>
             </div>

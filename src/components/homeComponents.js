@@ -19,7 +19,7 @@ export const TourSection = ({ id, title, description, imageSrc, blurDataURL, err
         <div className={styles.homeTour} id={id}>
             <div className={styles.homeTourFlex}>
                 <div className={styles.scrollRevel}>
-                    <h2><span>{title}</span></h2>
+                    <h3><span>{title}</span></h3>
                     <p><span>{description}</span></p>
                     <Link className='readMore' href={link}>{id === "groupTour" ? "Explore Tours": "Book Now"}</Link>
                 </div>

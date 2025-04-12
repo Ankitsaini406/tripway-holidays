@@ -96,11 +96,11 @@ export default async function Home() {
             <AnimatedHero imageUrl={imageUrl} />
 
             <div className={styles.hadingBox}>
-                <h1 className={styles.fixedText}>Lets Travel Together&nbsp;
+                <h2 className={styles.fixedText}>Lets Travel Together&nbsp;
                     <div className={styles.textBox}>
                         <TypeWriterLoop messages={messages} duration={3} />
                     </div>
-                </h1>
+                </h2>
             </div>
 
             <div className="layout">
