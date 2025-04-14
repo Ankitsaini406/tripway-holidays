@@ -11,6 +11,13 @@ import AnimatedHero from "@/components/slider/AnimatedHero";
 export const metadata = {
     title: "TripWay Holidays: Book One-way | Round Trip | Multi City | Group Tour",
     description: "Embark on a journey like never before with TripWay Holidays, your ultimate travel partner. Whether you're planning a one-way trip, a round-trip adventure, a multi-city exploration, or a memorable group tour, we have you covered. Discover the best tour packages tailored to your preferences. Experience seamless booking, personalized itineraries, and unmatched customer service. From picturesque landscapes to bustling cities, TripWay Holidays ensures that every journey is unforgettable. Book now and turn your travel dreams into reality.",
+    keywords: [
+        "Best Tours and Travels near me",
+        "Near by tours and travels",
+        "Any Travel agency near me",
+        "Nearest travel agency",
+        "Local travels near me",
+    ],
 };
 
 // ✅ Structured Data Definition
