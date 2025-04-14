@@ -82,12 +82,17 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                         <strong>{formatPrice(tourData.price)}</strong>
                                     )}
                                 </h4>
-                                <h4>
-                                    Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;<strong>{date5DaysBack}</strong>
-                                </h4>
-                                <h4>
-                                    Departure&nbsp;Date:&nbsp;<strong>{tourData.startDate}</strong>
-                                </h4>
+                                {
+                                    tourData.startDate === "" ? null :
+                                        <>
+                                            <h4>
+                                                Last&nbsp;date&nbsp;to&nbsp;Book:&nbsp;<strong>{date5DaysBack}</strong>
+                                            </h4>
+                                            <h4>
+                                                Departure&nbsp;Date:&nbsp;<strong>{tourData.startDate}</strong>
+                                            </h4>
+                                        </>
+                                }
                                 <h4>
                                     Pick&nbsp;Up&nbsp;Points:&nbsp;<strong>{tourData.pickuppoints}</strong>
                                 </h4>

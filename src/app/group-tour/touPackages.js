@@ -71,9 +71,7 @@ function TourPackages({ tourData, allImages }) {
                             hasMore={visibleItems.length < filterData(tourData).length}
                         >
                             {visibleItems.map((item) => (
-                                <div key={item.id}>
-                                    <TourCard item={item} allImages={allImages} route={route} />
-                                </div>
+                                    <TourCard key={item.id} item={item} allImages={allImages} route={route} />
                             ))}
                         </InfiniteScroll>
                         {/* )} */}
