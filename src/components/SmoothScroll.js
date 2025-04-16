@@ -2,10 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScrollLayout = ({ children }) => {
     const lenisRef = useRef(null);
@@ -25,19 +21,6 @@ const SmoothScrollLayout = ({ children }) => {
         }
 
         requestAnimationFrame(raf);
-
-        // Sync ScrollTrigger with Lenis
-        lenis.on('scroll', ScrollTrigger.update);
-        ScrollTrigger.scrollerProxy(document.body, {
-            scrollTop(value) {
-                return arguments.length ? lenis.scrollTo(value) : window.scrollY;
-            },
-            getBoundingClientRect() {
-                return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-            },
-        });
-
-        ScrollTrigger.defaults({ scroller: document.body });
 
         return () => {
             lenis.destroy();

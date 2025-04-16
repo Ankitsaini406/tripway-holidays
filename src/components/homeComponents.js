@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useInView } from "framer-motion";
 import { PiTrainLight } from "react-icons/pi";
 import { IoPricetagOutline } from "react-icons/io5";
 import { BiSolidOffer, BiSupport } from "react-icons/bi";
@@ -12,9 +10,24 @@ import Link from "next/link";
 
 export const TourSection = ({ id, index, title, description, link }) => {
     const isEven = index % 2 === 0;
+    const sectionRef = useRef();
+    const inView = useInView(sectionRef, { once: true });
+
+    const variants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    };
 
     return (
-        <div className={styles.homeTour} id={id} data-tour-section>
+        <motion.div
+            ref={sectionRef}
+            variants={variants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className={styles.homeTour}
+            id={id}
+            data-tour-section
+        >
             <div
                 className={styles.homeTourFlex}
                 style={{ flexDirection: isEven ? "row" : "row-reverse" }}
@@ -27,63 +40,37 @@ export const TourSection = ({ id, index, title, description, link }) => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
-gsap.registerPlugin(ScrollTrigger);
 export function TourSectionWrapper({ children }) {
-    const [containerWidth, setContainerWidth] = useState(0); // State to hold container width
-    const [containerHeight, setContainerHeight] = useState(0); // State to hold container height
-    const pathRef = useRef(null);
     const containerRef = useRef(null);
+    const pathRef = useRef(null);
+    const [path, setPath] = useState("");
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-    useEffect(() => {
-        // Handle resizing of container dynamically
-        const resizeObserver = new ResizeObserver(() => {
-            const container = containerRef.current;
-            if (container) {
-                setContainerWidth(container.offsetWidth);  // Update width
-                setContainerHeight(container.offsetHeight); // Update height
-            }
-        });
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start center", "end end"],
+    });
 
+    const generatePath = () => {
         const container = containerRef.current;
-        if (container) {
-            setContainerWidth(container.offsetWidth);
-            setContainerHeight(container.offsetHeight);
-            resizeObserver.observe(container);
-        }
-
-        return () => resizeObserver.disconnect(); // Cleanup on unmount
-    }, []);
-
-    useEffect(() => {
-        const path = pathRef.current;
-        const container = containerRef.current;
-        if (!path || !container) return;
+        if (!container) return;
 
         const sections = container.querySelectorAll("[data-tour-section]");
         const points = [];
-
-        // Ensure we have container size
-        const containerRect = container.getBoundingClientRect();
-        const containerWidth = containerRect.width;
+        const containerWidth = container.offsetWidth;
 
         sections.forEach((section, idx) => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-
-            // Alternating positions starting from the right
+            const y = section.offsetTop + section.offsetHeight / 2;
             const x = idx % 2 === 0 ? containerWidth : 0;
-            const y = sectionTop + sectionHeight / 2;
-
             points.push({ x, y });
         });
 
         if (points.length === 0) return;
 
-        // Build smooth path
         let d = `M ${points[0].x},${points[0].y}`;
         for (let i = 1; i < points.length; i++) {
             const prev = points[i - 1];
@@ -92,41 +79,52 @@ export function TourSectionWrapper({ children }) {
             d += ` C ${prev.x},${midY} ${curr.x},${midY} ${curr.x},${curr.y}`;
         }
 
-        path.setAttribute("d", d);
+        setPath(d);
+    };
 
-        const length = path.getTotalLength();
-        gsap.set(path, {
-            strokeDasharray: length,
-            strokeDashoffset: length,
+    useEffect(() => {
+        generatePath(); // initial generation
+
+        const resizeObserver = new ResizeObserver(() => {
+            const container = containerRef.current;
+            if (container) {
+                setDimensions({
+                    width: container.offsetWidth,
+                    height: container.scrollHeight,
+                });
+                generatePath();
+            }
         });
 
-        gsap.to(path, {
-            strokeDashoffset: 0,
-            scrollTrigger: {
-                trigger: container,
-                start: "top center",
-                end: "bottom end",
-                scrub: 1,
-            },
-        });
-    }, [containerWidth, containerHeight]); // Re-run when container size changes
+        if (containerRef.current) {
+            resizeObserver.observe(containerRef.current);
+        }
+
+        return () => resizeObserver.disconnect();
+    }, [children]);
 
     return (
-        <div className={styles.wrapper} ref={containerRef}>
+        <div ref={containerRef} className={styles.wrapper}>
             <svg
                 className={styles.curveSvg}
                 width="100%"
-                height="100%"
+                height={dimensions.height}
                 preserveAspectRatio="none"
-                viewBox={`0 0 ${containerWidth} ${containerHeight}`} // Dynamically set viewBox based on container size
+                viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
             >
-                <path
+                <motion.path
                     ref={pathRef}
+                    d={path}
                     fill="none"
                     stroke="#FF9933"
+                    strokeWidth="2"
                     strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    style={{ pathLength: scrollYProgress }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
                 />
             </svg>
+
             {children}
         </div>
     );
