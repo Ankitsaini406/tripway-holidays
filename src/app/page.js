@@ -4,7 +4,7 @@ import Script from "next/script";
 const TypeWriterLoop = dynamic(() => import("@/utils/typeWriter"));
 const Testimonials = dynamic(() => import("@/components/testimonials"));
 const DelayedComponent = dynamic(() => import("@/utils/DelayedComponent"));
-import { TourSection, WhyBookUs } from "@/components/homeComponents";
+import { TourSection, TourSectionWrapper, WhyBookUs } from "@/components/homeComponents";
 import styles from "./page.module.css";
 import AnimatedHero from "@/components/slider/AnimatedHero";
 
@@ -111,16 +111,18 @@ export default async function Home() {
             </div>
 
             <div className="layout">
-                {tourData.map((tour) => (
-                    <TourSection
-                        key={tour.id}
-                        id={tour.id}
-                        title={tour.title}
-                        description={tour.description}
-                        imageSrc={tour.imageSrc}
-                        link={tour.link}
-                    />
-                ))}
+                <TourSectionWrapper>
+                    {tourData.map((tour, index) => (
+                        <TourSection
+                            key={tour.id}
+                            index={index}
+                            id={tour.id}
+                            title={tour.title}
+                            description={tour.description}
+                            link={tour.link}
+                        />
+                    ))}
+                </TourSectionWrapper>
 
                 <DelayedComponent delay={1000} >
                     <WhyBookUs />

@@ -65,21 +65,28 @@
 }
 
 .homeTour {
+  position: relative;
+  overflow: hidden;
   width: 100%;
-  padding: 3em 0 3em 0;
-  margin: 2rem 0 0 0;
-  background-color: var(--grey-color);
+  /* padding: 3em 0 3em 0; */
+  /* margin: 0 0 2em 0; */
+  /* background-color: var(--grey-color); */
   border-radius: var(--border-radius);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
 }
 
-.homeTour:nth-child(even) {
+/* .homeTour:nth-child(even) {
   background-color: var(--white-color);
   box-shadow: 0px 0px 10px 0px var(--gray-flash);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+} */
+
+.scrollRevel {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  padding: 2em;
 }
 
-.scrollRevel span {
+/* .scrollRevel span {
   display: inline-block;
   transform: translateY(100%);
   opacity: 0;
@@ -95,9 +102,9 @@
   animation-range-start: cover 5vh;
   --webkit-animation-range-end: cover 20vh;
   animation-range-end: cover 20vh;
-}
+} */
 
-@keyframes scroll-reveal {
+/* @keyframes scroll-reveal {
   to {
     transform: translateY(0);
     opacity: 1;
@@ -111,18 +118,51 @@
     opacity: 1;
     -webkit-transition: transform 0.8s ease-out, opacity 1s ease-out;
   }
-}
+} */
 
 .homeTourFlex {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 0 3rem;
-  align-items: stretch;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* gap: 2rem; */
+  flex-wrap: wrap;
+  padding: 1em 2em;
 }
 
-.homeTour:nth-child(odd) .homeTourFlex>div:nth-child(2) {
-  order: -1;
+.scrollRevel {
+  max-width: 500px;
+  z-index: 2;
+}
+
+.floatingPath {
+  width: 100px;
+  height: auto;
+  overflow: visible;
+  /* margin-top: 2rem; */
+}
+
+.wrapper {
+  position: relative;
+  /* padding: 4rem 0; */
+}
+
+.curveSvg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.curveSvg path {
+  stroke: #FF9933;
+  stroke-width: 10;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .imgBox {
@@ -262,10 +302,10 @@
     font-size: x-large;
   }
 
-  .homeTour {
+  /* .homeTour {
     padding: 0em 0 0.7em 0;
     margin: 1em 0 0 0;
-  }
+  } */
 
   .homeTourFlex {
     align-items: center;
