@@ -8,7 +8,6 @@ import { IoNewspaperOutline } from "react-icons/io5";
 import styles from "@/styles/pages/selectCabs.module.css";
 import { toast } from "react-toastify";
 import Breadcrumbs from "@/utils/Breadcrumbs";
-import Loading from "@/app/loading";
 
 export default function SelectCars({ bookingData, distance }) {
     const router = useRouter();
@@ -54,10 +53,6 @@ export default function SelectCars({ bookingData, distance }) {
         // const url = `/cabs/select-cabs/booking-from?title=${title}&from=${from}&to=${to}&startDate=${startDate}&time=${time}&selectedCar=${encodeURIComponent(car.name)}&amount=${encodeURIComponent(bookingPrice)}&distance=${encodeURIComponent(formattedTotalDistance)}`;
         // router.push(url);
     };
-
-    if (initialDistance === null) {
-        return <Loading />
-    }
 
     const oneWay = [
         { name: "Swift", image: "/cab/swift.webp", perKm: 13, minPrice: 500 },
