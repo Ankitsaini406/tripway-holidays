@@ -1,7 +1,9 @@
+import Head from "next/head";
 import { UserProvider } from "@/context/UserContext";
 import ClientRootLayout from "./childLayout";
 import FaceBookAnalytics from "./facebookAnalytics";
 import GoogleTagManagerAndAnalytics from "./googleAnalytics";
+import SplashScreen from "./SplashScreen";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
@@ -41,9 +43,10 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         {/* Favicon and Icons */}
         <link rel="manifest" href="/manifest.json" />
+        <link rel="preload" as="image" href="/favicon-512.png" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon-192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-192.png" />
@@ -79,9 +82,10 @@ export default async function RootLayout({ children }) {
         <meta name="google-site-verification" content="yjWbY0fErsHYP4tVk_K97EF-4Ng_kQ2q4QR3Bc0z5oY" />
         <FaceBookAnalytics />
         <GoogleTagManagerAndAnalytics />
-      </head>
+      </Head>
       <body className="bodyflex">
         <UserProvider>
+          <SplashScreen />
           <ClientRootLayout>{children}</ClientRootLayout>
         </UserProvider>
       </body>
