@@ -5,6 +5,14 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function BookingSuccess() {
+    return (
+        <Suspense fallback={<div>Loading booking details...</div>}>
+            <BookingSuccessContent />
+        </Suspense>
+    );
+}
+
+export default function BookingSuccessContent() {
     const searchParams = useSearchParams();
 
     const name = searchParams.get("name");
