@@ -47,57 +47,58 @@ export const TourSection = ({ id, index, title, description, link }) => {
 export function TourSectionWrapper({ children }) {
     const containerRef = useRef(null);
     const pathRef = useRef(null);
-    const [path, setPath] = useState("");
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [svgPath, setSvgPath] = useState("");
+    const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start center", "end end"],
     });
 
-    const generatePath = () => {
+    const calculatePath = () => {
         const container = containerRef.current;
         if (!container) return;
 
         const sections = container.querySelectorAll("[data-tour-section]");
         const points = [];
-        const containerWidth = container.offsetWidth;
+        const width = container.offsetWidth;
 
-        sections.forEach((section, idx) => {
-            const y = section.offsetTop + section.offsetHeight / 2;
-            const x = idx % 2 === 0 ? containerWidth : 0;
-            points.push({ x, y });
+        sections.forEach((section, index) => {
+            const midY = section.offsetTop + section.offsetHeight / 2;
+            const x = index % 2 === 0 ? width : 0;
+            points.push({ x, y: midY });
         });
 
-        if (points.length === 0) return;
+        if (points.length < 2) return;
 
         let d = `M ${points[0].x},${points[0].y}`;
         for (let i = 1; i < points.length; i++) {
             const prev = points[i - 1];
             const curr = points[i];
-            const midY = (prev.y + curr.y) / 2;
-            d += ` C ${prev.x},${midY} ${curr.x},${midY} ${curr.x},${curr.y}`;
+            const controlY = (prev.y + curr.y) / 2;
+            d += ` C ${prev.x},${controlY} ${curr.x},${controlY} ${curr.x},${curr.y}`;
         }
 
-        setPath(d);
+        setSvgPath(d);
     };
 
     useEffect(() => {
-        generatePath(); // initial generation
-
         const resizeObserver = new ResizeObserver(() => {
             const container = containerRef.current;
-            if (container) {
-                setDimensions({
-                    width: container.offsetWidth,
-                    height: container.scrollHeight,
-                });
-                generatePath();
-            }
+            if (!container) return;
+
+            setSvgSize({
+                width: container.offsetWidth,
+                height: container.scrollHeight,
+            });
+
+            calculatePath();
         });
 
-        if (containerRef.current) {
-            resizeObserver.observe(containerRef.current);
+        const container = containerRef.current;
+        if (container) {
+            resizeObserver.observe(container);
+            calculatePath();
         }
 
         return () => resizeObserver.disconnect();
@@ -108,20 +109,21 @@ export function TourSectionWrapper({ children }) {
             <svg
                 className={styles.curveSvg}
                 width="100%"
-                height={dimensions.height}
+                height={svgSize.height}
+                viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
                 preserveAspectRatio="none"
-                viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
             >
                 <motion.path
                     ref={pathRef}
-                    d={path}
+                    d={svgPath}
                     fill="none"
                     stroke="#FF9933"
-                    strokeWidth="2"
+                    strokeWidth="3"
                     strokeLinecap="round"
+                    strokeLinejoin="round"
                     initial={{ pathLength: 0 }}
                     style={{ pathLength: scrollYProgress }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
+                    transition={{ duration: 1.2, ease: "easeInOut" }}
                 />
             </svg>
 
@@ -129,6 +131,7 @@ export function TourSectionWrapper({ children }) {
         </div>
     );
 }
+
 
 export function WhyBookUs() {
     return (

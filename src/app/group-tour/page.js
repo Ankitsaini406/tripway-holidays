@@ -37,6 +37,7 @@ export async function generateMetadata() {
                 "Adventure Tour",
                 "Travel Packages",
                 "Book Group Tour",
+                "group tour packages",
                 primaryTour.name,
             ],
             openGraph: {

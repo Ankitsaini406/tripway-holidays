@@ -143,15 +143,13 @@
 
 .wrapper {
   position: relative;
-  /* padding: 4rem 0; */
+  width: 100%;
 }
 
 .curveSvg {
   position: absolute;
-  left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  left: 0;
   pointer-events: none;
   z-index: 1;
   overflow: visible;
@@ -279,6 +277,10 @@
 
   .homeTourFlex {
     grid-template-columns: 1fr;
+  }
+
+    .homeTour {
+    padding: 0.7em 0 0.7em 0;
   }
 
   .homeTour:nth-child(odd) .homeTourFlex>div:nth-child(2) {
