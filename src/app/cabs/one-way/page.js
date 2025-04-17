@@ -30,6 +30,12 @@ const fromOptions = [
 ];
 
 const baseKeywords = [
+    "One way cab booking",
+    "One way taxi service",
+    "Book one way cab",
+    "one way taxi service",
+    "one way car rental",
+    "drop taxi one way",
     "one way trip",
     "one way trip cab",
     "one way trip car rental",
@@ -52,7 +58,7 @@ const cityKeywords = fromOptions
 export const metadata = {
     title: "One Way Trip Cab Services",
     description: "Book your one way trip with trusted cab services at the best rates. Safe, reliable, and comfortable rides for one way travel. Instant booking available!",
-    keywords : [...baseKeywords, ...cityKeywords],
+    keywords: [...baseKeywords, ...cityKeywords],
     openGraph: {
         title: "One Way Cabs at Best Prices | TripWayHolidays - Safe & Reliable",
         description: "Book an affordable one-way cab for a hassle-free city-to-city ride! Enjoy the best cab booking service with reliable outstation one-way taxi rentals. Hire a one-way drop taxi online now!",
