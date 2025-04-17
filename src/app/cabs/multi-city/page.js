@@ -17,7 +17,10 @@ export const metadata = {
         "Long-distance city travel",
         "Reliable intercity taxi service",
         "Online cab booking for multiple cities",
-        "Safe & hassle-free multi-city trips"
+        "Safe & hassle-free multi-city trips",
+        "multi city cab booking india",
+        "multi city cab booking",
+        "multi city cab",
     ],
     openGraph: {
         title: "Multi-City Cab Booking | Flexible City-to-City Taxi Service - TripWayHolidays",

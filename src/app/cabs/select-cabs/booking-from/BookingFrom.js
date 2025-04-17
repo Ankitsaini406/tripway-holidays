@@ -188,8 +188,16 @@ export default function BookingFrom({ bookingData }) {
                                     <span className={styles.bookingDetailsLabel}>GST (5%):</span> + ₹ {Math.round(amount * 0.05)}
                                 </h4>
                                 {(() => {
-                                    const hour = parseInt(time.split(':')[0], 10);
-                                    const isNightChargeApplicable = hour >= 22 || hour < 6;
+                                    const [timePart, modifier] = time.split(' ');
+                                    let [hours, minutes] = timePart.split(':').map(Number);
+
+                                    if (modifier === 'PM' && hours !== 12) {
+                                        hours += 12;
+                                    } else if (modifier === 'AM' && hours === 12) {
+                                        hours = 0;
+                                    }
+                                    const isNightChargeApplicable = hours >= 22 || hours < 6;
+
                                     return isNightChargeApplicable ? (
                                         <h4 className={styles.bookingDetailsText}>
                                             <span className={styles.bookingDetailsLabel}>Night Charges:</span> + ₹ 200
