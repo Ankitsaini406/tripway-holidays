@@ -55,6 +55,8 @@ const useTourUserData = () => {
             const user = snapshot.val();
             const userData = user.uid ? user : Object.values(user)[0]; // Handle object structure
 
+            
+
             // 4. **Initiate Payment**
             initiateRazorpayPayment({
                 amount: data.amount,

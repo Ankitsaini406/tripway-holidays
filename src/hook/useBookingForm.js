@@ -143,13 +143,7 @@ export default function useBookingForm(user, bookingData) {
         const selectedAmount = formData.paymentType === "initial" ? 500 : total;
 
         try {
-            // initiateRazorpayPayment({ amount: selectedAmount, total, formData, onSuccess: handleBooking});
-            const allData = {...formData, title, from, to, startDate, time, selectedAmount, amount, gstAmount, nightCharge, total, selectedCar, distance };
-            await fetch(`${apiPoint}api/google/spardsheet`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(allData),
-            });
+            initiateRazorpayPayment({ amount: selectedAmount, total, formData, onSuccess: handleBooking});
         } catch (error) {
             console.error("Error:", error);
             toast.error(error.message || "An error occurred. Please try again.");
@@ -197,6 +191,12 @@ export default function useBookingForm(user, bookingData) {
             await set(dbRef, { tourId: docRef.id, couponCode });
 
             findAgentByAgentCode(formData.offerFrom, docRef.id);
+            const allData = {...formData, title, from, to, startDate, time, selectedAmount, amount, gstAmount, nightCharge, total, selectedCar, distance };
+            await fetch(`${apiPoint}api/google/spardsheet`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(allData),
+            });
             toast.success("All set! Your ride is Booked. 🌍🚗");
             // const campaignMap = {
             //     "one-way": "onewaybookingforwebsite",
