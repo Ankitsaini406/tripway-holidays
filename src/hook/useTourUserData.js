@@ -55,8 +55,6 @@ const useTourUserData = () => {
             const user = snapshot.val();
             const userData = user.uid ? user : Object.values(user)[0]; // Handle object structure
 
-            
-
             // 4. **Initiate Payment**
             initiateRazorpayPayment({
                 amount: data.amount,
@@ -80,6 +78,25 @@ const useTourUserData = () => {
 
                         if (response.ok) {
                             setSuccess("Your tour booking was successful!");
+
+                            // const allData = {
+                            //     name: data.userName,
+                            //     from: data.userFrom,
+                            //     passenger: data.passenger,
+                            //     countryCode: data.userCounterCode,
+                            //     phoneNumber: data.userPhoneNumber,
+                            //     email: data.userEmail,
+                            //     tourName: data.tourName,
+                            //     price: data.price,
+                            //     // startDate: data.startDate,
+                            //     isPast: data.isPast
+                            // };
+
+                            // await fetch(`${apiPoint}api/google/tour-spardsheet`, {
+                            //     method: "POST",
+                            //     headers: { "Content-Type": "application/json" },
+                            //     body: JSON.stringify(allData),
+                            // });
                             toast.success("Tour booked successfully!");
                             router.push(`/booking-success?name=${encodeURIComponent(data.name)}&triptpye=group-tours&amount=${data.amount}&paymentId=${paymentId}`);
                         } else {

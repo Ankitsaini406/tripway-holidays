@@ -5,49 +5,18 @@ export async function POST(req) {
     try {
         const body = await req.json();
 
+
         // Destructure fields from body
-        const {
-            name,
-            countryCode,
-            phoneNumber,
-            email,
-            pickupPoint,
-            dropPoint,
-            startDate,
-            time,
-            selectedCar,
-            title,
-            paymentType,
-            amount,
-            total,
-            nightCharge,
-            gstAmount,
-            from,
-            to,
-            distance,
-            offerFrom,
+        const { name, from, passenger, countryCode, phoneNumber, email, tourName, price,
+            // startDate, 
+            isPast,
         } = body;
 
         // Validate required fields (updated logic here)
         const requiredFields = {
-            name,
-            countryCode,
-            phoneNumber,
-            email,
-            pickupPoint,
-            dropPoint,
-            startDate,
-            time,
-            selectedCar,
-            title,
-            paymentType,
-            amount,
-            total,
-            nightCharge,
-            gstAmount,
-            from,
-            to,
-            distance,
+            name, from, passenger, countryCode, phoneNumber, email, tourName, price,
+            // startDate,
+            isPast,
         };
 
         const missingFields = [];
@@ -89,23 +58,14 @@ export async function POST(req) {
                 values: [
                     [
                         name,
-                        fullNumber,
                         email,
-                        title,
+                        fullNumber,
                         from,
-                        to,
-                        pickupPoint,
-                        dropPoint,
-                        startDate,
-                        time,
-                        paymentType,
-                        amount,
-                        gstAmount,
-                        nightCharge,
-                        total,
-                        selectedCar,
-                        distance,
-                        offerFrom,
+                        passenger,
+                        tourName,
+                        price,
+                        // startDate,
+                        isPast,
                     ],
                 ],
             },

@@ -138,7 +138,7 @@ export default function useBookingForm(user, bookingData) {
             return;
         }
 
-        // checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
+        checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
         setLoading(true);
         const selectedAmount = formData.paymentType === "initial" ? 500 : total;
 
