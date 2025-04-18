@@ -9,7 +9,7 @@ import styles from "@/styles/pages/selectCabs.module.css";
 
 export default function BookingFrom({ bookingData }) {
     const { user } = useClient();
-    const { title, from, to, startDate, time, selectedCar, amount, totalAmount, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user, bookingData);
+    const { title, from, to, startDate, time, selectedCar, isNightChargeApplicable, nightCharge, gstAmount, amount, total, distance, formData, correctOtp, isOtpSent, loading, handleChange, handleSendOtp, setEnteredOtp, sendMessage, activeTab, setActiveTab } = useBookingForm(user, bookingData);
 
     return (
         <div className="layout">
@@ -132,7 +132,7 @@ export default function BookingFrom({ bookingData }) {
                                 checked={formData.paymentType === "full"}
                                 onChange={handleChange}
                             />
-                            Full ₹ {totalAmount}
+                            Full ₹ {total}
                         </label>
                     </div>
 
@@ -185,27 +185,15 @@ export default function BookingFrom({ bookingData }) {
                                     <span className={styles.bookingDetailsLabel}>Booking Price:</span> ₹ {amount}
                                 </h4>
                                 <h4 className={styles.bookingDetailsText}>
-                                    <span className={styles.bookingDetailsLabel}>GST (5%):</span> + ₹ {Math.round(amount * 0.05)}
+                                    <span className={styles.bookingDetailsLabel}>GST (5%):</span> + ₹ {gstAmount}
                                 </h4>
-                                {(() => {
-                                    const [timePart, modifier] = time.split(' ');
-                                    let [hours, minutes] = timePart.split(':').map(Number);
-
-                                    if (modifier === 'PM' && hours !== 12) {
-                                        hours += 12;
-                                    } else if (modifier === 'AM' && hours === 12) {
-                                        hours = 0;
-                                    }
-                                    const isNightChargeApplicable = hours >= 22 || hours < 6;
-
-                                    return isNightChargeApplicable ? (
-                                        <h4 className={styles.bookingDetailsText}>
-                                            <span className={styles.bookingDetailsLabel}>Night Charges:</span> + ₹ 200
-                                        </h4>
-                                    ) : null;
-                                })()}
+                                {isNightChargeApplicable && (
+                                    <h4 className={styles.bookingDetailsText}>
+                                        <span className={styles.bookingDetailsLabel}>Night Charges:</span> + ₹{nightCharge}
+                                    </h4>
+                                )}
                                 <h4 className={styles.bookingDetailsTotal}>
-                                    <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹ {Math.round(amount * 1.05) + ((parseInt(time.split(':')[0], 10) >= 22 || parseInt(time.split(':')[0], 10) < 6) ? 200 : 0)}
+                                    <span className={styles.bookingDetailsLabel}>Total Price:</span> ₹{total}
                                 </h4>
                             </div>
                         </div>

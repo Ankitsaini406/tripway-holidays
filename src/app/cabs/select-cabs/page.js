@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import SelectCars from "./SelectCars";
 import { decodeToken } from "@/utils/Utils";
-import { getDistance, getTotalDistance } from "@/app/action/getDistance";
+import { getDistance, getTotalDistance } from "@/app/action/googleAction";
 
 export default async function Page() {
     const cookieStore = await cookies();

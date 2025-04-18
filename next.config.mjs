@@ -24,10 +24,22 @@ const nextConfig = {
         IMAGE_URL: process.env.NEXT_IMAGE_URL,
         BLOG_URL: process.env.NEXT_BLOG_IMAGE_URL,
         BOT_URL: process.env.NEXT_APP_BOT_URL,
+
+        // google key
         GA_TRACKING_ID: process.env.NEXT_APP_GA_TRACKING_ID,
         GTM_TRACKING_ID: process.env.NEXT_APP_GTM_TRACKING_ID,
+        GOOGLE_MAP_API: process.env.NEXT_APP_GOOGLE_MAP_API,
+        GOOGLE_PROJECT_ID: process.env.NEXT_APP_GOOGLE_PROJECT_ID,
+        GOOGLE_PRIVATE_KEY_ID: process.env.NEXT_APP_GOOGLE_PRIVATE_KEY_ID,
+        GOOGLE_PRIVATE_KEY: process.env.NEXT_APP_GOOGLE_PRIVATE_KEY,
+        GOOGLE_CLIENT_EMAIL: process.env.NEXT_APP_GOOGLE_CLIENT_EMAIL,
+        GOOGLE_SHEET_ID: process.env.NEXT_APP_GOOGLE_SHEET_ID,
+
+        // facebook key
         FACEBOOK_ID: process.env.NEXT_APP_FACEBOOK_ID,
         FACEBOOK_TOKEN: process.env.NEXT_FACEBOOK_TOKEN,
+
+        // firebase key
         FIREBASE_API_KEY: process.env.NEXT_FIREBASE_API_KEY,
         FIREBASE_AUTH_DOMAIN: process.env.NEXT_FIREBASE_AUTH_DOMAIN,
         FIREBASE_DATABASE_URL: process.env.NEXT_FIREBASE_DATABASE_URL,
@@ -36,7 +48,7 @@ const nextConfig = {
         FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,
         FIREBASE_APP_ID: process.env.NEXT_FIREBASE_APP_ID,
         FIREBASE_MEASUREMENT_ID: process.env.NEXT_FIREBASE_MEASUREMENT_ID,
-        GOOGLE_MAP_API: process.env.NEXT_APP_GOOGLE_MAP_API,
+
         JWT_SECRET_KEY: process.env.NEXT_APP_JWT_SECRET_KEY,
         JWT_BOOKING_SECRET_KEY: process.env.NEXT_APP_JWT_BOOKING_SECRET_KEY,
         AI_SENSY: process.env.NEXT_APP_AI_SENSY,

@@ -9,6 +9,7 @@ import { ref, set } from "firebase/database";
 import { database, firestore } from "@/firebase/firebaseConfig";
 import { findAgentByAgentCode } from "@/utils/findAgent";
 import { initiateRazorpayPayment, sendWhatsAppMessage } from "@/utils/apiUtils";
+// import { postSheetData } from "@/app/action/googleAction";
 
 export default function useBookingForm(user, bookingData) {
     const router = useRouter();
@@ -39,11 +40,24 @@ export default function useBookingForm(user, bookingData) {
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const totalAmount = Math.round(amount * 1.05);
-
     const aisensy = process.env.AI_SENSY;
+    const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
     const generateOtp = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 10)).join("");
+
+    const [timePart, modifier] = time.split(' ');
+    let [hours, minutes] = timePart.split(':').map(Number);
+
+    if (modifier === 'PM' && hours !== 12) {
+        hours += 12;
+    } else if (modifier === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    const isNightChargeApplicable = hours >= 22 || hours < 6;
+    const nightCharge = isNightChargeApplicable ? 200 : 0;
+    const gstAmount = Math.round(amount * 0.05);
+    const total = Math.round(amount + gstAmount + nightCharge);
 
     useEffect(() => {
         if (!title || !from || !to) {
@@ -124,14 +138,18 @@ export default function useBookingForm(user, bookingData) {
             return;
         }
 
-        checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
-
+        // checkUserExistence(`${formData.countryCode}${formData.phoneNumber}`, formData);
         setLoading(true);
+        const selectedAmount = formData.paymentType === "initial" ? 500 : total;
 
-        const selectedAmount = formData.paymentType === "initial" ? 500 : totalAmount;
-    
         try {
-            initiateRazorpayPayment({ amount: selectedAmount, totalAmount, formData, onSuccess: handleBooking});
+            // initiateRazorpayPayment({ amount: selectedAmount, total, formData, onSuccess: handleBooking});
+            const allData = {...formData, title, from, to, startDate, time, selectedAmount, amount, gstAmount, nightCharge, total, selectedCar, distance };
+            await fetch(`${apiPoint}api/google/spardsheet`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(allData),
+            });
         } catch (error) {
             console.error("Error:", error);
             toast.error(error.message || "An error occurred. Please try again.");
@@ -140,16 +158,16 @@ export default function useBookingForm(user, bookingData) {
         }
     };
 
-    const handleBooking = async (paymentId, paidAmount, totalAmount) => {
+    const handleBooking = async (paymentId, paidAmount, total) => {
         try {
             const couponCode = await generateAndStoreCouponCode("User");
-    
+
             const validDestinations = Array.isArray(to) ? to : to.split(",").filter(dest => dest.trim() !== "");
             const destinationsField =
                 title === "one-way" ? { to } :
-                title === "round-trip" ? { destination: to } :
-                { destinations: validDestinations };
-    
+                    title === "round-trip" ? { destination: to } :
+                        { destinations: validDestinations };
+
             const dataToSend = {
                 ...formData,
                 isComplete: false,
@@ -157,7 +175,7 @@ export default function useBookingForm(user, bookingData) {
                 minPayment: formData.paymentType === "initial",
                 paymentId,
                 amount: paidAmount,
-                totalAmount,
+                total,
                 distance,
                 couponCode,
                 carOption: selectedCar,
@@ -167,26 +185,25 @@ export default function useBookingForm(user, bookingData) {
                 time,
                 ...destinationsField
             };
-    
+
             const collectionName = {
                 "one-way": "one-way",
                 "round-trip": "round-trip",
                 "multi-city": "multi-city"
             }[title];
-    
+
             const docRef = await addDoc(collection(firestore, collectionName), dataToSend);
             const dbRef = ref(database, `users/${formData.countryCode}${formData.phoneNumber}/tours/${docRef.id}`);
             await set(dbRef, { tourId: docRef.id, couponCode });
-    
+
             findAgentByAgentCode(formData.offerFrom, docRef.id);
             toast.success("All set! Your ride is Booked. 🌍🚗");
-    
             // const campaignMap = {
             //     "one-way": "onewaybookingforwebsite",
             //     "round-trip": "roundtripforwebsite",
             //     "multi-city": "multicitybookingforwebsite"
             // };
-    
+
             // const mediaMap = {
             //     "one-way": {
             //         url: "https://www.theglobeandmail.com/resizer/v2/BYBSVGDHZZAFZP7LTGXMHPXZ3Q?auth=ccda29f1d41119ef2fc927c805845397675c96ae83717fa4801a3fdc09f016f1&width=300&height=200&quality=80&smart=true",
@@ -201,7 +218,7 @@ export default function useBookingForm(user, bookingData) {
             //         filename: "multi-city-whatsapp.webp"
             //     }
             // };
-    
+
             // const requestBody = {
             //     apiKey: aisensy,
             //     campaignName: campaignMap[title],
@@ -218,13 +235,13 @@ export default function useBookingForm(user, bookingData) {
             //     ],
             //     media: mediaMap[title]
             // };
-    
+
             // // Send WhatsApp message
             // const response = await sendWhatsAppMessage(requestBody);
             // if (!response.success) {
             //     throw new Error(response.error);
             // }
-    
+
             // console.log("WhatsApp Response:", response.data);
             toast.success("All set! Your ride details will be shared on WhatsApp shortly. 🌍🚗");
             router.push(`/booking-success?name=${encodeURIComponent(formData.name)}&triptpye=${encodeURIComponent(collectionName)}&amount=${amount}&paymentId=${paymentId}`);
@@ -235,7 +252,7 @@ export default function useBookingForm(user, bookingData) {
             setLoading(false);
         }
     };
-    
+
 
     return {
         title,
@@ -244,8 +261,11 @@ export default function useBookingForm(user, bookingData) {
         startDate,
         time,
         selectedCar,
+        isNightChargeApplicable,
+        nightCharge,
+        gstAmount,
         amount,
-        totalAmount,
+        total,
         distance,
         formData,
         correctOtp,

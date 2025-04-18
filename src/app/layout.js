@@ -23,6 +23,9 @@ export const metadata = {
     default: "TripWay Holidays: Book One-way | Group Tour | Multi City",
     template: "TripWay Holidays - %s",
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     description: "Book your next tour with TripWay Holidays and explore amazing destinations!",
     images: ["/favicon-192.png"],
@@ -40,14 +43,14 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
         {/* Favicon and Icons */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="preload" as="image" href="/favicon-512.png" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon-192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-192.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />

@@ -18,6 +18,9 @@ export const metadata = {
         "Nearest travel agency",
         "Local travels near me",
     ],
+    icons: {
+        icon: "/favicon.ico",
+    },
 };
 
 // ✅ Structured Data Definition
