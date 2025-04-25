@@ -10,7 +10,7 @@ import { usePagination } from "@/hook/usePagination";
 import styles from "@/styles/pages/tourPackage.module.css";
 import { truncateDescription } from "@/utils/formatData";
 
-function TourPackages({ tourData, allImages }) {
+function TourPackages({ tourData }) {
     const { selectedFilters, filterData, toggleFilter, setFilteredItems } =
         useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
@@ -71,7 +71,7 @@ function TourPackages({ tourData, allImages }) {
                             hasMore={visibleItems.length < filterData(tourData).length}
                         >
                             {visibleItems.map((item) => (
-                                    <TourCard key={item.id} item={item} allImages={allImages} route={route} />
+                                    <TourCard key={item.id} item={item} route={route} />
                             ))}
                         </InfiniteScroll>
                         {/* )} */}
@@ -122,8 +122,7 @@ function Filters({ filters, selectedFilters, toggleFilter }) {
     );
 }
 
-function TourCard({ item, allImages, route }) {
-
+function TourCard({ item, route }) {
     const [loading, setLoading] = useState(false);
 
     const handleSearch = (e) => {
@@ -132,23 +131,24 @@ function TourCard({ item, allImages, route }) {
         route.push(`/group-tour/${item.slug}`);
     }
 
-    const imageData = allImages.find((image) =>
-        image.url.includes(item.imageUrl)
-    ) || {
-        url: `/tour-images/${item.imageUrl}`,
-        placeholder: null,
-    };
+    // Assuming item.images is the array of images
+    // const imageData = item.images.find((image) =>
+    //     image.url.includes(item.imageUrl)
+    // ) || {
+    //     url: `/tour-images/${item.imageUrl}`,
+    //     placeholder: null,
+    // };
 
     return (
         <div className={styles.tourCard}>
             <div className={styles.tourImage}>
                 <Image
                     className={styles.tourImg}
-                    data-src={imageData.url}
-                    src={imageData.url}
+                    data-src={`/tour-images/${item.imageUrl}`}
+                    src={`/tour-images/${item.imageUrl}`}
                     alt={item.name}
                     placeholder="blur"
-                    blurDataURL={imageData.placeholder}
+                    blurDataURL={`/tour-images/${item.imageUrl}`}
                     fill
                     priority
                 />
@@ -156,9 +156,8 @@ function TourCard({ item, allImages, route }) {
             <div className={styles.tourDetails}>
                 <h4>{item.category}</h4>
                 <h1>{item.name}</h1>
-                <p> {truncateDescription(item.description)}</p>
+                <p>{truncateDescription(item.description)}</p>
                 <button
-                    // href={`/group-tour/${item.slug}`}
                     onClick={handleSearch}
                     className="readMore"
                     disabled={loading}

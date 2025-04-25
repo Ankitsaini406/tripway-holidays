@@ -11,7 +11,7 @@ import { IoTimeOutline } from "react-icons/io5";
 import styles from '@/styles/pages/blogsection.module.css';
 import Loading from './blogLoding';
 
-function BlogSection({ blogData, allImages }) {
+function BlogSection({ blogData }) {
     const { selectedFilters, filterData, setFilteredItems } = useFilters();
     const { visibleItems, loadMore, reset } = usePagination(5);
     const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +50,6 @@ function BlogSection({ blogData, allImages }) {
                                 <BlogCard 
                                     key={item.id} 
                                     item={item} 
-                                    allImages={allImages} 
                                     selectedBlog={selectedBlog}
                                     setSelectedBlog={setSelectedBlog}
                                 />
@@ -63,11 +62,11 @@ function BlogSection({ blogData, allImages }) {
     );
 }
 
-function BlogCard({ item, allImages, selectedBlog, setSelectedBlog }) {
-    const imageData = allImages.find((image) => image.url.includes(item.image)) || {
-        url: `/slider/${item.image}`,
-        placeholder: null,
-    };
+function BlogCard({ item, selectedBlog, setSelectedBlog }) {
+    // const imageData = allImages.find((image) => image.url.includes(item.image)) || {
+    //     url: `/slider/${item.image}`,
+    //     placeholder: null,
+    // };
 
     const isSelected = selectedBlog === item.id;
     const isOtherSelected = selectedBlog && selectedBlog !== item.id;
@@ -82,10 +81,10 @@ function BlogCard({ item, allImages, selectedBlog, setSelectedBlog }) {
                     <Image
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className={`${styles.blogImg} ${isOtherSelected ? styles.grayscale : ''}`}
-                        src={imageData.url}
+                        src={`/blogs/${item.image}`}
                         alt={item.title}
                         placeholder="blur"
-                        blurDataURL={imageData.placeholder}
+                        blurDataURL={`/blogs/${item.image}`}
                         fill
                     />
                 </div>

@@ -1,6 +1,6 @@
 import Script from "next/script";
 import BlogSection from "./blogSection";
-import { getPlaiceholder } from "plaiceholder";
+// import { getPlaiceholder } from "plaiceholder";
 import { generateBlogsStructuredData } from "@/utils/structuredDate";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
@@ -58,7 +58,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
 
-    const imageUrl = process.env.BLOG_URL;
+    // const imageUrl = process.env.BLOG_URL;
     const blogData = await fetchBlogData();
 
     if (!blogData || blogData.length === 0) {
@@ -66,30 +66,30 @@ export default async function Page() {
         return <div>No blog available.</div>;
     }
 
-    const allImages = await Promise.all(
-        blogData.map(async (blog) => {
+    // const allImages = await Promise.all(
+    //     blogData.map(async (blog) => {
 
-            const isProduction = process.env.NODE_ENV === 'production';
-            const fullImageUrl = `${imageUrl}${blog.image}`;
+    //         const isProduction = process.env.NODE_ENV === 'production';
+    //         const fullImageUrl = `${imageUrl}${blog.image}`;
 
-            // const fullImageUrl = `${imageUrl}${blog.image}`;
-            try {
-                const res = await fetch(fullImageUrl);
-                if (!res.ok) {
-                    console.error(`Error loading image: ${fullImageUrl}`);
-                    return { url: fullImageUrl, placeholder: null }; // Fallback
-                }
+    //         // const fullImageUrl = `${imageUrl}${blog.image}`;
+    //         try {
+    //             const res = await fetch(fullImageUrl);
+    //             if (!res.ok) {
+    //                 console.error(`Error loading image: ${fullImageUrl}`);
+    //                 return { url: fullImageUrl, placeholder: null }; // Fallback
+    //             }
 
-                const buffer = await res.arrayBuffer();
-                const { base64 } = await getPlaiceholder(Buffer.from(buffer));
+    //             const buffer = await res.arrayBuffer();
+    //             const { base64 } = await getPlaiceholder(Buffer.from(buffer));
 
-                return { url: fullImageUrl, placeholder: base64 };
-            } catch (error) {
-                console.error(`Error processing image: ${fullImageUrl}`, error);
-                return { url: fullImageUrl, placeholder: null }; // Fallback
-            }
-        })
-    );
+    //             return { url: fullImageUrl, placeholder: base64 };
+    //         } catch (error) {
+    //             console.error(`Error processing image: ${fullImageUrl}`, error);
+    //             return { url: fullImageUrl, placeholder: null }; // Fallback
+    //         }
+    //     })
+    // );
 
     return (
         <>
@@ -99,7 +99,7 @@ export default async function Page() {
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(generateBlogsStructuredData(blogData)) }}
             />
-            <BlogSection blogData={blogData} allImages={allImages} />
+            <BlogSection blogData={blogData} />
         </>
     );
 }

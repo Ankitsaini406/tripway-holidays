@@ -70,7 +70,7 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-    const imageUrl = process.env.IMAGE_URL;
+    // const imageUrl = process.env.IMAGE_URL;
     const tourData = await fetchTourData();
 
     if (!tourData || tourData.length === 0) {
@@ -78,27 +78,27 @@ export default async function Page() {
         return <div>No tours available.</div>;
     }
 
-    const allImages = await Promise.all(
-        tourData.map(async (tour) => {
-            const fullImageUrl = `${imageUrl}${tour.imageUrl}`;
+    // const allImages = await Promise.all(
+    //     tourData.map(async (tour) => {
+    //         const fullImageUrl = `${imageUrl}${tour.imageUrl}`;
 
-            try {
-                const res = await fetch(fullImageUrl);
-                if (!res.ok) {
-                    console.error(`Error loading image: ${fullImageUrl}`);
-                    return { url: fullImageUrl, placeholder: null }; // Fallback
-                }
+    //         try {
+    //             const res = await fetch(fullImageUrl);
+    //             if (!res.ok) {
+    //                 console.error(`Error loading image: ${fullImageUrl}`);
+    //                 return { url: fullImageUrl, placeholder: null }; // Fallback
+    //             }
 
-                const buffer = await res.arrayBuffer();
-                const { base64 } = await getPlaiceholder(Buffer.from(buffer));
+    //             const buffer = await res.arrayBuffer();
+    //             const { base64 } = await getPlaiceholder(Buffer.from(buffer));
 
-                return { url: fullImageUrl, placeholder: base64 };
-            } catch (error) {
-                console.error(`Error processing image: ${fullImageUrl}`, error);
-                return { url: fullImageUrl, placeholder: null }; // Fallback
-            }
-        })
-    );
+    //             return { url: fullImageUrl, placeholder: base64 };
+    //         } catch (error) {
+    //             console.error(`Error processing image: ${fullImageUrl}`, error);
+    //             return { url: fullImageUrl, placeholder: null }; // Fallback
+    //         }
+    //     })
+    // );
     return (
         <>
             <Script
@@ -107,7 +107,7 @@ export default async function Page() {
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(generateToursStructuredData(tourData)) }}
             />
-            <TourPackages tourData={tourData} allImages={allImages} />
+            <TourPackages tourData={tourData} />
         </>
     );
 }
