@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Script from "next/script";
 import BlogSection from "./blogSection";
 // import { getPlaiceholder } from "plaiceholder";
@@ -10,7 +12,7 @@ async function fetchBlogData() {
     try {
 
         const timestamp = Math.floor(Date.now() / 60000);
-        const response = await fetch(`${apiPoint}api/blog`);
+        const response = await fetch(`https://tripwayholidays.in/api/blog`);
 
         if (!response.ok) {
             console.error(`API responded with status: ${response.status}`);

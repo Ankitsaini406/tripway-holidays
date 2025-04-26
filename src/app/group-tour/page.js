@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Script from "next/script";
 import TourPackages from "./touPackages";
 import { getPlaiceholder } from "plaiceholder";

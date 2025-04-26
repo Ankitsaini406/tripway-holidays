@@ -51,12 +51,17 @@ const structuredData = {
 
 const fetchImageUrl = async () => {
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
-    const response = await fetch(`${apiPoint}api/image-url`,
-        // { cache: "no-store" }
-    ); // No caching
-    const data = await response.json();
-    return data.imageUrl;
-};
+        try {
+            const response = await fetch(`${apiPoint}api/image-url`, {
+                // cache: "no-store", // optional
+            });
+            const data = await response.json();
+            return data.imageUrl;
+        } catch (error) {
+            console.error("Failed to fetch image URL:", error);
+            return "/main-banner.webp"; // optionally use a fallback
+        }
+    };
 
 export default async function Home() {
     const imageUrl = await fetchImageUrl();
