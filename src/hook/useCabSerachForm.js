@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { ref, set } from "firebase/database";
-import useSendEmail from "@/hook/useSendEmail";
 import { findAgentByAgentCode } from "@/utils/findAgent";
 import { cabInitialState } from "@/types/initialState";
 import { collection, addDoc, firestore, database } from "@/firebase/firebaseConfig";
@@ -17,7 +16,6 @@ const useCabSearchForm = (user) => {
     const [correctOtp, setCorrectOtp] = useState("");
     const [enteredOtp, setEnteredOtp] = useState("");
     const route = useRouter();
-    const { sendEmail } = useSendEmail();
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && inputValue.trim() !== '') {
@@ -166,16 +164,7 @@ const useCabSearchForm = (user) => {
         setCorrectOtp(otp);
         setActiveOtp(true);
 
-        const emailContent = {
-            email: formData.email,
-            subject: "Your OTP for Travel Booking Confirmation",
-            name: user?.displayName || `${formData.firstName} ${formData.lastName}`,
-            otp,
-            url: "send-otp",
-        };
-
         try {
-            await sendEmail(emailContent);
             setFormData((prev) => ({ ...prev, success: "OTP sent successfully!" }));
         } catch {
             setFormData((prev) => ({ ...prev, error: "Failed to send OTP. Please try again." }));
@@ -216,16 +205,6 @@ const useCabSearchForm = (user) => {
             //         agentPhoneNumber: formData.phoneNumber,
             //     };
 
-            //     const emailContent = {
-            //         email: formData.email,
-            //         subject: "Welcome to TripWay Holidays! 🌍",
-            //         name,
-            //         otp: null,
-            //         password,
-            //         url: "account-created",
-            //     };
-
-            //     await sendEmail(emailContent);
             // } catch (err) {
             //     setFormData((prev) => ({ ...prev, error: err.message, loading: false }));
             //     return;

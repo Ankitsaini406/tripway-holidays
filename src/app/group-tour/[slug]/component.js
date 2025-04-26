@@ -7,7 +7,6 @@ import { SlLocationPin } from "react-icons/sl";
 import { MdDoubleArrow } from "react-icons/md";
 import useTourUserData from '@/hook/useTourUserData';
 import { toast } from 'react-toastify';
-import useSendEmail from '@/hook/useSendEmail';
 import style from '@/styles/pages/authpage.module.css';
 import styles from '@/styles/pages/tourDetails.module.css';
 
@@ -165,7 +164,6 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const { addTourData, loading, error, success } = useTourUserData();
     const [errors, setErrors] = useState({});
-    const { sendEmail } = useSendEmail();
 
     useEffect(() => {
         if (success) toast.success(success, {
@@ -203,20 +201,7 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
         try {
             const data = { ...formData, tourName: tour.name, price: tour.discount && tour.discount > 0 ? discountPrice : tour.price, startDate: tour.startDate, isPast: isPastDate };
             await addTourData(data);
-            if (success) {
-                const emailContent = {
-                    email: formData.userEmail,
-                    subject: '🎉 Your Group Tour is Confirmed!',
-                    name: formData.userName,
-                    otp: null,
-                    password: null,
-                    startDate: tour.startDate,
-                    tourLocation: tour.pickuppoints,
-                    url: 'confirmed-tour',
-                }
-                sendEmail(emailContent);
-                setFormData({ userFrom: '', passenger: '', userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
-            }
+            setFormData({ userFrom: '', passenger: '', userPhoneNumber: '', userEmail: '', userName: '', offerFrom: '', });
         } catch (error) {
             console.error("Error adding tour data:", error);
         }
@@ -258,7 +243,7 @@ export const BookingForm = ({ tour, isPastDate, discountPrice }) => {
                     <label htmlFor="phonenumber">Phone Number</label>
                     <div className={style.phoneFlex}>
                         <input
-                        style={{ width: '100px' }}
+                            style={{ width: '100px' }}
                             className={style.authInput}
                             type="text"
                             id="counterCode"
