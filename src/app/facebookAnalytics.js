@@ -1,59 +1,39 @@
-'use client';
+"use client";
 
 import { useEffect } from "react";
+import Script from "next/script";
 
 export default function FacebookAnalytics() {
-    const FACEBOOK_ID = process.env.FACEBOOK_ID;
+    const FACEBOOK_ID = process.env.NEXT_PUBLIC_FACEBOOK_ID; // ✅ public env var
 
-    useEffect(() => {
-        // Only run in production
-        if (process.env.NODE_ENV !== "production") {
-            console.log("Facebook Pixel is disabled in development.");
-            return;
-        }
+    if (process.env.NODE_ENV !== "production" || !FACEBOOK_ID) {
+        return null;
+    }
 
-        // Ensure 'fbq' is defined as a fallback
-        window.fbq =
-            window.fbq ||
-            function () {
-                window.fbq.callMethod
-                    ? window.fbq.callMethod(...arguments)
-                    : window.fbq.queue.push(arguments);
-            };
-
-        window.fbq.queue = window.fbq.queue || [];
-        window.fbq.version = '2.0';
-        window.fbq.loaded = true;
-
-        // Dynamically load Facebook Pixel script
-        const script = document.createElement("script");
-        script.defer = true;
-        script.async = true;
-        script.src = "https://connect.facebook.net/en_US/fbevents.js";
-
-        script.onload = () => {
-            try {
-                if (window.fbq) {
-                    window.fbq("init", FACEBOOK_ID);
-                    window.fbq("track", "PageView");
-                }
-            } catch (error) {
-                console.error("Error initializing Facebook Pixel:", error);
-            }
-        };
-
-        document.body.appendChild(script);
-
-        // Cleanup script on component unmount
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, [FACEBOOK_ID]);
-
-    // Render the fallback for production only
-    return process.env.NODE_ENV === "production" ? (
+    return (
         <>
-            {/* Meta Pixel noscript fallback */}
+            {/* Load Facebook Pixel with better loading strategy */}
+            <Script
+                id="facebook-pixel"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+            !(function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)})(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '${FACEBOOK_ID}');
+            fbq('track', 'PageView');
+          `,
+                }}
+            />
+
+            {/* NoScript fallback */}
             <noscript>
                 <img
                     alt="Facebook Pixel"
@@ -64,5 +44,5 @@ export default function FacebookAnalytics() {
                 />
             </noscript>
         </>
-    ) : null;
+    );
 }
