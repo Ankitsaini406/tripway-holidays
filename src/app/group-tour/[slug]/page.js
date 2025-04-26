@@ -1,4 +1,3 @@
-import { getPlaiceholder } from "plaiceholder";
 import dynamic from 'next/dynamic';
 const TourDetails = dynamic(() => import('./tourDetails'));
 
@@ -32,33 +31,33 @@ export async function generateMetadata({ params }) {
             };
         };
 
-            return {
-                title: `${tour.name}`,
-                description: `Join our exclusive group tour to experience ${tour.description}. A perfect adventure for travel lovers.`,
-                keywords: [
-                    "Group Tour",
-                    "Tripway Holidays",
-                    "Adventure Tour",
-                    "Travel Packages",
-                    "Book Group Tour",
-                    tour.name,
-                    tour.startDate,
+        return {
+            title: `${tour.name}`,
+            description: `Join our exclusive group tour to experience ${tour.description}. A perfect adventure for travel lovers.`,
+            keywords: [
+                "Group Tour",
+                "Tripway Holidays",
+                "Adventure Tour",
+                "Travel Packages",
+                "Book Group Tour",
+                tour.name,
+                tour.startDate,
+            ],
+            openGraph: {
+                title: `Group Tour: ${tour.name}`,
+                description: `Explore our ${tour.name} tour. Book now and enjoy unforgettable experiences.`,
+                url: `https://tripwayholidays.in/group-tour/${tour.slug}`,
+                type: "website",
+                images: [
+                    {
+                        url: tour.imageUrl,
+                        width: 400,
+                        height: 400,
+                        alt: `Tripway Holidays ${tour.name} Tour`,
+                    },
                 ],
-                openGraph: {
-                    title: `Group Tour: ${tour.name}`,
-                    description: `Explore our ${tour.name} tour. Book now and enjoy unforgettable experiences.`,
-                    url: `https://tripwayholidays.in/group-tour/${tour.slug}`,
-                    type: "website",
-                    images: [
-                        {
-                            url: tour.imageUrl,
-                            width: 400,
-                            height: 400,
-                            alt: `Tripway Holidays ${tour.name} Tour`,
-                        },
-                    ],
-                },
-            };
+            },
+        };
     } catch (error) {
         console.error("Metadata generation error:", error);
 
@@ -84,19 +83,6 @@ export default async function Page({ params }) {
         return <div>Error loading tour details.</div>;
     }
 
-    const fullImageUrl = `${imageUrl}${tourData.imageUrl}`;
+    return <TourDetails tourData={tourData} />;
 
-    try {
-        const res = await fetch(fullImageUrl);
-
-        if (!res.ok) {
-            return <div>Error loading image.</div>;
-        }
-        const buffer = await res.arrayBuffer();
-        const { base64 } = await getPlaiceholder(Buffer.from(buffer));
-
-        return <TourDetails tourData={tourData} blurImg={base64} />;
-    } catch (error) {
-        return <div>Error processing image.</div>;
-    }
 }

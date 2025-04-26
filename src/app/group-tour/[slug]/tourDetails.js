@@ -10,7 +10,7 @@ const TripDetails = dynamic(() => import('./component').then((mod) => mod.TripDe
 import styles from '@/styles/pages/tourDetails.module.css';
 import { formatPrice } from '@/utils/formatData';
 
-export default function TourDetailsPage({ tourData, blurImg }) {
+export default function TourDetailsPage({ tourData }) {
     const [isPastDate, setIsPastDate] = useState(false);
 
     const imageUrl = process.env.IMAGE_URL;
@@ -58,7 +58,7 @@ export default function TourDetailsPage({ tourData, blurImg }) {
                                     src={`${imageUrl}${tourData.imageUrl}`}
                                     alt={tourData.name}
                                     placeholder="blur"
-                                    blurDataURL={blurImg}
+                                    blurDataURL={`${imageUrl}${tourData.imageUrl}`}
                                     fill
                                     priority
                                 />

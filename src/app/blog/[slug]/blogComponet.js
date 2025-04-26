@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 const RecommendedSection = dynamic(() => import('@/utils/Sections').then((mod) => mod.RecommendedSection));
 const PermotingSection = dynamic(() => import('@/utils/Sections').then((mod) => mod.PermotingSection));
 
-function BlogDetails({ blogData, blurImg }) {
+function BlogDetails({ blogData }) {
 
     const imageUrl = process.env.BLOG_URL;
 
@@ -25,7 +25,7 @@ function BlogDetails({ blogData, blurImg }) {
                                 data-src={`${imageUrl}/${blogData.image}`}
                                 src={`${imageUrl}/${blogData.image}`}
                                 alt={blogData.title}
-                                blurDataURL={blurImg}
+                                blurDataURL={`${imageUrl}/${blogData.image}`}
                                 placeholder="blur"
                                 fill
                                 priority

@@ -1,6 +1,5 @@
 import Script from "next/script";
 import TourPackages from "./touPackages";
-import { getPlaiceholder } from "plaiceholder";
 import { generateToursStructuredData } from "@/utils/structuredDate";
 
 async function fetchTourData() {
@@ -78,27 +77,6 @@ export default async function Page() {
         return <div>No tours available.</div>;
     }
 
-    // const allImages = await Promise.all(
-    //     tourData.map(async (tour) => {
-    //         const fullImageUrl = `${imageUrl}${tour.imageUrl}`;
-
-    //         try {
-    //             const res = await fetch(fullImageUrl);
-    //             if (!res.ok) {
-    //                 console.error(`Error loading image: ${fullImageUrl}`);
-    //                 return { url: fullImageUrl, placeholder: null }; // Fallback
-    //             }
-
-    //             const buffer = await res.arrayBuffer();
-    //             const { base64 } = await getPlaiceholder(Buffer.from(buffer));
-
-    //             return { url: fullImageUrl, placeholder: base64 };
-    //         } catch (error) {
-    //             console.error(`Error processing image: ${fullImageUrl}`, error);
-    //             return { url: fullImageUrl, placeholder: null }; // Fallback
-    //         }
-    //     })
-    // );
     return (
         <>
             <Script

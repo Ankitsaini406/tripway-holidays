@@ -1,4 +1,4 @@
-import { getPlaiceholder } from "plaiceholder";
+
 import dynamic from 'next/dynamic';
 const BlogDetails = dynamic(() => import('./blogComponet'));
 
@@ -84,19 +84,5 @@ export default async function Page({ params }) {
         return <div>Error loading blog details.</div>;
     }
 
-    const fullImageUrl = `${imageUrl}${blogData.image}`;
-
-    try {
-        const res = await fetch(fullImageUrl);
-
-        if (!res.ok) {
-            return <div>Error loading image.</div>;
-        }
-        const buffer = await res.arrayBuffer();
-        const { base64 } = await getPlaiceholder(Buffer.from(buffer));
-
-        return <BlogDetails blogData={blogData} blurImg={base64} />;
-    } catch (error) {
-        return <div>Error processing image.</div>;
-    }
+    return <BlogDetails blogData={blogData} />;
 }

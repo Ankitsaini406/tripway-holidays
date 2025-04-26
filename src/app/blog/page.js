@@ -1,6 +1,5 @@
 import Script from "next/script";
 import BlogSection from "./blogSection";
-// import { getPlaiceholder } from "plaiceholder";
 import { generateBlogsStructuredData } from "@/utils/structuredDate";
 
 const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
@@ -65,31 +64,6 @@ export default async function Page() {
         console.error("No blog data found.");
         return <div>No blog available.</div>;
     }
-
-    // const allImages = await Promise.all(
-    //     blogData.map(async (blog) => {
-
-    //         const isProduction = process.env.NODE_ENV === 'production';
-    //         const fullImageUrl = `${imageUrl}${blog.image}`;
-
-    //         // const fullImageUrl = `${imageUrl}${blog.image}`;
-    //         try {
-    //             const res = await fetch(fullImageUrl);
-    //             if (!res.ok) {
-    //                 console.error(`Error loading image: ${fullImageUrl}`);
-    //                 return { url: fullImageUrl, placeholder: null }; // Fallback
-    //             }
-
-    //             const buffer = await res.arrayBuffer();
-    //             const { base64 } = await getPlaiceholder(Buffer.from(buffer));
-
-    //             return { url: fullImageUrl, placeholder: base64 };
-    //         } catch (error) {
-    //             console.error(`Error processing image: ${fullImageUrl}`, error);
-    //             return { url: fullImageUrl, placeholder: null }; // Fallback
-    //         }
-    //     })
-    // );
 
     return (
         <>
