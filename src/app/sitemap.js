@@ -1,16 +1,15 @@
-export const dynamic = "force-dynamic";
 
 export default async function sitemap() {
 
     const apiPoint = process.env.NODE_ENV === "development" ? process.env.API_URL : process.env.HOST_URL;
 
-    const tourResponse = await fetch(`https://tripwayholidays.in/api/group-tours`);
+    const tourResponse = await fetch(`${apiPoint}api/group-tours`);
     if (!tourResponse.ok) {
         throw new Error("Failed to fetch tour data");
     }
     const tours = await tourResponse.json();
 
-    const blogResponse = await fetch(`https://tripwayholidays.in/api/blog`);
+    const blogResponse = await fetch(`${apiPoint}api/blog`);
     if (!blogResponse.ok) {
         throw new Error("Failed to fetch blog data");
     }
@@ -18,57 +17,57 @@ export default async function sitemap() {
 
     const tourDetails = tours?.map((tour) => {
         return {
-            url: `https://tripwayholidays.in/group-tour/${tour?.slug}`,
+            url: `${apiPoint}group-tour/${tour?.slug}`,
             lastModified: new Date().toISOString(),
         };
     });
 
     const blogDetails = blog?.map((blog) => {
         return {
-            url: `https://tripwayholidays.in/blog/${blog?.slug}`,
+            url: `${apiPoint}blog/${blog?.slug}`,
             lastModified: new Date().toISOString(),
         }
     })
 
     const staticPages = [
         {
-            url: `https://tripwayholidays.in/`,
+            url: `${apiPoint}`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/group-tour`,
+            url: `${apiPoint}group-tour`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/cabs/one-way`,
+            url: `${apiPoint}cabs/one-way`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/cabs/round-trip`,
+            url: `${apiPoint}cabs/round-trip`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/cabs/multi-city`,
+            url: `${apiPoint}cabs/multi-city`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/about-us`,
+            url: `${apiPoint}about-us`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/contact-us`,
+            url: `${apiPoint}contact-us`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/privacy-policy`,
+            url: `${apiPoint}privacy-policy`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/terms-and-condition`,
+            url: `${apiPoint}terms-and-condition`,
             lastModified: new Date().toISOString(),
         },
         {
-            url: `https://tripwayholidays.in/return-policy`,
+            url: `${apiPoint}return-policy`,
             lastModified: new Date().toISOString(),
         },
         {
@@ -99,7 +98,7 @@ export default async function sitemap() {
 
     return [
         {
-            url: `https://tripwayholidays.in/`,
+            url: `${apiPoint}`,
             lastModified: new Date(),
         },
         ...tourDetails,

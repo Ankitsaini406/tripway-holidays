@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import Script from "next/script";
 import TourPackages from "./touPackages";
 import { getPlaiceholder } from "plaiceholder";
@@ -109,7 +107,7 @@ export default async function Page() {
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(generateToursStructuredData(tourData)) }}
             />
-            <TourPackages tourData={tourData} />
+            <TourPackages tourData={tourData}/>
         </>
     );
 }
