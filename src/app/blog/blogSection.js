@@ -47,9 +47,9 @@ function BlogSection({ blogData }) {
                             hasMore={visibleItems.length < filterData(blogData).length}
                         >
                             {visibleItems.map((item) => (
-                                <BlogCard 
-                                    key={item.id} 
-                                    item={item} 
+                                <BlogCard
+                                    key={item.id}
+                                    item={item}
                                     selectedBlog={selectedBlog}
                                     setSelectedBlog={setSelectedBlog}
                                 />
@@ -73,8 +73,8 @@ function BlogCard({ item, selectedBlog, setSelectedBlog }) {
 
     return (
         <Link href={`/blog/${item.slug}`} onClick={() => setSelectedBlog(item.id)}>
-            <div 
-                className={`${styles.mainblog} ${isOtherSelected ? styles.grayscale : ''}`} 
+            <div
+                className={`${styles.mainblog} ${isOtherSelected ? styles.grayscale : ''}`}
                 style={{ opacity: isSelected ? 0.5 : 1 }}
             >
                 <div className={styles.blogImgBox}>
@@ -84,7 +84,8 @@ function BlogCard({ item, selectedBlog, setSelectedBlog }) {
                         src={`/blogs/${item.image}`}
                         alt={item.title}
                         placeholder="blur"
-                        blurDataURL={`/blogs/${item.image}`}
+                        onError={() => 'tripway-palceholder.webp'}
+                        blurDataURL='/tripway-palceholder.webp'
                         fill
                     />
                 </div>

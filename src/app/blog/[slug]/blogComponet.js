@@ -22,10 +22,10 @@ function BlogDetails({ blogData }) {
                         <div className={styles.blogSingleImgBox}>
                             <Image
                                 className={styles.blogSingleImg}
-                                data-src={`${imageUrl}/${blogData.image}`}
                                 src={`${imageUrl}/${blogData.image}`}
                                 alt={blogData.title}
-                                blurDataURL={`${imageUrl}/${blogData.image}`}
+                                onError={() => 'tripway-palceholder.webp'}
+                                blurDataURL='/tripway-palceholder.webp'
                                 placeholder="blur"
                                 fill
                                 priority

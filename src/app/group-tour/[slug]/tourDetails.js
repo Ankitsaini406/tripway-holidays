@@ -58,7 +58,8 @@ export default function TourDetailsPage({ tourData }) {
                                     src={`${imageUrl}${tourData.imageUrl}`}
                                     alt={tourData.name}
                                     placeholder="blur"
-                                    blurDataURL={`${imageUrl}${tourData.imageUrl}`}
+                                    onError={() => 'tripway-palceholder.webp'}
+                                    blurDataURL='/tripway-palceholder.webp'
                                     fill
                                     priority
                                 />

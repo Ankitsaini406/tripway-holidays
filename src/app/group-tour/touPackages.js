@@ -144,11 +144,11 @@ function TourCard({ item, route }) {
             <div className={styles.tourImage}>
                 <Image
                     className={styles.tourImg}
-                    data-src={`/tour-images/${item.imageUrl}`}
                     src={`/tour-images/${item.imageUrl}`}
                     alt={item.name}
                     placeholder="blur"
-                    blurDataURL={`/tour-images/${item.imageUrl}`}
+                    onError={() => 'tripway-palceholder.webp'}
+                    blurDataURL='/tripway-palceholder.webp'
                     fill
                     priority
                 />
